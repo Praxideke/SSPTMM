@@ -2331,6 +2331,63 @@ itself (no button was pressed), an install going through, the rows changing as o
 under the subscribe box (below the fold in the pictures), the list inside the update dialog, which
 is narrower, and the pointer over any of it.
 
+## Round 53: 1.4.2 - groups from the menu, several at once; SPT's profile cleaning (2026-10-15)
+
+Asked for (FoxHead, through trappuss): dragging several picked mods into a group moved only one; a
+right-click "Add to group" with a "New group" at the top, for several picked mods too; and the
+core.json fix for an invalid profile offered from Diagnose.
+
+- **A drag carries the picks.** `InstalledViewModel.ModsFor(mod)`: every picked mod when the one
+  dragged or right-clicked is among two or more picked (Steam's library does the same), otherwise
+  that one. The drag carries a `DraggedMods` record; the store writes them all in one save
+  (`ModGroupStore.AssignMods`).
+- **Add to group** is on `ModContextMenu`, asked for with `ModContextMenu.Groups="True"` on the card,
+  the List row and the Groups row, so a mod with no sp-mod.com listing gets a menu holding only that.
+  New group... first, then the groups by name (one they are all in already is greyed), then Remove
+  from group. The name box is the presets' (SteamSearchField in a SteamDialog).
+- `SteamPopupMenuItem` gained a submenu: a chevron and a popup in the same body as `SteamPopupMenu`,
+  12px room for the shadow, offset -12/-13 so its first item lines up with its header. HUNCH: offset
+  set from the template's padding, not measured against Steam's library menus.
+- **Profile cleaning.** `SptProfileFixes` reads `removeModItemsFromProfile` and
+  `removeInvalidTradersFromProfile` from core.json (SPT_Data/configs, or SPT_Data/Server/configs on
+  SPT 3) and turns both on by replacing only those two words, so the file's layout and anything else
+  changed by hand stay; the result must still parse, and the file as it was is kept once as
+  `core.json.before-ssptmm`. Offered on ProfileInvalid, ProfileItemMissing and ProfileTraderMissing,
+  not ProfileClothingMissing: HUNCH - the switches are named for items and traders only. When both
+  are on already, the card says so instead. The ask is `SptProfileFixPrompt`, shared with Play,
+  whose "SPT won't load this profile" (DirectLaunchProblem.ProfileInvalid) shows the same button
+  while core.json has them off; anything Play says after that takes the button away.
+- **Two mods in one folder** (FoxHead: SPT Stance Overhaul would not install). It did install; the
+  matcher then lost it. Stance Overhaul (3136) and its dependency SPT Realism Common Lib (3135) both
+  place files in `BepInEx/plugins/Realism` (sp-mod.com file trees, 2026-10-15), so both records
+  name the folder "Realism"; `IndexByFolder` drops a folder two mods claim, the scan entry matched
+  only the first GUID in it, and the other mod had no card - Browse and the item page read that as
+  not installed, and the dependency check queued it again. `AddSharedFolderCards` now gives every
+  other app-managed record whose placed files are still in the folder a card of its own
+  (`IsFolderCompanion`), and the folder's own card is cut down to its own files - its record's, or
+  with no record whatever no other record placed. Each card carries `SharedFolderParts` (per
+  entry, the folder and its `.disabled` copy, which of its files are there), so switching one moves
+  only its files (`ModDisableService.ApplyFiles`, one move per file, Undo as ever) and
+  `TidyVacated` removes the folders left empty, never a live container. Companions are left out of
+  the conflict check (empty entries, so indices stay aligned) and of the entry-to-card map;
+  `OwnCardAsync` matches ModId with the folder first, so removing one never resolves to the other.
+- Installed by hand there are no placed files: another catalog mod the folder's DLLs declare by
+  GUID gets a companion over the whole folder, and the note says switching one switches both.
+  Removing either is refused (`Installed_SharedFolderRemoveFormat`) - it would delete the other's
+  files too. Not done when the folder's mod has an app record: a pack carrying a copy of another
+  mod's DLL would grow a card for it.
+- Checked against `BuildFrom` with Stance's layout in a scratch folder: two cards with their own
+  files; Stance switched off and then Common Lib too, each card's state its own, the live
+  `Realism` folder gone when both are off and `plugins.disabled` gone when both are back on; and by
+  hand, two cards with the by-hand note. Not checked on screen.
+- Left as it is: presets keep a mod's state by folder path, so a preset can't tell two mods in one
+  folder apart; and the dependency warning on switching off reads entries, so it may name the
+  folder's other mod.
+- **New group... with a name already taken** returns that group (`ModGroupStore.AddGroup`, case and
+  surrounding spaces aside), for the menu and the Groups bar alike.
+- The profile messages pointed at `SPT\SPT_Data\configs\core.json`; SPT 4.1's server is
+  `SPT_Runtime`. They now name SPT_Data\configs in the server's folder.
+
 ## Values that could not be measured (marked HUNCH in the source)
 
 - Round 52: the addon rows' layout and sizes (Steam has no addons; its palette, this app's

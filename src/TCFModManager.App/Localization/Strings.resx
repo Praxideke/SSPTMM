@@ -7669,7 +7669,7 @@ Install the file as it is anyway?</value>
     <comment>Each {n} is the label of a control, filled in by the app and shown in bold - keep every placeholder, move it wherever the sentence needs it.</comment>
   </data>
   <data name="Help_Installed_Groups_Step3" xml:space="preserve">
-    <value>Drag a mod onto a group to move it there. Click a mod without dragging to open it.</value>
+    <value>Drag a mod onto a group to move it there - several picked mods (Ctrl+click, Shift+click) go together - or right-click it and choose Add to group. Click a mod without dragging to open it.</value>
   </data>
   <data name="Help_Installed_Groups_Note" xml:space="preserve">
     <value>Groups are only for you - SPT never sees them. Each group has buttons to turn all of it on or off at once.</value>
@@ -10025,7 +10025,7 @@ Removing them - or turning them off - can leave a profile SPT won't load. If tha
     <comment>Diagnose logs finding</comment>
   </data>
   <data name="Diagnose_Body_ProfileInvalid" xml:space="preserve">
-    <value>SPT marked profile {0} as invalid and won't load it - and wiping it won't help, as SPT doesn't save changes to a profile it won't load. Put back the mod whose items, trader or clothing it holds, restore a profile backup, or make a new profile. Or keep the profile: set removeModItemsFromProfile and removeInvalidTradersFromProfile to true in SPT\SPT_Data\configs\core.json and restart the server - SPT then removes what's missing from the profile itself.</value>
+    <value>SPT marked profile {0} as invalid and won't load it - and wiping it won't help, as SPT doesn't save changes to a profile it won't load. Put back the mod whose items, trader or clothing it holds, restore a profile backup, or make a new profile. Or keep the profile: set removeModItemsFromProfile and removeInvalidTradersFromProfile to true in SPT's core.json (SPT_Data\configs in the server's folder) and restart the server - SPT then removes what's missing from the profile itself. Turn them on does that for you.</value>
     <comment>Diagnose logs finding. {0} profile id.</comment>
   </data>
   <data name="Diagnose_Title_ProfileClothingMissing" xml:space="preserve">
@@ -10950,7 +10950,7 @@ If anything goes wrong before the files are replaced, nothing is changed.</value
     <comment>Diagnose logs finding</comment>
   </data>
   <data name="Diagnose_Body_ProfileItemMissing" xml:space="preserve">
-    <value>A profile holds an item (id {0}) that no installed mod adds, so SPT won't load it - and wiping it won't help, as SPT doesn't save changes to a profile it won't load. Put back the mod that adds the item, restore a profile backup, or make a new profile. Or keep the profile: set removeModItemsFromProfile and removeInvalidTradersFromProfile to true in SPT\SPT_Data\configs\core.json and restart the server - SPT then removes what's missing from the profile itself.</value>
+    <value>A profile holds an item (id {0}) that no installed mod adds, so SPT won't load it - and wiping it won't help, as SPT doesn't save changes to a profile it won't load. Put back the mod that adds the item, restore a profile backup, or make a new profile. Or keep the profile: set removeModItemsFromProfile and removeInvalidTradersFromProfile to true in SPT's core.json (SPT_Data\configs in the server's folder) and restart the server - SPT then removes what's missing from the profile itself. Turn them on does that for you.</value>
     <comment>Diagnose logs finding. {0} item id.</comment>
   </data>
   <data name="Diagnose_Title_ProfileTraderMissing" xml:space="preserve">
@@ -10958,11 +10958,80 @@ If anything goes wrong before the files are replaced, nothing is changed.</value
     <comment>Diagnose logs finding</comment>
   </data>
   <data name="Diagnose_Body_ProfileTraderMissing" xml:space="preserve">
-    <value>A profile has dealt with a trader (id {0}) that no installed mod adds, so SPT won't load it - and wiping it won't help, as SPT doesn't save changes to a profile it won't load. Put back the mod that adds the trader, restore a profile backup, or make a new profile. Or keep the profile: set removeModItemsFromProfile and removeInvalidTradersFromProfile to true in SPT\SPT_Data\configs\core.json and restart the server - SPT then removes what's missing from the profile itself.</value>
+    <value>A profile has dealt with a trader (id {0}) that no installed mod adds, so SPT won't load it - and wiping it won't help, as SPT doesn't save changes to a profile it won't load. Put back the mod that adds the trader, restore a profile backup, or make a new profile. Or keep the profile: set removeModItemsFromProfile and removeInvalidTradersFromProfile to true in SPT's core.json (SPT_Data\configs in the server's folder) and restart the server - SPT then removes what's missing from the profile itself. Turn them on does that for you.</value>
     <comment>Diagnose logs finding. {0} trader id.</comment>
   </data>
   <data name="Play_DirectProfileInvalid" xml:space="preserve">
-    <value>SPT won't load this profile: it holds items, a trader or clothing from a mod that is no longer installed. Wiping it doesn't help - SPT never saves a wipe of a profile it won't load. Put the mod back, restore a profile backup (Options), or make a new profile. Or keep the profile: set removeModItemsFromProfile and removeInvalidTradersFromProfile to true in SPT\SPT_Data\configs\core.json and restart the server - SPT then removes what's missing from the profile itself. Nothing was started.</value>
+    <value>SPT won't load this profile: it holds items, a trader or clothing from a mod that is no longer installed. Wiping it doesn't help - SPT never saves a wipe of a profile it won't load. Put the mod back, restore a profile backup (Options), or make a new profile. Or keep the profile: set removeModItemsFromProfile and removeInvalidTradersFromProfile to true in SPT's core.json (SPT_Data\configs in the server's folder; Turn them on, when it shows below, does it for you) and restart the server - SPT then removes what's missing from the profile itself. Nothing was started.</value>
     <comment>Play error.</comment>
+  </data>
+  <data name="Menu_AddToGroup" xml:space="preserve">
+    <value>Add to group</value>
+    <comment>Right-click menu on a mod on Subscribed items: opens the list of your groups.</comment>
+  </data>
+  <data name="Menu_AddPickedToGroupFormat" xml:space="preserve">
+    <value>Add {0} selected to group</value>
+    <comment>The same, when the mod is one of two or more picked. {0}: how many (2 or more).</comment>
+  </data>
+  <data name="Menu_NewGroup" xml:space="preserve">
+    <value>New group...</value>
+    <comment>First entry of the Add to group list: asks for a name, then puts the mod(s) in the new group.</comment>
+  </data>
+  <data name="Menu_NewGroupTitle" xml:space="preserve">
+    <value>New group</value>
+    <comment>Title of the box asking for a new group's name.</comment>
+  </data>
+  <data name="Menu_RemoveFromGroup" xml:space="preserve">
+    <value>Remove from group</value>
+    <comment>Last entry of the Add to group list: puts the mod(s) back in Ungrouped.</comment>
+  </data>
+  <data name="Diagnose_ProfileFix" xml:space="preserve">
+    <value>Turn them on</value>
+    <comment>Button on an invalid profile finding: turns on SPT's removeModItemsFromProfile and removeInvalidTradersFromProfile in core.json.</comment>
+  </data>
+  <data name="Diagnose_ProfileFixTitle" xml:space="preserve">
+    <value>Let SPT clean the profile</value>
+    <comment>Title of the question asked before changing core.json.</comment>
+  </data>
+  <data name="Diagnose_ProfileFixConfirmFormat" xml:space="preserve">
+    <value>Set removeModItemsFromProfile and removeInvalidTradersFromProfile to true in:
+{0}
+
+When the server next starts, SPT removes from every profile the items and traders no installed mod adds, and loads the profile. What it removes doesn't come back if you put the mod back later - a profile backup from before does.
+
+The file as it is now is kept beside it ({1}). Turn them on?</value>
+    <comment>{0}: core.json's full path. {1}: the ending of the copy kept beside it.</comment>
+  </data>
+  <data name="Diagnose_ProfileFixDone" xml:space="preserve">
+    <value>Turned on in core.json. Restart the SPT server so it cleans the profile, then read the logs again.</value>
+    <comment>Status line after the change.</comment>
+  </data>
+  <data name="Diagnose_ProfileFixNotFound" xml:space="preserve">
+    <value>core.json doesn't hold both switches as expected, so it wasn't changed.</value>
+    <comment>Status line when core.json couldn't be changed safely.</comment>
+  </data>
+  <data name="Diagnose_ProfileFixFailedFormat" xml:space="preserve">
+    <value>Couldn't change core.json: {0}</value>
+    <comment>{0}: the error.</comment>
+  </data>
+  <data name="Diagnose_ProfileFixAlreadyOn" xml:space="preserve">
+    <value>removeModItemsFromProfile and removeInvalidTradersFromProfile are already on in core.json. If the server hasn't been restarted since they were turned on, restart it; if it has, what's missing is something they don't clean - put the mod back or restore a profile backup.</value>
+    <comment>Shown on an invalid profile finding when SPT's cleaning is already on.</comment>
+  </data>
+  <data name="Installed_SharedFolderFormat" xml:space="preserve">
+    <value>Shares its folder with {0}. Turning it on or off, updating it or unsubscribing touches only its own files.</value>
+    <comment>Tooltip on a subscribed mod that was installed into the same folder as another. {0}: the other mod's name.</comment>
+  </data>
+  <data name="Installed_SharedFolderByHandFormat" xml:space="preserve">
+    <value>Shares its folder with {0}, installed by hand, so their files can't be told apart: turning one on or off, or removing it, does the same to both.</value>
+    <comment>Tooltip on a mod installed by hand into the same folder as another. {0}: the other mod's name(s).</comment>
+  </data>
+  <data name="Installed_SharedFolderRemoveFormat" xml:space="preserve">
+    <value>{0} shares its folder with {1} and was installed by hand. Removing it would take the whole folder, {1} included, so it wasn't removed - take {0}'s files out of the folder yourself.</value>
+    <comment>Status line when removing a mod installed by hand into another mod's folder is refused. {0}: this mod. {1}: the folder's other mod.</comment>
+  </data>
+  <data name="Play_ProfileFixDone" xml:space="preserve">
+    <value>Turned on in core.json. Restart the SPT server so it cleans the profile, then press Play again.</value>
+    <comment>Play status after turning on SPT's profile cleaning from the "won't load this profile" error.</comment>
   </data>
 </root>

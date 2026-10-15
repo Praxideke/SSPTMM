@@ -116,7 +116,20 @@
                                         </StackPanel>
                                     </Border>
 
+                                    <TextBlock
+                                        Margin="28,8,0,0"
+                                        TextWrapping="Wrap"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding ProfileFixNote}"
+                                        Visibility="{Binding ProfileFixNote, Converter={StaticResource NullToCollapsed}}" />
+
                                     <WrapPanel Margin="28,8,0,0">
+                                        <ui:Button
+                                            Margin="0,0,8,0"
+                                            Content="{loc:Str Diagnose_ProfileFix}"
+                                            Icon="{ui:SymbolIcon Wrench24}"
+                                            Visibility="{Binding CanTurnOnProfileFix, Converter={StaticResource BoolToVisibility}}"
+                                            Command="{Binding DataContext.TurnOnProfileFixCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" />
                                         <ui:Button
                                             Margin="0,0,8,0"
                                             Content="{loc:Str Diagnose_ShowMod}"

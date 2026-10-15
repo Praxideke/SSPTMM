@@ -1076,6 +1076,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             foreach (var card in _all)
             {
                 card.PropertyChanged += OnCardPropertyChanged;
+                if (card.IsFolderCompanion) continue;
                 foreach (var entry in card.Entries) _cardByEntry[entry] = card;
             }
 
@@ -1556,7 +1557,13 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
         await ScanAsync();
 
+        // The same mod in the same folder first: two mods installed into one folder have a card
+        // each over it (SharedFolderCards), and the folder alone would hand back the other one.
         return _all.FirstOrDefault(c =>
+                   c.IsAddon == mod.IsAddon
+                   && c.ModId == mod.ModId
+                   && string.Equals(c.FolderPath, mod.FolderPath, StringComparison.OrdinalIgnoreCase))
+               ?? _all.FirstOrDefault(c =>
                    c.IsAddon == mod.IsAddon
                    && string.Equals(c.FolderPath, mod.FolderPath, StringComparison.OrdinalIgnoreCase))
                ?? _all.FirstOrDefault(c =>
@@ -1599,6 +1606,11 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
                 result.FailedFiles.Count > 0 || result.ConfigsKept > 0 || result.KeptChanged.Count > 0
                     || result.KeptOwned.Count > 0 || result.RefusedFiles is { Count: > 0 } || result.FoldersLeft.Count > 0);
         }
+
+        // Fork (1.4.2): removing by hand moves the whole folder, and this one holds another mod's
+        // files too - unless they were all installed by hand into it, which its note says.
+        if (mod.SharedFolderWith is { } others && (mod.IsFolderCompanion || mod.SharedFolderParts is not null))
+            return (false, Text(Strings.Installed_SharedFolderRemoveFormat, mod.DisplayTitle, others), true);
 
         var paths = LegacyPaths(mod);
         if (paths.Count == 0) return (false, Text(Strings.Installed_RemoveNoFolderFormat, mod.Name), true);
@@ -2322,7 +2334,18 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             }
         }
 
-        var entries = targets.SelectMany(c => c.Entries).Where(e => e.IsDisabled != disable).ToList();
+        // A mod sharing its folder with another moves only its own files (SharedFolderParts); every
+        // other mod moves its folders. Distinct: two cards over one folder hold the same entry.
+        var parts = targets
+            .Where(c => c.SharedFolderParts is not null)
+            .SelectMany(c => c.SharedFolderParts!)
+            .ToList();
+        var entries = targets
+            .Where(c => c.SharedFolderParts is null)
+            .SelectMany(c => c.Entries)
+            .Distinct()
+            .Where(e => e.IsDisabled != disable)
+            .ToList();
 
         IsBusy = true;
         ModDisableOutcome outcome;
@@ -2334,6 +2357,11 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
                 await Task.Run(() => AppServices.ProfileBackups.BackupIfChanged(profilesOf, ProfileBackups.BeforeDisable)); // Fork (1.3.0): off the UI thread
 
             outcome = ModDisableService.Apply(entries, disable, AppServices.SptEnvironment.InstallPath);
+            if (parts.Count > 0)
+            {
+                var files = ModDisableService.ApplyFiles(parts, disable, AppServices.SptEnvironment.InstallPath);
+                outcome = new ModDisableOutcome([.. outcome.Moved, .. files.Moved], [.. outcome.Failed, .. files.Failed]);
+            }
         }
         catch (ModInstallException ex)
         {
@@ -2368,7 +2396,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     private List<(InstalledModCardViewModel Card, string Detail, bool IsSoft)> AffectedCards(
         IReadOnlyList<InstalledModCardViewModel> targets, bool disable)
     {
-        var roots = targets.SelectMany(c => c.Entries).ToList();
+        var roots = targets.SelectMany(c => c.Entries).Distinct().ToList();
         var links = disable ? _dependencies.DisableImpact(roots) : _dependencies.EnableRequirements(roots);
 
         var results = new List<(InstalledModCardViewModel, string, bool)>();
@@ -3327,14 +3355,6 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         if (neighbour is null) return;
 
         AppServices.ModGroups.SwapOrder(section.GroupId!.Value, neighbour.GroupId!.Value);
-        GroupsChanged();
-    }
-
-    // Called by InstalledPage's drag-drop code-behind when a mod card is dropped on a section
-    // (groupId null for the Ungrouped bucket).
-    public void MoveModToGroup(InstalledModCardViewModel mod, Guid? groupId)
-    {
-        AppServices.ModGroups.AssignMod(mod.Name, groupId);
         GroupsChanged();
     }
 }

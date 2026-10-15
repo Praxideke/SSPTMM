@@ -1034,20 +1034,61 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MenuItem">
+                    <!-- Fork (1.4.2): an item with items of its own (Add to group) opens them to its
+                         right in the same body, with a chevron, as Steam's library menus do. -->
                     <Border x:Name="Face" Padding="12,5" Background="Transparent">
-                        <ContentPresenter
-                            ContentSource="Header"
-                            RecognizesAccessKey="False"
-                            TextBlock.Foreground="{TemplateBinding Foreground}">
-                            <ContentPresenter.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-                                    <Setter Property="MaxWidth" Value="320" />
-                                </Style>
-                            </ContentPresenter.Resources>
-                        </ContentPresenter>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter
+                                ContentSource="Header"
+                                RecognizesAccessKey="False"
+                                TextBlock.Foreground="{TemplateBinding Foreground}">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                        <Setter Property="MaxWidth" Value="320" />
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                            <Path
+                                x:Name="Chevron"
+                                Grid.Column="1"
+                                Margin="16,0,0,0"
+                                VerticalAlignment="Center"
+                                Data="M0,0 L4,4 L0,8"
+                                Stroke="{TemplateBinding Foreground}"
+                                StrokeThickness="1.2"
+                                Visibility="Collapsed" />
+                            <Popup
+                                x:Name="Submenu"
+                                AllowsTransparency="True"
+                                Focusable="False"
+                                Placement="Right"
+                                PlacementTarget="{Binding ElementName=Face}"
+                                HorizontalOffset="-12"
+                                VerticalOffset="-13"
+                                PopupAnimation="None"
+                                IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}">
+                                <!-- The same body as SteamPopupMenu, with its room for the shadow. -->
+                                <Border Padding="12" Background="Transparent">
+                                    <Border MinWidth="150" Background="#3D4450" BorderBrush="#3D4450" BorderThickness="1"
+                                        TextElement.FontFamily="{StaticResource SteamFont}" TextElement.FontSize="12">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="12" Opacity="1" ShadowDepth="0" Color="Black" />
+                                        </Border.Effect>
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    </Border>
+                                </Border>
+                            </Popup>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Role" Value="SubmenuHeader">
+                            <Setter TargetName="Chevron" Property="Visibility" Value="Visible" />
+                        </Trigger>
                         <Trigger Property="IsHighlighted" Value="True">
                             <Setter TargetName="Face" Property="Background" Value="#DCDEDF" />
                             <Setter Property="Foreground" Value="#171D25" />

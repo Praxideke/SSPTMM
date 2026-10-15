@@ -655,7 +655,8 @@ public partial class InstalledPage : Page
         HookDragWheel();
         try
         {
-            DragDrop.DoDragDrop(source, mod, DragDropEffects.Move);
+            // Fork (1.4.2): one of several picked mods carries them all.
+            DragDrop.DoDragDrop(source, new DataObject(typeof(DraggedMods), new DraggedMods(ViewModel.ModsFor(mod))), DragDropEffects.Move);
         }
         finally
         {
@@ -681,7 +682,7 @@ public partial class InstalledPage : Page
 
         // Only a mod being moved scrolls the list; a file dragged in from Explorer installs wherever
         // it is dropped and has no reason to.
-        if (sender is not ScrollViewer scroller || !e.Data.GetDataPresent(typeof(InstalledModCardViewModel))) return;
+        if (sender is not ScrollViewer scroller || !e.Data.GetDataPresent(typeof(DraggedMods))) return;
 
         var y = e.GetPosition(scroller).Y;
         var height = scroller.ViewportHeight;
@@ -802,16 +803,16 @@ public partial class InstalledPage : Page
     private void Section_DragOver(object sender, DragEventArgs e)
     {
         var isCategory = sender is FrameworkElement { DataContext: ModGroupSectionViewModel { IsCategory: true } };
-        e.Effects = !isCategory && e.Data.GetDataPresent(typeof(InstalledModCardViewModel)) ? DragDropEffects.Move : DragDropEffects.None;
+        e.Effects = !isCategory && e.Data.GetDataPresent(typeof(DraggedMods)) ? DragDropEffects.Move : DragDropEffects.None;
         e.Handled = true;
     }
 
     private void Section_Drop(object sender, DragEventArgs e)
     {
         if (sender is not FrameworkElement { DataContext: ModGroupSectionViewModel { IsCategory: false } section }) return;
-        if (e.Data.GetData(typeof(InstalledModCardViewModel)) is not InstalledModCardViewModel mod) return;
+        if (e.Data.GetData(typeof(DraggedMods)) is not DraggedMods dragged) return;
 
-        ViewModel.MoveModToGroup(mod, section.GroupId);
+        ViewModel.MoveModsToGroup(dragged.Mods, section.GroupId);
         e.Handled = true;
     }
 
@@ -855,3 +856,6 @@ public partial class InstalledPage : Page
         ViewModel.CommitRenameCommand.Execute(section);
     }
 }
+
+// What a drag between groups carries: the mod dragged, or every picked mod when it was one of them.
+internal sealed record DraggedMods(IReadOnlyList<InstalledModCardViewModel> Mods);

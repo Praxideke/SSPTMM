@@ -747,6 +747,7 @@
                 Style="{StaticResource SubscribedCardExpander}"
                 IsExpanded="{Binding IsCardExpanded, Mode=TwoWay}"
                 behaviors:ModContextMenu.ModId="{Binding CatalogModId}"
+                behaviors:ModContextMenu.Groups="True"
                 PreviewMouseLeftButtonDown="Card_PreviewMouseLeftButtonDown"
                 PreviewMouseMove="Card_PreviewMouseMove"
                 PreviewMouseLeftButtonUp="Card_PreviewMouseLeftButtonUp">
@@ -927,6 +928,7 @@
             <ui:CardExpander
                 Style="{StaticResource SubscribedCardExpander}"
                 behaviors:ModContextMenu.ModId="{Binding CatalogModId}"
+                behaviors:ModContextMenu.Groups="True"
                 IsExpanded="{Binding IsRowExpanded, Mode=TwoWay}"
                 PreviewMouseLeftButtonDown="Card_PreviewMouseLeftButtonDown"
                 PreviewMouseMove="Card_PreviewMouseMove"
@@ -1557,6 +1559,7 @@
                                                     Margin="0,0,0,8"
                                                     Padding="8,6"
                                                     behaviors:ModContextMenu.ModId="{Binding CatalogModId}"
+                                                    behaviors:ModContextMenu.Groups="True"
                                                     PreviewMouseLeftButtonDown="ModRow_PreviewMouseLeftButtonDown"
                                                     PreviewMouseMove="ModRow_PreviewMouseMove"
                                                     PreviewMouseLeftButtonUp="ModRow_PreviewMouseLeftButtonUp">

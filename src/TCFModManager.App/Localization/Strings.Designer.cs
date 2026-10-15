@@ -2889,4 +2889,20 @@ internal static class Strings
     internal static string Diagnose_Title_ProfileTraderMissing => LocalizationService.Get("Diagnose_Title_ProfileTraderMissing");
     internal static string Diagnose_Body_ProfileTraderMissing => LocalizationService.Get("Diagnose_Body_ProfileTraderMissing");
     internal static string Play_DirectProfileInvalid => LocalizationService.Get("Play_DirectProfileInvalid");
+    internal static string Menu_AddToGroup => LocalizationService.Get("Menu_AddToGroup");
+    internal static string Menu_AddPickedToGroupFormat => LocalizationService.Get("Menu_AddPickedToGroupFormat");
+    internal static string Menu_NewGroup => LocalizationService.Get("Menu_NewGroup");
+    internal static string Menu_NewGroupTitle => LocalizationService.Get("Menu_NewGroupTitle");
+    internal static string Menu_RemoveFromGroup => LocalizationService.Get("Menu_RemoveFromGroup");
+    internal static string Diagnose_ProfileFix => LocalizationService.Get("Diagnose_ProfileFix");
+    internal static string Diagnose_ProfileFixTitle => LocalizationService.Get("Diagnose_ProfileFixTitle");
+    internal static string Diagnose_ProfileFixConfirmFormat => LocalizationService.Get("Diagnose_ProfileFixConfirmFormat");
+    internal static string Diagnose_ProfileFixDone => LocalizationService.Get("Diagnose_ProfileFixDone");
+    internal static string Diagnose_ProfileFixNotFound => LocalizationService.Get("Diagnose_ProfileFixNotFound");
+    internal static string Diagnose_ProfileFixFailedFormat => LocalizationService.Get("Diagnose_ProfileFixFailedFormat");
+    internal static string Diagnose_ProfileFixAlreadyOn => LocalizationService.Get("Diagnose_ProfileFixAlreadyOn");
+    internal static string Installed_SharedFolderFormat => LocalizationService.Get("Installed_SharedFolderFormat");
+    internal static string Installed_SharedFolderByHandFormat => LocalizationService.Get("Installed_SharedFolderByHandFormat");
+    internal static string Installed_SharedFolderRemoveFormat => LocalizationService.Get("Installed_SharedFolderRemoveFormat");
+    internal static string Play_ProfileFixDone => LocalizationService.Get("Play_ProfileFixDone");
 }

@@ -345,6 +345,12 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
+                        <ui:Button
+                            Margin="0,8,0,0"
+                            Content="{loc:Str Diagnose_ProfileFix}"
+                            Icon="{ui:SymbolIcon Wrench24}"
+                            Command="{Binding TurnOnProfileFixCommand}"
+                            Visibility="{Binding CanTurnOnProfileFix, Converter={StaticResource BoolToVisibility}}" />
                         <ProgressBar
                             Height="4"
                             Margin="0,6,0,0"

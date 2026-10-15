@@ -26,6 +26,11 @@ sp-mod.com listing shows as not on sp-mod.com.
 Put the mod back (**Undo removing** at the top of Subscribed items, or install it again), or
 restore a copy from Options > **SPT profile backups**. See [Safety and backups](Safety-and-Backups).
 
+Or keep the profile as it is and let SPT clean it: **Turn them on**, on Play's error or in
+[Diagnose logs](Diagnose-Logs), sets `removeModItemsFromProfile` and
+`removeInvalidTradersFromProfile` to true in SPT's `core.json`. Restart the server and it removes
+the missing mod's items and traders from the profile. They don't come back if you put the mod back.
+
 ## A mod's tool says it can't find something (SVM's Greed: "couldn't find Preset folder")
 
 Reinstall the mod with SSPTMM 1.0.0 or newer: empty folders a mod ships (such as SVM's `Presets`)

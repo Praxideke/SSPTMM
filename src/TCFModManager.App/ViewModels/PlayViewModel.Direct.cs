@@ -75,6 +75,14 @@ public partial class PlayViewModel
     [ObservableProperty]
     private bool _playStatusIsError;
 
+    // Fork (1.4.2): "SPT won't load this profile" with SPT's profile cleaning off in core.json -
+    // the error then offers to turn it on (SptProfileFixPrompt).
+    [ObservableProperty]
+    private bool _canTurnOnProfileFix;
+
+    // Set just after the error it belongs to; anything said after that takes it away.
+    partial void OnPlayStatusChanged(string? value) => CanTurnOnProfileFix = false;
+
     // 0-100 while bundles download; null shows the bar running.
     [ObservableProperty]
     private double? _playProgress;
@@ -187,6 +195,7 @@ public partial class PlayViewModel
         var cts = _playCts = new CancellationTokenSource();
         IsPlaying = true;
         PlayStatusIsError = false;
+        CanTurnOnProfileFix = false;
         PlayProgress = null;
         var gameStarted = false;
         ConfirmingDeleteProfile = false;
@@ -220,6 +229,8 @@ public partial class PlayViewModel
             if (!result.Started)
             {
                 Fail(DescribeProblem(result));
+                CanTurnOnProfileFix = result.Problem == DirectLaunchProblem.ProfileInvalid
+                    && SptProfileFixes.Read(SptProfileFixes.ConfigPath(installPath)) == SptProfileFixState.Off;
                 return;
             }
 
@@ -267,6 +278,23 @@ public partial class PlayViewModel
     }
 
     private bool CanCancelPlay() => IsPlaying;
+
+    [RelayCommand]
+    private void TurnOnProfileFix()
+    {
+        if (SptProfileFixes.ConfigPath(AppServices.SptEnvironment.InstallPath) is not { } config) return;
+
+        var (done, problem) = SptProfileFixPrompt.Run(config);
+        if (!done)
+        {
+            if (problem is not null) Fail(problem);
+            return;
+        }
+
+        CanTurnOnProfileFix = false;
+        PlayStatusIsError = false;
+        PlayStatus = Strings.Play_ProfileFixDone;
+    }
 
     [RelayCommand(CanExecute = nameof(CanCancelPlay))]
     private void CancelPlay() => _playCts?.Cancel();

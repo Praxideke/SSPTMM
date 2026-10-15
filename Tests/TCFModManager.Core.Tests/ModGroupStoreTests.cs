@@ -157,6 +157,24 @@ public class ModGroupStoreTests : IDisposable
     }
 
     [Fact]
+    public void AssignMods_MovesEveryPickedModAtOnce_AndNullSendsThemBack()
+    {
+        var bots = _store.AddGroup("Bots");
+        var tools = _store.AddGroup("Tools");
+        _store.AssignMod("Quick Sell", tools.Id);
+
+        _store.AssignMods(["SAIN", "BigBrain", "Quick Sell", "sain"], bots.Id);
+
+        Assert.Equal(
+            new Dictionary<string, Guid> { ["sain"] = bots.Id, ["bigbrain"] = bots.Id, ["quick sell"] = bots.Id },
+            _store.Load().Assignments);
+
+        _store.AssignMods(["SAIN", "Quick Sell"], null);
+
+        Assert.Equal(new Dictionary<string, Guid> { ["bigbrain"] = bots.Id }, _store.Load().Assignments);
+    }
+
+    [Fact]
     public void SetCollapsed_IsKept()
     {
         var group = _store.AddGroup("Bots");
@@ -177,5 +195,16 @@ public class ModGroupStoreTests : IDisposable
 
         Assert.Empty(data.Groups);
         Assert.Empty(data.Assignments);
+    }
+
+    [Fact]
+    public void AddGroup_WithANameAlreadyTaken_ReturnsThatGroup()
+    {
+        var bots = _store.AddGroup("Bots");
+
+        var again = _store.AddGroup(" bots ");
+
+        Assert.Equal(bots.Id, again.Id);
+        Assert.Single(_store.Load().Groups);
     }
 }

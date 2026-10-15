@@ -36,6 +36,15 @@ public static class ModContextMenu
 
     public static void SetModId(DependencyObject element, int? value) => element.SetValue(ModIdProperty, value);
 
+    // Fork (1.4.2): on a mod on Subscribed items - adds "Add to group", and gives a mod sp-mod.com has
+    // no listing for a menu at all, holding only that.
+    public static readonly DependencyProperty GroupsProperty = DependencyProperty.RegisterAttached(
+        "Groups", typeof(bool), typeof(ModContextMenu), new PropertyMetadata(false, OnTargetChanged));
+
+    public static bool GetGroups(DependencyObject element) => (bool)element.GetValue(GroupsProperty);
+
+    public static void SetGroups(DependencyObject element, bool value) => element.SetValue(GroupsProperty, value);
+
     private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is not FrameworkElement element) return;
@@ -55,7 +64,11 @@ public static class ModContextMenu
     {
         if (sender is not FrameworkElement element || element.ContextMenu is not { } menu) return;
 
-        if (ResolveMod(element) is not { } mod)
+        var mod = ResolveMod(element);
+        var card = GetGroups(element) ? element.DataContext as ViewModels.InstalledModCardViewModel : null;
+        var page = card is null ? null : HostOf(element) as ViewModels.InstalledViewModel;
+
+        if (mod is null && page is null)
         {
             // Nothing to act on (an entry sp-mod.com has no listing for): no menu at all.
             e.Handled = true;
@@ -63,8 +76,48 @@ public static class ModContextMenu
         }
 
         menu.Items.Clear();
-        Fill(menu, mod, element);
+        if (mod is not null) Fill(menu, mod, element);
+
+        if (page is not null && card is not null)
+        {
+            if (mod is not null) menu.Items.Add(Rule());
+            menu.Items.Add(GroupMenu(page, card));
+        }
+
         menu.PlacementTarget = element;
+    }
+
+    //
+    // "Add to group" and its list: New group... first, then your groups by name, then Remove from
+    // group when any of them is in one. On every picked mod when this one is among two or more picked.
+    // A group they are all in already is shown but can't be chosen.
+    //
+    private static MenuItem GroupMenu(ViewModels.InstalledViewModel page, ViewModels.InstalledModCardViewModel card)
+    {
+        var mods = page.ModsFor(card);
+        var header = mods.Count > 1
+            ? LocalizationService.Text(Strings.Menu_AddPickedToGroupFormat, mods.Count)
+            : Strings.Menu_AddToGroup;
+
+        var menu = new MenuItem { Header = header, Style = ItemStyle() };
+        menu.Items.Add(Item(Strings.Menu_NewGroup, () => page.MoveModsToNewGroup(mods)));
+
+        var groups = page.GroupChoices();
+        if (groups.Count > 0) menu.Items.Add(Rule());
+        foreach (var (id, name) in groups)
+        {
+            var item = Item(name, () => page.MoveModsToGroup(mods, id));
+            item.IsEnabled = mods.Any(m => m.GroupId != id);
+            menu.Items.Add(item);
+        }
+
+        if (mods.Any(m => m.GroupId is not null))
+        {
+            menu.Items.Add(Rule());
+            menu.Items.Add(Item(Strings.Menu_RemoveFromGroup, () => page.MoveModsToGroup(mods, null)));
+        }
+
+        return menu;
     }
 
     private static void Fill(ContextMenu menu, Mod mod, FrameworkElement source)

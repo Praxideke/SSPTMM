@@ -15,7 +15,10 @@ the same details; click a card or row to open it.
 | ![List](https://raw.githubusercontent.com/trappuss/SSPTMM/main/docs/images/07b-subscribed-list.png) | ![Groups](https://raw.githubusercontent.com/trappuss/SSPTMM/main/docs/images/07c-subscribed-groups.png) |
 
 - **Groups** are your own: type a name and **Add group**, then drag mods into them - in every view.
-  A group's header can enable, disable or invert all its mods at once.
+  Drag one of several picked mods (Ctrl+click, Shift+click) and they all go. Or right-click a mod:
+  **Add to group** lists your groups, **New group...** asks for a name, and **Remove from group** puts
+  it back - on every picked mod when it is one of them. A group's header can enable, disable or
+  invert all its mods at once.
 - **Filters** also has **grouping** for Cards and List: by your groups, by sp-mod.com category, or
   **by enabled / disabled**.
 
