@@ -1,3 +1,21 @@
+# SSPTMM 1.4.2
+
+## Updating
+
+From 1.3.0 or later: Help > About > **Install update**. From an older version: close SSPTMM, download `SSPTMM-1.4.2-win-x64.zip` and copy the contents of its `SSPTMM` folder over your SSPTMM folder. Your settings in `Data` stay as they are.
+
+## New
+
+- **Put several mods in a group at once.** On Subscribed items, drag one of several picked mods (Ctrl+click, Shift+click) and they all go to the group it is dropped on; before, only the one under the pointer went. *Found by FoxHead.*
+- **Add to group on the right-click menu.** Right-click a mod: **Add to group** lists your groups, **New group...** asks for a name and makes it, and **Remove from group** puts the mod back in Ungrouped - on every picked mod when it is one of them. Mods sp-mod.com has no listing for get the menu too. *Suggested by FoxHead.*
+- **Diagnose logs can let SPT clean a profile it won't load.** When a profile is refused for holding items or a trader from a mod that is gone, **Turn them on** sets SPT's own `removeModItemsFromProfile` and `removeInvalidTradersFromProfile` to true in `core.json` - after asking, and keeping the file as it was beside it - so the server removes what's missing when it next starts. When they are already on, the card says so. Play offers the same button when it stops on "SPT won't load this profile".
+
+## Fixed
+
+- **Two mods installed into one folder both count as installed.** SPT Stance Overhaul and SPT Realism Common Lib both put their files in `BepInEx\plugins\Realism`. SSPTMM installed both, then saw one folder and gave it one card - so Stance Overhaul looked as if it had never installed: Subscribe never stuck, and installing anything that needed it queued it again. Each now has its own card, and switching one on or off, updating it or unsubscribing it touches only its own files. Mods put into one folder by hand get a card each too, matched by what their DLLs declare; SSPTMM can't tell their files apart, so switching one switches both, the cards say so, and removing one of them is refused. *Found by FoxHead.*
+- **New group... with a name already taken uses that group** instead of making a second one of the same name, from the menu and from the Groups bar.
+- The profile messages named `SPT\SPT_Data\configs\core.json`; on SPT 4.1 it is under `SPT_Runtime`. They now say `SPT_Data\configs` in the server's folder.
+
 # SSPTMM 1.4.1
 
 ## Updating
