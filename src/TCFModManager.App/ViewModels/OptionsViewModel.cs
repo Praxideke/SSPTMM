@@ -390,12 +390,18 @@ public partial class OptionsViewModel : LocalizedViewModel
         new(nameof(Strings.Workshop_SubscribedItems), HomePageChoice.SubscribedItems),
         new(nameof(Strings.Nav_ModLists), HomePageChoice.Collections),
         new(nameof(Strings.Nav_Play), HomePageChoice.Play),
+        new(nameof(Strings.Options_HomeLastPage), HomePageChoice.LastPage),
     ];
 
     [ObservableProperty]
     private HomePageItem _selectedHomePage;
 
-    partial void OnSelectedHomePageChanged(HomePageItem value) => SaveAppearance(s => s.HomePage = value.Value);
+    partial void OnSelectedHomePageChanged(HomePageItem value) => SaveAppearance(s =>
+    {
+        s.HomePage = value.Value;
+        // Chosen here, on Options: this is where it was left off until the next page is shown.
+        if (value.Value == HomePageChoice.LastPage) s.LastPage = AppNavigation.Current?.Name;
+    });
 
     /// <summary>Whether the two size boxes are relevant - they only do anything in the one mode
     /// that reads them.</summary>

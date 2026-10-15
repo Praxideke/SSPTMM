@@ -12,8 +12,12 @@ namespace TCFModManager.App.Views;
 
 //
 // The Workshop item page. MainWindow shows it for every mod opened anywhere in the app; a required
-// item opened from it replaces it, and Esc (or the mouse's back button, or Alt+Left) walks back
-// through those one at a time before closing.
+// item opened from it replaces it, and Esc walks back through those one at a time before closing.
+// The mouse's back button and Alt+Left are the window's (MainWindow's history), which does the same.
+//
+// Fork (1.4.2): each item left keeps its tab and how far down it was, and comes back to them when
+// it is returned to - by Esc, or the window's arrows - rather than at its top. Opened afresh from a
+// card or a link, it starts at the top, as on Steam.
 //
 public partial class WorkshopItemView : UserControl
 {
@@ -23,6 +27,15 @@ public partial class WorkshopItemView : UserControl
     private ModDetailsRequest? _current;
 
     private WorkshopItemViewModel? _viewModel;
+
+    // Where each item was left, by the request that opened it.
+    private readonly Dictionary<ModDetailsRequest, Spot> _spots = [];
+
+    // How far down to get back to: the description loads after the page opens, so the place is
+    // reached as the page grows. Anything done to the scroll first wins.
+    private double? _pendingOffset;
+
+    private sealed record Spot(WorkshopItemTab Tab, double Offset);
 
     // The Comments tab's web view.
     private readonly SpModComments _commentsView;
@@ -34,23 +47,31 @@ public partial class WorkshopItemView : UserControl
         _commentsView = new SpModComments(Scroll, CommentsHost, CommentsOff, CommentsFallback,
             () => _viewModel is { IsCommentsShown: true } shown ? shown.CommentsUrl : null);
 
-        // The mouse's back button, anywhere on the page.
-        MouseUp += (_, e) =>
+        Scroll.ScrollChanged += (_, e) =>
         {
-            if (e.ChangedButton != MouseButton.XButton1) return;
-            e.Handled = true;
-            GoBack();
+            if (e.ExtentHeightChange != 0) ReachPendingOffset();
         };
+        Scroll.PreviewMouseWheel += (_, _) => _pendingOffset = null;
+        Scroll.PreviewMouseDown += (_, _) => _pendingOffset = null;
+        Scroll.PreviewKeyDown += (_, _) => _pendingOffset = null;
     }
 
-    public void Show(ModDetailsRequest request)
+    /// <summary>The item on screen, or hidden under another page; null once closed.</summary>
+    public ModDetailsRequest? Current => _current;
+
+    /// <summary>Raised when Esc walks back to the item this one was opened from.</summary>
+    public event EventHandler? WalkedBack;
+
+    /// <summary>Opens the item. <paramref name="again"/>: going back or forward to it, so it comes
+    /// back at the tab and the place it was left at.</summary>
+    public void Show(ModDetailsRequest request, bool again = false)
     {
         // Over the item on screen, Esc comes back to it; opened afresh (or again after being hidden
         // under another page), there is nothing to come back to.
         if (IsVisible && _current is not null) _history.Push(_current);
         else _history.Clear();
 
-        Open(request);
+        Open(request, again);
     }
 
     /// <summary>Hides the open item while something opened from it is over it.</summary>
@@ -68,6 +89,8 @@ public partial class WorkshopItemView : UserControl
     public void Close()
     {
         var wasOpen = _current is not null;
+        KeepSpot();
+        _pendingOffset = null;
 
         _history.Clear();
         _current = null;
@@ -92,8 +115,10 @@ public partial class WorkshopItemView : UserControl
         _viewModel = null;
     }
 
-    private void Open(ModDetailsRequest request)
+    private void Open(ModDetailsRequest request, bool again = false)
     {
+        KeepSpot();
+        _pendingOffset = null;
         Detach();
 
         _current = request;
@@ -110,7 +135,31 @@ public partial class WorkshopItemView : UserControl
         // Focus so Esc reaches this rather than the page underneath.
         Focus();
 
+        if (again && _spots.TryGetValue(request, out var spot))
+        {
+            if (spot.Tab != _viewModel.Tab) _viewModel.ReturnToTab(spot.Tab);
+            _pendingOffset = spot.Offset > 0 ? spot.Offset : null;
+            ReachPendingOffset();
+        }
+
         _ = _viewModel.LoadAsync();
+    }
+
+    private void KeepSpot()
+    {
+        if (_current is null || _viewModel is null) return;
+
+        // HUNCH: a hundred items is far more than anyone goes back through; past that, start over.
+        if (_spots.Count >= 100) _spots.Clear();
+        _spots[_current] = new Spot(_viewModel.Tab, Scroll.VerticalOffset);
+    }
+
+    private void ReachPendingOffset()
+    {
+        if (_pendingOffset is not { } offset) return;
+
+        Scroll.ScrollToVerticalOffset(offset);
+        if (Scroll.ScrollableHeight >= offset) _pendingOffset = null;
     }
 
     private void OnViewModelChanged(object? sender, PropertyChangedEventArgs e)
@@ -132,8 +181,14 @@ public partial class WorkshopItemView : UserControl
 
     private void GoBack()
     {
-        if (_history.Count > 0) Open(_history.Pop());
-        else Close();
+        if (_history.Count == 0)
+        {
+            Close();
+            return;
+        }
+
+        Open(_history.Pop(), again: true);
+        WalkedBack?.Invoke(this, EventArgs.Empty);
     }
 
     private void View_KeyDown(object sender, KeyEventArgs e)

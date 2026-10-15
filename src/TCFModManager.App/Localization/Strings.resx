@@ -11059,4 +11059,17 @@ The file as it is now is kept beside it ({1}). Turn them on?</value>
     <value>Workshop home</value>
     <comment>Home page choice: the Workshop's front page.</comment>
   </data>
+  <data name="Installed_GroupMergeTitle" xml:space="preserve">
+    <value>That name is taken</value>
+  </data>
+  <data name="Installed_GroupMergeFormat" xml:space="preserve">
+    <value>There's already a group called {0}. Put this group's mods in {0} and remove this group?
+
+No keeps this group under its old name.</value>
+    <comment>Asked when a group is renamed to the name of another. {0}: that group's name.</comment>
+  </data>
+  <data name="Options_HomeLastPage" xml:space="preserve">
+    <value>Where I left off</value>
+    <comment>Home page choice: the page that was on screen when SSPTMM was last closed.</comment>
+  </data>
 </root>

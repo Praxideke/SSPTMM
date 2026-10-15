@@ -105,8 +105,9 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid
+                        <behaviors:OpenableCard
                             x:Name="CardRoot"
+                            AutomationProperties.Name="{Binding Title}"
                             Height="152"
                             Margin="0,0,16,16"
                             VerticalAlignment="Top"
@@ -187,7 +188,7 @@
                                     </StackPanel>
                                 </DockPanel>
                             </Grid>
-                        </Grid>
+                        </behaviors:OpenableCard>
                         <DataTemplate.Triggers>
                             <Trigger SourceName="CardRoot" Property="IsMouseOver" Value="True">
                                 <Trigger.EnterActions>

@@ -2912,4 +2912,7 @@ internal static class Strings
     internal static string Options_HomePageHint => LocalizationService.Get("Options_HomePageHint");
     internal static string Options_HomePageDescription => LocalizationService.Get("Options_HomePageDescription");
     internal static string Options_HomeWorkshop => LocalizationService.Get("Options_HomeWorkshop");
+    internal static string Installed_GroupMergeTitle => LocalizationService.Get("Installed_GroupMergeTitle");
+    internal static string Installed_GroupMergeFormat => LocalizationService.Get("Installed_GroupMergeFormat");
+    internal static string Options_HomeLastPage => LocalizationService.Get("Options_HomeLastPage");
 }

@@ -2331,7 +2331,7 @@ itself (no button was pressed), an install going through, the rows changing as o
 under the subscribe box (below the fold in the pictures), the list inside the update dialog, which
 is narrower, and the pointer over any of it.
 
-## Round 53: 1.4.2 - back, forward and Home; groups from the menu, several at once; SPT's profile cleaning (2026-10-15)
+## Round 53: 1.4.2 - back, forward and Home; groups from the menu, several at once; SPT's profile cleaning; shared folders in presets (2026-10-15)
 
 Asked for (FoxHead, through trappuss): dragging several picked mods into a group moved only one; a
 right-click "Add to group" with a "New group" at the top, for several picked mods too; and the
@@ -2399,8 +2399,43 @@ core.json fix for an invalid profile offered from Diagnose.
   while the mod update dialog is open. The arrows are bare icons, #B8BCBF, white under the
   pointer, #4C5560 when there is nowhere to go - HUNCH, by eye, not measured from Steam's client.
   Checked on a hidden desktop: Browse, Back to Workshop home, Forward to Browse, Home, Back to
-  Browse, the arrows lit and dimmed as the history allows. Not checked on screen: going back and
-  forward through an item page (posted clicks don't reach the cards there).
+  Browse, the arrows lit and dimmed as the history allows; and, once cards took UI Automation's
+  Invoke (below), back and forward through an item page.
+- **The history's list** (trappuss: "add all suggestions"): right-click an arrow, as in Steam and
+  a browser - the places that way, nearest first, at most fifteen (HUNCH: about what a browser
+  shows), each by the mod, collection or author over the page, else the page's own title.
+  `NavigationHistory.MoveTo` jumps there and keeps the rest. Not checked on screen: a posted
+  right-click doesn't reach WPF on the hidden desktop.
+- **A mod page comes back where it was left.** `WorkshopItemView` keeps each item's tab and scroll
+  offset as it is left (another item opened over it, closed, or navigated away from), keyed by the
+  request, and puts them back when the window's history (or Esc through required items) returns
+  to it - the description loads after the page opens, so the offset is reached as the page grows,
+  and any scrolling first wins. Opened afresh from a card or link it starts at its top, as on
+  Steam. At most a hundred kept (HUNCH), then it starts over. The mouse's back button on the item
+  page was its own and the window's both, two steps for one press; now only the window's. Checked
+  on a hidden desktop: an item scrolled to 60%, Back, Forward - back at 60%; opened again from its
+  card - at 0%. The tab coming back is not checked there (a UIA toggle doesn't click a tab).
+- **Cards open from the keyboard and UI Automation.** The card grids on Workshop home, Browse,
+  Browse collections and Your collections are `OpenableCard`: focusable, Enter or Space raises the
+  MouseLeftButtonUp a click would (so each page keeps its one handler), Steam's white focus ring
+  for keyboard focus only, and a button to UI Automation named for the mod or collection, with
+  Invoke. Checked on a hidden desktop: a card invoked through UIA opened its item page, and Back
+  and Forward went through it.
+- **Where I left off** as a Home page: `AppSettings.LastPage` is the page's type name, written
+  when the page changes and only while that is the choice; a name that no longer resolves to a
+  page goes to Workshop home.
+- **Renaming a group to a taken name** asks to merge (`ModGroupStore.MergeGroup`: its mods move
+  over and it goes); No keeps the old name.
+- **Shared folders in presets.** A preset entry can carry `ModId`: one mod of a folder two mods
+  share (the cards with `SharedFolderParts`), switched by its files with `ApplyFiles`. A folder in
+  both copies because one of its mods is off is planned by its mods, not called "in two places".
+  An older preset's folder entry goes for every mod in the folder; a mod entry for a folder no
+  longer shared is used for the folder.
+- **The switch-off warning and shared folders.** `ModDependencyLink` carries the identifier that
+  was declared; switching off a mod in a shared folder leaves out the links to the GUIDs of the
+  mods staying on there (`DisableImpact`'s follow), and names the mod switched off rather than the
+  folder's card. Switching on still lists everything the folder declares: which DLL declared what
+  isn't kept.
 - **New group... with a name already taken** returns that group (`ModGroupStore.AddGroup`, case and
   surrounding spaces aside), for the menu and the Groups bar alike.
 - The profile messages pointed at `SPT\SPT_Data\configs\core.json`; SPT 4.1's server is
@@ -2409,8 +2444,8 @@ core.json fix for an invalid profile offered from Diagnose.
 ## Values that could not be measured (marked HUNCH in the source)
 
 - Round 53: the back and forward arrows' greys and 32x36 box (Steam's are in its client, not on a
-  page that can be read), the Add to group submenu's offset, and leaving clothing out of the
-  profile-cleaning offer.
+  page that can be read), the Add to group submenu's offset, leaving clothing out of the
+  profile-cleaning offer, fifteen places in an arrow's list, and a hundred item pages' places kept.
 
 - Round 52: the addon rows' layout and sizes (Steam has no addons; its palette, this app's
   arrangement), and seven as the number of addons from which a search box is worth its room.

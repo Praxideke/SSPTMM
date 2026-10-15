@@ -18,7 +18,8 @@ the same details; click a card or row to open it.
   Drag one of several picked mods (Ctrl+click, Shift+click) and they all go. Or right-click a mod:
   **Add to group** lists your groups, **New group...** asks for a name, and **Remove from group** puts
   it back - on every picked mod when it is one of them. A group's header can enable, disable or
-  invert all its mods at once.
+  invert all its mods at once. Renaming a group to the name of another offers to put its mods in
+  that one instead.
 - **Filters** also has **grouping** for Cards and List: by your groups, by sp-mod.com category, or
   **by enabled / disabled**.
 
@@ -72,6 +73,9 @@ ones installed after the preset was saved (those stay as they are). Then:
   is deleted;
 - **Undo** puts it back in one step;
 - it is refused while SPT is running or a mod is being installed.
+
+Two mods installed into one folder are kept each by itself, and switched by their own files, as
+their cards are.
 
 Presets are kept per SPT install, in `Data\mod_presets.json`.
 

@@ -165,8 +165,9 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid
+                                        <behaviors:OpenableCard
                                             x:Name="CardRoot"
+                                            AutomationProperties.Name="{Binding Mod.Name}"
                                             Width="183"
                                             Margin="0,0,16,6"
                                             Background="Transparent"
@@ -244,7 +245,7 @@
                                                     </Grid>
                                                 </StackPanel>
                                             </Border>
-                                        </Grid>
+                                        </behaviors:OpenableCard>
                                         <DataTemplate.Triggers>
                                             <Trigger SourceName="CardRoot" Property="IsMouseOver" Value="True">
                                                 <Trigger.EnterActions>
@@ -366,8 +367,9 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid
+                                    <behaviors:OpenableCard
                                         x:Name="CardRoot"
+                                        AutomationProperties.Name="{Binding Mod.Name}"
                                         Margin="0,0,16,6"
                                         VerticalAlignment="Top"
                                         Background="Transparent"
@@ -447,7 +449,7 @@
                                                 </Grid>
                                             </StackPanel>
                                         </Border>
-                                    </Grid>
+                                    </behaviors:OpenableCard>
                                     <DataTemplate.Triggers>
                                         <Trigger SourceName="CardRoot" Property="IsMouseOver" Value="True">
                                             <Trigger.EnterActions>
@@ -497,8 +499,9 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid
+                                <behaviors:OpenableCard
                                     x:Name="CardRoot"
+                                    AutomationProperties.Name="{Binding Mod.Name}"
                                     Height="114"
                                     Margin="0,0,16,16"
                                     Background="Transparent"
@@ -607,7 +610,7 @@
                                                 Click="QuickSubscribe_Click" />
                                         </Grid>
                                     </Border>
-                                </Grid>
+                                </behaviors:OpenableCard>
                             <DataTemplate.Triggers>
                                 <Trigger SourceName="CardRoot" Property="IsMouseOver" Value="True">
                                     <Trigger.EnterActions>

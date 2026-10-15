@@ -2,8 +2,11 @@
 
 **Back and forward**: the arrows at the top left, beside the title, step through the pages you've
 been on, with any mod, collection or author page you opened - as do the mouse's back and forward
-buttons and Alt+Left / Alt+Right. The house beside them (Alt+Home) goes to your home page, chosen
-in [Options](Options) > General.
+buttons and Alt+Left / Alt+Right. Right-click an arrow for a list of the places that way. A mod
+page you go back to opens at the tab and place you left it. The house beside them (Alt+Home) goes
+to your home page, chosen in [Options](Options) > General.
+
+Cards open from the keyboard too: Tab to one, then Enter or Space.
 
 ## Home
 

@@ -2397,7 +2397,17 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         IReadOnlyList<InstalledModCardViewModel> targets, bool disable)
     {
         var roots = targets.SelectMany(c => c.Entries).Distinct().ToList();
-        var links = disable ? _dependencies.DisableImpact(roots) : _dependencies.EnableRequirements(roots);
+
+        // Fork (1.4.2): a mod switched off in a folder it shares only takes its own files: what the
+        // mods staying on there provide (their GUIDs) is still provided, and is not what is lost.
+        var kept = _all
+            .Where(c => c.SharedFolderParts is not null && !c.IsDisabled && !targets.Contains(c) && c.Entries.Any(roots.Contains))
+            .Select(c => c.Guid)
+            .OfType<string>()
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var links = disable
+            ? _dependencies.DisableImpact(roots, link => link.Identifier is not { } id || !kept.Contains(id) || !roots.Contains(link.Dependency))
+            : _dependencies.EnableRequirements(roots);
 
         var results = new List<(InstalledModCardViewModel, string, bool)>();
         var seen = new HashSet<InstalledModCardViewModel>(targets);
@@ -2407,9 +2417,10 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             var reached = disable ? link.Dependent : link.Dependency;
             if (!_cardByEntry.TryGetValue(reached, out var card) || !seen.Add(card)) continue;
 
-            var otherName = _cardByEntry.TryGetValue(disable ? link.Dependency : link.Dependent, out var other)
-                ? other.DisplayTitle
-                : (disable ? link.Dependency : link.Dependent).Name;
+            // A folder two mods share is named for the one being switched, not the folder's other mod.
+            var otherEntry = disable ? link.Dependency : link.Dependent;
+            var otherName = targets.FirstOrDefault(t => t.SharedFolderParts is not null && t.Entries.Contains(otherEntry))?.DisplayTitle
+                ?? (_cardByEntry.TryGetValue(otherEntry, out var other) ? other.DisplayTitle : otherEntry.Name);
 
             var detail = Text(
                 disable
@@ -3252,6 +3263,21 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         if (name.Length == 0)
         {
             // Blank name isn't allowed - reload the real name from disk rather than saving it.
+            GroupsChanged();
+            return;
+        }
+
+        // Fork (1.4.2): a name another group already has - fold this one into it, or keep the old name.
+        if (AppServices.ModGroups.NamedLike(name, section.GroupId!.Value) is { } taken)
+        {
+            if (TCFModManager.App.Views.SteamMessageBox.Show(
+                    Text(Strings.Installed_GroupMergeFormat, taken.Name),
+                    Strings.Installed_GroupMergeTitle,
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question,
+                    MessageBoxResult.No) == MessageBoxResult.Yes)
+                AppServices.ModGroups.MergeGroup(section.GroupId!.Value, taken.Id);
+
             GroupsChanged();
             return;
         }

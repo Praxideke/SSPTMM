@@ -236,4 +236,27 @@ public class ModDependencyGraphTests
         Assert.Empty(graph.DependentsOf(serverOnly));
         Assert.Equal(["com.tyfon.uifixes"], graph.UnresolvedOf(clientConsumer));
     }
+
+    // Fork (1.4.2): a folder two mods share - switching one off leaves the other's GUID provided.
+    [Fact]
+    public void DisableImpact_LeavesOutTheLinksTheCallerSaysDontBreak()
+    {
+        var pack = new InstalledMod
+        {
+            Name = "Pack",
+            Guid = "com.owner",
+            Guids = ["com.owner", "com.guest"],
+            Target = InstalledModTarget.Client,
+            FolderPath = Path.Combine("C:", "SPT", "BepInEx", "plugins", "Pack"),
+        };
+        var needsOwner = Client("NeedsOwner", "com.a", false, new ModDependencyRef("com.owner", IsSoft: false));
+        var needsGuest = Client("NeedsGuest", "com.b", false, new ModDependencyRef("com.guest", IsSoft: false));
+        var graph = ModDependencyGraph.Build([pack, needsOwner, needsGuest]);
+
+        var link = Assert.Single(graph.DisableImpact([pack], l => l.Identifier != "com.owner"));
+
+        Assert.Same(needsGuest, link.Dependent);
+        Assert.Equal("com.guest", link.Identifier);
+        Assert.Equal(2, graph.DisableImpact([pack]).Count);
+    }
 }

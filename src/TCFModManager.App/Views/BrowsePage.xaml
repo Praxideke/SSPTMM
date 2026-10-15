@@ -496,8 +496,9 @@
                             <DataTemplate>
                                 <!-- One card, plus the shadow behind it as its own layer: an Effect on
                                      the card itself would render its text without ClearType. -->
-                                <Grid
+                                <behaviors:OpenableCard
                                     x:Name="CardRoot"
+                                    AutomationProperties.Name="{Binding Mod.Name}"
                                     behaviors:ModContextMenu.Mod="{Binding Mod}"
                                     Margin="0,0,16,16"
                                     VerticalAlignment="Top"
@@ -659,7 +660,7 @@
                                             </Grid>
                                         </StackPanel>
                                     </Border>
-                                </Grid>
+                                </behaviors:OpenableCard>
                                 <DataTemplate.Triggers>
                                     <!-- Steam's hover: the card lifts 5px and its shadow turns into
                                          a faint white glow. -->

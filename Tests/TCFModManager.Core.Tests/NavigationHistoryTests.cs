@@ -93,4 +93,18 @@ public class NavigationHistoryTests
         Assert.Equal("Browse", history.Current);
         Assert.False(history.CanGoForward);
     }
+
+    [Fact]
+    public void Jumping_to_an_entry_keeps_the_rest()
+    {
+        var history = Visited("Home", "Browse", "Item", "Author");
+
+        Assert.Equal("Browse", history.MoveTo(1));
+        Assert.Equal(1, history.Index);
+        Assert.Equal(4, history.Entries.Count);
+        Assert.Equal("Author", history.MoveTo(3));
+        Assert.Null(history.MoveTo(3));
+        Assert.Null(history.MoveTo(9));
+        Assert.Equal("Author", history.Current);
+    }
 }

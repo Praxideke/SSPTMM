@@ -51,6 +51,15 @@ public sealed class NavigationHistory<T>(int capacity = 50, IEqualityComparer<T>
         Visit(place);
     }
 
+    /// <summary>Every place kept, oldest first; Index is where the history stands in it.</summary>
+    public IReadOnlyList<T> Entries => _entries;
+
+    public int Index => _index;
+
+    /// <summary>Straight to one of the Entries, now current (the arrows' right-click list);
+    /// default when it is out of range or already where the history stands.</summary>
+    public T? MoveTo(int index) => index == _index ? default : Move(index - _index);
+
     /// <summary>The place before, now current; default when there is none.</summary>
     public T? Back() => Move(-1);
 

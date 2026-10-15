@@ -16,4 +16,7 @@ public enum HomePageChoice
     Collections,
 
     Play,
+
+    // The page that was on screen when SSPTMM was last left (AppSettings.LastPage).
+    LastPage,
 }

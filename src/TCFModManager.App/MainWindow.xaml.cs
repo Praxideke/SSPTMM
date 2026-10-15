@@ -31,6 +31,7 @@ public partial class MainWindow : FluentWindow
         {
             SyncHeader(pageType);
             Visited();
+            AppNavigation.RememberPage(pageType);
         };
         _history.Changed += (_, _) =>
         {
@@ -141,6 +142,9 @@ public partial class MainWindow : FluentWindow
             OpenItem(request);
             Visited();
         };
+
+        // Esc on a required item, back to the item it was opened from: a step back.
+        ItemPage.WalkedBack += (_, _) => Returned();
 
         ItemPage.Closed += (_, _) =>
         {
@@ -257,11 +261,10 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    private void OpenItem(ModDetailsRequest request)
+    private void OpenItem(ModDetailsRequest request, bool again = false)
     {
         Cover(ItemPage);
-        _opened[ItemPage] = request;
-        ItemPage.Show(request);
+        ItemPage.Show(request, again);
         PerfProbe.ItemPage(opened: true);
     }
 
@@ -415,8 +418,11 @@ public partial class MainWindow : FluentWindow
     // way: the places passed through on the way are not places visited.
     private bool _moving;
 
+    // The item page says which item it shows itself: Esc walks it back through required items.
     private Place? Here() => AppNavigation.Current is { } page
-        ? new Place(page, TopPage is { } top ? _opened.GetValueOrDefault(top) : null)
+        ? new Place(page, TopPage is not { } top ? null
+            : ReferenceEquals(top, ItemPage) ? ItemPage.Current
+            : _opened.GetValueOrDefault(top))
         : null;
 
     private void Visited()
@@ -453,7 +459,7 @@ public partial class MainWindow : FluentWindow
             switch (place.Over)
             {
                 case ModDetailsRequest item:
-                    OpenItem(item);
+                    OpenItem(item, again: true);
                     break;
                 case CollectionRequest collection:
                     opened = OpenCollection(collection);
@@ -487,6 +493,50 @@ public partial class MainWindow : FluentWindow
         e.Handled = true;
         return true;
     }
+
+    // Right-click on an arrow: the places that way, nearest first, as in Steam and a browser.
+    private void HistoryMenu_Opening(object sender, System.Windows.Controls.ContextMenuEventArgs e)
+    {
+        var menu = ((FrameworkElement)sender).ContextMenu!;
+        menu.Items.Clear();
+
+        var forward = ReferenceEquals(sender, ForwardButton);
+        var entries = _history.Entries;
+        var step = forward ? 1 : -1;
+        // HUNCH: fifteen, as a browser's list shows about that many.
+        for (var (i, shown) = (_history.Index + step, 0); i >= 0 && i < entries.Count && shown < 15; i += step, shown++)
+        {
+            var index = i;
+            var item = new System.Windows.Controls.MenuItem
+            {
+                Header = PlaceName(entries[i]),
+                Style = (Style)Application.Current.FindResource("SteamPopupMenuItem"),
+            };
+            item.Click += (_, _) => GoTo(Blocked ? null : _history.MoveTo(index));
+            menu.Items.Add(item);
+        }
+
+        if (menu.Items.Count == 0) e.Handled = true;
+    }
+
+    // What a place is called in that list: the mod, collection or author over the page, else the page.
+    private static string PlaceName(Place place) => place.Over switch
+    {
+        ModDetailsRequest { Mod.Name: { Length: > 0 } name } => name,
+        AuthorRequest { Name: { Length: > 0 } name } => name,
+        CollectionRequest { ListId: { } id } when AppServices.ModLists.Find(id) is { } list => list.Name,
+        CollectionRequest { PublicSlug: { Length: > 0 } slug } => slug.Replace('-', ' '),
+        _ => place.Page.Name switch
+        {
+            nameof(WorkshopHomePage) => Strings.Options_HomeWorkshop,
+            nameof(CollectionsBrowsePage) => Strings.Collections_Title,
+            nameof(YourCollectionsPage) => Strings.Workshop_YourCollections,
+            nameof(FavoriteCollectionsPage) => Strings.Favorites_Title,
+            nameof(FollowedAuthorsPage) => Strings.FollowedAuthors_Title,
+            nameof(HelpPage) => Strings.Nav_Help,
+            _ => HelpCatalog.PageName(place.Page),
+        },
+    };
 
     private void Back_Click(object sender, RoutedEventArgs e) => GoBack();
 

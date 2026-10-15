@@ -263,6 +263,9 @@ public sealed class AppSettings
     [JsonConverter(typeof(JsonStringEnumConverter<HomePageChoice>))]
     public HomePageChoice HomePage { get; set; } = HomePageChoice.Workshop;
 
+    // The page last on screen, by its type's name - kept only while HomePage is LastPage.
+    public string? LastPage { get; set; }
+
     //
     // A picture of the user's own behind the window, in place of the Steam grid: the copy of it
     // kept in Data\Background (so moving or deleting the original does not lose it), and how far

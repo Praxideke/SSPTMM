@@ -78,6 +78,24 @@ public sealed class ModGroupStore
         Save(data);
     }
 
+    // The other group already called this (case and surrounding spaces aside), if any.
+    public ModGroup? NamedLike(string name, Guid except) =>
+        Load().Groups.FirstOrDefault(g => g.Id != except
+            && string.Equals(g.Name.Trim(), name.Trim(), StringComparison.OrdinalIgnoreCase));
+
+    // Fork (1.4.2): one group folded into another - its mods move over and it goes. Renaming a
+    // group to a name another already has offers this, rather than leaving two of one name.
+    public void MergeGroup(Guid fromId, Guid intoId)
+    {
+        var data = Load();
+        if (fromId == intoId || data.Groups.All(g => g.Id != intoId)) return;
+
+        foreach (var key in data.Assignments.Where(kvp => kvp.Value == fromId).Select(kvp => kvp.Key).ToList())
+            data.Assignments[key] = intoId;
+        data.Groups.RemoveAll(g => g.Id == fromId);
+        Save(data);
+    }
+
     // Removes the group; any mod assigned to it falls back to Ungrouped.
     public void DeleteGroup(Guid groupId)
     {

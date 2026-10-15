@@ -22,6 +22,9 @@ namespace TCFModManager.App.ViewModels;
 // - how the mods were kept as "Put back", which outlives Undo (a restart);
 // - refused while SPT runs or a mod is being installed, as every disable is.
 //
+// Fork (1.4.2): two mods sharing a folder, each with a card of its own, are kept and switched each
+// by its own files, as their cards switch them (ModPresetSharedMod).
+//
 // The Presets menu itself is built in InstalledPage.xaml.cs.
 //
 public partial class InstalledViewModel
@@ -32,6 +35,22 @@ public partial class InstalledViewModel
 
     private List<InstalledMod> Entries() => _all.SelectMany(c => c.Entries).ToList();
 
+    // The cards that share a folder and are told apart by their files, as presets keep them; and
+    // which card each came from, for the confirmation.
+    private List<ModPresetSharedMod> SharedMods()
+    {
+        _sharedCards.Clear();
+        foreach (var card in _all)
+        {
+            if (card.SharedFolderParts is not { } parts) continue;
+            _sharedCards[new ModPresetSharedMod(card.ModId ?? 0, card.DisplayTitle, parts)] = card;
+        }
+
+        return [.. _sharedCards.Keys];
+    }
+
+    private readonly Dictionary<ModPresetSharedMod, InstalledModCardViewModel> _sharedCards = [];
+
     /// <summary>This install's presets, for the menu.</summary>
     public IReadOnlyList<ModPreset> Presets => PresetInstall is { } install ? PresetStore.For(install).Presets : [];
 
@@ -40,7 +59,7 @@ public partial class InstalledViewModel
 
     /// <summary>The preset the mods are set to right now, if any - ticked in the menu.</summary>
     public string? CurrentPresetName =>
-        PresetInstall is { } install ? ModPresets.Matching(install, Presets, Entries())?.Name : null;
+        PresetInstall is { } install ? ModPresets.Matching(install, Presets, Entries(), SharedMods())?.Name : null;
 
     public bool HasModsForPresets => _all.Count > 0;
 
@@ -74,7 +93,7 @@ public partial class InstalledViewModel
     {
         try
         {
-            PresetStore.Save(install, name, ModPresets.Capture(install, Entries()), DateTimeOffset.Now);
+            PresetStore.Save(install, name, ModPresets.Capture(install, Entries(), SharedMods()), DateTimeOffset.Now);
             AppLog.Info("Presets", $"saved \"{name}\"");
             StatusMessage = done;
         }
@@ -128,11 +147,11 @@ public partial class InstalledViewModel
 
     public Task DisableAllAsync() =>
         ApplyEntriesAsync(Strings.Presets_DisableAllName, Strings.Presets_DisableAllTitle, install =>
-            ModPresets.All(install, Entries(), enabled: false));
+            ModPresets.All(install, Entries(), enabled: false, SharedMods()));
 
     public Task EnableAllAsync() =>
         ApplyEntriesAsync(Strings.Presets_EnableAllName, Strings.Presets_EnableAllTitle, install =>
-            ModPresets.All(install, Entries(), enabled: true));
+            ModPresets.All(install, Entries(), enabled: true, SharedMods()));
 
     public Task PutBackBeforeLastPresetAsync() =>
         ApplyEntriesAsync(Strings.Presets_PutBackName, Strings.Presets_PutBackTitle, install =>
@@ -175,7 +194,8 @@ public partial class InstalledViewModel
         if (entriesFor(install) is not { } entries) return;
 
         var mods = Entries();
-        var plan = ModPresets.Plan(install, entries, mods);
+        var shared = SharedMods();
+        var plan = ModPresets.Plan(install, entries, mods, shared);
         if (plan.ChangesNothing)
         {
             StatusMessage = plan.InTwoPlaces.Count > 0
@@ -197,7 +217,7 @@ public partial class InstalledViewModel
                 return;
             }
 
-            var before = ModPresets.Capture(install, mods);
+            var before = ModPresets.Capture(install, mods, shared);
             try
             {
                 PresetStore.KeepBeforeApply(install, name, before, DateTimeOffset.Now);
@@ -212,9 +232,17 @@ public partial class InstalledViewModel
             moved.AddRange(off.Moved);
             failed.AddRange(off.Failed);
 
+            var filesOff = ModDisableService.ApplyFiles(plan.SharedToDisable.SelectMany(s => s.Parts), disable: true, install);
+            moved.AddRange(filesOff.Moved);
+            failed.AddRange(filesOff.Failed);
+
             var on = ModDisableService.Apply(plan.ToEnable, disable: false, install);
             moved.AddRange(on.Moved);
             failed.AddRange(on.Failed);
+
+            var filesOn = ModDisableService.ApplyFiles(plan.SharedToEnable.SelectMany(s => s.Parts), disable: false, install);
+            moved.AddRange(filesOn.Moved);
+            failed.AddRange(filesOn.Failed);
 
             AppLog.Info("Presets", $"applied \"{name}\": {off.Moved.Count} off, {on.Moved.Count} on, {failed.Count} failed");
         }
@@ -233,8 +261,12 @@ public partial class InstalledViewModel
 
         // Counted as the dialog counted them: whole mods, not folders.
         var movedFrom = moved.Select(m => m.From).ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var offCount = CardTitles(plan.ToDisable.Where(m => movedFrom.Contains(m.FolderPath))).Count;
-        var onCount = CardTitles(plan.ToEnable.Where(m => movedFrom.Contains(m.FolderPath))).Count;
+        bool Moved(ModPresetSharedMod mod) => mod.Parts.Any(p => p.Files.Any(f =>
+            movedFrom.Contains(Path.Combine(p.Entry.FolderPath, f.Replace('/', Path.DirectorySeparatorChar)))));
+        var offCount = CardTitles(plan.ToDisable.Where(m => movedFrom.Contains(m.FolderPath))).Count
+            + plan.SharedToDisable.Count(Moved);
+        var onCount = CardTitles(plan.ToEnable.Where(m => movedFrom.Contains(m.FolderPath))).Count
+            + plan.SharedToEnable.Count(Moved);
         var message = Text(Strings.Presets_AppliedFormat, name, offCount, onCount);
         if (failed.Count > 0) message = Sentences(message, DescribeFailures(failed));
 
@@ -253,10 +285,13 @@ public partial class InstalledViewModel
 
         var body = new StackPanel { MaxWidth = 640 };
 
-        AddList(body, plan.ToDisable, Strings.Presets_TurnsOff(CardTitles(plan.ToDisable).Count));
-        AddList(body, plan.ToEnable, Strings.Presets_TurnsOn(CardTitles(plan.ToEnable).Count));
+        var turningOff = PlanTitles(plan.ToDisable, plan.SharedToDisable);
+        var turningOn = PlanTitles(plan.ToEnable, plan.SharedToEnable);
+        AddList(body, turningOff, Strings.Presets_TurnsOff(turningOff.Count));
+        AddList(body, turningOn, Strings.Presets_TurnsOn(turningOn.Count));
 
         // What would be left missing a hard dependency: a mod that ends on, needing one that ends off.
+        // (A mod sharing a folder is not looked at here: its folder's declarations are both mods'.)
         var missing = _dependencies.DisableImpact(plan.ToDisable)
             .Concat(_dependencies.EnableRequirements(plan.ToEnable))
             .Where(l => !l.IsSoft && EndsEnabled(l.Dependent) && !EndsEnabled(l.Dependency))
@@ -268,6 +303,7 @@ public partial class InstalledViewModel
 
         var profileMods = plan.ToDisable
             .Select(m => _cardByEntry.GetValueOrDefault(m))
+            .Concat(plan.SharedToDisable.Select(s => _sharedCards.GetValueOrDefault(s)))
             .OfType<InstalledModCardViewModel>()
             .Distinct()
             .Where(ChangesProfile)
@@ -282,7 +318,8 @@ public partial class InstalledViewModel
             var missingMods = plan.NotInstalled.Select(e => e.Name ?? e.Path).Distinct(StringComparer.OrdinalIgnoreCase).Count();
             body.Children.Add(Note(Strings.Presets_NotInstalled(missingMods)));
         }
-        if (plan.NotInPreset.Count > 0) body.Children.Add(Note(Strings.Presets_NotInPreset(CardTitles(plan.NotInPreset).Count)));
+        var notInPreset = CardTitles(plan.NotInPreset).Count + plan.SharedNotInPreset.Count;
+        if (notInPreset > 0) body.Children.Add(Note(Strings.Presets_NotInPreset(notInPreset)));
 
         body.Children.Add(Note(Strings.Presets_SafetyNote));
 
@@ -300,9 +337,17 @@ public partial class InstalledViewModel
     private List<string> CardTitles(IEnumerable<InstalledMod> mods) =>
         mods.Select(TitleOf).Distinct(StringComparer.CurrentCultureIgnoreCase).Order(StringComparer.CurrentCultureIgnoreCase).ToList();
 
-    private void AddList(StackPanel body, IReadOnlyList<InstalledMod> mods, string heading)
+    // The folders' mods and the shared folders' mods, by title.
+    private List<string> PlanTitles(IEnumerable<InstalledMod> mods, IEnumerable<ModPresetSharedMod> shared) =>
+        CardTitles(mods)
+            .Concat(shared.Select(s => s.Name ?? string.Empty).Where(n => n.Length > 0))
+            .Distinct(StringComparer.CurrentCultureIgnoreCase)
+            .Order(StringComparer.CurrentCultureIgnoreCase)
+            .ToList();
+
+    private void AddList(StackPanel body, IReadOnlyList<string> titles, string heading)
     {
-        if (mods.Count == 0) return;
+        if (titles.Count == 0) return;
 
         body.Children.Add(new TextBlock
         {
@@ -317,7 +362,7 @@ public partial class InstalledViewModel
             Margin = new Thickness(0, 0, 0, 12),
             VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
             HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
-            Content = new TextBlock { Text = string.Join("\n", CardTitles(mods)), TextWrapping = TextWrapping.Wrap, LineHeight = 20 },
+            Content = new TextBlock { Text = string.Join("\n", titles), TextWrapping = TextWrapping.Wrap, LineHeight = 20 },
         });
     }
 

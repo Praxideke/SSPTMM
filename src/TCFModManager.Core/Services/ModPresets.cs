@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using TCFModManager.Core.Models;
 
 namespace TCFModManager.Core.Services;
@@ -16,6 +17,11 @@ namespace TCFModManager.Core.Services;
 // with only its client half turned off is kept exactly that way. Mods installed after a preset was
 // saved aren't in it, and applying it leaves them as they are.
 //
+// Fork (1.4.2): two mods in one folder, told apart by their files (Subscribed items' shared-folder
+// cards), each have an entry of their own - the folder's path and the mod's id - and are switched
+// by their files, as the cards switch them. A preset saved before then has the folder's entry,
+// which goes for every mod in it.
+//
 // Kept per SPT install, in Data\mod_presets.json.
 //
 
@@ -29,6 +35,19 @@ public sealed record ModPresetEntry
 
     /// <summary>What the mod was called when the preset was saved - for showing a missing mod.</summary>
     public string? Name { get; init; }
+
+    /// <summary>Fork (1.4.2): one of the mods sharing the folder at Path, by its sp-mod.com id (0 for
+    /// the folder's own mod when it has none); null for the whole folder.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? ModId { get; init; }
+}
+
+/// <summary>Fork (1.4.2): one of the mods sharing a folder: which mod, and its own files in each
+/// copy of the folder (enabled and ".disabled") - switched by those files alone.</summary>
+public sealed record ModPresetSharedMod(int ModId, string? Name, IReadOnlyList<(InstalledMod Entry, IReadOnlyList<string> Files)> Parts)
+{
+    /// <summary>On while any of its files are in the enabled folder.</summary>
+    public bool Enabled => Parts.Any(p => !p.Entry.IsDisabled);
 }
 
 public sealed class ModPreset
@@ -68,7 +87,15 @@ public sealed record ModPresetPlan(
     IReadOnlyList<InstalledMod> NotInPreset,
     IReadOnlyList<InstalledMod> InTwoPlaces)
 {
-    public bool ChangesNothing => ToDisable.Count == 0 && ToEnable.Count == 0;
+    /// <summary>Mods sharing a folder, switched by their own files.</summary>
+    public IReadOnlyList<ModPresetSharedMod> SharedToDisable { get; init; } = [];
+
+    public IReadOnlyList<ModPresetSharedMod> SharedToEnable { get; init; } = [];
+
+    public IReadOnlyList<ModPresetSharedMod> SharedNotInPreset { get; init; } = [];
+
+    public bool ChangesNothing =>
+        ToDisable.Count == 0 && ToEnable.Count == 0 && SharedToDisable.Count == 0 && SharedToEnable.Count == 0;
 }
 
 public static class ModPresets
@@ -89,29 +116,63 @@ public static class ModPresets
         DisabledModPaths.ToEnabledRelativePath(
             DisabledModPaths.ToRelative(System.IO.Path.GetRelativePath(installPath, mod.FolderPath)));
 
-    /// <summary>The mods as they are now, as a preset's entries.</summary>
-    public static List<ModPresetEntry> Capture(string installPath, IEnumerable<InstalledMod> mods) =>
-        mods.Select(m => new ModPresetEntry { Path = KeyFor(installPath, m), Enabled = !m.IsDisabled, Name = m.Name })
-            .GroupBy(e => e.Path, StringComparer.OrdinalIgnoreCase)
+    /// <summary>The mods as they are now, as a preset's entries - a shared folder as one entry for
+    /// each mod in it.</summary>
+    public static List<ModPresetEntry> Capture(
+        string installPath, IEnumerable<InstalledMod> mods, IReadOnlyList<ModPresetSharedMod>? shared = null)
+    {
+        shared ??= [];
+        var sharedKeys = SharedKeys(installPath, shared);
+
+        return mods.Select(m => new ModPresetEntry { Path = KeyFor(installPath, m), Enabled = !m.IsDisabled, Name = m.Name })
+            .Where(e => !sharedKeys.Contains(e.Path))
+            .Concat(shared.SelectMany(s => KeysOf(installPath, s)
+                .Select(key => new ModPresetEntry { Path = key, Enabled = s.Enabled, Name = s.Name, ModId = s.ModId })))
+            .GroupBy(e => EntryKey(e.Path, e.ModId), StringComparer.OrdinalIgnoreCase)
             .Select(g => g.First())
             .OrderBy(e => e.Path, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(e => e.ModId)
             .ToList();
+    }
 
     /// <summary>Every mod on, or every mod off - Enable all and Disable all, planned as presets are.</summary>
-    public static List<ModPresetEntry> All(string installPath, IEnumerable<InstalledMod> mods, bool enabled) =>
-        Capture(installPath, mods).Select(e => e with { Enabled = enabled }).ToList();
+    public static List<ModPresetEntry> All(
+        string installPath, IEnumerable<InstalledMod> mods, bool enabled, IReadOnlyList<ModPresetSharedMod>? shared = null) =>
+        Capture(installPath, mods, shared).Select(e => e with { Enabled = enabled }).ToList();
+
+    private static IEnumerable<string> KeysOf(string installPath, ModPresetSharedMod mod) =>
+        mod.Parts.Select(p => KeyFor(installPath, p.Entry)).Distinct(StringComparer.OrdinalIgnoreCase);
+
+    private static HashSet<string> SharedKeys(string installPath, IEnumerable<ModPresetSharedMod> shared) =>
+        shared.SelectMany(s => KeysOf(installPath, s)).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+    private static string EntryKey(string path, int? modId) => modId is { } id ? path + "|" + id : path;
 
     //
     // Which mods move. A mod that is in the install twice - a copy in the container and another in its
     // ".disabled" sibling - is left alone: which copy is meant is a question for Subscribed items'
     // duplicate prompt, not for a preset.
     //
-    public static ModPresetPlan Plan(string installPath, IEnumerable<ModPresetEntry> entries, IEnumerable<InstalledMod> mods)
+    // A folder two mods share is in the install twice once one of them is off - its files in each
+    // copy - and is planned by its mods (shared), not as a folder.
+    //
+    public static ModPresetPlan Plan(
+        string installPath, IEnumerable<ModPresetEntry> entries, IEnumerable<InstalledMod> mods,
+        IReadOnlyList<ModPresetSharedMod>? shared = null)
     {
+        shared ??= [];
+        var sharedKeys = SharedKeys(installPath, shared);
+
+        // Whole folders by path; one mod of a shared folder by path and mod.
         var wanted = new Dictionary<string, ModPresetEntry>(StringComparer.OrdinalIgnoreCase);
-        foreach (var entry in entries) wanted.TryAdd(entry.Path, entry);
+        var wantedMods = new Dictionary<string, ModPresetEntry>(StringComparer.OrdinalIgnoreCase);
+        foreach (var entry in entries)
+            (entry.ModId is null ? wanted : wantedMods).TryAdd(EntryKey(entry.Path, entry.ModId), entry);
+
+        var used = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         var byKey = mods.GroupBy(m => KeyFor(installPath, m), StringComparer.OrdinalIgnoreCase)
+            .Where(g => !sharedKeys.Contains(g.Key))
             .ToDictionary(g => g.Key, g => g.ToList(), StringComparer.OrdinalIgnoreCase);
 
         var toDisable = new List<InstalledMod>();
@@ -121,11 +182,16 @@ public static class ModPresets
 
         foreach (var (key, copies) in byKey)
         {
-            if (!wanted.TryGetValue(key, out var entry))
+            // A folder saved while it was shared, and now one mod's alone: its mod's entry.
+            var entry = wanted.GetValueOrDefault(key)
+                ?? wantedMods.Values.FirstOrDefault(e => string.Equals(e.Path, key, StringComparison.OrdinalIgnoreCase));
+            if (entry is null)
             {
                 notInPreset.AddRange(copies);
                 continue;
             }
+
+            used.Add(EntryKey(entry.Path, entry.ModId));
 
             if (copies.Count != 1)
             {
@@ -138,20 +204,46 @@ public static class ModPresets
             else if (!entry.Enabled && !mod.IsDisabled) toDisable.Add(mod);
         }
 
-        var notInstalled = wanted.Values
-            .Where(e => !byKey.ContainsKey(e.Path))
+        var sharedOff = new List<ModPresetSharedMod>();
+        var sharedOn = new List<ModPresetSharedMod>();
+        var sharedNotInPreset = new List<ModPresetSharedMod>();
+        foreach (var mod in shared)
+        {
+            var keys = KeysOf(installPath, mod).ToList();
+            var entry = keys.Select(k => wantedMods.GetValueOrDefault(EntryKey(k, mod.ModId))).FirstOrDefault(e => e is not null)
+                ?? keys.Select(k => wanted.GetValueOrDefault(k)).FirstOrDefault(e => e is not null);
+            if (entry is null)
+            {
+                sharedNotInPreset.Add(mod);
+                continue;
+            }
+
+            used.Add(EntryKey(entry.Path, entry.ModId));
+            if (entry.Enabled && mod.Parts.Any(p => p.Entry.IsDisabled)) sharedOn.Add(mod);
+            else if (!entry.Enabled && mod.Enabled) sharedOff.Add(mod);
+        }
+
+        var notInstalled = wanted.Values.Concat(wantedMods.Values)
+            .Where(e => !used.Contains(EntryKey(e.Path, e.ModId)) && !(e.ModId is null && sharedKeys.Contains(e.Path)))
             .OrderBy(e => e.Path, StringComparer.OrdinalIgnoreCase)
             .ToList();
 
-        return new ModPresetPlan(toDisable, toEnable, notInstalled, notInPreset, inTwoPlaces);
+        return new ModPresetPlan(toDisable, toEnable, notInstalled, notInPreset, inTwoPlaces)
+        {
+            SharedToDisable = sharedOff,
+            SharedToEnable = sharedOn,
+            SharedNotInPreset = sharedNotInPreset,
+        };
     }
 
     /// <summary>The preset (by name, ignoring case) the mods are set exactly as now, if any - for a
     /// tick in the menu. Mods the preset doesn't name don't count against it; a mod it names that is
     /// in the install twice does - neither copy is "as the preset has it".</summary>
-    public static ModPreset? Matching(string installPath, IEnumerable<ModPreset> presets, IReadOnlyCollection<InstalledMod> mods) =>
+    public static ModPreset? Matching(
+        string installPath, IEnumerable<ModPreset> presets, IReadOnlyCollection<InstalledMod> mods,
+        IReadOnlyList<ModPresetSharedMod>? shared = null) =>
         presets.FirstOrDefault(p =>
-            p.Entries.Count > 0 && Plan(installPath, p.Entries, mods) is { ChangesNothing: true, InTwoPlaces.Count: 0 });
+            p.Entries.Count > 0 && Plan(installPath, p.Entries, mods, shared) is { ChangesNothing: true, InTwoPlaces.Count: 0 });
 
     /// <summary>A name as it is kept: trimmed, single-line, at most MaxNameLength. Null when blank.</summary>
     public static string? CleanName(string? name)

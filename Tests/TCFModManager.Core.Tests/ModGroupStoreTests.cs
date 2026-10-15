@@ -207,4 +207,21 @@ public class ModGroupStoreTests : IDisposable
         Assert.Equal(bots.Id, again.Id);
         Assert.Single(_store.Load().Groups);
     }
+
+    [Fact]
+    public void MergeGroup_MovesItsModsOver_AndRemovesIt()
+    {
+        var bots = _store.AddGroup("Bots");
+        var other = _store.AddGroup("AI");
+        _store.AssignMods(["SAIN", "Questing Bots"], other.Id);
+        _store.AssignMod("Waypoints", bots.Id);
+
+        Assert.Equal(bots.Id, _store.NamedLike(" bots ", other.Id)?.Id);
+        _store.MergeGroup(other.Id, bots.Id);
+
+        var data = _store.Load();
+        Assert.Equal(bots.Id, Assert.Single(data.Groups).Id);
+        Assert.All(data.Assignments.Values, id => Assert.Equal(bots.Id, id));
+        Assert.Equal(3, data.Assignments.Count);
+    }
 }
