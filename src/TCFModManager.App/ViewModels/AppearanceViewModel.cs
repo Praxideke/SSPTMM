@@ -2,6 +2,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
+using TCFModManager.Core.Models;
 using TCFModManager.Core.Services;
 
 namespace TCFModManager.App.ViewModels;
@@ -18,6 +19,10 @@ public sealed partial class AppearanceViewModel : ObservableObject
 
     [ObservableProperty]
     private bool _showCollectionsTab = true;
+
+    // Fork (1.4.2): where the window opens and the hub's Home button goes.
+    [ObservableProperty]
+    private HomePageChoice _homePage;
 
     // The user's picture, decoded once; null for the Steam grid.
     [ObservableProperty]
@@ -40,6 +45,7 @@ public sealed partial class AppearanceViewModel : ObservableObject
         var settings = new SettingsService().Load();
         ShowSubscribedItemsTab = settings.ShowSubscribedItemsTab;
         ShowCollectionsTab = settings.ShowCollectionsTab;
+        HomePage = settings.HomePage;
         BackgroundDarkness = Math.Clamp(settings.BackgroundDarkness, 0, 0.9);
 
         if (settings.BackgroundImage != _loadedPath)

@@ -566,6 +566,42 @@
     </Style>
 
     <!--
+        Fork (1.4.2): the back and forward arrows and Home at the left of the hub header, as Steam
+        has its arrows at the left of its top bar: a bare icon, no face, brighter under the pointer
+        and dim when there is nowhere to go. HUNCH: the greys (#B8BCBF, #4C5560) and the 32x36 box
+        are matched to this header by eye, not measured from Steam's client.
+    -->
+    <Style x:Key="SteamNavArrow" TargetType="Button">
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="#B8BCBF" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource SteamWhite}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#4C5560" />
+                            <Setter Property="Cursor" Value="Arrow" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--
         Workshop sub-navigation ("Home  Browse ▾  Your Items ▾  Discussions  About"): 15px white,
         0 10px padding, 47px strip, a 2px white bar under the current one.
     -->

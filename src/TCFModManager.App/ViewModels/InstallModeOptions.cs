@@ -37,5 +37,15 @@ public sealed class DownloadConfirmationItem(string key, DownloadConfirmation va
     public override string ToString() => Label;
 }
 
+// One entry in the Options page's Home page dropdown (1.4.2).
+public sealed class HomePageItem(string key, HomePageChoice value) : LocalizedViewModel
+{
+    public HomePageChoice Value { get; } = value;
+
+    public string Label => LocalizationService.Get(key);
+
+    public override string ToString() => Label;
+}
+
 // One removal in the Installed page's Undo menu: its holding folder, and "<mod> - removed <when>".
 public sealed record HeldRemovalItem(string Folder, string Label);

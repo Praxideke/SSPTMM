@@ -11034,4 +11034,29 @@ The file as it is now is kept beside it ({1}). Turn them on?</value>
     <value>Turned on in core.json. Restart the SPT server so it cleans the profile, then press Play again.</value>
     <comment>Play status after turning on SPT's profile cleaning from the "won't load this profile" error.</comment>
   </data>
+  <data name="Nav_Back" xml:space="preserve">
+    <value>Back</value>
+    <comment>Tooltip on the back arrow at the left of the hub header.</comment>
+  </data>
+  <data name="Nav_Forward" xml:space="preserve">
+    <value>Forward</value>
+    <comment>Tooltip on the forward arrow at the left of the hub header.</comment>
+  </data>
+  <data name="Nav_Home" xml:space="preserve">
+    <value>Home (Alt+Home) - which page that is can be chosen in Options &gt; General</value>
+    <comment>Tooltip on the Home button at the left of the hub header.</comment>
+  </data>
+  <data name="Options_HomePageHeader" xml:space="preserve">
+    <value>Home page</value>
+  </data>
+  <data name="Options_HomePageHint" xml:space="preserve">
+    <value>Where SSPTMM opens, and where Home takes you.</value>
+  </data>
+  <data name="Options_HomePageDescription" xml:space="preserve">
+    <value>The page the window opens on, and the one the Home button beside the back and forward arrows goes to - as Steam's own "Start up location". Opening SSPTMM from an update notification still goes to Subscribed items.</value>
+  </data>
+  <data name="Options_HomeWorkshop" xml:space="preserve">
+    <value>Workshop home</value>
+    <comment>Home page choice: the Workshop's front page.</comment>
+  </data>
 </root>

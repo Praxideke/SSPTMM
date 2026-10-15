@@ -90,6 +90,17 @@ public static class AppNavigation
         || pageType == typeof(FollowedAuthorsPage)
         || pageType == typeof(FavoriteCollectionsPage);
 
+    // Fork (1.4.2): the page chosen in Options > General > Home page - where the window opens and
+    // the hub's Home button goes.
+    public static Type HomePage => AppServices.Appearance.HomePage switch
+    {
+        Core.Models.HomePageChoice.Browse => typeof(BrowsePage),
+        Core.Models.HomePageChoice.SubscribedItems => typeof(InstalledPage),
+        Core.Models.HomePageChoice.Collections => typeof(YourCollectionsPage),
+        Core.Models.HomePageChoice.Play => typeof(PlayPage),
+        _ => typeof(WorkshopHomePage),
+    };
+
     // ------------------------------------------------------------------
 
     //

@@ -188,6 +188,36 @@
                         Click="ModSite_Click">
                         <TextBlock Text="{loc:Str Hub_ModSite}" />
                     </Button>
+                    <!-- Fork (1.4.2): Steam's back and forward arrows, and Home (Options > General >
+                         Home page). Enabled as the history allows - see MainWindow's Place. -->
+                    <StackPanel DockPanel.Dock="Left" Margin="-10,0,10,0" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Button
+                            x:Name="BackButton"
+                            Style="{StaticResource SteamNavArrow}"
+                            IsEnabled="False"
+                            ToolTip="{loc:Str Nav_Back}"
+                            AutomationProperties.Name="{loc:Str Nav_Back}"
+                            Click="Back_Click">
+                            <ui:SymbolIcon Symbol="ChevronLeft24" />
+                        </Button>
+                        <Button
+                            x:Name="ForwardButton"
+                            Style="{StaticResource SteamNavArrow}"
+                            IsEnabled="False"
+                            ToolTip="{loc:Str Nav_Forward}"
+                            AutomationProperties.Name="{loc:Str Nav_Forward}"
+                            Click="Forward_Click">
+                            <ui:SymbolIcon Symbol="ChevronRight24" />
+                        </Button>
+                        <Button
+                            Margin="4,0,0,0"
+                            Style="{StaticResource SteamNavArrow}"
+                            ToolTip="{loc:Str Nav_Home}"
+                            AutomationProperties.Name="{loc:Str Workshop_Home}"
+                            Click="Home_Click">
+                            <ui:SymbolIcon Symbol="Home24" />
+                        </Button>
+                    </StackPanel>
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="22"

@@ -259,6 +259,10 @@ public sealed class AppSettings
 
     public bool ShowCollectionsTab { get; set; } = true;
 
+    // Fork (1.4.2): where the window opens and the hub's Home button goes (HomePageChoice).
+    [JsonConverter(typeof(JsonStringEnumConverter<HomePageChoice>))]
+    public HomePageChoice HomePage { get; set; } = HomePageChoice.Workshop;
+
     //
     // A picture of the user's own behind the window, in place of the Steam grid: the copy of it
     // kept in Data\Background (so moving or deleting the original does not lose it), and how far

@@ -2905,4 +2905,11 @@ internal static class Strings
     internal static string Installed_SharedFolderByHandFormat => LocalizationService.Get("Installed_SharedFolderByHandFormat");
     internal static string Installed_SharedFolderRemoveFormat => LocalizationService.Get("Installed_SharedFolderRemoveFormat");
     internal static string Play_ProfileFixDone => LocalizationService.Get("Play_ProfileFixDone");
+    internal static string Nav_Back => LocalizationService.Get("Nav_Back");
+    internal static string Nav_Forward => LocalizationService.Get("Nav_Forward");
+    internal static string Nav_Home => LocalizationService.Get("Nav_Home");
+    internal static string Options_HomePageHeader => LocalizationService.Get("Options_HomePageHeader");
+    internal static string Options_HomePageHint => LocalizationService.Get("Options_HomePageHint");
+    internal static string Options_HomePageDescription => LocalizationService.Get("Options_HomePageDescription");
+    internal static string Options_HomeWorkshop => LocalizationService.Get("Options_HomeWorkshop");
 }

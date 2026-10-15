@@ -2331,7 +2331,7 @@ itself (no button was pressed), an install going through, the rows changing as o
 under the subscribe box (below the fold in the pictures), the list inside the update dialog, which
 is narrower, and the pointer over any of it.
 
-## Round 53: 1.4.2 - groups from the menu, several at once; SPT's profile cleaning (2026-10-15)
+## Round 53: 1.4.2 - back, forward and Home; groups from the menu, several at once; SPT's profile cleaning (2026-10-15)
 
 Asked for (FoxHead, through trappuss): dragging several picked mods into a group moved only one; a
 right-click "Add to group" with a "New group" at the top, for several picked mods too; and the
@@ -2383,12 +2383,34 @@ core.json fix for an invalid profile offered from Diagnose.
 - Left as it is: presets keep a mod's state by folder path, so a preset can't tell two mods in one
   folder apart; and the dependency warning on switching off reads entries, so it may name the
   folder's other mod.
+- **Back, Forward and Home** (asked for by trappuss, "based off Steam's UI"). Steam has its arrows
+  at the left of its top bar and its start page in Settings > Interface > "Start up location";
+  here the arrows and a house sit at the left of the hub header, before the title, and the choice
+  is Options > General > Home page (`AppSettings.HomePage`, Workshop home by default, so nothing
+  changes until it is set). A place is the page plus the item, collection or author page over it,
+  kept as the request that opened it (`MainWindow.Place`); the history is
+  `NavigationHistory<T>` (Core, tested): somewhere new drops what was ahead, and an overlay closed
+  by its own button back to the place before counts as a step back, so Forward reopens it. Going
+  back navigates to the page (which closes every overlay) and opens the overlay again from its
+  request, so it starts at its top. A collection deleted since is dropped from the history.
+  Places passed through on the way are not recorded (`_moving`), and the place is read from
+  what is on screen, so whether WPF-UI raises Navigated at once or later makes no difference.
+  Also the mouse's XButton1/XButton2, Alt+Left/Right/Home and the keyboard's browser keys; not
+  while the mod update dialog is open. The arrows are bare icons, #B8BCBF, white under the
+  pointer, #4C5560 when there is nowhere to go - HUNCH, by eye, not measured from Steam's client.
+  Checked on a hidden desktop: Browse, Back to Workshop home, Forward to Browse, Home, Back to
+  Browse, the arrows lit and dimmed as the history allows. Not checked on screen: going back and
+  forward through an item page (posted clicks don't reach the cards there).
 - **New group... with a name already taken** returns that group (`ModGroupStore.AddGroup`, case and
   surrounding spaces aside), for the menu and the Groups bar alike.
 - The profile messages pointed at `SPT\SPT_Data\configs\core.json`; SPT 4.1's server is
   `SPT_Runtime`. They now name SPT_Data\configs in the server's folder.
 
 ## Values that could not be measured (marked HUNCH in the source)
+
+- Round 53: the back and forward arrows' greys and 32x36 box (Steam's are in its client, not on a
+  page that can be read), the Add to group submenu's offset, and leaving clothing out of the
+  profile-cleaning offer.
 
 - Round 52: the addon rows' layout and sizes (Steam has no addons; its palette, this app's
   arrangement), and seven as the number of addons from which a search box is worth its room.

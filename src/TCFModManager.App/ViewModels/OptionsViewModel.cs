@@ -382,6 +382,21 @@ public partial class OptionsViewModel : LocalizedViewModel
     [NotifyPropertyChangedFor(nameof(ShowCustomSize))]
     private WindowStartupItem _selectedWindowStartup;
 
+    // Fork (1.4.2): Steam's "Start up location" - the page the window opens on and Home goes to.
+    public IReadOnlyList<HomePageItem> HomePageOptions { get; } =
+    [
+        new(nameof(Strings.Options_HomeWorkshop), HomePageChoice.Workshop),
+        new(nameof(Strings.Nav_Browse), HomePageChoice.Browse),
+        new(nameof(Strings.Workshop_SubscribedItems), HomePageChoice.SubscribedItems),
+        new(nameof(Strings.Nav_ModLists), HomePageChoice.Collections),
+        new(nameof(Strings.Nav_Play), HomePageChoice.Play),
+    ];
+
+    [ObservableProperty]
+    private HomePageItem _selectedHomePage;
+
+    partial void OnSelectedHomePageChanged(HomePageItem value) => SaveAppearance(s => s.HomePage = value.Value);
+
     /// <summary>Whether the two size boxes are relevant - they only do anything in the one mode
     /// that reads them.</summary>
     public bool ShowCustomSize => SelectedWindowStartup.Value == WindowStartupMode.Custom;
@@ -504,6 +519,7 @@ public partial class OptionsViewModel : LocalizedViewModel
 
         _selectedWindowStartup = WindowStartupOptions.FirstOrDefault(o => o.Value == settings.Window.StartupMode)
             ?? WindowStartupOptions[0];
+        _selectedHomePage = HomePageOptions.FirstOrDefault(o => o.Value == settings.HomePage) ?? HomePageOptions[0];
         _customWidthInput = FormatSize(settings.Window.CustomWidth);
         _customHeightInput = FormatSize(settings.Window.CustomHeight);
 

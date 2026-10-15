@@ -7,6 +7,8 @@ using TCFModManager.App.Help;
 using TCFModManager.App.Localization;
 using TCFModManager.App.Services;
 using TCFModManager.App.Views;
+using TCFModManager.App.ViewModels;
+using TCFModManager.Core.Services;
 using TCFModManager.Core.SpModApi;
 using Wpf.Ui.Controls;
 
@@ -25,7 +27,16 @@ public partial class MainWindow : FluentWindow
 
         // The hub tabs and the Workshop strips navigate through AppNavigation, which hears every
         // navigation once it is attached (on Loaded, below) and reports it back here.
-        AppNavigation.Navigated += (_, pageType) => SyncHeader(pageType);
+        AppNavigation.Navigated += (_, pageType) =>
+        {
+            SyncHeader(pageType);
+            Visited();
+        };
+        _history.Changed += (_, _) =>
+        {
+            BackButton.IsEnabled = _history.CanGoBack;
+            ForwardButton.IsEnabled = _history.CanGoForward;
+        };
 
         // A tab switched on or off in Options: the lit tab may have moved with it.
         AppServices.Appearance.PropertyChanged += (_, _) =>
@@ -38,9 +49,19 @@ public partial class MainWindow : FluentWindow
             CollectionQuickView.Close();
             // Forgotten first, so no page closing brings another back.
             _under.Clear();
-            CollectionPage.Close();
-            AuthorPage.Close();
-            ItemPage.Close();
+            // On the way to another page: closing these is not going back to the one under them.
+            var moving = _moving;
+            _moving = true;
+            try
+            {
+                CollectionPage.Close();
+                AuthorPage.Close();
+                ItemPage.Close();
+            }
+            finally
+            {
+                _moving = moving;
+            }
         };
 
         // A menu that stays open by itself would float over other windows once this one is left.
@@ -49,9 +70,20 @@ public partial class MainWindow : FluentWindow
         // F1 is the title bar's "?" (Help R8). Preview, so a focused text box doesn't get it first.
         PreviewKeyDown += (_, e) =>
         {
+            if (BackForwardKey(e)) return;
             if (e.Key != Key.F1 || Keyboard.Modifiers != ModifierKeys.None) return;
 
             ShowHelp();
+            e.Handled = true;
+        };
+
+        // The mouse's own back and forward buttons, as in Steam and a browser.
+        PreviewMouseDown += (_, e) =>
+        {
+            if (e.ChangedButton == MouseButton.XButton1) GoBack();
+            else if (e.ChangedButton == MouseButton.XButton2) GoForward();
+            else return;
+
             e.Handled = true;
         };
 
@@ -64,10 +96,11 @@ public partial class MainWindow : FluentWindow
             AppTheme.Attach(this);
 
             // Subscribed items when this launch came from clicking an update notification (§6);
-            // otherwise Steam's Workshop tab, on the Workshop's front page. Attached first, so a
+            // otherwise the Home page chosen in Options (the Workshop's front page unless changed).
+            // Attached first, so a
             // click landing from here on navigates by itself.
             AppNavigation.Attach(RootNavigationView);
-            AppNavigation.Navigate(AppNavigation.StartOnInstalled ? typeof(InstalledPage) : typeof(WorkshopHomePage));
+            AppNavigation.Navigate(AppNavigation.StartOnInstalled ? typeof(InstalledPage) : AppNavigation.HomePage);
 
             // Fire-and-forget: whether a newer SSPTMM is out on GitHub has no bearing on the window
             // opening, and a failed check just leaves the dot off. It asks first (once), and checks
@@ -105,15 +138,15 @@ public partial class MainWindow : FluentWindow
         // A mod opened from anywhere opens as its Workshop item page, over the page it came from.
         AppServices.ModDetailsOverlay.Requested += (_, request) =>
         {
-            Cover(ItemPage);
-            ItemPage.Show(request);
-            PerfProbe.ItemPage(opened: true);
+            OpenItem(request);
+            Visited();
         };
 
         ItemPage.Closed += (_, _) =>
         {
             PerfProbe.ItemPage(opened: false);
             Uncover(ItemPage);
+            Returned();
         };
 
         AppServices.QuickView.Requested += (_, request) =>
@@ -131,14 +164,14 @@ public partial class MainWindow : FluentWindow
         // A collection opened from anywhere opens as its Workshop page, over the page it came from.
         AppServices.CollectionOverlay.Requested += (_, request) =>
         {
-            // A list deleted since the link was drawn opens nothing, and leaves the page as it was.
-            if (!request.IsPublic && (request.ListId is not { } listId || AppServices.ModLists.Find(listId) is null)) return;
-
-            Cover(CollectionPage);
-            CollectionPage.Show(request);
+            if (OpenCollection(request)) Visited();
         };
 
-        CollectionPage.Closed += (_, _) => Uncover(CollectionPage);
+        CollectionPage.Closed += (_, _) =>
+        {
+            Uncover(CollectionPage);
+            Returned();
+        };
 
         // The item, collection and author pages have no background of their own, so the window's grid
         // (or picture) shows through them as it does on the other Workshop pages. The page they were
@@ -156,11 +189,15 @@ public partial class MainWindow : FluentWindow
         // An author opened from anywhere opens as their Workshop page, the same way.
         AppServices.AuthorOverlay.Requested += (_, request) =>
         {
-            Cover(AuthorPage);
-            AuthorPage.Show(request);
+            OpenAuthor(request);
+            Visited();
         };
 
-        AuthorPage.Closed += (_, _) => Uncover(AuthorPage);
+        AuthorPage.Closed += (_, _) =>
+        {
+            Uncover(AuthorPage);
+            Returned();
+        };
 
         // Constructs and shows the mod update dialog, awaitable so callers know when it closes.
         AppServices.ModUpdateOverlay.ShowAsync = async mod =>
@@ -218,6 +255,32 @@ public partial class MainWindow : FluentWindow
             _under.RemoveAt(_under.Count - 1);
             RevealPage(previous);
         }
+    }
+
+    private void OpenItem(ModDetailsRequest request)
+    {
+        Cover(ItemPage);
+        _opened[ItemPage] = request;
+        ItemPage.Show(request);
+        PerfProbe.ItemPage(opened: true);
+    }
+
+    // False when it opened nothing: a list deleted since the link was drawn leaves the page as it was.
+    private bool OpenCollection(CollectionRequest request)
+    {
+        if (!request.IsPublic && (request.ListId is not { } listId || AppServices.ModLists.Find(listId) is null)) return false;
+
+        Cover(CollectionPage);
+        _opened[CollectionPage] = request;
+        CollectionPage.Show(request);
+        return true;
+    }
+
+    private void OpenAuthor(AuthorRequest request)
+    {
+        Cover(AuthorPage);
+        _opened[AuthorPage] = request;
+        AuthorPage.Show(request);
     }
 
     private void HidePage(FrameworkElement page)
@@ -330,6 +393,108 @@ public partial class MainWindow : FluentWindow
         WorkshopStrip.Visibility = !_stripWanted ? Visibility.Collapsed
             : OverlayShowing ? Visibility.Hidden
             : Visibility.Visible;
+
+    // ------------------------------------------------------------------ fork (1.4.2): back, forward, home
+
+    //
+    // Steam's arrows at the left of its top bar, and its Home. A place is the page on screen and
+    // the item, collection or author page over it, if any - kept as the request that opened it, so
+    // going back opens it again. The history itself is NavigationHistory: going somewhere new
+    // drops what was ahead, and closing a page back to the place before counts as a step back.
+    //
+    // Opened again, an item page starts at its top, and the pages that were under it are not
+    // stacked back up: the history walks back through them instead.
+    //
+    private sealed record Place(Type Page, object? Over);
+
+    private readonly NavigationHistory<Place> _history = new();
+
+    private readonly Dictionary<FrameworkElement, object> _opened = [];
+
+    // True while Back or Forward, or a navigation closing the pages over the page area, is under
+    // way: the places passed through on the way are not places visited.
+    private bool _moving;
+
+    private Place? Here() => AppNavigation.Current is { } page
+        ? new Place(page, TopPage is { } top ? _opened.GetValueOrDefault(top) : null)
+        : null;
+
+    private void Visited()
+    {
+        if (!_moving && Here() is { } here) _history.Visit(here);
+    }
+
+    private void Returned()
+    {
+        if (!_moving && Here() is { } here) _history.Return(here);
+    }
+
+    private void GoBack() => GoTo(Blocked ? null : _history.Back());
+
+    private void GoForward() => GoTo(Blocked ? null : _history.Forward());
+
+    private void GoHome()
+    {
+        if (!Blocked) AppNavigation.Navigate(AppNavigation.HomePage);
+    }
+
+    // The mod update dialog is over the window: it is closed by its own buttons, not navigated away from.
+    private static bool Blocked => AppServices.ModUpdateOverlay.IsOpen;
+
+    private void GoTo(Place? place)
+    {
+        if (place is null) return;
+
+        _moving = true;
+        try
+        {
+            AppNavigation.Navigate(place.Page);
+            var opened = true;
+            switch (place.Over)
+            {
+                case ModDetailsRequest item:
+                    OpenItem(item);
+                    break;
+                case CollectionRequest collection:
+                    opened = OpenCollection(collection);
+                    break;
+                case AuthorRequest author:
+                    OpenAuthor(author);
+                    break;
+            }
+
+            // What it showed can't be shown again (a collection deleted since): that place is gone.
+            if (!opened) _history.DropCurrent();
+        }
+        finally
+        {
+            _moving = false;
+        }
+    }
+
+    // Alt+Left, Alt+Right and Alt+Home, as in a browser, and a keyboard's own back, forward and
+    // home keys. True when it was one of them.
+    private bool BackForwardKey(KeyEventArgs e)
+    {
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
+        var alt = Keyboard.Modifiers == ModifierKeys.Alt;
+
+        if (key == Key.BrowserBack || (alt && key == Key.Left)) GoBack();
+        else if (key == Key.BrowserForward || (alt && key == Key.Right)) GoForward();
+        else if (key == Key.BrowserHome || (alt && key == Key.Home)) GoHome();
+        else return false;
+
+        e.Handled = true;
+        return true;
+    }
+
+    private void Back_Click(object sender, RoutedEventArgs e) => GoBack();
+
+    private void Forward_Click(object sender, RoutedEventArgs e) => GoForward();
+
+    private void Home_Click(object sender, RoutedEventArgs e) => GoHome();
+
+    // ------------------------------------------------------------------
 
     private bool OverlayShowing => ItemPage.IsVisible || AuthorPage.IsVisible || CollectionPage.IsVisible;
 
