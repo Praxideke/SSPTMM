@@ -40,5 +40,13 @@ they are internal only. The version is set in one place: `build\Directory.Build.
 ## Translations
 
 The app's text is in `src\TCFModManager.App\Localization\Strings.resx`, with German, French,
-Italian and Russian beside it. Steam's own terms use Steam's own translations; newer text falls back
-to English until someone translates it - pull requests welcome.
+Italian, Russian and Simplified Chinese (`zh-Hans`) beside it. Steam's own terms use Steam's own
+translations. All five cover the whole app; they are machine-made, so corrections from native
+speakers are welcome - pull requests or an issue.
+
+Every build prints how complete each language is (`de: 2806/2806, complete`). Text added to
+`Strings.resx` shows in English in a language until it is translated there. A placeholder such as
+`{0}` must stay in a translation (the tests check it); a date pattern after the colon, as in
+`{0:d MMM yyyy}`, may be changed to the language's own. A new language is a `Strings.<tag>.resx`
+beside the others, its tag in `Meta_ShippedLanguages` and its plural rule in
+`src\TCFModManager.Core\Services\PluralRules.cs`.

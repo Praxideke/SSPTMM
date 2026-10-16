@@ -5934,4 +5934,3519 @@
   <data name="Common_OK" xml:space="preserve">
     <value>ОК</value>
   </data>
+  <data name="Common_PinnedToolTip" xml:space="preserve">
+    <value>Закреплён - применение коллекции никогда не отключит этот мод</value>
+  </data>
+  <data name="Common_AttributeFilterToolTip" xml:space="preserve">
+    <value>Фильтр по поддержке Fika, рекламе, зависимостям и аддонам</value>
+  </data>
+  <data name="Browse_SaveAsDefaultToolTip" xml:space="preserve">
+    <value>Страница будет открываться с теми фильтрами и сортировкой, что выбраны сейчас, включая отмеченные версии SPT. Поле поиска не сохраняется, а «Показывать на странице» сохранять не нужно - страница помнит последний выбор. Сбросить это можно в «Параметрах».</value>
+  </data>
+  <data name="Installed_RemoveToolTip" xml:space="preserve">
+    <value>Отписаться: удалить файлы этого мода из вашей установки SPT</value>
+  </data>
+  <data name="ModLists_PinToolTip" xml:space="preserve">
+    <value>Закрепить этот мод, чтобы ни один применённый список его не откладывал. Для HUD и модов удобства, которые нужны вам при любом списке. Открепить его можно здесь или у самого мода в «Ваши подписки».</value>
+  </data>
+  <data name="Options_PageDefaultsDescription" xml:space="preserve">
+    <value>У «Обзора» есть кнопка «Сохранить по умолчанию» под шестерёнкой рядом с полем поиска: «Обзор» будет открываться с теми фильтрами и сортировкой, что выбраны в этот момент. «Ваши подписки» в кнопке не нуждаются - страница открывается с фильтрами, сортировкой и видом, на которых вы её оставили, а «Сбросить фильтры» там возвращает их к исходным. Текст, набранный в поле поиска, никогда не сохраняется. «Показывать на странице» тоже сохранять не нужно: каждая страница открывается в режиме «Бесконечно», пока вы не выберете там размер, а потом помнит последний выбор.</value>
+  </data>
+  <data name="Options_DataFilesDescription" xml:space="preserve">
+    <value>Просмотр и ручная правка JSON-файлов, которые приложение хранит в Data\, включая installed-mods.json, - пригодится, когда собственных настроек версий в «Ваши подписки» не хватает.</value>
+  </data>
+  <data name="Play_ServerDescription" xml:space="preserve">
+    <value>Запускает сервер этой установки и оставляет его работать в отдельном окне консоли. Он продолжит работать, даже если закрыть это приложение. Пока он работает, «Запустить сервер» сменяется на «Остановить сервер». «Перезапустить» останавливает его и запускает снова - после правки конфига или добавления серверного мода.</value>
+  </data>
+  <data name="Downloads_Description" xml:space="preserve">
+    <value>Одновременно скачиваются до трёх модов, а устанавливаются они по одному, в том порядке, в каком вы их поставили в очередь, - подписывайтесь на сколько угодно и следите за ходом здесь.</value>
+  </data>
+  <data name="Downloads_Empty" xml:space="preserve">
+    <value>Очередь пока пуста - нажмите «Подписаться» на странице мода или «Обновить» в его окне обновления, чтобы что-нибудь сюда добавить.</value>
+  </data>
+  <data name="ModListFile_TypeName" xml:space="preserve">
+    <value>Список модов SPT</value>
+  </data>
+  <data name="AppUpdate_NoDownloadFileFormat" xml:space="preserve">
+    <value>На GitHub указана {0}, но файл для скачивания не прикреплён к релизу. Откройте страницу релиза и скачайте его вручную.</value>
+  </data>
+  <data name="AppUpdate_ReleaseMissingExeFormat" xml:space="preserve">
+    <value>В релизе {0} нет {1} там, где его ожидает SSPTMM. Вместо этого скачайте его со страницы релиза и вручную распакуйте поверх этой папки.</value>
+  </data>
+  <data name="AppUpdate_FolderNotWritableFormat" xml:space="preserve">
+    <value>SSPTMM не может писать в собственную папку ({0}), поэтому не может обновиться на месте. Переместите его куда-нибудь за пределы Program Files или скачайте новую версию со страницы релиза и вручную распакуйте поверх этой папки.</value>
+  </data>
+  <data name="AppUpdate_UnexpectedFormat" xml:space="preserve">
+    <value>Обновление не удалось: {0}. Ничего не изменено - если это повторяется, скачайте его со страницы релиза и вручную распакуйте поверх этой папки.</value>
+  </data>
+  <data name="ServerMap_NoList" xml:space="preserve">
+    <value>Этот сервер не публикует список модов. Его владелец может опубликовать список кнопкой «Опубликовать на этом сервере» на странице «Коллекции» - из приложения на компьютере, где работает сервер.</value>
+  </data>
+  <data name="Installed_PinnedFormat" xml:space="preserve">
+    <value>{0} закреплён - применение коллекции его не отключит. Закреплённые моды стоят наверху.</value>
+  </data>
+  <data name="Browse_DisabledFormat" xml:space="preserve">
+    <value>{0} отключён - включите его в «Ваши подписки», прежде чем переустанавливать.</value>
+  </data>
+  <data name="Installed_Pin" xml:space="preserve">
+    <value>Сохранять при смене коллекций</value>
+  </data>
+  <data name="Installed_Unpin" xml:space="preserve">
+    <value>Больше не сохранять</value>
+  </data>
+  <data name="Installed_PinToolTip" xml:space="preserve">
+    <value>Закрепить этот мод: применение одной из ваших коллекций никогда его не отключит, даже если в коллекции его нет. Закреплённые моды стоят наверху в «Ваши подписки». Для HUD и модов удобства, которые нужны вам при любой коллекции.</value>
+  </data>
+  <data name="Installed_UnpinToolTip" xml:space="preserve">
+    <value>Открепить этот мод, чтобы коллекция, в которой его нет, снова могла его отключить.</value>
+  </data>
+  <data name="Downloads_Pause" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="Downloads_Resume" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="Downloads_PauseToolTip" xml:space="preserve">
+    <value>На паузе новые загрузки не начинаются. Уже идущая загрузка завершится, как и установки.</value>
+  </data>
+  <data name="Downloads_PausedWaiting" xml:space="preserve">
+    <value>Пауза - ждёт «Продолжить»</value>
+  </data>
+  <data name="Downloads_CouldNotSwitchOnFormat" xml:space="preserve">
+    <value>{0} отключён, и его не удалось включить для обновления, поэтому ничего не изменено: {1}</value>
+  </data>
+  <data name="Downloads_LeftSwitchedOnFormat" xml:space="preserve">
+    <value>{0} был отключён, и не всё из обновления удалось снова отключить - проверьте его в «Ваши подписки».</value>
+  </data>
+  <data name="ModUpdate_StaysDisabledFormat" xml:space="preserve">
+    <value>{0} отключён. Для обновления он будет включён, а после снова отключён, так что останется отключённым.</value>
+  </data>
+  <data name="ModUpdate_DisabledNoticeFormat" xml:space="preserve">
+    <value>{0} отключён. Включите его снова в «Ваши подписки», чтобы обновить или скачать заново.</value>
+  </data>
+  <data name="AppUpdate_DownloadingFormat" xml:space="preserve">
+    <value>Скачивание {0} с GitHub...</value>
+  </data>
+  <data name="AppUpdate_DownloadingProgressFormat" xml:space="preserve">
+    <value>Скачивание {0} с GitHub... {1:P0}</value>
+  </data>
+  <data name="PreLaunch_ComparedFormat" xml:space="preserve">
+    <value>Сравнение со списком «{0}»: {1}. Примените список на странице «Коллекции», чтобы это исправить, или подключайтесь всё равно - ничто здесь вам не мешает.</value>
+  </data>
+  <data name="Addon_ActionInstallAnyway" xml:space="preserve">
+    <value>Всё равно установить</value>
+  </data>
+  <data name="Addon_AnywayTitle" xml:space="preserve">
+    <value>Всё равно установить этот аддон?</value>
+  </data>
+  <data name="Addon_AnywayMismatchFormat" xml:space="preserve">
+    <value>{0} {1} указывает, что ему нужен {2} {3}. У вас {2} {4}.
+
+Требования аддона - это слово его автора, и они часто устаревают, так что он вполне может работать. А может и не загрузиться или сломать {2}.
+
+Всё равно установить?</value>
+  </data>
+  <data name="Addon_AnywayNoParentFormat" xml:space="preserve">
+    <value>{0} - аддон для {1}, а SSPTMM не находит {1} в этой установке SPT.
+
+Если {1} всё же есть - например, установлен вручную под другим именем, - аддон может работать. Без него файлы аддона ничего не делают или не дают игре загрузиться.
+
+Всё равно установить?</value>
+  </data>
+  <data name="Addon_AnywayCancelledFormat" xml:space="preserve">
+    <value>{0} не установлен.</value>
+  </data>
+  <data name="Addon_ByFormat" xml:space="preserve">
+    <value>автор: {0}</value>
+  </data>
+  <data name="Addon_FilterHint" xml:space="preserve">
+    <value>Поиск по этим аддонам</value>
+  </data>
+  <data name="Addon_FilterNone" xml:space="preserve">
+    <value>Ни один аддон не подходит.</value>
+  </data>
+  <data name="Item_TabAddonsFormat" xml:space="preserve">
+    <value>Аддоны ({0})</value>
+  </data>
+  <data name="Item_AddonsHeader" xml:space="preserve">
+    <value>АДДОНЫ ДЛЯ ЭТОГО ПРЕДМЕТА</value>
+  </data>
+  <data name="Item_AddonsOpen" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Hub_ModSiteToolTip" xml:space="preserve">
+    <value>Открыть sp-mod.com в браузере</value>
+  </data>
+  <data name="Workshop_BannerHeadline" xml:space="preserve">
+    <value>Моды для Single Player Tarkov</value>
+  </data>
+  <data name="Workshop_BannerBody" xml:space="preserve">
+    <value>Находите моды, аддоны и коллекции и добавляйте их в свою установку SPT одним нажатием кнопки.</value>
+  </data>
+  <data name="Workshop_SptVersionHeader" xml:space="preserve">
+    <value>ВЕРСИЯ SPT</value>
+  </data>
+  <data name="Workshop_ModTags" xml:space="preserve">
+    <value>МЕТКИ МОДОВ</value>
+  </data>
+  <data name="Workshop_SearchOptionsToolTip" xml:space="preserve">
+    <value>Параметры поиска</value>
+  </data>
+  <data name="Workshop_PostedFormat" xml:space="preserve">
+    <value>Добавлен: {0:d MMM yyyy 'в' H:mm}</value>
+  </data>
+  <data name="Workshop_UpdatedFormat" xml:space="preserve">
+    <value>Изменён: {0:d MMM yyyy 'в' H:mm}</value>
+  </data>
+  <data name="Workshop_FavouritesFormat" xml:space="preserve">
+    <value>В избранном: {0:N0}</value>
+  </data>
+  <data name="WorkshopHome_TabTopRated" xml:space="preserve">
+    <value>С наивысшим рейтингом</value>
+  </data>
+  <data name="WorkshopHome_TopRatedNote" xml:space="preserve">
+    <value>Моды с наибольшим числом одобрений на sp-mod.com</value>
+  </data>
+  <data name="WorkshopHome_MostSubscribedNote" xml:space="preserve">
+    <value>Самые скачиваемые моды за всё время</value>
+  </data>
+  <data name="WorkshopHome_LastUpdatedNote" xml:space="preserve">
+    <value>Недавно обновлённые моды</value>
+  </data>
+  <data name="WorkshopHome_NewNote" xml:space="preserve">
+    <value>Недавно выпущенные моды</value>
+  </data>
+  <data name="WorkshopHome_EmptyWeek" xml:space="preserve">
+    <value>За последнюю неделю ничего не выходило.</value>
+  </data>
+  <data name="Item_OptionalFormat" xml:space="preserve">
+    <value>{0} (необязательно)</value>
+  </data>
+  <data name="Item_TagsLabel" xml:space="preserve">
+    <value>Метки:</value>
+  </data>
+  <data name="Item_LicenseLabel" xml:space="preserve">
+    <value>Лицензия:</value>
+  </data>
+  <data name="Item_StatDownloads" xml:space="preserve">
+    <value>загрузок</value>
+  </data>
+  <data name="Item_StatEndorsements" xml:space="preserve">
+    <value>одобрений</value>
+  </data>
+  <data name="Item_CopyLink" xml:space="preserve">
+    <value>Копировать ссылку</value>
+  </data>
+  <data name="Item_LinkCopied" xml:space="preserve">
+    <value>Ссылка скопирована.</value>
+  </data>
+  <data name="Item_FileSizeKb" xml:space="preserve">
+    <value>{0:N3} КБ</value>
+  </data>
+  <data name="Item_FileSizeMb" xml:space="preserve">
+    <value>{0:N3} МБ</value>
+  </data>
+  <data name="Item_CloseToolTip" xml:space="preserve">
+    <value>Назад в Мастерскую (Esc)</value>
+  </data>
+  <data name="Workshop_PerPageInfinite" xml:space="preserve">
+    <value>Бесконечно</value>
+  </data>
+  <data name="Workshop_LoadingMore" xml:space="preserve">
+    <value>Прокрутите, чтобы увидеть ещё...</value>
+  </data>
+  <data name="Viewer_OpenInBrowser" xml:space="preserve">
+    <value>Открыть в браузере</value>
+  </data>
+  <data name="Viewer_WatchOnYouTube" xml:space="preserve">
+    <value>Смотреть на YouTube</value>
+  </data>
+  <data name="Browse_CheckingRequirementsFormat" xml:space="preserve">
+    <value>Проверка, что нужно для {0}...</value>
+  </data>
+  <data name="Browse_QueuedWithRequirements_one" xml:space="preserve">
+    <value>{0} {1} и {2} нужный ему мод поставлены в очередь - ход загрузки на странице Загрузки.</value>
+  </data>
+  <data name="Browse_QueuedWithRequirements_few" xml:space="preserve">
+    <value>{0} {1} и {2} нужных ему мода поставлены в очередь - ход загрузки на странице Загрузки.</value>
+  </data>
+  <data name="Browse_QueuedWithRequirements_many" xml:space="preserve">
+    <value>{0} {1} и {2} нужных ему модов поставлены в очередь - ход загрузки на странице Загрузки.</value>
+  </data>
+  <data name="ModPage_StepFormat" xml:space="preserve">
+    <value>{0} из {1}: {2}</value>
+  </data>
+  <data name="ModPage_NextPage" xml:space="preserve">
+    <value>Следующая страница</value>
+  </data>
+  <data name="ModPage_PreviousPage" xml:space="preserve">
+    <value>Предыдущая страница</value>
+  </data>
+  <data name="ModPage_Done" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="ModPage_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Item_TabVersions" xml:space="preserve">
+    <value>Версии</value>
+  </data>
+  <data name="Item_VersionInstall" xml:space="preserve">
+    <value>Установить эту версию</value>
+  </data>
+  <data name="Item_VersionSwitch" xml:space="preserve">
+    <value>Перейти на эту версию</value>
+  </data>
+  <data name="Item_VersionInstalled" xml:space="preserve">
+    <value>Установлена</value>
+  </data>
+  <data name="Item_VersionReleasedFormat" xml:space="preserve">
+    <value>Выпущена {0:d MMM yyyy 'в' H:mm}</value>
+  </data>
+  <data name="Item_VersionDownloadsFormat" xml:space="preserve">
+    <value>Загрузок: {0:N0}</value>
+  </data>
+  <data name="Item_VersionDependencies" xml:space="preserve">
+    <value>Зависимости:</value>
+  </data>
+  <data name="Item_VersionFika" xml:space="preserve">
+    <value>Совместима с Fika</value>
+  </data>
+  <data name="Item_VersionsMore" xml:space="preserve">
+    <value>Показать другие версии</value>
+  </data>
+  <data name="Item_MoreByFormat" xml:space="preserve">
+    <value>ЕЩЁ ОТ {0}</value>
+  </data>
+  <data name="Item_RequiredBy_one" xml:space="preserve">
+    <value>НУЖЕН {0:N0} ПРЕДМЕТУ</value>
+  </data>
+  <data name="Item_RequiredBy_few" xml:space="preserve">
+    <value>НУЖЕН {0:N0} ПРЕДМЕТАМ</value>
+  </data>
+  <data name="Item_RequiredBy_many" xml:space="preserve">
+    <value>НУЖЕН {0:N0} ПРЕДМЕТАМ</value>
+  </data>
+  <data name="Item_CommentsSignIn" xml:space="preserve">
+    <value>Войдите здесь на sp-mod.com, чтобы комментировать или ставить реакции; вход сохранится.</value>
+  </data>
+  <data name="Item_CommentsUnavailable" xml:space="preserve">
+    <value>Комментарии откроются на sp-mod.com в браузере - на этом ПК нет среды WebView2, чтобы показать их здесь.</value>
+  </data>
+  <data name="Item_CommentsOpen" xml:space="preserve">
+    <value>Открыть комментарии</value>
+  </data>
+  <data name="Item_AuthorToolTip" xml:space="preserve">
+    <value>Открыть страницу автора в Мастерской</value>
+  </data>
+  <data name="Item_PlayVideo" xml:space="preserve">
+    <value>Воспроизвести видео</value>
+  </data>
+  <data name="Item_Checking" xml:space="preserve">
+    <value>Проверка...</value>
+  </data>
+  <data name="Viewer_CounterFormat" xml:space="preserve">
+    <value>{0} / {1}</value>
+  </data>
+  <data name="Installed_UpdateAll_one" xml:space="preserve">
+    <value>Обновить {0:N0} предмет</value>
+  </data>
+  <data name="Installed_UpdateAll_few" xml:space="preserve">
+    <value>Обновить все ({0})</value>
+  </data>
+  <data name="Installed_UpdateAll_many" xml:space="preserve">
+    <value>Обновить все ({0})</value>
+  </data>
+  <data name="Browse_SelfModFormat" xml:space="preserve">
+    <value>{0} - это само приложение, а не мод SPT, поэтому в SPT оно не устанавливается - оно обновляется само на странице «Обновление приложения».</value>
+  </data>
+  <data name="Item_DateThisYearFormat" xml:space="preserve">
+    <value>{0:d MMM 'в' H:mm}</value>
+  </data>
+  <data name="Item_DateFormat" xml:space="preserve">
+    <value>{0:d MMM yyyy 'в' H:mm}</value>
+  </data>
+  <data name="Item_ChangeNoteUpdateFormat" xml:space="preserve">
+    <value>Обновление: {0}</value>
+  </data>
+  <data name="Item_ChangeNoteVersionFormat" xml:space="preserve">
+    <value>Версия {0}</value>
+  </data>
+  <data name="Item_ChangeNoteSptFormat" xml:space="preserve">
+    <value>Работает с SPT {0}</value>
+  </data>
+  <data name="Item_ChangeNotesShowingFormat" xml:space="preserve">
+    <value>Показаны записи {0}-{1} из {2}</value>
+  </data>
+  <data name="Item_ChangeNotesMore" xml:space="preserve">
+    <value>Показать более старые обновления</value>
+  </data>
+  <data name="Item_GuidLabel" xml:space="preserve">
+    <value>GUID:</value>
+  </data>
+  <data name="Item_SourceCodeLabel" xml:space="preserve">
+    <value>Исходный код:</value>
+  </data>
+  <data name="Item_SourceCodeLinkFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
+  <data name="Item_VirusTotalLabel" xml:space="preserve">
+    <value>Результаты VirusTotal:</value>
+  </data>
+  <data name="Item_VirusTotalOpen" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Item_DependencyVersionFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="Item_CheatNoticeLead" xml:space="preserve">
+    <value>Внимание:</value>
+  </data>
+  <data name="Item_CheatNotice" xml:space="preserve">
+    <value>Этот мод даёт возможности, похожие на обычные читы для мультиплеера, но создан исключительно для использования с SPT. Попытка использовать эту программу на официальных серверах EFT не сработает и приведёт к немедленному и вечному бану в EFT и SPT.</value>
+  </data>
+  <data name="Item_CheatNoticeMore" xml:space="preserve">
+    <value>Подробнее - в правилах размещения контента.</value>
+  </data>
+  <data name="Item_ProfileNoticeLead" xml:space="preserve">
+    <value>Примечание:</value>
+  </data>
+  <data name="Item_ProfileNotice" xml:space="preserve">
+    <value>Этот мод может навсегда изменить ваш профиль, и удалить его, возможно, не получится без создания нового профиля.</value>
+  </data>
+  <data name="Item_ProfileNoticeMore" xml:space="preserve">
+    <value>Подробнее.</value>
+  </data>
+  <data name="Item_CommentsNone" xml:space="preserve">
+    <value>У этого предмета нет раздела комментариев на sp-mod.com.</value>
+  </data>
+  <data name="Subscribe_RequiredTitle" xml:space="preserve">
+    <value>Дополнительные необходимые предметы</value>
+  </data>
+  <data name="Subscribe_RequiredIntroFormat" xml:space="preserve">
+    <value>Для правильной работы {0} необходимы все следующие предметы.</value>
+  </data>
+  <data name="Subscribe_RequiredClickNote" xml:space="preserve">
+    <value>Нажмите на любой из них, чтобы прочитать его страницу на sp-mod.com, прежде чем продолжить.</value>
+  </data>
+  <data name="Subscribe_RequiredAllNote" xml:space="preserve">
+    <value>В списке есть и предметы, которые нужны им самим. Если подписаться только на этот предмет, все они останутся в стороне, и без них SPT может его не загрузить.</value>
+  </data>
+  <data name="Subscribe_JustThisItem" xml:space="preserve">
+    <value>Подписаться только на этот предмет</value>
+  </data>
+  <data name="Subscribe_All" xml:space="preserve">
+    <value>Подписаться на все</value>
+  </data>
+  <data name="Item_JustSubscribedFormat" xml:space="preserve">
+    <value>Этот предмет добавлен в {0}. SPT загрузит его при следующем запуске.</value>
+  </data>
+  <data name="Item_JustSubscribedLink" xml:space="preserve">
+    <value>ваши подписки</value>
+  </data>
+  <data name="Browse_ChipSearchFormat" xml:space="preserve">
+    <value>Результаты для: «{0}»</value>
+  </data>
+  <data name="Browse_ChipCategoryFormat" xml:space="preserve">
+    <value>Тип контента: {0}</value>
+  </data>
+  <data name="Browse_ChipRemoveToolTip" xml:space="preserve">
+    <value>Убрать этот фильтр</value>
+  </data>
+  <data name="Workshop_ClearSearch" xml:space="preserve">
+    <value>Очистить поиск</value>
+  </data>
+  <data name="Collection_AddTitle" xml:space="preserve">
+    <value>Добавить в коллекцию</value>
+  </data>
+  <data name="Collection_AddIntroFormat" xml:space="preserve">
+    <value>«{0}» будет добавлен в выбранные ниже коллекции:</value>
+  </data>
+  <data name="Collection_AddNoneYet" xml:space="preserve">
+    <value>У вас нет сохранённых коллекций. Чтобы создать новую, введите её название ниже.</value>
+  </data>
+  <data name="Collection_CreateNew" xml:space="preserve">
+    <value>Создать новую коллекцию</value>
+  </data>
+  <data name="Collection_AddConfirm" xml:space="preserve">
+    <value>Добавить в выбранные коллекции</value>
+  </data>
+  <data name="Collection_AddToolTip" xml:space="preserve">
+    <value>Добавить в одну из ваших коллекций</value>
+  </data>
+  <data name="Collection_Added_one" xml:space="preserve">
+    <value>{0} добавлен в {1} коллекцию.</value>
+  </data>
+  <data name="Collection_Added_few" xml:space="preserve">
+    <value>{0} добавлен в {1} коллекции.</value>
+  </data>
+  <data name="Collection_Added_many" xml:space="preserve">
+    <value>{0} добавлен в {1} коллекций.</value>
+  </data>
+  <data name="Collection_Removed_one" xml:space="preserve">
+    <value>{0} убран из {1} коллекции.</value>
+  </data>
+  <data name="Collection_Removed_few" xml:space="preserve">
+    <value>{0} убран из {1} коллекций.</value>
+  </data>
+  <data name="Collection_Removed_many" xml:space="preserve">
+    <value>{0} убран из {1} коллекций.</value>
+  </data>
+  <data name="Collection_ItemCount_one" xml:space="preserve">
+    <value>{0:N0} предмет</value>
+  </data>
+  <data name="Collection_ItemCount_few" xml:space="preserve">
+    <value>{0:N0} предмета</value>
+  </data>
+  <data name="Collection_ItemCount_many" xml:space="preserve">
+    <value>{0:N0} предметов</value>
+  </data>
+  <data name="Item_InCollections_one" xml:space="preserve">
+    <value>В {0:N0} ВАШЕЙ КОЛЛЕКЦИИ</value>
+  </data>
+  <data name="Item_InCollections_few" xml:space="preserve">
+    <value>В {0:N0} ВАШИХ КОЛЛЕКЦИЯХ</value>
+  </data>
+  <data name="Item_InCollections_many" xml:space="preserve">
+    <value>В {0:N0} ВАШИХ КОЛЛЕКЦИЯХ</value>
+  </data>
+  <data name="Collection_ViewPage" xml:space="preserve">
+    <value>Открыть коллекцию</value>
+  </data>
+  <data name="Collection_ViewPageToolTip" xml:space="preserve">
+    <value>Посмотреть эту коллекцию как её страницу в Мастерской</value>
+  </data>
+  <data name="Collection_ItemsHeader" xml:space="preserve">
+    <value>ПРЕДМЕТЫ</value>
+  </data>
+  <data name="Collection_ItemsCountFormat" xml:space="preserve">
+    <value>({0:N0})</value>
+  </data>
+  <data name="Collection_CreatedBy_one" xml:space="preserve">
+    <value>КОЛЛЕКЦИЯ ИЗ {0:N0} ПРЕДМЕТА. СОЗДАТЕЛИ:</value>
+  </data>
+  <data name="Collection_CreatedBy_few" xml:space="preserve">
+    <value>КОЛЛЕКЦИЯ ИЗ {0:N0} ПРЕДМЕТОВ. СОЗДАТЕЛИ:</value>
+  </data>
+  <data name="Collection_CreatedBy_many" xml:space="preserve">
+    <value>КОЛЛЕКЦИЯ ИЗ {0:N0} ПРЕДМЕТОВ. СОЗДАТЕЛИ:</value>
+  </data>
+  <data name="Collection_NoItems" xml:space="preserve">
+    <value>В этой коллекции нет предметов</value>
+  </data>
+  <data name="Collection_SubscribeAll" xml:space="preserve">
+    <value>Подписаться на все</value>
+  </data>
+  <data name="Collection_UnsubscribeAll" xml:space="preserve">
+    <value>Отписаться от всех</value>
+  </data>
+  <data name="Collection_SaveToCollection" xml:space="preserve">
+    <value>Сохранить в коллекцию</value>
+  </data>
+  <data name="Collection_Manage" xml:space="preserve">
+    <value>Управлять в «Коллекциях»</value>
+  </data>
+  <data name="Collection_SubscribeAllTitle" xml:space="preserve">
+    <value>Подписаться на все</value>
+  </data>
+  <data name="Collection_SubscribeAllBody" xml:space="preserve">
+    <value>Добавить предметы из этой коллекции к вашим подпискам или заменить подписки, чтобы в них остались только предметы из этой коллекции?</value>
+  </data>
+  <data name="Collection_AddOnly" xml:space="preserve">
+    <value>Только добавить</value>
+  </data>
+  <data name="Collection_Overwrite" xml:space="preserve">
+    <value>Заменить мои подписки</value>
+  </data>
+  <data name="Collection_OverwriteBody" xml:space="preserve">
+    <value>Вы уверены, что хотите заменить свои подписки? Каждый мод, которого нет в этой коллекции, будет отложен (отключён, а не удалён), и его можно будет снова включить в «Ваши подписки». Возможно, сначала стоит сохранить текущие подписки в коллекцию. Страница «Коллекции» покажет всё, что изменится, до того как это произойдёт.</value>
+  </data>
+  <data name="Collection_OverwriteYes" xml:space="preserve">
+    <value>Да, заменить мои подписки</value>
+  </data>
+  <data name="Collection_SaveCurrent" xml:space="preserve">
+    <value>Сохранить текущие подписки в коллекцию</value>
+  </data>
+  <data name="Collection_CaptureHint" xml:space="preserve">
+    <value>Назовите новую коллекцию и нажмите «Записать», чтобы сохранить то, что установлено сейчас.</value>
+  </data>
+  <data name="Collection_UnsubscribeAllBody_one" xml:space="preserve">
+    <value>{0:N0} установленный предмет из этой коллекции можно отложить (отключить - он вернётся одним щелчком в «Ваши подписки») или удалить (его файлы будут удалены, а файлы конфигурации сначала скопированы в сторону).</value>
+  </data>
+  <data name="Collection_UnsubscribeAllBody_few" xml:space="preserve">
+    <value>{0:N0} установленных предмета из этой коллекции можно отложить (отключить - они вернутся одним щелчком в «Ваши подписки») или удалить (их файлы будут удалены, а файлы конфигурации сначала скопированы в сторону).</value>
+  </data>
+  <data name="Collection_UnsubscribeAllBody_many" xml:space="preserve">
+    <value>{0:N0} установленных предметов из этой коллекции можно отложить (отключить - они вернутся одним щелчком в «Ваши подписки») или удалить (их файлы будут удалены, а файлы конфигурации сначала скопированы в сторону).</value>
+  </data>
+  <data name="Collection_NothingInstalled" xml:space="preserve">
+    <value>Ни один предмет из этой коллекции не установлен.</value>
+  </data>
+  <data name="Collection_NamePrompt" xml:space="preserve">
+    <value>Введите название для этой коллекции:</value>
+  </data>
+  <data name="Collection_CopyNameFormat" xml:space="preserve">
+    <value>{0} (копия)</value>
+  </data>
+  <data name="Collection_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Collection_SavedFormat" xml:space="preserve">
+    <value>Сохранено как {0}.</value>
+  </data>
+  <data name="Collection_ByHandNote" xml:space="preserve">
+    <value>Нет на sp-mod.com - установите вручную.</value>
+  </data>
+  <data name="Collection_AddonNote" xml:space="preserve">
+    <value>Аддон - устанавливается со страницы своего мода.</value>
+  </data>
+  <data name="Collection_Posted" xml:space="preserve">
+    <value>Добавлена</value>
+  </data>
+  <data name="Collection_Updated" xml:space="preserve">
+    <value>Изменена</value>
+  </data>
+  <data name="Collection_SubscribeToolTip" xml:space="preserve">
+    <value>Подписаться</value>
+  </data>
+  <data name="Collection_UnsubscribeToolTip" xml:space="preserve">
+    <value>Отписаться</value>
+  </data>
+  <data name="Collection_ItemCreatedBy" xml:space="preserve">
+    <value>Автор:</value>
+  </data>
+  <data name="Menu_Open" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Menu_QuickView" xml:space="preserve">
+    <value>Быстрый просмотр</value>
+  </data>
+  <data name="Menu_AddToCollection" xml:space="preserve">
+    <value>Добавить в коллекцию...</value>
+  </data>
+  <data name="QuickView_CreatedBy" xml:space="preserve">
+    <value>СОЗДАТЕЛИ:</value>
+  </data>
+  <data name="QuickView_Posted" xml:space="preserve">
+    <value>ДОБАВЛЕН:</value>
+  </data>
+  <data name="QuickView_Updated" xml:space="preserve">
+    <value>ИЗМЕНЁН:</value>
+  </data>
+  <data name="QuickView_FileSize" xml:space="preserve">
+    <value>РАЗМЕР ФАЙЛА:</value>
+  </data>
+  <data name="QuickView_Downloads" xml:space="preserve">
+    <value>ЗАГРУЗОК:</value>
+  </data>
+  <data name="QuickView_Favorites" xml:space="preserve">
+    <value>В ИЗБРАННОМ:</value>
+  </data>
+  <data name="QuickView_Tags" xml:space="preserve">
+    <value>МЕТКИ</value>
+  </data>
+  <data name="QuickView_SeeMore" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="Browse_SearchFieldsPrompt" xml:space="preserve">
+    <value>Укажите, в каких текстовых полях предмета искать:</value>
+  </data>
+  <data name="Browse_SearchTitleAndDescription" xml:space="preserve">
+    <value>Название и описание</value>
+  </data>
+  <data name="Browse_SearchTitleOnly" xml:space="preserve">
+    <value>Только название</value>
+  </data>
+  <data name="Browse_SearchDescriptionOnly" xml:space="preserve">
+    <value>Только описание</value>
+  </data>
+  <data name="Browse_SearchAuthorHint" xml:space="preserve">
+    <value>Начните поиск с @, чтобы найти предметы автора мода: @Acidphantasm покажет всё, что сделал Acidphantasm.</value>
+  </data>
+  <data name="Browse_SearchDescriptionNote" xml:space="preserve">
+    <value>Поиск по описаниям выполняется на sp-mod.com, а он возвращает 20 лучших совпадений.</value>
+  </data>
+  <data name="Browse_ChipSearchTitleOnlyFormat" xml:space="preserve">
+    <value>Результаты для: «{0}» (только название)</value>
+  </data>
+  <data name="Browse_ChipSearchDescriptionOnlyFormat" xml:space="preserve">
+    <value>Результаты для: «{0}» (только описание)</value>
+  </data>
+  <data name="Browse_FilterByDate" xml:space="preserve">
+    <value>Фильтр по дате</value>
+  </data>
+  <data name="Browse_PostedDate" xml:space="preserve">
+    <value>ДАТА ДОБАВЛЕНИЯ</value>
+  </data>
+  <data name="Browse_DateLastUpdated" xml:space="preserve">
+    <value>ДАТА ПОСЛЕДНЕГО ОБНОВЛЕНИЯ</value>
+  </data>
+  <data name="Browse_DateBetween" xml:space="preserve">
+    <value>С</value>
+  </data>
+  <data name="Browse_DateAnd" xml:space="preserve">
+    <value>По</value>
+  </data>
+  <data name="Browse_ChipPostedBetween" xml:space="preserve">
+    <value>Добавлены с {0} по {1}</value>
+  </data>
+  <data name="Browse_ChipPostedAfter" xml:space="preserve">
+    <value>Добавлены после {0}</value>
+  </data>
+  <data name="Browse_ChipPostedBefore" xml:space="preserve">
+    <value>Добавлены до {0}</value>
+  </data>
+  <data name="Browse_ChipUpdatedBetween" xml:space="preserve">
+    <value>Изменены с {0} по {1}</value>
+  </data>
+  <data name="Browse_ChipUpdatedAfter" xml:space="preserve">
+    <value>Изменены после {0}</value>
+  </data>
+  <data name="Browse_ChipUpdatedBefore" xml:space="preserve">
+    <value>Изменены до {0}</value>
+  </data>
+  <data name="Installed_HeldBackFormat" xml:space="preserve">
+    <value>Обновление до {0} задержано: {1}.</value>
+  </data>
+  <data name="Installed_HeldBackNeedsFormat" xml:space="preserve">
+    <value>{0} нужна {1}</value>
+  </data>
+  <data name="Installed_HeldBackChainFormat" xml:space="preserve">
+    <value>Обновление до {0} задержано: ему нужно другое обновление, которое тоже задержано.</value>
+  </data>
+  <data name="Installed_HeldBackPlainFormat" xml:space="preserve">
+    <value>Обновление до {0} задержано sp-mod.com.</value>
+  </data>
+  <data name="Installed_UpdatesHeldBack_one" xml:space="preserve">
+    <value>{1} не тронут: sp-mod.com задерживает его обновление. Его собственное окно обновления всё равно может его установить.</value>
+  </data>
+  <data name="Installed_UpdatesHeldBack_few" xml:space="preserve">
+    <value>{1} не тронуты: sp-mod.com задерживает их обновления. Окно обновления каждого из них всё равно может его установить.</value>
+  </data>
+  <data name="Installed_UpdatesHeldBack_many" xml:space="preserve">
+    <value>{1} не тронуты: sp-mod.com задерживает их обновления. Окно обновления каждого из них всё равно может его установить.</value>
+  </data>
+  <data name="Item_VersionVerified" xml:space="preserve">
+    <value>Проверка пройдена</value>
+  </data>
+  <data name="Item_VersionVerifiedToolTipFormat" xml:space="preserve">
+    <value>sp-mod.com проверил эту загрузку {0} и записал файлы в ней.</value>
+  </data>
+  <data name="Item_VersionFiles_one" xml:space="preserve">
+    <value>Файлы в этой загрузке ({0:N0})</value>
+  </data>
+  <data name="Item_VersionFiles_few" xml:space="preserve">
+    <value>Файлы в этой загрузке ({0:N0})</value>
+  </data>
+  <data name="Item_VersionFiles_many" xml:space="preserve">
+    <value>Файлы в этой загрузке ({0:N0})</value>
+  </data>
+  <data name="Item_VersionFilesTruncated" xml:space="preserve">
+    <value>В загрузке больше файлов, чем записано на sp-mod.com, поэтому этот список неполный.</value>
+  </data>
+  <data name="Play_StopServer" xml:space="preserve">
+    <value>Остановить сервер</value>
+  </data>
+  <data name="Play_StopServerToolTip" xml:space="preserve">
+    <value>Выключить сервер этой установки</value>
+  </data>
+  <data name="Play_StopServerWarning" xml:space="preserve">
+    <value>Все, кто сейчас в рейде на этом сервере, его потеряют. Остановить сервер?</value>
+  </data>
+  <data name="Play_StopServerConfirm" xml:space="preserve">
+    <value>Остановить</value>
+  </data>
+  <data name="Play_StoppedFormat" xml:space="preserve">
+    <value>{0} остановлен.</value>
+  </data>
+  <data name="Play_WaitingForServer" xml:space="preserve">
+    <value>Сервер запускается - лаунчер откроется, как только сервер заработает.</value>
+  </data>
+  <data name="Play_ServerNotUpFormat" xml:space="preserve">
+    <value>За три минуты сервер так и не начал слушать порт {0}, поэтому лаунчер не открыт. Откройте его сами, когда сервер будет готов.</value>
+  </data>
+  <data name="Options_LaunchHeader" xml:space="preserve">
+    <value>Запуск игры</value>
+  </data>
+  <data name="Options_LaunchDescription" xml:space="preserve">
+    <value>«Запустить сервер» на странице «Играть» может сам открыть лаунчер SPT, как только сервер заработает (начнёт слушать свой порт).</value>
+  </data>
+  <data name="Workshop_Follow" xml:space="preserve">
+    <value>+ Отслеживать</value>
+  </data>
+  <data name="Workshop_Following" xml:space="preserve">
+    <value>Отслеживается</value>
+  </data>
+  <data name="Workshop_Unfollow" xml:space="preserve">
+    <value>Не отслеживать</value>
+  </data>
+  <data name="Workshop_FollowFormat" xml:space="preserve">
+    <value>Отслеживать {0}</value>
+  </data>
+  <data name="Workshop_UnfollowFormat" xml:space="preserve">
+    <value>Не отслеживать {0}</value>
+  </data>
+  <data name="WorkshopHome_FromFollowed" xml:space="preserve">
+    <value>От отслеживаемых авторов</value>
+  </data>
+  <data name="WorkshopHome_FromFollowedNote" xml:space="preserve">
+    <value>Недавно добавленные предметы авторов, которых вы отслеживаете</value>
+  </data>
+  <data name="Browse_CreatedByFollowed" xml:space="preserve">
+    <value>От отслеживаемых авторов</value>
+  </data>
+  <data name="Play_ServerPortTakenFormat" xml:space="preserve">
+    <value>Порт {0} уже кто-то слушал до запуска сервера, поэтому нельзя понять, когда сервер заработает, - лаунчер не открыт. Откройте его сами, когда сервер будет готов.</value>
+  </data>
+  <data name="FileClash_Title" xml:space="preserve">
+    <value>Файлы уже есть</value>
+  </data>
+  <data name="FileClash_IntroFormat" xml:space="preserve">
+    <value>{0} {1} кладёт файлы туда, где уже лежат эти:</value>
+  </data>
+  <data name="FileClash_ByHandFormat" xml:space="preserve">
+    <value>в папке {0}</value>
+  </data>
+  <data name="FileClash_Unknown" xml:space="preserve">
+    <value>положен вручную или другой программой</value>
+  </data>
+  <data name="FileClash_MoreFormat" xml:space="preserve">
+    <value>и ещё {0:N0}</value>
+  </data>
+  <data name="FileClash_Outro" xml:space="preserve">
+    <value>Установка заменит их, и мод, которому они принадлежат, может перестать работать. Список взят из проверки загрузки этой версии на sp-mod.com.</value>
+  </data>
+  <data name="FileClash_InstallAnyway" xml:space="preserve">
+    <value>Всё равно установить</value>
+  </data>
+  <data name="Installed_RemovedMany_one" xml:space="preserve">
+    <value>Удалён {0:N0} мод.</value>
+  </data>
+  <data name="Installed_RemovedMany_few" xml:space="preserve">
+    <value>Удалено {0:N0} мода.</value>
+  </data>
+  <data name="Installed_RemovedMany_many" xml:space="preserve">
+    <value>Удалено {0:N0} модов.</value>
+  </data>
+  <data name="Installed_RemoveSkippedDisabled_one" xml:space="preserve">
+    <value>{1} отложен (отключён) и не тронут - включите его, чтобы удалить.</value>
+  </data>
+  <data name="Installed_RemoveSkippedDisabled_few" xml:space="preserve">
+    <value>{1} отложены (отключены) и не тронуты - включите их, чтобы удалить.</value>
+  </data>
+  <data name="Installed_RemoveSkippedDisabled_many" xml:space="preserve">
+    <value>{1} отложены (отключены) и не тронуты - включите их, чтобы удалить.</value>
+  </data>
+  <data name="Collection_SetAside" xml:space="preserve">
+    <value>Отложить</value>
+  </data>
+  <data name="Collection_RemoveAll" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="FollowedAuthors_Title" xml:space="preserve">
+    <value>Отслеживаемые авторы</value>
+  </data>
+  <data name="FollowedAuthors_Header" xml:space="preserve">
+    <value>ОТСЛЕЖИВАЕМЫЕ АВТОРЫ</value>
+  </data>
+  <data name="FollowedAuthors_Empty" xml:space="preserve">
+    <value>Вы пока никого не отслеживаете. Отслеживайте автора из панели СОЗДАТЕЛИ на странице любого из его предметов или из контекстного меню на всём, что он сделал.</value>
+  </data>
+  <data name="FollowedAuthors_ViewAllItems" xml:space="preserve">
+    <value>Все их предметы</value>
+  </data>
+  <data name="FollowedAuthors_TheirItems" xml:space="preserve">
+    <value>Предметы автора</value>
+  </data>
+  <data name="FollowedAuthors_Items_one" xml:space="preserve">
+    <value>{0:N0} предмет</value>
+  </data>
+  <data name="FollowedAuthors_Items_few" xml:space="preserve">
+    <value>{0:N0} предмета</value>
+  </data>
+  <data name="FollowedAuthors_Items_many" xml:space="preserve">
+    <value>{0:N0} предметов</value>
+  </data>
+  <data name="FollowedAuthors_NewestFormat" xml:space="preserve">
+    <value>- последний добавлен {0}</value>
+  </data>
+  <data name="Installed_NotForSptFormat" xml:space="preserve">
+    <value>Версия {0} не работает на SPT {1}, и более новой подходящей нет.</value>
+  </data>
+  <data name="Installed_NotForSptWithFormat" xml:space="preserve">
+    <value>Версия {0} не работает на SPT {1}; версия {2} работает (переключиться на неё можно на вкладке «Версии» или в окне обновления).</value>
+  </data>
+  <data name="FileClash_Partial" xml:space="preserve">
+    <value>sp-mod.com перечисляет только часть файлов этой загрузки, так что их может быть больше.</value>
+  </data>
+  <data name="RemoveCheck_Title" xml:space="preserve">
+    <value>Перед удалением</value>
+  </data>
+  <data name="RemoveCheck_RemoveAnyway" xml:space="preserve">
+    <value>Всё равно удалить</value>
+  </data>
+  <data name="Options_ScrollingHeader" xml:space="preserve">
+    <value>Прокрутка</value>
+  </data>
+  <data name="Options_ScrollingDescription" xml:space="preserve">
+    <value>Плавная прокрутка плавно ведёт страницу туда, куда её переносит каждый поворот колёсика мыши, как в браузере. Если её выключить, страница сразу перескакивает туда. В обоих случаях она сдвигается на одно и то же расстояние.</value>
+  </data>
+  <data name="Installed_UnsubscribeTitleFormat" xml:space="preserve">
+    <value>Отписаться от {0}?</value>
+  </data>
+  <data name="Installed_UnsubscribeConfigs_one" xml:space="preserve">
+    <value>У {0} есть {1} собственный файл конфигурации или настроек. «Отписаться, сохранить конфигурации» сначала откладывает его в {2}; «Отписаться, удалить конфигурации» удаляет его вместе с остальным предметом.</value>
+  </data>
+  <data name="Installed_UnsubscribeConfigs_few" xml:space="preserve">
+    <value>У {0} есть {1} собственных файла конфигурации или настроек. «Отписаться, сохранить конфигурации» сначала откладывает их в {2}; «Отписаться, удалить конфигурации» удаляет их вместе с остальным предметом.</value>
+  </data>
+  <data name="Installed_UnsubscribeConfigs_many" xml:space="preserve">
+    <value>У {0} есть {1} собственных файлов конфигурации или настроек. «Отписаться, сохранить конфигурации» сначала откладывает их в {2}; «Отписаться, удалить конфигурации» удаляет их вместе с остальным предметом.</value>
+  </data>
+  <data name="Installed_UnsubscribeKeepConfigs" xml:space="preserve">
+    <value>Отписаться, сохранить конфигурации</value>
+  </data>
+  <data name="Installed_UnsubscribeDeleteConfigs" xml:space="preserve">
+    <value>Отписаться, удалить конфигурации</value>
+  </data>
+  <data name="Installed_UnsubscribeDontAsk" xml:space="preserve">
+    <value>Больше не спрашивать</value>
+  </data>
+  <data name="Installed_UnsubscribeDontAskNote" xml:space="preserve">
+    <value>Вернуть этот вопрос можно в «Параметры» &gt; «Отписка». Без вопроса файлы конфигурации всегда сохраняются.</value>
+  </data>
+  <data name="Options_UnsubscribeHeader" xml:space="preserve">
+    <value>Отписка</value>
+  </data>
+  <data name="Install_LayoutTitleFormat" xml:space="preserve">
+    <value>Куда устанавливать {0}?</value>
+  </data>
+  <data name="Install_LayoutBodyFormat" xml:space="preserve">
+    <value>В архиве {0} {1} нет ни одной из папок, которые обычно есть в архиве мода (BepInEx, user). В нём:</value>
+  </data>
+  <data name="Install_LayoutMoreFormat" xml:space="preserve">
+    <value>...и ещё {0}</value>
+  </data>
+  <data name="Install_LayoutAdvice" xml:space="preserve">
+    <value>Клиентский мод (DLL, которые загружает игра) ставится в BepInEx\plugins; серверный мод (папка с package.json) - в user\mods. Если не уверены, загляните на страницу мода.</value>
+  </data>
+  <data name="Install_LayoutClient" xml:space="preserve">
+    <value>Клиентский мод - BepInEx\plugins</value>
+  </data>
+  <data name="Install_LayoutServer" xml:space="preserve">
+    <value>Серверный мод - user\mods</value>
+  </data>
+  <data name="Options_AnimationsHeader" xml:space="preserve">
+    <value>Анимации</value>
+  </data>
+  <data name="Options_AnimationsSummary" xml:space="preserve">
+    <value>Карточки приподнимаются под указателем, страницы выезжают</value>
+  </data>
+  <data name="Options_AnimationsDescription" xml:space="preserve">
+    <value>Если выключить, карточки Мастерской под указателем не двигаются, а страницы сменяются сразу. Уже открытые страницы ведут себя по-старому до перезапуска SSPTMM. У плавной прокрутки свой переключатель выше.</value>
+  </data>
+  <data name="Options_CatalogHeader" xml:space="preserve">
+    <value>Адрес каталога</value>
+  </data>
+  <data name="Options_CatalogHint" xml:space="preserve">
+    <value>Откуда берётся список модов: sp-mod.com или его зеркало, когда сайт недоступен</value>
+  </data>
+  <data name="Options_CatalogDescription" xml:space="preserve">
+    <value>Зеркало должно отвечать как API sp-mod.com (/api/v0) с теми же модами и id - это проверяется перед сохранением. Комментарии, списки модов и ссылки на sp-mod.com остаются за sp-mod.com. Применяется со следующего запуска SSPTMM. Оставьте поле пустым для sp-mod.com.</value>
+  </data>
+  <data name="Options_CatalogUse" xml:space="preserve">
+    <value>Проверить и использовать</value>
+  </data>
+  <data name="Options_CatalogReset" xml:space="preserve">
+    <value>Использовать sp-mod.com</value>
+  </data>
+  <data name="Options_CatalogNotAnAddress" xml:space="preserve">
+    <value>Это не веб-адрес https.</value>
+  </data>
+  <data name="Options_CatalogChecking" xml:space="preserve">
+    <value>Проверка...</value>
+  </data>
+  <data name="Options_CatalogNoAnswerFormat" xml:space="preserve">
+    <value>{0} отвечает не так, как каталог sp-mod.com, поэтому адрес не сохранён.</value>
+  </data>
+  <data name="Options_CatalogNextStart" xml:space="preserve">
+    <value>Сохранено. SSPTMM будет использовать его со следующего запуска.</value>
+  </data>
+  <data name="Options_WhileRunningHeader" xml:space="preserve">
+    <value>Разрешить изменения, пока SPT работает</value>
+  </data>
+  <data name="Options_WhileRunningSummary" xml:space="preserve">
+    <value>Спрашивать, а не отказывать, когда открыт сервер SPT или игра</value>
+  </data>
+  <data name="Options_WhileRunningDescription" xml:space="preserve">
+    <value>Если выключено, моды нельзя устанавливать, удалять, включать, отключать или менять списком, пока работает сервер SPT или игра. Если включено, вас сначала спросят, и можно продолжить всё равно. Файлы, открытые игрой, могут не переместиться, и мод останется изменённым наполовину, - «Вернуть» возвращает то, что переместилось, а сервер и игра увидят изменение только после перезапуска. Профили никогда не восстанавливаются, пока SPT работает: сервер записал бы их обратно.</value>
+  </data>
+  <data name="InUse_ConfirmTitle" xml:space="preserve">
+    <value>SPT всё ещё работает</value>
+  </data>
+  <data name="InUse_ConfirmFormat" xml:space="preserve">
+    <value>Всё ещё открыто: {0}. Всё равно изменить моды?
+
+Открытые файлы могут не переместиться, и мод останется изменённым наполовину, - «Вернуть» возвращает то, что переместилось. Изменение будет видно только после перезапуска SPT и игры.</value>
+  </data>
+  <data name="InUse_GoAhead" xml:space="preserve">
+    <value>Всё равно изменить</value>
+  </data>
+  <data name="Options_UnsubscribeDescription" xml:space="preserve">
+    <value>Перед удалением файлов предмета появляется вопрос: что будет удалено и что делать с его файлами конфигурации. Если выключить, предметы удаляются сразу, а их файлы конфигурации всегда сохраняются в папке LegacyConfigs - с предупреждением только тогда, когда их используют другие предметы или будут удалены папки, установленные вручную.</value>
+  </data>
+  <data name="Installed_UnsubscribeSelected" xml:space="preserve">
+    <value>Отписаться от выбранных</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedTitle_one" xml:space="preserve">
+    <value>Отписаться от {0:N0} предмета?</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedTitle_few" xml:space="preserve">
+    <value>Отписаться от {0:N0} предметов?</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedTitle_many" xml:space="preserve">
+    <value>Отписаться от {0:N0} предметов?</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedBody_one" xml:space="preserve">
+    <value>Файлы {0:N0} выбранного предмета будут удалены. Файлы конфигурации сохранятся - сначала они будут отложены в {1}.</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedBody_few" xml:space="preserve">
+    <value>Файлы {0:N0} выбранных предметов будут удалены. Их файлы конфигурации сохранятся - сначала они будут отложены в {1}.</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedBody_many" xml:space="preserve">
+    <value>Файлы {0:N0} выбранных предметов будут удалены. Их файлы конфигурации сохранятся - сначала они будут отложены в {1}.</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedDisableHint" xml:space="preserve">
+    <value>Чтобы убрать их из игры, не удаляя, используйте «Отключить выбранные».</value>
+  </data>
+  <data name="Sort_GroupsByCategory" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Installed_NoCategory" xml:space="preserve">
+    <value>Без категории</value>
+  </data>
+  <data name="Installed_ByCategoryNote" xml:space="preserve">
+    <value>Сортировка по категориям: ваши собственные группы снова появятся при другом варианте «Сортировка групп», и там же предметы можно перетаскивать между группами.</value>
+  </data>
+  <data name="Installed_CategoryRowToolTip" xml:space="preserve">
+    <value>Нажмите, чтобы увидеть подробности</value>
+  </data>
+  <data name="RemoveCheck_NeededIntro_one" xml:space="preserve">
+    <value>Эти установленные предметы используют то, что удаляется, и могут перестать работать:</value>
+  </data>
+  <data name="RemoveCheck_NeededIntro_few" xml:space="preserve">
+    <value>Эти установленные предметы используют удаляемые предметы и могут перестать работать:</value>
+  </data>
+  <data name="RemoveCheck_NeededIntro_many" xml:space="preserve">
+    <value>Эти установленные предметы используют удаляемые предметы и могут перестать работать:</value>
+  </data>
+  <data name="RemoveCheck_FoldersIntro_one" xml:space="preserve">
+    <value>Это установлено вручную, поэтому при удалении будет стёрто:</value>
+  </data>
+  <data name="RemoveCheck_FoldersIntro_few" xml:space="preserve">
+    <value>Эти предметы установлены вручную, поэтому при их удалении будут стёрты эти папки:</value>
+  </data>
+  <data name="RemoveCheck_FoldersIntro_many" xml:space="preserve">
+    <value>Эти предметы установлены вручную, поэтому при их удалении будут стёрты эти папки:</value>
+  </data>
+  <data name="ReadModPage_ReaderIntro" xml:space="preserve">
+    <value>Страница каждого предмета в том виде, как её написал автор: шаги установки, требования, известные конфликты и предупреждения. Прочитайте её здесь или откройте на sp-mod.com.</value>
+  </data>
+  <data name="ReadModPage_Read" xml:space="preserve">
+    <value>Читать здесь</value>
+  </data>
+  <data name="ReadModPage_Hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="ReadModPage_Loading" xml:space="preserve">
+    <value>Загрузка страницы...</value>
+  </data>
+  <data name="ReadModPage_LoadFailed" xml:space="preserve">
+    <value>Не удалось загрузить страницу здесь - «Открыть страницу» покажет её на sp-mod.com.</value>
+  </data>
+  <data name="ReadModPage_Empty" xml:space="preserve">
+    <value>Автор здесь ничего не написал.</value>
+  </data>
+  <data name="ReadModPage_ChangeNotesFormat" xml:space="preserve">
+    <value>Список изменений {0}</value>
+  </data>
+  <data name="Downloads_UsingKept" xml:space="preserve">
+    <value>Используется ранее скачанная копия - скачивать нечего.</value>
+  </data>
+  <data name="Downloads_WaitingToDownload" xml:space="preserve">
+    <value>Ожидание свободного слота загрузки...</value>
+  </data>
+  <data name="Downloads_WaitingToInstall" xml:space="preserve">
+    <value>Скачано - ждёт своей очереди на установку.</value>
+  </data>
+  <data name="Downloads_RetryingFormat" xml:space="preserve">
+    <value>Загрузка не удалась - новая попытка через {0:N0} с.</value>
+  </data>
+  <data name="Options_DownloadsHeader" xml:space="preserve">
+    <value>Загрузки</value>
+  </data>
+  <data name="Options_DownloadsDescription" xml:space="preserve">
+    <value>Одновременно скачиваются до трёх предметов, пока устанавливаются предыдущие. Скачанные файлы сохраняются (до 4 ГБ, первыми уходят те, что использовались давнее всего), поэтому повторная подписка на ту же версию - после отписки, возврата версии или повторного применения списка модов - не скачивает её заново.</value>
+  </data>
+  <data name="Options_DownloadsClear" xml:space="preserve">
+    <value>Удалить сохранённые файлы</value>
+  </data>
+  <data name="Options_DownloadsSizeFormat" xml:space="preserve">
+    <value>Сохранено сейчас: {0}</value>
+  </data>
+  <data name="Workshop_BrowseModsHeader" xml:space="preserve">
+    <value>МОДЫ</value>
+  </data>
+  <data name="Workshop_BrowseCollectionsHeader" xml:space="preserve">
+    <value>КОЛЛЕКЦИИ</value>
+  </data>
+  <data name="Collections_Title" xml:space="preserve">
+    <value>Обзор коллекций</value>
+  </data>
+  <data name="Collections_BrowsingTitle" xml:space="preserve">
+    <value>Просмотр: Коллекции</value>
+  </data>
+  <data name="Collections_Breadcrumb" xml:space="preserve">
+    <value>Коллекции</value>
+  </data>
+  <data name="Collections_ByFormat" xml:space="preserve">
+    <value>Автор: {0}</value>
+  </data>
+  <data name="Collections_Contains_one" xml:space="preserve">
+    <value>Содержит {0:N0} предмет</value>
+  </data>
+  <data name="Collections_Contains_few" xml:space="preserve">
+    <value>Содержит {0:N0} предмета</value>
+  </data>
+  <data name="Collections_Contains_many" xml:space="preserve">
+    <value>Содержит {0:N0} предметов</value>
+  </data>
+  <data name="Collections_AllSptVersions" xml:space="preserve">
+    <value>Все версии SPT</value>
+  </data>
+  <data name="Collections_SortMostRecent" xml:space="preserve">
+    <value>Последние</value>
+  </data>
+  <data name="Collections_SearchPlaceholder" xml:space="preserve">
+    <value>Поиск коллекций или их авторов, или вставьте ссылку</value>
+  </data>
+  <data name="Collections_RefreshToolTip" xml:space="preserve">
+    <value>Заново загрузить коллекции с sp-mod.com</value>
+  </data>
+  <data name="Collections_SptFilterToolTip" xml:space="preserve">
+    <value>Только коллекции для этой версии SPT</value>
+  </data>
+  <data name="Collections_SidebarNote" xml:space="preserve">
+    <value>Коллекции - это публичные списки модов на sp-mod.com. Подписка на коллекцию устанавливает каждый предмет в версии для вашей версии SPT; предметы без такой версии пропускаются и перечисляются заранее.</value>
+  </data>
+  <data name="Collections_Loading" xml:space="preserve">
+    <value>Загрузка коллекций с sp-mod.com...</value>
+  </data>
+  <data name="Collections_NoMatches" xml:space="preserve">
+    <value>Ни одна коллекция не подходит под ваши фильтры.</value>
+  </data>
+  <data name="Collections_LoadFailedFormat" xml:space="preserve">
+    <value>Не удалось загрузить коллекции с sp-mod.com: {0}</value>
+  </data>
+  <data name="Collection_ViewOnSite" xml:space="preserve">
+    <value>Открыть на sp-mod.com</value>
+  </data>
+  <data name="Collection_ViewOnSiteToolTip" xml:space="preserve">
+    <value>Открыть страницу этой коллекции на sp-mod.com</value>
+  </data>
+  <data name="Collection_Loading" xml:space="preserve">
+    <value>Загрузка коллекции с sp-mod.com...</value>
+  </data>
+  <data name="Collection_TryAgain" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
+  <data name="Collection_PublicGone" xml:space="preserve">
+    <value>Этой коллекции больше нет на sp-mod.com, или она не публичная.</value>
+  </data>
+  <data name="Collection_PublicLoadFailedFormat" xml:space="preserve">
+    <value>Не удалось загрузить коллекцию с sp-mod.com: {0}</value>
+  </data>
+  <data name="Collection_ListAuthorToolTip" xml:space="preserve">
+    <value>Открыть страницу автора в Мастерской</value>
+  </data>
+  <data name="Collection_ForSptFormat" xml:space="preserve">
+    <value>Для SPT {0}</value>
+  </data>
+  <data name="Collection_NotInCatalogNote" xml:space="preserve">
+    <value>Пока нет в копии каталога sp-mod.com в этом приложении - нажмите, чтобы открыть на sp-mod.com, или обновите каталог в параметрах поиска «Обзора».</value>
+  </data>
+  <data name="Collection_AddonForFormat" xml:space="preserve">
+    <value>Аддон для {0} - «Подписаться на все» установит его вместе с модом.</value>
+  </data>
+  <data name="Collection_NoVersionForSptFormat" xml:space="preserve">
+    <value>Нет версии для SPT {0}</value>
+  </data>
+  <data name="Collection_UpdateToFormat" xml:space="preserve">
+    <value>Установлена {0} - для SPT {2} нужна версия {1}</value>
+  </data>
+  <data name="Collection_InstalledVersionFormat" xml:space="preserve">
+    <value>Установлена {0}</value>
+  </data>
+  <data name="Collection_VersionForSptFormat" xml:space="preserve">
+    <value>{0} для SPT {1}</value>
+  </data>
+  <data name="Collection_SummarySubscribedFormat" xml:space="preserve">
+    <value>В подписках {0:N0} из {1:N0} модов</value>
+  </data>
+  <data name="Collection_SummaryChecking" xml:space="preserve">
+    <value>поиск версии каждого предмета для вашей версии SPT...</value>
+  </data>
+  <data name="Collection_SummaryUpdates_one" xml:space="preserve">
+    <value>{0:N0} можно обновить</value>
+  </data>
+  <data name="Collection_SummaryUpdates_few" xml:space="preserve">
+    <value>{0:N0} можно обновить</value>
+  </data>
+  <data name="Collection_SummaryUpdates_many" xml:space="preserve">
+    <value>{0:N0} можно обновить</value>
+  </data>
+  <data name="Collection_SummaryNoVersion_one" xml:space="preserve">
+    <value>у {0:N0} нет версии для SPT {1}</value>
+  </data>
+  <data name="Collection_SummaryNoVersion_few" xml:space="preserve">
+    <value>у {0:N0} нет версии для SPT {1}</value>
+  </data>
+  <data name="Collection_SummaryNoVersion_many" xml:space="preserve">
+    <value>у {0:N0} нет версии для SPT {1}</value>
+  </data>
+  <data name="Collection_SummaryGone_one" xml:space="preserve">
+    <value>{0:N0} больше нет на sp-mod.com</value>
+  </data>
+  <data name="Collection_SummaryGone_few" xml:space="preserve">
+    <value>{0:N0} больше нет на sp-mod.com</value>
+  </data>
+  <data name="Collection_SummaryGone_many" xml:space="preserve">
+    <value>{0:N0} больше нет на sp-mod.com</value>
+  </data>
+  <data name="Collection_WhichVersionsTitle" xml:space="preserve">
+    <value>Какие версии?</value>
+  </data>
+  <data name="Collection_WhichVersionsBodyFormat" xml:space="preserve">
+    <value>Эта коллекция создана для SPT {0}, а в этой установке SPT {1}. Подписаться на версию каждого предмета для SPT {1} (предметы без неё будут пропущены) или на его версию для SPT {0}, как было у автора коллекции?</value>
+  </data>
+  <data name="Collection_VersionsForYoursFormat" xml:space="preserve">
+    <value>Для моей SPT ({0})</value>
+  </data>
+  <data name="Collection_VersionsForListFormat" xml:space="preserve">
+    <value>Для SPT коллекции ({0})</value>
+  </data>
+  <data name="Collection_FindingVersionsFormat" xml:space="preserve">
+    <value>Поиск версии каждого предмета для SPT {0}...</value>
+  </data>
+  <data name="Collection_LeftOut_one" xml:space="preserve">
+    <value>{0:N0} предмет будет пропущен:</value>
+  </data>
+  <data name="Collection_LeftOut_few" xml:space="preserve">
+    <value>{0:N0} предмета будут пропущены:</value>
+  </data>
+  <data name="Collection_LeftOut_many" xml:space="preserve">
+    <value>{0:N0} предметов будут пропущены:</value>
+  </data>
+  <data name="Collection_LeftOutItemFormat" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
+  <data name="Collection_AndMore_one" xml:space="preserve">
+    <value>и ещё {0:N0}</value>
+  </data>
+  <data name="Collection_AndMore_few" xml:space="preserve">
+    <value>и ещё {0:N0}</value>
+  </data>
+  <data name="Collection_AndMore_many" xml:space="preserve">
+    <value>и ещё {0:N0}</value>
+  </data>
+  <data name="Collection_SkipNoVersionFormat" xml:space="preserve">
+    <value>нет версии для SPT {0}</value>
+  </data>
+  <data name="Collection_SkipNotChecked" xml:space="preserve">
+    <value>не удалось узнать версию у sp-mod.com</value>
+  </data>
+  <data name="Collection_ShowMore" xml:space="preserve">
+    <value>Показать больше</value>
+  </data>
+  <data name="Collection_ShowLess" xml:space="preserve">
+    <value>Свернуть</value>
+  </data>
+  <data name="Collection_NothingToSubscribeFormat" xml:space="preserve">
+    <value>Ни на один предмет из этой коллекции нельзя подписаться для SPT {0} - причины перечислены ниже.</value>
+  </data>
+  <data name="Collections_SortOldest" xml:space="preserve">
+    <value>Сначала старые</value>
+  </data>
+  <data name="Collections_SortMostItems" xml:space="preserve">
+    <value>Больше всего предметов</value>
+  </data>
+  <data name="Collections_SortFewestItems" xml:space="preserve">
+    <value>Меньше всего предметов</value>
+  </data>
+  <data name="Collections_ReadingFormat" xml:space="preserve">
+    <value>Чтение коллекций с sp-mod.com... {0:N0} из {1:N0}</value>
+  </data>
+  <data name="Collections_MoreItemsFormat" xml:space="preserve">
+    <value>+{0:N0}</value>
+  </data>
+  <data name="Options_TabsBackgroundHeader" xml:space="preserve">
+    <value>Вкладки и фон</value>
+  </data>
+  <data name="Options_TabsBackgroundDescription" xml:space="preserve">
+    <value>Вкладки «Ваши подписки» и «Коллекции» рядом с «Мастерской» можно скрыть по отдельности - обе страницы остаются в меню Мастерская &gt; Ваши предметы. Вместо сетки Steam за окном можно поставить свою картинку.</value>
+  </data>
+  <data name="Options_SubscribedTabOn" xml:space="preserve">
+    <value>Вкладка «Ваши подписки» показана</value>
+  </data>
+  <data name="Options_SubscribedTabOff" xml:space="preserve">
+    <value>Вкладка «Ваши подписки» скрыта (Ваши предметы &gt; Ваши подписки)</value>
+  </data>
+  <data name="Options_CollectionsTabOn" xml:space="preserve">
+    <value>Вкладка «Коллекции» показана</value>
+  </data>
+  <data name="Options_CollectionsTabOff" xml:space="preserve">
+    <value>Вкладка «Коллекции» скрыта (Ваши предметы &gt; Ваши коллекции)</value>
+  </data>
+  <data name="Options_BackgroundChoose" xml:space="preserve">
+    <value>Выбрать картинку...</value>
+  </data>
+  <data name="Options_BackgroundUseGrid" xml:space="preserve">
+    <value>Использовать сетку Steam</value>
+  </data>
+  <data name="Options_BackgroundCurrentFormat" xml:space="preserve">
+    <value>Фон: {0}</value>
+  </data>
+  <data name="Options_BackgroundDarkness" xml:space="preserve">
+    <value>Затемнение</value>
+  </data>
+  <data name="Options_BackgroundChooseTitle" xml:space="preserve">
+    <value>Выберите картинку для фона</value>
+  </data>
+  <data name="Options_BackgroundPictures" xml:space="preserve">
+    <value>Изображения</value>
+  </data>
+  <data name="Options_BackgroundUnreadable" xml:space="preserve">
+    <value>Эту картинку здесь не удалось прочитать - остаётся сетка Steam.</value>
+  </data>
+  <data name="Options_BackgroundCopyFailedFormat" xml:space="preserve">
+    <value>Не удалось скопировать картинку: {0}</value>
+  </data>
+  <data name="Collection_Share" xml:space="preserve">
+    <value>Поделиться</value>
+  </data>
+  <data name="Collection_ShareToolTip" xml:space="preserve">
+    <value>Скопировать адрес этой коллекции на sp-mod.com</value>
+  </data>
+  <data name="Collection_DescriptionHeader" xml:space="preserve">
+    <value>ОПИСАНИЕ</value>
+  </data>
+  <data name="Collection_AssembledBy" xml:space="preserve">
+    <value>КОЛЛЕКЦИЮ СОСТАВИЛ</value>
+  </data>
+  <data name="Collection_ItemsLabel" xml:space="preserve">
+    <value>Предметы</value>
+  </data>
+  <data name="Author_WorkshopItems" xml:space="preserve">
+    <value>Предметы Мастерской</value>
+  </data>
+  <data name="Author_TabCollections" xml:space="preserve">
+    <value>Коллекции</value>
+  </data>
+  <data name="Author_Followers" xml:space="preserve">
+    <value>Подписчики</value>
+  </data>
+  <data name="Author_MemberSinceFormat" xml:space="preserve">
+    <value>Участник с {0:d MMM yyyy}</value>
+  </data>
+  <data name="Author_Staff" xml:space="preserve">
+    <value>Персонал</value>
+  </data>
+  <data name="Author_ShowingFormat" xml:space="preserve">
+    <value>Записи {0}-{1} из {2}</value>
+  </data>
+  <data name="Author_NoItemsFormat" xml:space="preserve">
+    <value>В каталоге нет предметов автора {0}.</value>
+  </data>
+  <data name="Author_NoCollections" xml:space="preserve">
+    <value>Нет публичных коллекций.</value>
+  </data>
+  <data name="Author_Reading" xml:space="preserve">
+    <value>Чтение страницы автора на sp-mod.com...</value>
+  </data>
+  <data name="Author_PageNotFound" xml:space="preserve">
+    <value>Страница автора на sp-mod.com не найдена.</value>
+  </data>
+  <data name="Author_PageFailedFormat" xml:space="preserve">
+    <value>Не удалось прочитать страницу автора на sp-mod.com: {0}</value>
+  </data>
+  <data name="Author_NoPage" xml:space="preserve">
+    <value>Страница этого автора на sp-mod.com здесь неизвестна, поэтому показаны только его предметы.</value>
+  </data>
+  <data name="Author_SubscribedToolTip" xml:space="preserve">
+    <value>В подписках</value>
+  </data>
+  <data name="Author_CollectionByFormat" xml:space="preserve">
+    <value>Коллекция от {0}</value>
+  </data>
+  <data name="Author_SearchInBrowse" xml:space="preserve">
+    <value>Найти его предметы в «Обзоре»</value>
+  </data>
+  <data name="Author_SearchInBrowseToolTip" xml:space="preserve">
+    <value>«Обзор» с @имя: все фильтры и сортировки по его предметам</value>
+  </data>
+  <data name="Author_ViewOnSiteToolTip" xml:space="preserve">
+    <value>Открыть страницу автора на sp-mod.com</value>
+  </data>
+  <data name="Collection_UpdateAllToolTip" xml:space="preserve">
+    <value>Обновить каждый предмет этой коллекции из ваших подписок, у которого есть более новая версия под вашу версию SPT</value>
+  </data>
+  <data name="Author_TabAddons" xml:space="preserve">
+    <value>Аддоны</value>
+  </data>
+  <data name="Author_AddonForFormat" xml:space="preserve">
+    <value>Аддон для {0}</value>
+  </data>
+  <data name="Author_FollowNote" xml:space="preserve">
+    <value>Следите за автором, чтобы первыми видеть его новые предметы на главной странице Мастерской и находить его в разделе Ваши предметы &gt; Отслеживаемые авторы.</value>
+  </data>
+  <data name="Collection_Favorite" xml:space="preserve">
+    <value>В избранное</value>
+  </data>
+  <data name="Collection_Favorited" xml:space="preserve">
+    <value>В избранном</value>
+  </data>
+  <data name="Collection_FavoriteToolTip" xml:space="preserve">
+    <value>Хранить эту коллекцию в разделе Ваши предметы &gt; Избранное, где видно, когда автор её меняет</value>
+  </data>
+  <data name="Favorites_Title" xml:space="preserve">
+    <value>Избранное</value>
+  </data>
+  <data name="Favorites_Header" xml:space="preserve">
+    <value>ИЗБРАННЫЕ КОЛЛЕКЦИИ</value>
+  </data>
+  <data name="Favorites_Browse" xml:space="preserve">
+    <value>Обзор коллекций</value>
+  </data>
+  <data name="Favorites_Checking" xml:space="preserve">
+    <value>Проверка каждой коллекции на sp-mod.com на изменения...</value>
+  </data>
+  <data name="Favorites_Empty" xml:space="preserve">
+    <value>В избранном пока пусто. Добавьте коллекцию в избранное с её страницы или из быстрого просмотра, и она будет храниться здесь.</value>
+  </data>
+  <data name="Favorites_Changed" xml:space="preserve">
+    <value>Изменена с тех пор, как вы открывали её в последний раз</value>
+  </data>
+  <data name="Favorites_CouldNotCheck" xml:space="preserve">
+    <value>Сейчас проверить не удалось</value>
+  </data>
+  <data name="App_DataProblemTitle" xml:space="preserve">
+    <value>Файл данных требует внимания</value>
+  </data>
+  <data name="App_DataDamagedFormat" xml:space="preserve">
+    <value>Файл {0} повреждён - скорее всего, из-за сбоя или отключения питания во время сохранения, - а пригодной резервной копии нет, поэтому приложение запускается без его содержимого. Ничего не удалено: повреждённая копия сохранена как {1}.</value>
+  </data>
+  <data name="App_DataNotKept" xml:space="preserve">
+    <value>(копию сделать не удалось - см. журнал)</value>
+  </data>
+  <data name="App_CloseWhileInstallingTitle" xml:space="preserve">
+    <value>Идёт установка</value>
+  </data>
+  <data name="App_CloseWhileInstallingFormat" xml:space="preserve">
+    <value>Сейчас устанавливается {0}. Закрытие прервёт установку на полпути; при следующем запуске приложения всё будет возвращено как было. Всё равно закрыть?</value>
+  </data>
+  <data name="Installed_WaitForInstallFormat" xml:space="preserve">
+    <value>Сейчас устанавливается {0}. Дождитесь окончания (см. «Загрузки») и попробуйте снова.</value>
+  </data>
+  <data name="ModLists_ImportClashTitle" xml:space="preserve">
+    <value>Импорт списка модов</value>
+  </data>
+  <data name="ModLists_ImportOwnListFormat" xml:space="preserve">
+    <value>В этом файле - «{0}», список, который вы создали в этом приложении. Если импортировать его поверх вашего, ваш станет доступен только для чтения, а все изменения, сделанные после сохранения файла, пропадут.
+
+Да - импортировать как отдельный список, а ваш оставить как есть
+Нет - заменить ваш файлом
+Отмена - не импортировать</value>
+  </data>
+  <data name="ModLists_ImportOlderFormat" xml:space="preserve">
+    <value>В этом файле более старая редакция «{0}» (редакция {1}; у вас редакция {2}). Заменить вашу более старой?</value>
+  </data>
+  <data name="ModLists_ImportedCopyNameFormat" xml:space="preserve">
+    <value>{0} (импорт)</value>
+  </data>
+  <data name="ModInstall_InUseRestoreProfilesFormat" xml:space="preserve">
+    <value>Закройте {0}, прежде чем возвращать профили, - сервер SPT сохраняет профили при закрытии и записал бы их поверх возвращённых.</value>
+  </data>
+  <data name="Profiles_Header" xml:space="preserve">
+    <value>Резервные копии профилей SPT</value>
+  </data>
+  <data name="Profiles_DescriptionFormat" xml:space="preserve">
+    <value>Копия ваших профилей SPT (user/profiles) делается перед тем, как приложение устанавливает, обновляет, удаляет или отключает моды либо применяет коллекцию, - если профили изменились с прошлой копии. После удаления мода в профиле могут остаться предметы, которых SPT больше не знает, и тогда профиль не загрузится; возврат копии, сделанной до этого, вернёт вашего персонажа. Хранятся последние копии: {0}.</value>
+  </data>
+  <data name="Profiles_Empty" xml:space="preserve">
+    <value>Копий пока нет.</value>
+  </data>
+  <data name="Profiles_DetailFormat" xml:space="preserve">
+    <value>Файлов: {0} - {1}</value>
+  </data>
+  <data name="Profiles_Restore" xml:space="preserve">
+    <value>Вернуть</value>
+  </data>
+  <data name="Profiles_BackUpNow" xml:space="preserve">
+    <value>Сделать копию сейчас</value>
+  </data>
+  <data name="Profiles_OpenFolder" xml:space="preserve">
+    <value>Открыть папку</value>
+  </data>
+  <data name="Profiles_ReasonInstall" xml:space="preserve">
+    <value>Перед установкой или обновлением мода</value>
+  </data>
+  <data name="Profiles_ReasonRemove" xml:space="preserve">
+    <value>Перед удалением мода</value>
+  </data>
+  <data name="Profiles_ReasonList" xml:space="preserve">
+    <value>Перед применением коллекции</value>
+  </data>
+  <data name="Profiles_ReasonDisable" xml:space="preserve">
+    <value>Перед отключением или включением модов</value>
+  </data>
+  <data name="Profiles_ReasonRestore" xml:space="preserve">
+    <value>Перед возвратом более старой копии</value>
+  </data>
+  <data name="Profiles_ReasonManual" xml:space="preserve">
+    <value>Сделана вручную</value>
+  </data>
+  <data name="Profiles_NoneFound" xml:space="preserve">
+    <value>В этой установке ещё нет профилей SPT - они создаются при первом запуске сервера.</value>
+  </data>
+  <data name="Profiles_BackedUp" xml:space="preserve">
+    <value>Профили скопированы.</value>
+  </data>
+  <data name="Profiles_FailedFormat" xml:space="preserve">
+    <value>Не получилось: {0}</value>
+  </data>
+  <data name="Profiles_RestoreTitle" xml:space="preserve">
+    <value>Вернуть профили</value>
+  </data>
+  <data name="Profiles_RestoreConfirmFormat" xml:space="preserve">
+    <value>Вернуть профили в состояние на {0} ({1})?
+
+Текущее содержимое сначала копируется, так что это можно отменить тем же способом. Профили, созданные позже, остаются как есть.</value>
+  </data>
+  <data name="Profiles_RestoredFormat" xml:space="preserve">
+    <value>Профили от {0} возвращены. То, что было до этого, - в начале списка.</value>
+  </data>
+  <data name="Installed_CatalogUnavailable" xml:space="preserve">
+    <value>Не удалось связаться с sp-mod.com, поэтому показаны моды, найденные в папке SPT, без сведений с сайта (обновления, страницы, требования). Обновите, когда будете в сети.</value>
+  </data>
+  <data name="ModStatus_TooNew" xml:space="preserve">
+    <value>Новее, чем версии, под которые сделаны зависящие от него моды</value>
+  </data>
+  <data name="Dependencies_RowTooNewFormat" xml:space="preserve">
+    <value>установленная {0} - более новая основная версия, чем любая подходящая (новейшая подходящая: {1}) - зависящий от неё мод может не загрузиться</value>
+  </data>
+  <data name="Dependencies_SummaryDisabledFormat" xml:space="preserve">
+    <value>отключено: {0}</value>
+  </data>
+  <data name="Dependencies_SummaryTooNewFormat" xml:space="preserve">
+    <value>слишком новых: {0}</value>
+  </data>
+  <data name="Installed_NeedsMissingFormat" xml:space="preserve">
+    <value>В его файлах указано, что ему нужно: {0} - это не установлено, и та часть мода, которой это нужно, не загрузится.</value>
+  </data>
+  <data name="Installed_NeedsDisabledFormat" xml:space="preserve">
+    <value>В его файлах указано, что ему нужно: {0} - это отключено, и та часть мода, которой это нужно, не загрузится, пока это не включить.</value>
+  </data>
+  <data name="Downloads_DepProblemsTitle" xml:space="preserve">
+    <value>Необходимые продукты не подходят</value>
+  </data>
+  <data name="Downloads_DepProblemsFormat" xml:space="preserve">
+    <value>Моду {0} нужно следующее, и в нынешнем виде он может не загрузиться:
+
+{1}
+
+Всё равно установить?</value>
+  </data>
+  <data name="Downloads_DepNoCompatibleFormat" xml:space="preserve">
+    <value>{0} - ни одна опубликованная версия не подходит к SPT {1}</value>
+  </data>
+  <data name="Downloads_DepDisabledFormat" xml:space="preserve">
+    <value>{0} {1} - установлен, но отключён</value>
+  </data>
+  <data name="Downloads_DepTooNewFormat" xml:space="preserve">
+    <value>{0} {1} - более новая основная версия, чем любая подходящая (новейшая подходящая: {2})</value>
+  </data>
+  <data name="Downloads_DepWrongVersionFormat" xml:space="preserve">
+    <value>{0} {1} - эта версия не подходит этому моду (новейшая подходящая: {2})</value>
+  </data>
+  <data name="Downloads_DepConflictFormat" xml:space="preserve">
+    <value>{0} - ваши моды требуют таких его версий, что все требования не выполнить</value>
+  </data>
+  <data name="Item_RequiredDisabled" xml:space="preserve">
+    <value>Установлен, но отключён - SPT его не загружает</value>
+  </data>
+  <data name="Installed_InstallFromFile" xml:space="preserve">
+    <value>Установить из файла...</value>
+  </data>
+  <data name="Installed_InstallFromFileToolTip" xml:space="preserve">
+    <value>Установить архив мода, который у вас уже есть (.zip, .7z, .rar), так же, как загрузку: по возможности он сопоставляется со своей страницей на sp-mod.com и удаляется, как любой другой. Архивы можно и просто перетащить на эту страницу.</value>
+  </data>
+  <data name="Installed_InstallFromFileTitle" xml:space="preserve">
+    <value>Установить из файла</value>
+  </data>
+  <data name="Installed_InstallFromFileFilter" xml:space="preserve">
+    <value>Архивы модов|*.zip;*.7z;*.rar;*.tar;*.gz;*.tgz|Все файлы|*.*</value>
+  </data>
+  <data name="Installed_LocalReadingFormat" xml:space="preserve">
+    <value>Чтение {0}...</value>
+  </data>
+  <data name="Installed_LocalUnreadableFormat" xml:space="preserve">
+    <value>Не удалось прочитать {0} как архив: {1}</value>
+  </data>
+  <data name="Installed_LocalConfirmMatchedFormat" xml:space="preserve">
+    <value>В {0} - {1} {2} (сопоставлен со страницей на sp-mod.com по ID мода внутри).
+
+Установить? Установка идёт так же, как при загрузке: текущая версия сначала откладывается, а сам мод можно удалить, как любой другой.</value>
+  </data>
+  <data name="Installed_LocalConfirmUnmatchedFormat" xml:space="preserve">
+    <value>{0} не соответствует ни одному моду на sp-mod.com, поэтому будет установлен как {1} ({2}), без страницы в Мастерской и без обновлений.
+
+Установить? Его можно удалить, как любой другой.</value>
+  </data>
+  <data name="Installed_LocalQueuedFormat" xml:space="preserve">
+    <value>{0} устанавливается - см. «Загрузки».</value>
+  </data>
+  <data name="Downloads_CopyingLocal" xml:space="preserve">
+    <value>Копирование архива...</value>
+  </data>
+  <data name="Upgrade_Button" xml:space="preserve">
+    <value>Проверка перехода на SPT</value>
+  </data>
+  <data name="Upgrade_ButtonToolTip" xml:space="preserve">
+    <value>Перед переходом на новую версию SPT: какие из ваших модов уже на ней работают, каким сначала нужно обновление, а для каких пока ничего нет</value>
+  </data>
+  <data name="Upgrade_Title" xml:space="preserve">
+    <value>Проверка перехода на SPT</value>
+  </data>
+  <data name="Upgrade_Intro" xml:space="preserve">
+    <value>Выберите выпуск SPT, на который думаете перейти. Здесь ничего не меняется: показывается только, что есть на sp-mod.com под этот выпуск у каждого установленного мода.</value>
+  </data>
+  <data name="Upgrade_Target" xml:space="preserve">
+    <value>Переход на SPT</value>
+  </data>
+  <data name="Upgrade_SummaryFormat" xml:space="preserve">
+    <value>На SPT {0}: готовы - {1}, сначала нужно обновить - {2}, ничего под него пока нет - {3}, проверить вручную - {4}.</value>
+  </data>
+  <data name="Upgrade_ReadyFormat" xml:space="preserve">
+    <value>{0} (установлена) опубликована для SPT {1}.</value>
+  </data>
+  <data name="Upgrade_UpdateFormat" xml:space="preserve">
+    <value>{0} (установлена) не опубликована для SPT {2}, а {1} - опубликована: обновитесь до неё после перехода.</value>
+  </data>
+  <data name="Upgrade_NotYetFormat" xml:space="preserve">
+    <value>Для SPT {0} пока ничего не опубликовано.</value>
+  </data>
+  <data name="Upgrade_UnknownConstraint" xml:space="preserve">
+    <value>По его версиям не удаётся понять, для какого они SPT, - проверьте его страницу.</value>
+  </data>
+  <data name="Upgrade_UnknownNotListed" xml:space="preserve">
+    <value>Не сопоставлен со страницей на sp-mod.com (установлен вручную или из файла) - проверьте его вручную.</value>
+  </data>
+  <data name="Upgrade_Offline" xml:space="preserve">
+    <value>Не удалось связаться с sp-mod.com, поэтому проверка пока ничего сказать не может. Попробуйте снова, когда будете в сети.</value>
+  </data>
+  <data name="Play_ServerLog" xml:space="preserve">
+    <value>Журнал сервера</value>
+  </data>
+  <data name="Play_ServerLogNone" xml:space="preserve">
+    <value>Сервер ещё не писал сюда журнал - он начнёт после первого запуска.</value>
+  </data>
+  <data name="Play_ServerLogOpenFolder" xml:space="preserve">
+    <value>Открыть папку журналов</value>
+  </data>
+  <data name="Configs_BackupsToolTip" xml:space="preserve">
+    <value>Прежние версии этого файла, сохраняемые каждый раз, когда он сохраняется здесь. Выбранная версия попадает в редактор - «Сохранить», чтобы вернуть её (текущая тоже сохранится), «Откатить», чтобы оставить файл как есть.</value>
+  </data>
+  <data name="Configs_BackupLoadedFormat" xml:space="preserve">
+    <value>В редакторе копия от {0}. Нажмите «Сохранить», чтобы вернуть её, или «Откатить», чтобы оставить файл как есть.</value>
+  </data>
+  <data name="Downloads_FikaIncompatibleTitle" xml:space="preserve">
+    <value>Не для Fika</value>
+  </data>
+  <data name="Downloads_FikaIncompatibleFormat" xml:space="preserve">
+    <value>Здесь установлена Fika, а sp-mod.com помечает эту версию {0} как несовместимую с Fika. Если её всё же установить, она может сломать совместные рейды или помешать загрузке Fika.
+
+Всё равно установить?</value>
+  </data>
+  <data name="Installed_LocalConfirmOfflineFormat" xml:space="preserve">
+    <value>Не удалось связаться с sp-mod.com, поэтому нельзя узнать, какой мод в {0}. Если установить сейчас, он будет храниться как {1} ({2}) - без страницы в Мастерской и без обновлений, даже когда вы будете в сети.
+
+Всё равно установить? (Или попробуйте снова, когда будете в сети.)</value>
+  </data>
+  <data name="Installed_LocalConfirmPackFormat" xml:space="preserve">
+    <value>В {0} несколько модов с sp-mod.com: {1}. При установке из этого файла они хранятся вместе как {2} - без своих страниц в Мастерской и без обновлений. Если установить каждый с его страницы, они будут обновляться.
+
+Всё равно установить файл как есть?</value>
+  </data>
+  <data name="Upgrade_NoReleases" xml:space="preserve">
+    <value>Пока не известно ни одного выпуска SPT новее установленного, так что сверяться не с чем.</value>
+  </data>
+  <data name="Installed_DropNotArchive" xml:space="preserve">
+    <value>Для установки сюда можно перетаскивать только архивы модов (.zip, .7z, .rar, .tar, .gz).</value>
+  </data>
+  <data name="Options_HideServerOn" xml:space="preserve">
+    <value>Запускать сервер без окна</value>
+  </data>
+  <data name="Options_HideServerOff" xml:space="preserve">
+    <value>Показывать окно сервера</value>
+  </data>
+  <data name="Options_HideServerNote" xml:space="preserve">
+    <value>Без окна журнал сервера показывается на странице «Играть», а кнопка «Остановить сервер» там правильно его закрывает. Сервер продолжит работать, если закрыть это приложение, - останавливайте его со страницы «Играть».</value>
+  </data>
+  <data name="Play_ServerStoppedStarting" xml:space="preserve">
+    <value>Сервер закрылся, не успев запуститься, поэтому лаунчер не открыт. Причина - в журнале сервера.</value>
+  </data>
+  <data name="Play_WaitingForServerOnly" xml:space="preserve">
+    <value>Сервер запускается...</value>
+  </data>
+  <data name="Play_ServerIsUp" xml:space="preserve">
+    <value>Сервер работает.</value>
+  </data>
+  <data name="Play_ServerStoppedStartingOnly" xml:space="preserve">
+    <value>Сервер закрылся, не успев запуститься. Причина - в журнале сервера.</value>
+  </data>
+  <data name="Play_ServerDescriptionHidden" xml:space="preserve">
+    <value>Запускает сервер этой установки без окна (см. «Параметры») - что он делает, видно здесь, в журнале сервера. Он продолжит работать, если закрыть это приложение. Пока он работает, «Запустить сервер» становится «Остановить сервер» - эта кнопка правильно его закрывает. «Перезапустить» останавливает и снова запускает его - после правки конфига или добавления серверного мода.</value>
+  </data>
+  <data name="Play_ServerNotUpOnlyFormat" xml:space="preserve">
+    <value>Сервер работает, но за три минуты так и не начал слушать порт {0}. Причина может быть в журнале сервера.</value>
+  </data>
+  <data name="Installed_GroupingNone" xml:space="preserve">
+    <value>Без группировки</value>
+  </data>
+  <data name="Installed_GroupingGroups" xml:space="preserve">
+    <value>По вашим группам</value>
+  </data>
+  <data name="Installed_GroupingCategory" xml:space="preserve">
+    <value>По категориям</value>
+  </data>
+  <data name="Installed_GroupingToolTip" xml:space="preserve">
+    <value>Показывать моды одним списком или разделами - по вашим группам (тем, что в виде «Группы») или по категориям sp-mod.com. В разделах показываются все моды, без разбиения на страницы.</value>
+  </data>
+  <data name="Item_ContentTypeLinkToolTipFormat" xml:space="preserve">
+    <value>Обзор: {0}, сначала с наивысшим рейтингом</value>
+  </data>
+  <data name="Options_MonitorConfirmDescription" xml:space="preserve">
+    <value>Когда вы сами установите скачанный мод, следующее сканирование «Ваших подписок» его найдёт. Приложение может тогда попросить вас подтвердить его или просто отметить это на карточке мода, чтобы вы подтвердили там. Подтверждение сообщает приложению, какая у вас версия, чтобы проверка обновлений оставалась верной.</value>
+  </data>
+  <data name="Options_UpdateNotificationsDescription" xml:space="preserve">
+    <value>Пока приложение открыто, оно время от времени спрашивает The Forge об установленных у вас модах и показывает уведомление Windows, когда у одного из них выходит новый выпуск. Спрашивается только про установленные моды. О каждом выпуске сообщается один раз, а об обновлениях, которые «Ваши подписки» уже показывают на момент включения, не сообщается.</value>
+  </data>
+  <data name="Options_PageDefaultsHint" xml:space="preserve">
+    <value>«Обзор» открывается так, как его оставила кнопка «Сохранить по умолчанию». «Ваши подписки» запоминают своё состояние сами.</value>
+  </data>
+  <data name="ServerMap_MachinesEmpty" xml:space="preserve">
+    <value>Этому серверу пока никто не отчитывается. Машина появляется здесь, когда кто-то с Steamified SPT Mod Manager или TCF Mod Manager подключается и соглашается показать, что у него установлено. Машины без этих приложений здесь не появляются.</value>
+  </data>
+  <data name="ServerMap_AppVersionFormat" xml:space="preserve">
+    <value>Версия приложения {0}</value>
+  </data>
+  <data name="ServerMap_StandingUnreadable" xml:space="preserve">
+    <value>Прислан список модов, который эта версия приложения не может прочитать. Обновление приложения на той машине должно это исправить.</value>
+  </data>
+  <data name="Common_ReviewAndInstallToolTip" xml:space="preserve">
+    <value>Открывает «Коллекции» с выбранным списком сервера и уже готовым предпросмотром. Ничего не устанавливается, пока вы не нажмёте там «Применить».</value>
+  </data>
+  <data name="Help_OpenGuideToolTip" xml:space="preserve">
+    <value>Руководство SSPTMM - каждая страница и параметр, шаг за шагом - в его вики на GitHub. Оно на английском.</value>
+  </data>
+  <data name="Help_Start_Setup_Step1" xml:space="preserve">
+    <value>Откройте {0} - шестерёнка вверху справа.</value>
+  </data>
+  <data name="Help_Browse_Compatible_Step1" xml:space="preserve">
+    <value>Откройте {0}, затем {1}. Сразу включён фильтр по вашей версии SPT.</value>
+  </data>
+  <data name="Help_Browse_Compatible_Step2" xml:space="preserve">
+    <value>Наведите курсор на карточку: галочка рядом с SPT в открывшемся окошке означает, что новейшая версия мода работает на вашей; крестик - что нет.</value>
+  </data>
+  <data name="Help_Browse_Compatible_Step3" xml:space="preserve">
+    <value>Чтобы увидеть больше, отметьте другие версии в разделе {0} слева или снимите отметку со своей, чтобы видеть все версии.</value>
+  </data>
+  <data name="Help_Browse_Install_Title" xml:space="preserve">
+    <value>Подписаться на мод и нужные ему моды</value>
+  </data>
+  <data name="Help_Browse_Install_Step1" xml:space="preserve">
+    <value>Найдите мод на странице {0} и щёлкните его карточку, чтобы открыть его страницу, затем нажмите {1}. Или наведите курсор на карточку и нажмите маленький + в её правом нижнем углу.</value>
+  </data>
+  <data name="Help_Browse_Install_Step2" xml:space="preserve">
+    <value>Если ему нужны моды, которых у вас нет, откроется окно с их списком. Нажмите {0}, чтобы получить и их, или {1}, чтобы обойтись без них.</value>
+  </data>
+  <data name="Help_Browse_Install_Step3" xml:space="preserve">
+    <value>Затем окно попросит прочитать страницы модов, которые вы ещё не видели. Нажмите {0} у каждой, прочитайте её, затем нажмите {1}.</value>
+  </data>
+  <data name="Help_Browse_HideInstalled_Step1" xml:space="preserve">
+    <value>На странице {0}, в разделе {1} слева, поставьте минус в поле рядом с {2}.</value>
+  </data>
+  <data name="Help_Browse_HideInstalled_Step2" xml:space="preserve">
+    <value>Чтобы «Обзор» каждый раз открывался так, нажмите шестерёнку рядом с полем поиска, затем {0}.</value>
+  </data>
+  <data name="Help_Installed_Updates_Step2" xml:space="preserve">
+    <value>Чтобы показать только их, нажмите {0} и смените {1} на {2}.</value>
+  </data>
+  <data name="Help_Installed_Update_Note" xml:space="preserve">
+    <value>У мода с обновлением на карточке или в строке есть и синяя кнопка {0}. Чтобы обновить несколько сразу, выделите их Ctrl+щелчком и нажмите {1} на панели внизу.</value>
+  </data>
+  <data name="Help_Installed_Views_Title" xml:space="preserve">
+    <value>Изменить вид «Ваших подписок»</value>
+  </data>
+  <data name="Help_Installed_Views_Step1" xml:space="preserve">
+    <value>На странице {0} нажмите один из трёх значков у правого края панели инструментов: {1}, {3} или {2}. Наведите курсор на значок, чтобы увидеть его название.</value>
+  </data>
+  <data name="Help_Installed_Groups_Step1" xml:space="preserve">
+    <value>На странице {0} нажмите значок {1} у правого края панели инструментов.</value>
+  </data>
+  <data name="Help_Installed_Disable_Step1" xml:space="preserve">
+    <value>На странице {0} щёлкните переключатель на карточке или в строке мода - синий значит включён, серый - выключен.</value>
+  </data>
+  <data name="Help_Installed_Disable_Step3" xml:space="preserve">
+    <value>Щёлкните переключатель ещё раз, чтобы снова включить мод.</value>
+  </data>
+  <data name="Help_Installed_DisableMany_Step1" xml:space="preserve">
+    <value>На странице {0} удерживайте Ctrl и щёлкайте каждый мод или ставьте галочку в поле, которое появляется при наведении. Shift+щелчок выбирает все моды между двумя.</value>
+  </data>
+  <data name="Help_Installed_DisableMany_Step2" xml:space="preserve">
+    <value>Нажмите {0} на панели внизу.</value>
+  </data>
+  <data name="Help_ModLists_Capture_Step2" xml:space="preserve">
+    <value>Нажмите {0} и введите название.</value>
+  </data>
+  <data name="Help_ModLists_Apply_Step1" xml:space="preserve">
+    <value>На странице {0} откройте коллекцию и нажмите {1}.</value>
+  </data>
+  <data name="Help_ModLists_Apply_Step2" xml:space="preserve">
+    <value>Выберите {0}, чтобы оставить остальные моды, или {1}, чтобы точно повторить коллекцию. Предпросмотр покажет, что изменится, - пока ничего не трогается.</value>
+  </data>
+  <data name="Help_ModLists_Pin_Step2" xml:space="preserve">
+    <value>Закреплённый мод никогда не отключается при применении коллекции. На нём метка ЗАКРЕПЛЁН, и он стоит вверху «Ваших подписок». Чтобы отменить это, нажмите {0} там же.</value>
+  </data>
+  <data name="Help_ModLists_Edit_Step1" xml:space="preserve">
+    <value>Откройте коллекцию на странице {0} и нажмите {1}. Нажмите {2}, чтобы добавить в неё моды, или X в строке, чтобы убрать мод.</value>
+  </data>
+  <data name="Help_ModLists_Share_Title" xml:space="preserve">
+    <value>Поделиться коллекцией с друзьями</value>
+  </data>
+  <data name="Help_ModLists_Share_Step1" xml:space="preserve">
+    <value>Откройте коллекцию на странице {0} и нажмите {1}.</value>
+  </data>
+  <data name="Help_ModLists_Share_Step2" xml:space="preserve">
+    <value>Нажмите {0} и вставьте код друзьям - например, в сообщение в Discord. Они нажимают {1} на странице {2} или просто открывают {2}: там им предложат скопированный код.</value>
+  </data>
+  <data name="Help_ModLists_Share_Step3" xml:space="preserve">
+    <value>Они открывают её и нажимают {0}. Их приложение само скачивает каждый мод с sp-mod.com.</value>
+  </data>
+  <data name="Help_ModLists_Share_Note" xml:space="preserve">
+    <value>Изменили коллекцию? Отправьте код ещё раз - их копия обновится, и им покажут, что изменилось. Подойдёт и файл из «Экспорта».</value>
+  </data>
+  <data name="Help_ModLists_Undo_Step1" xml:space="preserve">
+    <value>Откройте любую коллекцию на странице {0}, нажмите {1}, затем {2} под сохранёнными списками.</value>
+  </data>
+  <data name="Help_Browse_Addon_Step1" xml:space="preserve">
+    <value>На странице {0} щёлкните карточку мода, чтобы открыть его страницу. Сначала наведите курсор на карточку, чтобы узнать, есть ли у него аддоны, - в открывшемся окошке написано, сколько их.</value>
+  </data>
+  <data name="Help_Browse_Addon_Step2" xml:space="preserve">
+    <value>Откройте вкладку «Аддоны» - она есть, если у мода есть аддоны. Нажмите «Установить» у нужного.</value>
+  </data>
+  <data name="Help_Configs_Edit_Step1" xml:space="preserve">
+    <value>Откройте {0} в меню {1} вверху и выберите файл мода в списке - поле поиска находит его по названию мода или файла.</value>
+  </data>
+  <data name="Help_Dependencies_Check_Step1" xml:space="preserve">
+    <value>Откройте {0} в меню {2} вверху. Под конфликтами {1} перечисляет все установленные моды, которым нужны другие моды, и есть ли каждый из них.</value>
+  </data>
+  <data name="Help_Footprint_Enable_Step2" xml:space="preserve">
+    <value>{0} появляется в меню {1} вверху.</value>
+  </data>
+  <data name="Help_Footprint_Read_Step1" xml:space="preserve">
+    <value>Откройте {0} в меню {1} вверху. У каждого мода видно, в какие части игры проникают его файлы - клиент, сервер, диск.</value>
+  </data>
+  <data name="Help_ServerMap_Enable_Step2" xml:space="preserve">
+    <value>{0} появляется в меню {1} вверху.</value>
+  </data>
+  <data name="Help_Downloads_Watch_Step1" xml:space="preserve">
+    <value>Откройте {0} - панель внизу окна. У каждого мода видны ход загрузки и оставшееся время. Одновременно скачивается до трёх модов, а устанавливаются они по одному, в том порядке, в каком вы поставили их в очередь.</value>
+  </data>
+  <data name="Help_Monitor_Other_Title" xml:space="preserve">
+    <value>Скачать мод без установки - или наоборот</value>
+  </data>
+  <data name="Help_Monitor_Other_Step1" xml:space="preserve">
+    <value>На странице мода {0} сохраняет его файл в папку загрузок без установки, подписаны вы на него или нет. То же самое есть в меню правого щелчка на любом моде.</value>
+  </data>
+  <data name="Help_Monitor_Other_Step2" xml:space="preserve">
+    <value>Если в параметрах выбрано только скачивание, маленькая кнопка рядом с {0} наоборот устанавливает этот один мод. В его окне обновления, у его аддонов и в {1} рядом с кнопками установки тоже есть кнопка, которая делает обратное.</value>
+  </data>
+  <data name="Help_Downloads_Watch_Step1_Monitor" xml:space="preserve">
+    <value>Откройте {0} - панель внизу окна. У каждого мода видны ход загрузки и оставшееся время, одновременно скачивается до трёх модов.</value>
+  </data>
+  <data name="Help_ReportProblemToolTip" xml:space="preserve">
+    <value>Открывает страницу Issues репозитория этого приложения на GitHub, где можно рассказать автору, что пошло не так. Она на английском.</value>
+  </data>
+  <data name="Help_Installed_Remove_Title" xml:space="preserve">
+    <value>Отписаться от мода</value>
+  </data>
+  <data name="Help_Installed_Remove_Note" xml:space="preserve">
+    <value>Удалённые файлы какое-то время хранятся ({0}, {1}), и кнопка «Отменить удаление» вверху страницы {2} возвращает любой из них. Отключённый мод нужно снова включить, прежде чем от него отписаться. Чтобы убрать мод из игры, не удаляя его, просто отключите его.</value>
+  </data>
+  <data name="Help_Problems_Greyed_Title" xml:space="preserve">
+    <value>Кнопка «Обновить» неактивна, или не получается отписаться от мода</value>
+  </data>
+  <data name="Help_Problems_Greyed_Step1" xml:space="preserve">
+    <value>Мод отключён. На странице {0} щёлкните переключатель на его карточке, чтобы снова его включить.</value>
+  </data>
+  <data name="Help_Problems_Greyed_Step2" xml:space="preserve">
+    <value>{0} и {1} снова работают, когда мод включён.</value>
+  </data>
+  <data name="Help_Problems_Report_Step1" xml:space="preserve">
+    <value>Нажмите {0} вверху этой страницы. Откроется страница Issues репозитория этого приложения на GitHub.</value>
+  </data>
+  <data name="Help_Browse_Install_Keywords" xml:space="preserve">
+    <value>установить, поставить, добавить, скачать, получить, зависимости, подписаться, необходимые продукты, требования</value>
+  </data>
+  <data name="Help_Browse_HideInstalled_Keywords" xml:space="preserve">
+    <value>скрыть установленные, уже есть, фильтр, не установлено, подписки, скрыть подписки</value>
+  </data>
+  <data name="Help_Installed_Remove_Keywords" xml:space="preserve">
+    <value>удалить, деинсталлировать, убрать, снести, избавиться, отписаться</value>
+  </data>
+  <data name="Help_ModLists_Share_Keywords" xml:space="preserve">
+    <value>поделиться, код, discord, дискорд, друг, друзья, отправить, экспорт, импорт, файл, сборка, модпак</value>
+  </data>
+  <data name="Help_Dependencies_Conflicts_Step1" xml:space="preserve">
+    <value>Откройте {0} в меню {2} вверху. {1} вверху перечисляет моды, установленные дважды, и моды, в которых есть разные копии одного и того же файла.</value>
+  </data>
+  <data name="Help_Dependencies_Keep_Note" xml:space="preserve">
+    <value>Кнопка {0} неактивна, если другая копия была установлена этим приложением и в ней есть файлы без дубликатов, потому что её удаление забрало бы и их. Наведите курсор на кнопку, чтобы увидеть причину, и вместо этого отпишитесь от того мода на странице {1}, где {2} показывает всё, что будет удалено. У разных копий одного файла кнопки нет: оставьте нужный мод или спросите авторов.</value>
+  </data>
+  <data name="Help_Dependencies_Spot_Step2" xml:space="preserve">
+    <value>Чтобы показать только эти моды, нажмите {0} и отметьте {1}.</value>
+  </data>
+  <data name="Help_Problems_NotLoading_Step1" xml:space="preserve">
+    <value>Откройте {0} в меню {2} вверху. В разделе {1} самая частая причина - мод, установленный дважды, или два мода с конфликтующими файлами.</value>
+  </data>
+  <data name="Help_Monitor_Other_Keywords" xml:space="preserve">
+    <value>только скачать, сохранить файл, без установки, ручная загрузка, вручную, один мод, наоборот, исключение</value>
+  </data>
+  <data name="Help_Problems_Greyed_Keywords" xml:space="preserve">
+    <value>неактивна, серая кнопка, не нажимается, не обновляется, не удаляется, не могу обновить, не могу удалить, не могу отписаться, отписаться</value>
+  </data>
+  <data name="Installed_RemoveUnstampedManyFormat" xml:space="preserve">
+    <value>В записях этого приложения об этих элементах не указано, в какой установке SPT они сделаны. Они будут удалены из {0}:
+
+{1}</value>
+  </data>
+  <data name="Downloads_KeptSettings_one" xml:space="preserve">
+    <value>Ваши настройки в BepInEx\config уже были на месте и сохранены: {0} файл.</value>
+  </data>
+  <data name="Downloads_KeptSettings_few" xml:space="preserve">
+    <value>Ваши настройки в BepInEx\config уже были на месте и сохранены: {0} файла.</value>
+  </data>
+  <data name="Downloads_KeptSettings_many" xml:space="preserve">
+    <value>Ваши настройки в BepInEx\config уже были на месте и сохранены: {0} файлов.</value>
+  </data>
+  <data name="Conflicts_KeepThisToolTip" xml:space="preserve">
+    <value>Оставить эту копию и удалить остальные. Они попадают туда же, куда удалённые моды, поэтому кнопка «Вернуть» в «Ваших подписках» может их вернуть.</value>
+  </data>
+  <data name="Conflicts_KeptFormat" xml:space="preserve">
+    <value>{0} оставлен. Удалено: {1} - кнопка «Вернуть» в «Ваших подписках» вернёт это.</value>
+  </data>
+  <data name="Conflicts_KeepBlockedFormat" xml:space="preserve">
+    <value>В {0} есть и файлы без дубликатов, и он установлен этим приложением, поэтому удалить его можно только целиком - эти файлы тоже исчезнут. Вместо этого отпишитесь от него в «Ваших подписках», где «Отписаться» показывает всё, что будет удалено.</value>
+  </data>
+  <data name="Nav_About" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="About_Description" xml:space="preserve">
+    <value>Менеджер модов для SPT, который выглядит и работает как Мастерская Steam: находите моды и коллекции на sp-mod.com, подписывайтесь и держите установку в актуальном состоянии.</value>
+  </data>
+  <data name="About_VersionFormat" xml:space="preserve">
+    <value>Версия {0}</value>
+  </data>
+  <data name="About_BasedOnFormat" xml:space="preserve">
+    <value>SSPTMM начинался как форк TCF Mod Manager от {0} под лицензией MIT.</value>
+  </data>
+  <data name="About_OriginalLink" xml:space="preserve">
+    <value>TCF Mod Manager на sp-mod.com</value>
+  </data>
+  <data name="About_SourceLink" xml:space="preserve">
+    <value>Исходный код и сообщения о проблемах на GitHub</value>
+  </data>
+  <data name="About_Updates" xml:space="preserve">
+    <value>SSPTMM только сообщает, когда на GitHub выходит новый выпуск. Сам он ничего не скачивает и не устанавливает.</value>
+  </data>
+  <data name="Nav_Tools" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="Downloads_BarIdle" xml:space="preserve">
+    <value>ЗАГРУЗКИ</value>
+  </data>
+  <data name="Downloads_BarManage" xml:space="preserve">
+    <value>Управление</value>
+  </data>
+  <data name="Downloads_BarDownloading" xml:space="preserve">
+    <value>ЗАГРУЗКА</value>
+  </data>
+  <data name="Downloads_BarInstalling" xml:space="preserve">
+    <value>УСТАНОВКА</value>
+  </data>
+  <data name="Downloads_BarDetailFormat" xml:space="preserve">
+    <value>{0} {1} - завершено {2} из {3}</value>
+  </data>
+  <data name="Downloads_BarToolTip" xml:space="preserve">
+    <value>Открыть «Загрузки»: все моды в очереди, ход их загрузки и «Повторить» или «Отмена».</value>
+  </data>
+  <data name="Installed_Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
+  <data name="Installed_FiltersCountFormat" xml:space="preserve">
+    <value>Фильтры ({0})</value>
+  </data>
+  <data name="Installed_FiltersToolTip" xml:space="preserve">
+    <value>Сузить список по состоянию обновлений, включённым или отключённым, категории, группе и не только</value>
+  </data>
+  <data name="Installed_MoreToolTip" xml:space="preserve">
+    <value>Ещё: установка из файла, проверка перехода на SPT, пересканирование, развернуть или свернуть все</value>
+  </data>
+  <data name="Installed_RescanToolTip" xml:space="preserve">
+    <value>Заново просмотреть папку SPT в поисках модов, добавленных или удалённых не через это приложение</value>
+  </data>
+  <data name="Installed_NothingMatches" xml:space="preserve">
+    <value>Ни один мод не подходит под поиск и фильтры.</value>
+  </data>
+  <data name="Installed_EmptyTitle" xml:space="preserve">
+    <value>Модов пока нет</value>
+  </data>
+  <data name="Installed_EmptyBody" xml:space="preserve">
+    <value>Моды, на которые вы подписываетесь в Мастерской, устанавливаются в папку SPT и появляются здесь - тут их можно обновлять, отключать или отписываться от них. Моды, которые уже лежат в папке, тоже показываются здесь.</value>
+  </data>
+  <data name="Installed_EmptyBrowse" xml:space="preserve">
+    <value>Открыть Мастерскую</value>
+  </data>
+  <data name="Installed_MoreDetails" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="Installed_FewerDetails" xml:space="preserve">
+    <value>Скрыть подробности</value>
+  </data>
+  <data name="Help_Installed_DisableMany_Step3" xml:space="preserve">
+    <value>Нажмите {0} или Esc, чтобы снять выделение.</value>
+  </data>
+  <data name="Play_ServerSummary" xml:space="preserve">
+    <value>Запускает сервер SPT в отдельном окне. Он продолжит работать, если закрыть это приложение.</value>
+  </data>
+  <data name="Play_ServerSummaryHidden" xml:space="preserve">
+    <value>Запускает сервер SPT без окна - его журнал показан ниже. Он продолжит работать, если закрыть это приложение.</value>
+  </data>
+  <data name="Play_LauncherSummary" xml:space="preserve">
+    <value>Выберите профиль и запустите игру. Сначала запустите сервер.</value>
+  </data>
+  <data name="Play_HeadlessSummary" xml:space="preserve">
+    <value>Хостит рейды для других игроков. Сначала запустите сервер.</value>
+  </data>
+  <data name="Configs_DisclaimerShort" xml:space="preserve">
+    <value>Неверная настройка может сломать мод или игру, и исправлять это - не дело автора. Перед сохранением делается копия каждого файла.</value>
+  </data>
+  <data name="Options_LaunchSummary" xml:space="preserve">
+    <value>«Запустить сервер» также открывает лаунчер SPT, когда сервер готов.</value>
+  </data>
+  <data name="Options_TabsBackgroundSummary" xml:space="preserve">
+    <value>Скрыть вкладку «Ваши подписки» или «Коллекции» либо поставить свою картинку.</value>
+  </data>
+  <data name="Options_SectionPlay" xml:space="preserve">
+    <value>Игра</value>
+  </data>
+  <data name="Options_SectionLook" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Options_CardPicturesHeader" xml:space="preserve">
+    <value>Картинка за каждым модом в подписках</value>
+  </data>
+  <data name="Options_CardPicturesSummary" xml:space="preserve">
+    <value>Собственная картинка каждого мода, размытая, за его карточкой - как Steam рисует свои строки.</value>
+  </data>
+  <data name="Options_CardPicturesDescription" xml:space="preserve">
+    <value>В «Ваших подписках», в видах «Карточки» и «Список». Если выключить, карточки будут простыми - стоит попробовать, если страница медленно прокручивается. Вступает в силу при следующем открытии страницы.</value>
+  </data>
+  <data name="Options_ScrollingSummary" xml:space="preserve">
+    <value>Плавная прокрутка двигает страницу мягко, как в браузере.</value>
+  </data>
+  <data name="Options_RemovedModsSummary" xml:space="preserve">
+    <value>Сколько хранить моды после отписки, чтобы их можно было вернуть.</value>
+  </data>
+  <data name="Options_DownloadsSummary" xml:space="preserve">
+    <value>До трёх загрузок одновременно, а скачанные файлы хранятся для переустановки.</value>
+  </data>
+  <data name="Options_UnsubscribeSummary" xml:space="preserve">
+    <value>Перед отпиской спрашивать, что будет удалено и что делать с файлами конфигурации.</value>
+  </data>
+  <data name="Options_ServerMapLanOnlySummary" xml:space="preserve">
+    <value>Игроки, подключающиеся через интернет, не видят ваш список и карту.</value>
+  </data>
+  <data name="Options_ServerMapReportSummary" xml:space="preserve">
+    <value>Показывает эту машину, её моды и идёт ли на ней игра всем, у кого есть ключ сервера.</value>
+  </data>
+  <data name="Profiles_SummaryFormat" xml:space="preserve">
+    <value>Профили SPT копируются перед изменением модов, чтобы профиль, который перестал загружаться, можно было вернуть. Хранятся последние копии: {0}.</value>
+  </data>
+  <data name="Installed_SelectionBar_one" xml:space="preserve">
+    <value>ВЫБРАН {0} ПРЕДМЕТ</value>
+  </data>
+  <data name="Installed_SelectionBar_few" xml:space="preserve">
+    <value>ВЫБРАНО {0} ПРЕДМЕТА</value>
+  </data>
+  <data name="Installed_SelectionBar_many" xml:space="preserve">
+    <value>ВЫБРАНО {0} ПРЕДМЕТОВ</value>
+  </data>
+  <data name="Installed_PickToolTip" xml:space="preserve">
+    <value>Выбрать этот. Ctrl+щелчок выбирает несколько, Shift+щелчок - всё между двумя.</value>
+  </data>
+  <data name="Installed_SelectionClearToolTip" xml:space="preserve">
+    <value>Снять всё выделение (Esc)</value>
+  </data>
+  <data name="GettingStarted_Title" xml:space="preserve">
+    <value>С чего начать</value>
+  </data>
+  <data name="GettingStarted_Subtitle" xml:space="preserve">
+    <value>Три шага до игры в SPT с модами.</value>
+  </data>
+  <data name="GettingStarted_Hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="GettingStarted_HideToolTip" xml:space="preserve">
+    <value>Скрыть этот список. Он больше не появится.</value>
+  </data>
+  <data name="GettingStarted_Done" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="GettingStarted_FolderTitle" xml:space="preserve">
+    <value>Укажите папку SPT</value>
+  </data>
+  <data name="GettingStarted_FolderDetail" xml:space="preserve">
+    <value>Куда установлен SPT, чтобы моды попадали в нужное место.</value>
+  </data>
+  <data name="GettingStarted_FolderAction" xml:space="preserve">
+    <value>Открыть параметры</value>
+  </data>
+  <data name="GettingStarted_SubscribeTitle" xml:space="preserve">
+    <value>Подпишитесь на мод</value>
+  </data>
+  <data name="GettingStarted_SubscribeDetail" xml:space="preserve">
+    <value>Найдите мод в Мастерской и нажмите «Подписаться» - он установится сам.</value>
+  </data>
+  <data name="GettingStarted_PlayTitle" xml:space="preserve">
+    <value>Запустите SPT</value>
+  </data>
+  <data name="GettingStarted_PlayDetail" xml:space="preserve">
+    <value>Создайте профиль и нажмите «Играть» - или запустите сервер и воспользуйтесь лаунчером SPT.</value>
+  </data>
+  <data name="GettingStarted_PlayAction" xml:space="preserve">
+    <value>Перейти в «Играть»</value>
+  </data>
+  <data name="Collections_ByYou" xml:space="preserve">
+    <value>Создана вами</value>
+  </data>
+  <data name="Collections_FromServerFormat" xml:space="preserve">
+    <value>С сервера {0}</value>
+  </data>
+  <data name="Collections_InstalledFormat" xml:space="preserve">
+    <value>Установлено {0} из {1}</value>
+  </data>
+  <data name="Collections_AllInstalled" xml:space="preserve">
+    <value>Всё установлено</value>
+  </data>
+  <data name="Collections_Create" xml:space="preserve">
+    <value>Создать из установленных модов</value>
+  </data>
+  <data name="Collections_CreateToolTip" xml:space="preserve">
+    <value>Новая коллекция из модов, которые сейчас установлены и включены, в тех версиях, что у вас стоят.</value>
+  </data>
+  <data name="Collections_CreateTitle" xml:space="preserve">
+    <value>Создать коллекцию</value>
+  </data>
+  <data name="Collections_CreatePrompt" xml:space="preserve">
+    <value>Назовите новую коллекцию. В неё войдут моды, которые сейчас установлены и включены, в тех версиях, что у вас стоят.</value>
+  </data>
+  <data name="Collections_EmptyTitle" xml:space="preserve">
+    <value>Коллекций пока нет</value>
+  </data>
+  <data name="Collections_EmptyBody" xml:space="preserve">
+    <value>Коллекция - это набор модов в точных версиях: ваш, друга или с sp-mod.com. Создайте коллекцию из того, что у вас установлено, или добавьте ту, которой поделился друг.</value>
+  </data>
+  <data name="Collections_ChipUpdate" xml:space="preserve">
+    <value>Обновление</value>
+  </data>
+  <data name="Collections_ChipShared" xml:space="preserve">
+    <value>Общая</value>
+  </data>
+  <data name="Collections_ChipSharedToolTip" xml:space="preserve">
+    <value>Хранится в общей папке - друзья, которые за ней следят, получают ваши изменения.</value>
+  </data>
+  <data name="Collections_ChipFollowed" xml:space="preserve">
+    <value>Отслеживается</value>
+  </data>
+  <data name="Collections_ChipFollowedToolTip" xml:space="preserve">
+    <value>Коллекция друга, за которой вы следите, - здесь будет видно, когда он её изменит.</value>
+  </data>
+  <data name="Sharing_ShareWithFriends" xml:space="preserve">
+    <value>Поделиться с друзьями</value>
+  </data>
+  <data name="Sharing_ShareWithFriendsToolTip" xml:space="preserve">
+    <value>Отправить эту коллекцию друзьям - те же моды в тех же версиях - кодом для вставки или через общую папку.</value>
+  </data>
+  <data name="Sharing_TitleFormat" xml:space="preserve">
+    <value>Поделиться: «{0}»</value>
+  </data>
+  <data name="Sharing_DialogIntro" xml:space="preserve">
+    <value>Друзья получат те же моды в тех же версиях. Передаётся только список - каждый мод всё равно скачивается с sp-mod.com.</value>
+  </data>
+  <data name="Sharing_CodeHeading" xml:space="preserve">
+    <value>Код для обмена</value>
+  </data>
+  <data name="Sharing_NamePrompt" xml:space="preserve">
+    <value>Ваше имя - друзья увидят, кто поделился:</value>
+  </data>
+  <data name="Sharing_CopyCode" xml:space="preserve">
+    <value>Скопировать код</value>
+  </data>
+  <data name="Sharing_CopiedFormat" xml:space="preserve">
+    <value>Скопировано (символов: {0}). Вставьте код друзьям - они добавят его кнопкой «Добавить из кода». После изменения коллекции отправьте код снова.</value>
+  </data>
+  <data name="Sharing_CopyFailedFormat" xml:space="preserve">
+    <value>Не удалось скопировать: {0}</value>
+  </data>
+  <data name="Sharing_FolderHeading" xml:space="preserve">
+    <value>Общая папка</value>
+  </data>
+  <data name="Sharing_FolderIntro" xml:space="preserve">
+    <value>Храните эту коллекцию в папке, общей с друзьями (Dropbox, OneDrive, Google Drive...). Она перезаписывается там при каждом вашем изменении, а друзья, которые за ней следят, получают уведомление.</value>
+  </data>
+  <data name="Sharing_NotInFolder" xml:space="preserve">
+    <value>Не хранится в общей папке.</value>
+  </data>
+  <data name="Sharing_KeptInFormat" xml:space="preserve">
+    <value>Хранится в {0}</value>
+  </data>
+  <data name="Sharing_ChooseFolder" xml:space="preserve">
+    <value>Выбрать папку...</value>
+  </data>
+  <data name="Sharing_ChooseFolderTitle" xml:space="preserve">
+    <value>Выберите папку, общую с друзьями</value>
+  </data>
+  <data name="Sharing_StopSharing" xml:space="preserve">
+    <value>Больше не хранить там</value>
+  </data>
+  <data name="Sharing_FolderDone" xml:space="preserve">
+    <value>Сохранено. Попросите друзей следить за этим файлом через «Следить за общим файлом».</value>
+  </data>
+  <data name="Sharing_FolderFailedFormat" xml:space="preserve">
+    <value>Не удалось записать туда: {0}</value>
+  </data>
+  <data name="Sharing_FolderStopped" xml:space="preserve">
+    <value>Больше там не хранится. Файл, который уже лежит в папке, остаётся как есть.</value>
+  </data>
+  <data name="Sharing_FollowingHeading" xml:space="preserve">
+    <value>Отслеживание</value>
+  </data>
+  <data name="Sharing_FollowingFormat" xml:space="preserve">
+    <value>Вы следите за этой коллекцией в {0}.</value>
+  </data>
+  <data name="Sharing_StopFollowing" xml:space="preserve">
+    <value>Перестать следить</value>
+  </data>
+  <data name="Sharing_Unfollowed" xml:space="preserve">
+    <value>Вы больше не следите. Ваша копия остаётся.</value>
+  </data>
+  <data name="Sharing_Done" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Sharing_AddFromCode" xml:space="preserve">
+    <value>Добавить из кода</value>
+  </data>
+  <data name="Sharing_AddFromCodeToolTip" xml:space="preserve">
+    <value>Вставьте код, который прислал друг.</value>
+  </data>
+  <data name="Sharing_AddFromFile" xml:space="preserve">
+    <value>Добавить из файла</value>
+  </data>
+  <data name="Sharing_AddFromFileToolTip" xml:space="preserve">
+    <value>Открыть файл коллекции, который прислал друг.</value>
+  </data>
+  <data name="Sharing_Follow" xml:space="preserve">
+    <value>Следить за общим файлом</value>
+  </data>
+  <data name="Sharing_FollowToolTip" xml:space="preserve">
+    <value>Выберите файл коллекции друга в общей папке. Здесь будет видно каждый раз, когда он его изменит.</value>
+  </data>
+  <data name="Sharing_FollowDialogTitle" xml:space="preserve">
+    <value>Следить за файлом коллекции друга</value>
+  </data>
+  <data name="Sharing_PasteCode" xml:space="preserve">
+    <value>Вставьте код, который прислал друг:</value>
+  </data>
+  <data name="Sharing_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Sharing_Dismiss" xml:space="preserve">
+    <value>Не сейчас</value>
+  </data>
+  <data name="Sharing_CodeUnreadableFormat" xml:space="preserve">
+    <value>Не удалось прочитать код: {0}.</value>
+  </data>
+  <data name="Sharing_ArrivedTitle" xml:space="preserve">
+    <value>Коллекция получена</value>
+  </data>
+  <data name="Sharing_AddedFormat" xml:space="preserve">
+    <value>Добавлена «{0}» (поделился: {1}), модов: {2}. Откройте её, чтобы подписаться на них.</value>
+  </data>
+  <data name="Sharing_AlreadyHaveFormat" xml:space="preserve">
+    <value>У вас уже есть эта версия «{0}».</value>
+  </data>
+  <data name="Sharing_YourOwnFormat" xml:space="preserve">
+    <value>«{0}» - ваша собственная коллекция. Добавить её отдельной копией?</value>
+  </data>
+  <data name="Sharing_AddAsCopy" xml:space="preserve">
+    <value>Добавить копией</value>
+  </data>
+  <data name="Sharing_OlderFormat" xml:space="preserve">
+    <value>Это более старая копия «{0}» (редакция {1}), чем ваша (редакция {2}). Оставить вашу?</value>
+  </data>
+  <data name="Sharing_KeepMine" xml:space="preserve">
+    <value>Оставить мою</value>
+  </data>
+  <data name="Sharing_UseOlder" xml:space="preserve">
+    <value>Взять старую</value>
+  </data>
+  <data name="Sharing_UpdatedTitle" xml:space="preserve">
+    <value>Коллекция обновлена</value>
+  </data>
+  <data name="Sharing_UpdatedFormat" xml:space="preserve">
+    <value>«{0}» обновлена (поделился: {1}). Изменения: {2}.
+
+Синхронизировать с ней игру сейчас?</value>
+  </data>
+  <data name="Sharing_SyncNow" xml:space="preserve">
+    <value>Синхронизировать</value>
+  </data>
+  <data name="Sharing_SyncToolTip" xml:space="preserve">
+    <value>Сначала показывает, что будет установлено, обновлено и отложено, - ничего не меняется, пока вы не нажмёте «Применить».</value>
+  </data>
+  <data name="Sharing_Later" xml:space="preserve">
+    <value>Позже</value>
+  </data>
+  <data name="Sharing_Open" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Sharing_Someone" xml:space="preserve">
+    <value>кто-то</value>
+  </data>
+  <data name="Sharing_FollowedUpdateFormat" xml:space="preserve">
+    <value>У «{0}» есть обновление (поделился: {1}). Изменения: {2}.</value>
+  </data>
+  <data name="Sharing_ClipboardNewFormat" xml:space="preserve">
+    <value>В буфере обмена коллекция: «{0}» (поделился: {1}), модов: {2}.</value>
+  </data>
+  <data name="Sharing_ClipboardUpdateFormat" xml:space="preserve">
+    <value>В буфере обмена обновление «{0}» (поделился: {1}).</value>
+  </data>
+  <data name="Sharing_NoModChanges" xml:space="preserve">
+    <value>моды не изменились</value>
+  </data>
+  <data name="Sharing_DiffAddedFormat" xml:space="preserve">
+    <value>добавлено: {0} ({1})</value>
+  </data>
+  <data name="Sharing_DiffRemovedFormat" xml:space="preserve">
+    <value>удалено: {0} ({1})</value>
+  </data>
+  <data name="Sharing_DiffChangedFormat" xml:space="preserve">
+    <value>обновлено: {0} ({1})</value>
+  </data>
+  <data name="Help_ModLists_Follow_Title" xml:space="preserve">
+    <value>Автоматически синхронизировать друзей</value>
+  </data>
+  <data name="Help_ModLists_Follow_Step1" xml:space="preserve">
+    <value>Откройте коллекцию на странице {0}, нажмите {1}, затем {2} и выберите папку, общую с друзьями, - Dropbox, OneDrive, Google Drive или подобную.</value>
+  </data>
+  <data name="Help_ModLists_Follow_Step2" xml:space="preserve">
+    <value>Друзья нажимают {0} на странице {1} и выбирают файл в своей копии этой папки.</value>
+  </data>
+  <data name="Help_ModLists_Follow_Step3" xml:space="preserve">
+    <value>Когда вы меняете коллекцию, файл перезаписывается. На их странице {0} будет написано, что изменилось, а {1} приведёт их игру в соответствие.</value>
+  </data>
+  <data name="Help_ModLists_Follow_Note" xml:space="preserve">
+    <value>«Синхронизировать» сначала показывает, что будет установлено и отложено, - ничего не меняется, пока не нажать «Применить».</value>
+  </data>
+  <data name="Help_ModLists_Follow_Keywords" xml:space="preserve">
+    <value>синхронизация, синхронизировать, следить, общая папка, dropbox, onedrive, google drive, гугл диск, друзья, сборка, модпак, обновление</value>
+  </data>
+  <data name="Collections_ManageTitle" xml:space="preserve">
+    <value>Управление коллекциями</value>
+  </data>
+  <data name="Play_CloseGame" xml:space="preserve">
+    <value>Закрыть игру</value>
+  </data>
+  <data name="Play_CloseGameToolTip" xml:space="preserve">
+    <value>Закрыть Escape from Tarkov отсюда</value>
+  </data>
+  <data name="Play_CloseGameWarning" xml:space="preserve">
+    <value>Всё, что есть в ещё идущем рейде, будет потеряно. Закрыть игру?</value>
+  </data>
+  <data name="Play_CloseGameConfirm" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Play_CloseGameWithServer" xml:space="preserve">
+    <value>Закрывать игру, когда сервер останавливается</value>
+  </data>
+  <data name="Play_CloseGameWithServerToolTip" xml:space="preserve">
+    <value>Когда сервер этой установки останавливается - через «Остановить сервер», закрытием его окна или из-за сбоя, - игра тоже закрывается: без сервера она ничего не сохранит. «Остановить сервер» сначала закрывает игру, пока сервер ещё может ей ответить. Перезапуск с этой страницы не считается.</value>
+  </data>
+  <data name="Play_GameClosed" xml:space="preserve">
+    <value>Игра закрыта.</value>
+  </data>
+  <data name="Play_GameNotRunning" xml:space="preserve">
+    <value>Игра не запущена.</value>
+  </data>
+  <data name="Play_GameClosedWithServer" xml:space="preserve">
+    <value>Сервер остановился, поэтому игра закрыта.</value>
+  </data>
+  <data name="Downloads_FikaIncompatibleDownloadFormat" xml:space="preserve">
+    <value>Здесь установлена Fika, а sp-mod.com отмечает эту версию {0} как несовместимую с Fika. После установки она может сломать совместные рейды или помешать загрузке Fika.
+
+Всё равно скачать?</value>
+  </data>
+  <data name="Downloads_DepProblemsDownloadFormat" xml:space="preserve">
+    <value>{0} нужны эти моды, и в нынешнем виде он может не загрузиться:
+
+{1}
+
+Всё равно скачать?</value>
+  </data>
+  <data name="Item_DownloadOnly" xml:space="preserve">
+    <value>Только скачать</value>
+  </data>
+  <data name="Item_DownloadOnlyToolTip" xml:space="preserve">
+    <value>Сохранить файл этого мода в папку загрузок, не устанавливая его.</value>
+  </data>
+  <data name="Help_Monitor_Other_Step3" xml:space="preserve">
+    <value>Наведите на неё курсор, чтобы увидеть, что именно она делает, затем нажмите.</value>
+  </data>
+  <data name="Install_IncompatibleOneDownloadFormat" xml:space="preserve">
+    <value>Ни одна версия этого мода на sp-mod.com не поддерживает SPT {0}. Самая новая:
+
+{1}
+
+Всё равно скачать? После установки SPT может отказаться его загружать.</value>
+  </data>
+  <data name="Install_IncompatibleBatchDownloadFormat" xml:space="preserve">
+    <value>Эти моды не поддерживают SPT {0}:
+
+{1}
+
+Всё равно скачать? После установки SPT может отказаться их загружать. «Нет» скачает остальные без них.</value>
+  </data>
+  <data name="Install_IncompatibleNotDownloadedFormat" xml:space="preserve">
+    <value>{0} не скачан - ни одна его версия не поддерживает SPT {1}.</value>
+  </data>
+  <data name="Downloads_NotAsInArchiveHeader" xml:space="preserve">
+    <value>Некоторые файлы легли не так, как в архиве, поэтому мод может не работать. Переустановите его или проверьте эти файлы вручную:</value>
+  </data>
+  <data name="Downloads_MismatchMissingFormat" xml:space="preserve">
+    <value>{0} - отсутствует</value>
+  </data>
+  <data name="Downloads_MismatchSizeFormat" xml:space="preserve">
+    <value>{0} - {1} байт на диске, {2} в архиве</value>
+  </data>
+  <data name="Downloads_MismatchContentsFormat" xml:space="preserve">
+    <value>{0} - отличается от копии в архиве</value>
+  </data>
+  <data name="Downloads_MismatchUnreadableFormat" xml:space="preserve">
+    <value>{0} - не удалось прочитать для проверки</value>
+  </data>
+  <data name="Downloads_SkippedUserFilesHeader" xml:space="preserve">
+    <value>В архиве есть и файлы для папки user SPT вне user\mods и user\patchers. Их должен менять только сам SPT, поэтому они не установлены - если они нужны моду, прочитайте его страницу:</value>
+  </data>
+  <data name="Play_ToolsHeader" xml:space="preserve">
+    <value>Инструменты модов</value>
+  </data>
+  <data name="Play_ToolsSummary" xml:space="preserve">
+    <value>Программы, установленные вашими модами, - открывайте их отсюда.</value>
+  </data>
+  <data name="Play_ToolsDescription" xml:space="preserve">
+    <value>Здесь сам собой появляется каждый .exe, который мод положил в папку SPT, - из того, что установило это приложение, и из папок модов, установленных вами вручную. Инструмент отключённого мода показан серым. Скройте всё, что не предназначено для запуска; его всегда можно показать снова.</value>
+  </data>
+  <data name="Play_ToolFromFormat" xml:space="preserve">
+    <value>из {0}</value>
+  </data>
+  <data name="Play_ToolOpen" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Play_ToolOpenToolTip" xml:space="preserve">
+    <value>Запустить этот инструмент из его собственной папки</value>
+  </data>
+  <data name="Play_ToolFolderToolTip" xml:space="preserve">
+    <value>Открыть папку мода</value>
+  </data>
+  <data name="Play_ToolHide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="Play_ToolHideToolTip" xml:space="preserve">
+    <value>Убрать со страницы «Играть». Его можно показать снова по ссылке под списком.</value>
+  </data>
+  <data name="Play_ToolUnhide" xml:space="preserve">
+    <value>Показать в «Играть»</value>
+  </data>
+  <data name="Play_ToolsShowHidden_one" xml:space="preserve">
+    <value>Показать {0} скрытый инструмент</value>
+  </data>
+  <data name="Play_ToolsShowHidden_few" xml:space="preserve">
+    <value>Показать {0} скрытых инструмента</value>
+  </data>
+  <data name="Play_ToolsShowHidden_many" xml:space="preserve">
+    <value>Показать {0} скрытых инструментов</value>
+  </data>
+  <data name="Play_ToolsHideHidden" xml:space="preserve">
+    <value>Снова скрыть</value>
+  </data>
+  <data name="Play_ToolNeedsServerRunning" xml:space="preserve">
+    <value>Нужен запущенный сервер.</value>
+  </data>
+  <data name="Play_ToolNeedsServerRunningDown" xml:space="preserve">
+    <value>Нужен запущенный сервер - а он не запущен.</value>
+  </data>
+  <data name="Play_ToolNeedsServerStopped" xml:space="preserve">
+    <value>Используйте при остановленном сервере - изменения применятся при его следующем запуске.</value>
+  </data>
+  <data name="Play_ToolNeedsServerStoppedUp" xml:space="preserve">
+    <value>Сервер запущен - сначала остановите его. Изменения применятся при его следующем запуске.</value>
+  </data>
+  <data name="Play_ToolModDisabledFormat" xml:space="preserve">
+    <value>{0} отключён, поэтому это нельзя открыть.</value>
+  </data>
+  <data name="Play_ToolOpenedFormat" xml:space="preserve">
+    <value>{0} открыт.</value>
+  </data>
+  <data name="Play_ToolOpenFailedFormat" xml:space="preserve">
+    <value>Не удалось открыть {0}: {1}</value>
+  </data>
+  <data name="Help_Play_Tools_Title" xml:space="preserve">
+    <value>Открыть программу, установленную модом</value>
+  </data>
+  <data name="Help_Play_Tools_Step1" xml:space="preserve">
+    <value>На странице {0} карточка {1} сама собирает все программы, которые моды положили в папку SPT, - Greed из SVM, give-ui и тому подобные, - и у каждой указан мод, из которого она взялась.</value>
+  </data>
+  <data name="Help_Play_Tools_Step2" xml:space="preserve">
+    <value>Нажмите {0}, чтобы запустить программу. Кнопка с папкой рядом открывает папку мода, где инструменты вроде SVM хранят свои файлы.</value>
+  </data>
+  <data name="Help_Play_Tools_Step3" xml:space="preserve">
+    <value>Знакомый приложению инструмент сообщает, нужен ли ему запущенный сервер (give-ui) или остановленный (Greed из SVM), и предлагает {0}, если серверу нужно работать, а он не запущен.</value>
+  </data>
+  <data name="Help_Play_Tools_Note" xml:space="preserve">
+    <value>Показываются все программы, поэтому ту, что не предназначена для запуска, можно скрыть кнопкой {0}; ссылка под списком снова показывает скрытые. Инструмент отключённого мода показан серым.</value>
+  </data>
+  <data name="Help_Play_Tools_Keywords" xml:space="preserve">
+    <value>инструменты, exe, программа, Greed, SVM, give-ui, конфигуратор, приложение, открыть, tools, program</value>
+  </data>
+  <data name="Sort_RecentlyInstalled" xml:space="preserve">
+    <value>Недавно установленные</value>
+  </data>
+  <data name="Sort_EnabledFirst" xml:space="preserve">
+    <value>Сначала включённые</value>
+  </data>
+  <data name="Sort_DisabledFirst" xml:space="preserve">
+    <value>Сначала отключённые</value>
+  </data>
+  <data name="Installed_GroupingInstallState" xml:space="preserve">
+    <value>Группировать: включённые / отключённые</value>
+  </data>
+  <data name="Installed_SectionEnabled" xml:space="preserve">
+    <value>Включённые</value>
+  </data>
+  <data name="Installed_SectionDisabled" xml:space="preserve">
+    <value>Отключённые</value>
+  </data>
+  <data name="Installed_PinnedTag" xml:space="preserve">
+    <value>ЗАКРЕПЛЁН</value>
+  </data>
+  <data name="Installed_RemoveProfileWarningFormat" xml:space="preserve">
+    <value>sp-mod.com отмечает {0} как мод, который может навсегда изменить ваш профиль и который, возможно, нельзя убрать без создания нового профиля. Его удаление - или отключение - может оставить профиль, который SPT не загрузит. Если так случится, верните его через «Отменить удаление» или установите заново. Копия ваших профилей сохраняется прямо перед удалением (Параметры &gt; Резервные копии профилей SPT).</value>
+  </data>
+  <data name="Installed_RemoveProfileManyTitle" xml:space="preserve">
+    <value>Эти моды могли изменить ваш профиль</value>
+  </data>
+  <data name="Installed_RemoveProfileManyFormat" xml:space="preserve">
+    <value>sp-mod.com отмечает эти моды как способные навсегда изменить ваш профиль, и их, возможно, нельзя убрать без создания нового профиля:
+{0}
+
+Их удаление - или отключение - может оставить профиль, который SPT не загрузит. Если так случится, верните их через «Отменить удаление» или установите заново. Копия ваших профилей сохраняется прямо перед удалением (Параметры &gt; Резервные копии профилей SPT).</value>
+  </data>
+  <data name="Installed_RemoveProfileKeepThese" xml:space="preserve">
+    <value>Оставить эти, удалить остальные</value>
+  </data>
+  <data name="Installed_RemoveProfileRemoveAll" xml:space="preserve">
+    <value>Удалить все</value>
+  </data>
+  <data name="Installed_RemoveProfileRemove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Installed_ReuploadedTag" xml:space="preserve">
+    <value>ПЕРЕЗАЛИТ</value>
+  </data>
+  <data name="Installed_ReuploadNewEntryFormat" xml:space="preserve">
+    <value>{0} {1} перезалит на sp-mod.com под тем же номером версии: новый файл указан размером {2} байт, ваш - {3} байт. Скачайте его заново, чтобы установить новый файл.</value>
+  </data>
+  <data name="Installed_ReuploadListingChangedFormat" xml:space="preserve">
+    <value>Файл {0} {1} на sp-mod.com сейчас указан размером {2} байт, а при вашей установке был {3} байт, так что его, скорее всего, заменили. Скачайте его заново, чтобы установить новый файл.</value>
+  </data>
+  <data name="Installed_GetAgain" xml:space="preserve">
+    <value>Скачать заново</value>
+  </data>
+  <data name="Installed_GetAgainToolTip" xml:space="preserve">
+    <value>Скачать эту версию с sp-mod.com ещё раз и установить поверх имеющейся. С вашими настройками всё происходит как при любом обновлении.</value>
+  </data>
+  <data name="Installed_GetAgainQueuedFormat" xml:space="preserve">
+    <value>{0} {1} скачивается заново - смотрите «Загрузки».</value>
+  </data>
+  <data name="Installed_GetAgainNotInCatalogFormat" xml:space="preserve">
+    <value>{0} нет в каталоге sp-mod.com, который есть у приложения, поэтому скачать его заново отсюда нельзя.</value>
+  </data>
+  <data name="Nav_Diagnose" xml:space="preserve">
+    <value>Диагностика логов</value>
+  </data>
+  <data name="Diagnose_Description" xml:space="preserve">
+    <value>Читает последний запуск сервера, лог BepInEx последней игровой сессии и лог ошибок игры и говорит, что не так и от какого мода это идёт.</value>
+  </data>
+  <data name="Diagnose_Refresh" xml:space="preserve">
+    <value>Прочитать логи снова</value>
+  </data>
+  <data name="Diagnose_CopyReport" xml:space="preserve">
+    <value>Скопировать отчёт для помощи</value>
+  </data>
+  <data name="Diagnose_CopyReportToolTip" xml:space="preserve">
+    <value>Копирует найденное и строки логов, на которых оно основано. Ваше имя пользователя Windows и папка, ID профилей и предметов и адреса других игроков удаляются.</value>
+  </data>
+  <data name="Diagnose_Copied" xml:space="preserve">
+    <value>Скопировано. Вставьте туда, где просите помощи.</value>
+  </data>
+  <data name="Diagnose_Reading" xml:space="preserve">
+    <value>Чтение логов...</value>
+  </data>
+  <data name="Diagnose_NoInstall" xml:space="preserve">
+    <value>Сначала укажите папку SPT в «Параметрах» (шестерёнка справа вверху).</value>
+  </data>
+  <data name="Diagnose_NothingFound" xml:space="preserve">
+    <value>В этих логах проблем не найдено.</value>
+  </data>
+  <data name="Diagnose_Found_one" xml:space="preserve">
+    <value>Найдена {0} проблема.</value>
+  </data>
+  <data name="Diagnose_Found_few" xml:space="preserve">
+    <value>Найдено {0} проблемы.</value>
+  </data>
+  <data name="Diagnose_Found_many" xml:space="preserve">
+    <value>Найдено {0} проблем.</value>
+  </data>
+  <data name="Diagnose_OtherErrors_one" xml:space="preserve">
+    <value>Ещё {0} ошибка в логах незнакома этой странице - она есть в скопированном отчёте.</value>
+  </data>
+  <data name="Diagnose_OtherErrors_few" xml:space="preserve">
+    <value>Ещё {0} ошибки в логах незнакомы этой странице - они есть в скопированном отчёте.</value>
+  </data>
+  <data name="Diagnose_OtherErrors_many" xml:space="preserve">
+    <value>Ещё {0} ошибок в логах незнакомы этой странице - они есть в скопированном отчёте.</value>
+  </data>
+  <data name="Diagnose_ServerRunFormat" xml:space="preserve">
+    <value>Лог сервера: {0}, с последнего запуска в {1}.</value>
+  </data>
+  <data name="Diagnose_ServerLogNone" xml:space="preserve">
+    <value>Лог сервера: не найден - сервер ещё не запускался.</value>
+  </data>
+  <data name="Diagnose_BepInExFormat" xml:space="preserve">
+    <value>Игра: BepInEx\LogOutput.log, с последнего запуска игры.</value>
+  </data>
+  <data name="Diagnose_BepInExNone" xml:space="preserve">
+    <value>Игра: лога BepInEx нет - игра ещё не запускалась с BepInEx.</value>
+  </data>
+  <data name="Diagnose_GameErrorsFormat" xml:space="preserve">
+    <value>Ошибки игры: {0}.</value>
+  </data>
+  <data name="Diagnose_LauncherClears" xml:space="preserve">
+    <value>Лаунчер SPT удаляет папку Logs игры при каждом её запуске, поэтому здесь только игровые логи последней сессии.</value>
+  </data>
+  <data name="Diagnose_CountFormat" xml:space="preserve">
+    <value>{0} раз(а)</value>
+  </data>
+  <data name="Diagnose_LineFormat" xml:space="preserve">
+    <value>{0}, строка {1}</value>
+  </data>
+  <data name="Diagnose_ShowMod" xml:space="preserve">
+    <value>Показать в «Ваших подписках»</value>
+  </data>
+  <data name="Diagnose_OpenFolder" xml:space="preserve">
+    <value>Открыть его папку</value>
+  </data>
+  <data name="Diagnose_OpenLog" xml:space="preserve">
+    <value>Открыть лог</value>
+  </data>
+  <data name="Diagnose_GoToPlay" xml:space="preserve">
+    <value>Перейти в «Играть»</value>
+  </data>
+  <data name="Diagnose_ProfileBackups" xml:space="preserve">
+    <value>Резервные копии профилей</value>
+  </data>
+  <data name="Diagnose_ModFormat" xml:space="preserve">
+    <value>Мод: {0}</value>
+  </data>
+  <data name="Diagnose_ModsFormat" xml:space="preserve">
+    <value>Моды: {0}</value>
+  </data>
+  <data name="Diagnose_Title_ProfileInvalid" xml:space="preserve">
+    <value>Профиль не загружается</value>
+  </data>
+  <data name="Diagnose_Body_ProfileInvalid" xml:space="preserve">
+    <value>SPT пометил профиль {0} как недействительный и не загружает его - и сброс (вайп) не поможет, потому что SPT не сохраняет изменения профиля, который не загружает. Верните мод, чьи предметы, торговец или одежда в нём есть, восстановите резервную копию профиля или создайте новый профиль. Либо сохраните профиль: установите removeModItemsFromProfile и removeInvalidTradersFromProfile в true в core.json SPT (SPT_Data\configs в папке сервера) и перезапустите сервер - тогда SPT сам уберёт из профиля всё недостающее. Кнопка «Включить их» сделает это за вас.</value>
+  </data>
+  <data name="Diagnose_Title_ProfileClothingMissing" xml:space="preserve">
+    <value>Профиль носит одежду из отсутствующего мода</value>
+  </data>
+  <data name="Diagnose_Body_ProfileClothingMissing" xml:space="preserve">
+    <value>В профиле есть одежда (ID {0}), которую не добавляет ни один установленный мод. По словам SPT, так бывает после удаления мода с одеждой. Верните этот мод или восстановите резервную копию профиля.</value>
+  </data>
+  <data name="Diagnose_Title_RaidResultsLost" xml:space="preserve">
+    <value>Итоги рейда не сохранились</value>
+  </data>
+  <data name="Diagnose_Body_RaidResultsLost" xml:space="preserve">
+    <value>В конце рейда игра отправила значение {0}, которого сервер не знает, поэтому сервер не смог прочитать итоги, и рейд не сохранился. Скорее всего, мод, который добавляет значения в {0}, загружен в игре, а его серверная часть - нет: например, отсутствует его препатч в user\patchers.</value>
+  </data>
+  <data name="Diagnose_Title_PortInUse" xml:space="preserve">
+    <value>Сервер не смог запуститься</value>
+  </data>
+  <data name="Diagnose_Body_PortInUse" xml:space="preserve">
+    <value>{0} уже что-то использует - чаще всего это ещё работающий сервер. Остановите его на странице «Играть» или закройте другую программу.</value>
+  </data>
+  <data name="Diagnose_Title_PluginMissingDependency" xml:space="preserve">
+    <value>Мод не загрузился: не хватает того, что ему нужно</value>
+  </data>
+  <data name="Diagnose_Body_PluginMissingDependency" xml:space="preserve">
+    <value>BepInEx не загрузил {0}: ему нужен {1}, который не установлен или слишком старый.</value>
+  </data>
+  <data name="Diagnose_Title_PluginIncompatible" xml:space="preserve">
+    <value>Мод не загрузился: он несовместим с другим</value>
+  </data>
+  <data name="Diagnose_Body_PluginIncompatible" xml:space="preserve">
+    <value>BepInEx не загрузил {0}, потому что установлен {1}. Отключите один из двух.</value>
+  </data>
+  <data name="Diagnose_Title_PluginDependencyNotLoaded" xml:space="preserve">
+    <value>Мод не загрузился: не загрузился нужный ему мод</value>
+  </data>
+  <data name="Diagnose_Body_PluginDependencyNotLoaded" xml:space="preserve">
+    <value>BepInEx пропустил {0}, потому что не загрузился нужный ему мод. Сначала исправьте тот.</value>
+  </data>
+  <data name="Diagnose_Title_PluginDuplicate" xml:space="preserve">
+    <value>Мод установлен дважды</value>
+  </data>
+  <data name="Diagnose_Body_PluginDuplicate" xml:space="preserve">
+    <value>BepInEx пропустил {0}, потому что установлена его более новая копия. Удалите старую.</value>
+  </data>
+  <data name="Diagnose_Title_PluginLoadError" xml:space="preserve">
+    <value>Мод не смог загрузиться</value>
+  </data>
+  <data name="Diagnose_Body_PluginLoadError" xml:space="preserve">
+    <value>BepInEx не смог загрузить {0}: {1}</value>
+  </data>
+  <data name="Diagnose_Title_ServerModNotLoaded" xml:space="preserve">
+    <value>Серверный мод не работает</value>
+  </data>
+  <data name="Diagnose_Body_ServerModNotLoaded" xml:space="preserve">
+    <value>Он установлен и включён, но при последнем запуске сервер не указал его среди загруженных модов. Лог сервера вокруг этого запуска может объяснить почему. Если вы добавили его позже, запустите сервер снова.</value>
+  </data>
+  <data name="Diagnose_Title_ModLoaderProblem" xml:space="preserve">
+    <value>Загрузчик модов SPT сообщил о проблеме</value>
+  </data>
+  <data name="Diagnose_Title_RequestFailed" xml:space="preserve">
+    <value>Ошибка сервера при ответе игре</value>
+  </data>
+  <data name="Diagnose_Body_RequestFailedFormat" xml:space="preserve">
+    <value>Сервер столкнулся с ошибкой при обработке {0}: {1}</value>
+  </data>
+  <data name="Diagnose_Title_ScheduledTaskFailed" xml:space="preserve">
+    <value>Задача сервера раз за разом завершается ошибкой</value>
+  </data>
+  <data name="Diagnose_Body_ScheduledTaskFailedFormat" xml:space="preserve">
+    <value>{0} - ошибка: {1}</value>
+  </data>
+  <data name="Diagnose_FromModCode" xml:space="preserve">
+    <value>Ошибка возникла в коде этого мода. Проверьте обновления или отправьте автору скопированный отчёт.</value>
+  </data>
+  <data name="Diagnose_Title_ModReportedError" xml:space="preserve">
+    <value>Мод сообщил об ошибке</value>
+  </data>
+  <data name="Diagnose_Title_BundleClash" xml:space="preserve">
+    <value>Два мода содержат один и тот же бандл</value>
+  </data>
+  <data name="Diagnose_Body_BundleClash" xml:space="preserve">
+    <value>{0} есть в нескольких модах, и SPT смог добавить только один из них - копия другого мода не используется.</value>
+  </data>
+  <data name="Diagnose_Title_BundleMissingDependency" xml:space="preserve">
+    <value>Бандлу нужны файлы, которых нет</value>
+  </data>
+  <data name="Diagnose_Body_BundleMissingDependency" xml:space="preserve">
+    <value>Игра не смогла полностью загрузить {0}: он зависит от бандлов, которые не установлены. Переустановка мода может помочь; если нет, сообщите его автору.</value>
+  </data>
+  <data name="Diagnose_Title_PluginLoggedErrors" xml:space="preserve">
+    <value>Мод записал ошибки в игре</value>
+  </data>
+  <data name="Diagnose_ReportIssueToolTip" xml:space="preserve">
+    <value>Открывает новый issue на GitHub SSPTMM с уже вписанным отчётом и копирует его. Ничего не отправляется, пока вы сами не отправите его там.</value>
+  </data>
+  <data name="Diagnose_IssueTitle" xml:space="preserve">
+    <value>Отчёт по логам</value>
+  </data>
+  <data name="Report_VersionsFormat" xml:space="preserve">
+    <value>{0}, SPT {1}, {2}</value>
+  </data>
+  <data name="Report_WindowsFormat" xml:space="preserve">
+    <value>Windows {0} ({1})</value>
+  </data>
+  <data name="Report_CopyError" xml:space="preserve">
+    <value>Скопировать ошибку</value>
+  </data>
+  <data name="Report_CopyErrorToolTip" xml:space="preserve">
+    <value>Копирует причину сбоя вместе с версиями SSPTMM, SPT и Windows для отчёта об ошибке. Ваше имя пользователя Windows не включается.</value>
+  </data>
+  <data name="Report_OpenIssue" xml:space="preserve">
+    <value>Сообщить на GitHub</value>
+  </data>
+  <data name="Report_Shortened" xml:space="preserve">
+    <value>(Сокращено - полный отчёт в вашем буфере обмена; вставьте его сюда.)</value>
+  </data>
+  <data name="Diagnose_ReportHeader" xml:space="preserve">
+    <value>Отчёт по логам - {0}, SPT {1}, {2}</value>
+  </data>
+  <data name="Help_Diagnose_Read_Title" xml:space="preserve">
+    <value>Узнать, почему что-то не работает</value>
+  </data>
+  <data name="Help_Diagnose_Read_Step1" xml:space="preserve">
+    <value>В меню {0} откройте {1}. Страница сама читает последний запуск сервера и логи последней игровой сессии.</value>
+  </data>
+  <data name="Help_Diagnose_Read_Step2" xml:space="preserve">
+    <value>Каждая карточка простыми словами говорит, что пошло не так, от какого мода это идёт (если лог его называет) и из какой строки лога это прочитано. {0} переносит к этому моду.</value>
+  </data>
+  <data name="Help_Diagnose_Read_Step3" xml:space="preserve">
+    <value>Изменив что-нибудь, снова запустите сервер или игру, затем нажмите {0}: логи говорят только о том, что было при последнем запуске.</value>
+  </data>
+  <data name="Help_Diagnose_Read_Note" xml:space="preserve">
+    <value>{0} копирует найденное, чтобы попросить помощи в другом месте, без вашего имени пользователя Windows, папок, ID и адресов других игроков. Эта страница не меняет ни одного файла.</value>
+  </data>
+  <data name="Help_Diagnose_Read_Keywords" xml:space="preserve">
+    <value>лог логи ошибка ошибки вылет сбой сломано не работает диагностика проблема bepinex сервер лаунчер отчёт помощь log error crash</value>
+  </data>
+  <data name="Diagnose_ReportServerFormat" xml:space="preserve">
+    <value>Лог сервера: {0} (последний запуск начался {1})</value>
+  </data>
+  <data name="Diagnose_ReportGameFormat" xml:space="preserve">
+    <value>Лог BepInEx: {0}; ошибки игры: {1}</value>
+  </data>
+  <data name="Diagnose_ReportOtherFormat" xml:space="preserve">
+    <value>Другие ошибки ({0}):</value>
+  </data>
+  <data name="About_UpdateTitleFormat" xml:space="preserve">
+    <value>{0}: вышел SSPTMM {1}</value>
+  </data>
+  <data name="About_UpdateBody" xml:space="preserve">
+    <value>«Установить обновление» скачивает его с GitHub, закрывает SSPTMM, кладёт новую версию поверх этой папки и запускает её снова - ваши настройки в папке Data остаются как есть. Или скачайте его со страницы релиза и сами распакуйте в то же место.</value>
+  </data>
+  <data name="About_OpenRelease" xml:space="preserve">
+    <value>Открыть страницу релиза</value>
+  </data>
+  <data name="About_UpToDate" xml:space="preserve">
+    <value>У вас самый новый релиз.</value>
+  </data>
+  <data name="About_CheckRateLimited" xml:space="preserve">
+    <value>За последний час GitHub получил слишком много запросов с этого подключения. Попробуйте позже.</value>
+  </data>
+  <data name="About_CheckUnreachableFormat" xml:space="preserve">
+    <value>Не удалось связаться с GitHub: {0}</value>
+  </data>
+  <data name="About_CheckTimedOut" xml:space="preserve">
+    <value>GitHub не ответил вовремя - проверьте подключение и попробуйте снова.</value>
+  </data>
+  <data name="About_CheckRefusedFormat" xml:space="preserve">
+    <value>GitHub ответил ошибкой {0}. Попробуйте позже.</value>
+  </data>
+  <data name="Options_DirectLaunchHeader" xml:space="preserve">
+    <value>Запускать игру из SSPTMM</value>
+  </data>
+  <data name="Options_DirectLaunchSummary" xml:space="preserve">
+    <value>«Играть» на странице «Играть» само запускает сервер и игру - без окна лаунчера SPT.</value>
+  </data>
+  <data name="Options_DirectLaunchDescription" xml:space="preserve">
+    <value>«Играть» делает то же, что лаунчер SPT по его кнопке Start: запускает сервер, если он не работает, и ждёт его, проверяет, что сервер и spt-core.dll одной версии SPT, чистит те же файлы, применяет игровой патч SPT, докачивает недостающие бандлы модов и запускает игру с выбранным профилем. Профили можно создавать, сбрасывать и удалять из меню ... на карточке «Играть». Собственные настройки лаунчера SPT (файлы, которые он не трогает, очистка кэша при запуске) соблюдаются. Логи последней игровой сессии сохраняются для «Диагностики логов».</value>
+  </data>
+  <data name="Options_DirectLaunchWarningTitle" xml:space="preserve">
+    <value>Сделано не командой SPT</value>
+  </data>
+  <data name="Options_DirectLaunchWarning" xml:space="preserve">
+    <value>Это повторяет то, что делает лаунчер SPT 4.1, по его исходному коду - это не сделано и не поддерживается командой SPT. Будущее обновление SPT может изменить способ запуска игры; тогда для незнакомых версий SSPTMM снова будет открывать лаунчер SPT. Если игра не запускается или ведёт себя странно, отключите это и пользуйтесь лаунчером SPT, а прося помощи, упомяните, что игра запускалась из SSPTMM. Чтобы всё работало в фоне, включите также запуск сервера без окна, выше.</value>
+  </data>
+  <data name="Options_DirectLaunchSupportedFormat" xml:space="preserve">
+    <value>Эта установка - SPT {0}: «Играть» запускает игру отсюда.</value>
+  </data>
+  <data name="Options_DirectLaunchUntestedFormat" xml:space="preserve">
+    <value>Эта установка - SPT {0}, новее проверенной {1}. «Играть» всё равно запускает игру отсюда, но если не получится, используйте лаунчер SPT.</value>
+  </data>
+  <data name="Options_DirectLaunchUnsupportedFormat" xml:space="preserve">
+    <value>Эта установка - SPT {0}: отсюда можно запускать только SPT 4.1.3 и новее в ветке 4.1, поэтому «Играть» открывает лаунчер SPT.</value>
+  </data>
+  <data name="Options_DirectLaunchNoInstall" xml:space="preserve">
+    <value>Сначала укажите папку SPT.</value>
+  </data>
+  <data name="Options_MinimizeWhilePlayingOn" xml:space="preserve">
+    <value>Сворачивать SSPTMM, когда игра запустится</value>
+  </data>
+  <data name="Options_MinimizeWhilePlayingOff" xml:space="preserve">
+    <value>Оставлять SSPTMM открытым при запуске игры</value>
+  </data>
+  <data name="Profiles_ReasonWipe" xml:space="preserve">
+    <value>Перед сбросом профиля</value>
+  </data>
+  <data name="Profiles_ReasonProfileDelete" xml:space="preserve">
+    <value>Перед удалением профиля</value>
+  </data>
+  <data name="Play_DirectHeader" xml:space="preserve">
+    <value>Escape from Tarkov</value>
+  </data>
+  <data name="Play_DirectSummary" xml:space="preserve">
+    <value>Выберите профиль и нажмите «Играть» - сервер запустится сам, если он не работает.</value>
+  </data>
+  <data name="Play_DirectDescription" xml:space="preserve">
+    <value>«Играть» при необходимости запускает сервер, ждёт его, выполняет проверки, патч и бандлы лаунчера SPT, затем запускает игру с этим профилем. Лаунчер SPT не открывается. Сброс, новый профиль, удаление и очистка кэша - в меню ... рядом с «Играть». Отключите это в «Параметрах», чтобы снова пользоваться лаунчером SPT.</value>
+  </data>
+  <data name="Play_DirectProfileToolTip" xml:space="preserve">
+    <value>Профиль, с которым запускается игра. Профили читаются из папки SPT, поэтому видны ещё до запуска сервера.</value>
+  </data>
+  <data name="Play_ProfileDetailFormat" xml:space="preserve">
+    <value>Уровень {0} · {1} · {2}</value>
+  </data>
+  <data name="Play_ProfileNewFormat" xml:space="preserve">
+    <value>{0} · новый персонаж · {1}</value>
+  </data>
+  <data name="Play_DirectPlay" xml:space="preserve">
+    <value>ИГРАТЬ</value>
+  </data>
+  <data name="Play_DirectPlayToolTip" xml:space="preserve">
+    <value>Запустить сервер, если нужно, затем игру с этим профилем.</value>
+  </data>
+  <data name="Play_DirectMoreToolTip" xml:space="preserve">
+    <value>Сброс, новый профиль, удаление, очистка кэша, лаунчер SPT</value>
+  </data>
+  <data name="Play_DirectNoProfiles" xml:space="preserve">
+    <value>Профилей пока нет - создайте его через «Новый профиль» в меню ...</value>
+  </data>
+  <data name="Play_WipeArmedFormat" xml:space="preserve">
+    <value>Следующий запуск начнёт {0} заново с новым персонажем - прогресс будет сброшен. Сначала сохраняется копия ваших профилей.</value>
+  </data>
+  <data name="Play_DirectUnavailableFormat" xml:space="preserve">
+    <value>Эта установка - SPT {0}. SSPTMM сам запускает игру только на SPT 4.1.3 и новее в ветке 4.1, поэтому здесь используйте лаунчер SPT.</value>
+  </data>
+  <data name="Play_DirectUntestedFormat" xml:space="preserve">
+    <value>SPT {0} новее проверенной {1}. Если игра не запустится, используйте лаунчер SPT (в меню ...).</value>
+  </data>
+  <data name="Play_DirectStartingServer" xml:space="preserve">
+    <value>Запуск сервера...</value>
+  </data>
+  <data name="Play_DirectWaitingForServerFormat" xml:space="preserve">
+    <value>Ожидание загрузки сервера... {0} с</value>
+  </data>
+  <data name="Play_DirectServerStopped" xml:space="preserve">
+    <value>Сервер остановился, не успев подготовиться, - его лог ниже объясняет почему.</value>
+  </data>
+  <data name="Play_DirectServerTimeoutFormat" xml:space="preserve">
+    <value>Сервер по адресу {0} не ответил за 3 минуты. Его лог ниже может объяснить почему.</value>
+  </data>
+  <data name="Play_DirectStageChecking" xml:space="preserve">
+    <value>Проверка, что сервер и spt-core.dll одной версии SPT...</value>
+  </data>
+  <data name="Play_DirectStageCleaning" xml:space="preserve">
+    <value>Очистка папки игры...</value>
+  </data>
+  <data name="Play_DirectStageWiping" xml:space="preserve">
+    <value>Сброс профиля...</value>
+  </data>
+  <data name="Play_DirectStageCache" xml:space="preserve">
+    <value>Очистка кэша игры...</value>
+  </data>
+  <data name="Play_DirectStagePatching" xml:space="preserve">
+    <value>Применение игрового патча SPT...</value>
+  </data>
+  <data name="Play_DirectStageBundlesFormat" xml:space="preserve">
+    <value>Загрузка бандлов модов: {0} из {1} ({2:N0} из {3:N0} МБ)...</value>
+  </data>
+  <data name="Play_DirectStageStarting" xml:space="preserve">
+    <value>Запуск игры...</value>
+  </data>
+  <data name="Play_DirectStartingGameFormat" xml:space="preserve">
+    <value>Запуск игры за {0}...</value>
+  </data>
+  <data name="Play_DirectPlayingFormat" xml:space="preserve">
+    <value>Игра за {0}.</value>
+  </data>
+  <data name="Play_DirectGameNotSeen" xml:space="preserve">
+    <value>Игра запущена, но ещё не появилась. Если ничего не откроется, загляните в BepInEx\LogOutput.log или попробуйте лаунчер SPT.</value>
+  </data>
+  <data name="Play_DirectCancelled" xml:space="preserve">
+    <value>Остановлено.</value>
+  </data>
+  <data name="Play_DirectNoGame" xml:space="preserve">
+    <value>В папке SPT нет EscapeFromTarkov.exe.</value>
+  </data>
+  <data name="Play_DirectServerUnreachableFormat" xml:space="preserve">
+    <value>Сервер не ответил: {0}</value>
+  </data>
+  <data name="Play_DirectNoCoreDll" xml:space="preserve">
+    <value>Нет BepInEx\plugins\spt\spt-core.dll - клиентские файлы SPT на месте не все. Переустановите SPT.</value>
+  </data>
+  <data name="Play_DirectVersionMismatchFormat" xml:space="preserve">
+    <value>Сервер - SPT {0}, а spt-core.dll - {1}, поэтому игра с ним не заработает. Переустановите SPT, чтобы версии совпали. (Лаунчер SPT всё равно запускает игру.)</value>
+  </data>
+  <data name="Play_DirectNoSuchProfile" xml:space="preserve">
+    <value>На сервере больше нет этого профиля. Выберите другой.</value>
+  </data>
+  <data name="Play_DirectWipeRefused" xml:space="preserve">
+    <value>Сервер отказал в сбросе - его конфигурация не разрешает сбрасывать профили. Ничего не запущено.</value>
+  </data>
+  <data name="Play_DirectPatchFailedFormat" xml:space="preserve">
+    <value>Не удалось применить игровой патч SPT ({0}): {1}. Ничего не запущено; лаунчер SPT столкнулся бы с той же проблемой - обычно помогает переустановка SPT.</value>
+  </data>
+  <data name="Play_DirectBundlesFailedFormat" xml:space="preserve">
+    <value>Бандлов модов, не скачавшихся с сервера: {0}, например {1}. Ничего не запущено.</value>
+  </data>
+  <data name="Play_DirectStartFailedFormat" xml:space="preserve">
+    <value>Не удалось запустить игру: {0}</value>
+  </data>
+  <data name="Play_DirectFailed" xml:space="preserve">
+    <value>Не удалось запустить игру.</value>
+  </data>
+  <data name="Play_DirectWipe" xml:space="preserve">
+    <value>Сбросить этот профиль при следующем запуске</value>
+  </data>
+  <data name="Play_DirectWipeCancel" xml:space="preserve">
+    <value>Не сбрасывать при следующем запуске</value>
+  </data>
+  <data name="Play_DirectWipeToolTip" xml:space="preserve">
+    <value>Следующий запуск начнёт этот профиль заново с новым персонажем, как вайп в лаунчере SPT. Сначала сохраняется копия ваших профилей.</value>
+  </data>
+  <data name="Play_DirectNewProfile" xml:space="preserve">
+    <value>Новый профиль...</value>
+  </data>
+  <data name="Play_DirectNewProfileToolTip" xml:space="preserve">
+    <value>Создать профиль на сервере - имя и стартовое издание. Запускает сервер, если он не работает.</value>
+  </data>
+  <data name="Play_DirectNewProfileHeader" xml:space="preserve">
+    <value>Новый профиль</value>
+  </data>
+  <data name="Play_DirectNewProfileName" xml:space="preserve">
+    <value>Имя профиля</value>
+  </data>
+  <data name="Play_DirectCreateProfile" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Play_DirectProfileCreatedFormat" xml:space="preserve">
+    <value>Профиль {0} создан. Персонажа игра создаст при первом запуске.</value>
+  </data>
+  <data name="Play_DirectProfileNotCreatedFormat" xml:space="preserve">
+    <value>Сервер не создал {0} - возможно, это имя занято.</value>
+  </data>
+  <data name="Play_DirectDeleteProfile" xml:space="preserve">
+    <value>Удалить этот профиль...</value>
+  </data>
+  <data name="Play_DirectDeleteProfileToolTip" xml:space="preserve">
+    <value>Удалить профиль с сервера. Сначала сохраняется копия ваших профилей (Параметры, Резервные копии профилей SPT).</value>
+  </data>
+  <data name="Play_DirectDeleteWarningFormat" xml:space="preserve">
+    <value>Удалить {0}? Персонаж и прогресс исчезнут с сервера. Сначала сохраняется копия ваших профилей, и её можно вернуть в «Параметрах».</value>
+  </data>
+  <data name="Play_DirectDeleteConfirm" xml:space="preserve">
+    <value>Удалить профиль</value>
+  </data>
+  <data name="Play_DirectDeleteWhileRunning" xml:space="preserve">
+    <value>Закройте игру, прежде чем удалять профиль.</value>
+  </data>
+  <data name="Play_DirectProfileDeletedFormat" xml:space="preserve">
+    <value>{0} удалён. Копия ваших профилей - в «Параметрах», Резервные копии профилей SPT.</value>
+  </data>
+  <data name="Play_DirectProfileNotDeletedFormat" xml:space="preserve">
+    <value>Сервер не удалил {0}.</value>
+  </data>
+  <data name="Play_DirectClearCache" xml:space="preserve">
+    <value>Очистить кэш игры</value>
+  </data>
+  <data name="Play_DirectClearCacheToolTip" xml:space="preserve">
+    <value>Удалить папку user\sptappdata сервера, как это делает Clear cache в лаунчере SPT. При следующем запуске она создаётся заново.</value>
+  </data>
+  <data name="Play_DirectCacheCleared" xml:space="preserve">
+    <value>Кэш игры очищен.</value>
+  </data>
+  <data name="Play_DirectCacheWhileRunning" xml:space="preserve">
+    <value>Закройте игру, прежде чем очищать её кэш.</value>
+  </data>
+  <data name="Play_DirectOpenLauncher" xml:space="preserve">
+    <value>Открыть лаунчер SPT вместо этого</value>
+  </data>
+  <data name="Play_DirectOpenLauncherToolTip" xml:space="preserve">
+    <value>Запустить игру обычным способом, через собственный лаунчер SPT.</value>
+  </data>
+  <data name="Play_DirectSettings" xml:space="preserve">
+    <value>Настройки...</value>
+  </data>
+  <data name="Options_LaunchReplacedByDirect" xml:space="preserve">
+    <value>Не используется, пока включено «Запускать игру из SSPTMM» - «Играть» само запускает игру.</value>
+  </data>
+  <data name="Help_Play_Direct_Title" xml:space="preserve">
+    <value>Играть прямо из SSPTMM</value>
+  </data>
+  <data name="Help_Play_Direct_Step1" xml:space="preserve">
+    <value>Это включено, если вы сами не отключили: {0}, {1}. Пояснение рядом говорит, что это делает.</value>
+  </data>
+  <data name="Help_Play_Direct_Step2" xml:space="preserve">
+    <value>Откройте {0}, выберите профиль и нажмите {1}. Сервер запустится сам, если он не работает.</value>
+  </data>
+  <data name="Help_Play_Direct_Step3" xml:space="preserve">
+    <value>Кнопка ... рядом может сбросить профиль при следующем запуске, создать новый профиль, удалить профиль или очистить кэш игры. Перед сбросом или удалением сохраняется копия ваших профилей.</value>
+  </data>
+  <data name="Help_Play_Direct_Note" xml:space="preserve">
+    <value>Работает с SPT от 4.1.3 до 4.1.6 и не сделано и не поддерживается командой SPT. Если игра не запускается или ведёт себя странно, отключите это и используйте {0}.</value>
+  </data>
+  <data name="Help_Play_Direct_Keywords" xml:space="preserve">
+    <value>играть, запуск игры, лаунчер, профиль, сброс, вайп, новый профиль, удалить профиль, кэш, play, launcher, wipe</value>
+  </data>
+  <data name="Play_DirectBackupFailed" xml:space="preserve">
+    <value>Не удалось сделать копию ваших профилей, поэтому ничего не изменено. Причина - в логе приложения.</value>
+  </data>
+  <data name="Play_DirectErrorFormat" xml:space="preserve">
+    <value>Запуск прерван: {0}</value>
+  </data>
+  <data name="Play_StoppedAfterGameFormat" xml:space="preserve">
+    <value>{0} остановлен. Сначала была закрыта игра, как отмечено ниже.</value>
+  </data>
+  <data name="Installed_ClearFiltersToolTip" xml:space="preserve">
+    <value>Возвращает все фильтры, сортировку и группировку к исходным в приложении. Страница запоминает ваши настройки, поэтому и в следующий раз откроется так же.</value>
+  </data>
+  <data name="Presets_Button" xml:space="preserve">
+    <value>Пресеты</value>
+  </data>
+  <data name="Presets_ButtonToolTip" xml:space="preserve">
+    <value>Сохраните, какие моды включены и какие отключены, как пресет и переключайтесь между пресетами - для Fika, для поиска проблем со всеми отключёнными модами или для чего угодно ещё.</value>
+  </data>
+  <data name="Presets_None" xml:space="preserve">
+    <value>Сохранённых пресетов пока нет</value>
+  </data>
+  <data name="Presets_SavedOnFormat" xml:space="preserve">
+    <value>Сохранён {0}</value>
+  </data>
+  <data name="Presets_CurrentToolTip" xml:space="preserve">
+    <value>Ваши моды настроены ровно так, как в этом пресете.</value>
+  </data>
+  <data name="Presets_Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Presets_UpdateToCurrent" xml:space="preserve">
+    <value>Сохранить текущую настройку поверх него</value>
+  </data>
+  <data name="Presets_Rename" xml:space="preserve">
+    <value>Переименовать...</value>
+  </data>
+  <data name="Presets_Delete" xml:space="preserve">
+    <value>Удалить...</value>
+  </data>
+  <data name="Presets_SaveCurrent" xml:space="preserve">
+    <value>Сохранить текущую настройку как пресет...</value>
+  </data>
+  <data name="Presets_PutBackFormat" xml:space="preserve">
+    <value>Вернуть моды как было до «{0}»</value>
+  </data>
+  <data name="Presets_PutBackToolTipFormat" xml:space="preserve">
+    <value>Включает и отключает моды так, как было прямо перед применением {0}, {1}. Хранится до применения следующего пресета, даже когда «Вернуть» уже недоступно.</value>
+  </data>
+  <data name="Presets_DisableAll" xml:space="preserve">
+    <value>Отключить все моды...</value>
+  </data>
+  <data name="Presets_DisableAllToolTip" xml:space="preserve">
+    <value>Для поиска проблем: отключает все моды. Собственные файлы SPT не трогаются. «Вернуть как было», пресет или «Включить все моды» включат их снова.</value>
+  </data>
+  <data name="Presets_EnableAll" xml:space="preserve">
+    <value>Включить все моды...</value>
+  </data>
+  <data name="Presets_EnableAllToolTip" xml:space="preserve">
+    <value>Включает все установленные моды.</value>
+  </data>
+  <data name="Presets_SaveTitle" xml:space="preserve">
+    <value>Сохранить пресет</value>
+  </data>
+  <data name="Presets_SaveIntro" xml:space="preserve">
+    <value>Сохраняет под именем, какие моды сейчас включены и какие отключены. Если позже его применить, моды включатся и отключатся под него; моды, установленные после сохранения, останутся как есть.</value>
+  </data>
+  <data name="Presets_NamePlaceholder" xml:space="preserve">
+    <value>Название пресета</value>
+  </data>
+  <data name="Presets_SaveConfirm" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Presets_SaveOver" xml:space="preserve">
+    <value>Сохранить поверх</value>
+  </data>
+  <data name="Presets_ReplaceFormat" xml:space="preserve">
+    <value>Пресет {0} уже существует. Сохранить текущую настройку поверх него?</value>
+  </data>
+  <data name="Presets_UpdateTitle" xml:space="preserve">
+    <value>Сохранить поверх пресета</value>
+  </data>
+  <data name="Presets_UpdateFormat" xml:space="preserve">
+    <value>Сохранить текущую настройку поверх {0}? То, что в нём было, будет заменено.</value>
+  </data>
+  <data name="Presets_RenameTitle" xml:space="preserve">
+    <value>Переименовать пресет</value>
+  </data>
+  <data name="Presets_RenameConfirm" xml:space="preserve">
+    <value>Переименовать</value>
+  </data>
+  <data name="Presets_DeleteTitle" xml:space="preserve">
+    <value>Удалить пресет</value>
+  </data>
+  <data name="Presets_DeleteFormat" xml:space="preserve">
+    <value>Удалить пресет {0}? Ваши моды останутся как есть.</value>
+  </data>
+  <data name="Presets_DeleteConfirm" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Presets_ApplyTitleFormat" xml:space="preserve">
+    <value>Применить {0}?</value>
+  </data>
+  <data name="Presets_DisableAllTitle" xml:space="preserve">
+    <value>Отключить все моды?</value>
+  </data>
+  <data name="Presets_EnableAllTitle" xml:space="preserve">
+    <value>Включить все моды?</value>
+  </data>
+  <data name="Presets_PutBackTitle" xml:space="preserve">
+    <value>Вернуть моды как было?</value>
+  </data>
+  <data name="Presets_DisableAllName" xml:space="preserve">
+    <value>Отключить все</value>
+  </data>
+  <data name="Presets_EnableAllName" xml:space="preserve">
+    <value>Включить все</value>
+  </data>
+  <data name="Presets_PutBackName" xml:space="preserve">
+    <value>Вернуть как было</value>
+  </data>
+  <data name="Presets_TurnsOff_one" xml:space="preserve">
+    <value>Отключит {0} мод:</value>
+  </data>
+  <data name="Presets_TurnsOff_few" xml:space="preserve">
+    <value>Отключит {0} мода:</value>
+  </data>
+  <data name="Presets_TurnsOff_many" xml:space="preserve">
+    <value>Отключит {0} модов:</value>
+  </data>
+  <data name="Presets_TurnsOn_one" xml:space="preserve">
+    <value>Включит {0} мод:</value>
+  </data>
+  <data name="Presets_TurnsOn_few" xml:space="preserve">
+    <value>Включит {0} мода:</value>
+  </data>
+  <data name="Presets_TurnsOn_many" xml:space="preserve">
+    <value>Включит {0} модов:</value>
+  </data>
+  <data name="Presets_NeedsHeader" xml:space="preserve">
+    <value>Этим модам будет не хватать нужного им:</value>
+  </data>
+  <data name="Presets_NeedsFormat" xml:space="preserve">
+    <value>{0} нужен {1}, который будет отключён.</value>
+  </data>
+  <data name="Presets_ProfileModsFormat" xml:space="preserve">
+    <value>sp-mod.com отмечает эти моды как способные навсегда изменить ваш профиль - их отключение может оставить профиль, который SPT не загрузит:
+{0}</value>
+  </data>
+  <data name="Presets_NotInstalled_one" xml:space="preserve">
+    <value>{0} мод из этого пресета больше не установлен и будет пропущен.</value>
+  </data>
+  <data name="Presets_NotInstalled_few" xml:space="preserve">
+    <value>{0} мода из этого пресета больше не установлены и будут пропущены.</value>
+  </data>
+  <data name="Presets_NotInstalled_many" xml:space="preserve">
+    <value>{0} модов из этого пресета больше не установлены и будут пропущены.</value>
+  </data>
+  <data name="Presets_NotInPreset_one" xml:space="preserve">
+    <value>{0} мод, установленный после сохранения пресета, останется как есть.</value>
+  </data>
+  <data name="Presets_NotInPreset_few" xml:space="preserve">
+    <value>{0} мода, установленных после сохранения пресета, останутся как есть.</value>
+  </data>
+  <data name="Presets_NotInPreset_many" xml:space="preserve">
+    <value>{0} модов, установленных после сохранения пресета, останутся как есть.</value>
+  </data>
+  <data name="Presets_SafetyNote" xml:space="preserve">
+    <value>Ничего не удаляется - моды только переносятся в свои папки .disabled и обратно. Сначала сохраняется копия ваших профилей SPT, а «Вернуть» или «Пресеты &gt; Вернуть как было» возвращают моды к нынешнему состоянию.</value>
+  </data>
+  <data name="Presets_ApplyConfirm" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Presets_AlreadyFormat" xml:space="preserve">
+    <value>Ваши моды уже настроены как {0}.</value>
+  </data>
+  <data name="Presets_AppliedFormat" xml:space="preserve">
+    <value>Применён {0}: отключено {1}, включено {2}.</value>
+  </data>
+  <data name="Presets_UndoFormat" xml:space="preserve">
+    <value>Вернуть «{0}»</value>
+  </data>
+  <data name="Presets_SavedFormat" xml:space="preserve">
+    <value>Пресет {0} сохранён.</value>
+  </data>
+  <data name="Presets_RenamedFormat" xml:space="preserve">
+    <value>Пресет переименован в {0}.</value>
+  </data>
+  <data name="Presets_NameTakenFormat" xml:space="preserve">
+    <value>Пресет с именем {0} уже есть.</value>
+  </data>
+  <data name="Presets_DeletedFormat" xml:space="preserve">
+    <value>Пресет {0} удалён.</value>
+  </data>
+  <data name="Presets_BackupFailed" xml:space="preserve">
+    <value>Не удалось сделать копию ваших профилей, поэтому моды не изменены. Причина - в логе приложения.</value>
+  </data>
+  <data name="Presets_CouldNotSaveFormat" xml:space="preserve">
+    <value>Не удалось сохранить пресеты: {0}</value>
+  </data>
+  <data name="Profiles_ReasonPreset" xml:space="preserve">
+    <value>Перед применением пресета модов</value>
+  </data>
+  <data name="Help_Installed_Presets_Title" xml:space="preserve">
+    <value>Включать и отключать наборы модов пресетами</value>
+  </data>
+  <data name="Help_Installed_Presets_Step1" xml:space="preserve">
+    <value>Включите и отключите моды на странице {0} так, как вам нужно, затем нажмите {1} и {2} и дайте пресету имя.</value>
+  </data>
+  <data name="Help_Installed_Presets_Step2" xml:space="preserve">
+    <value>Чтобы переключиться, нажмите {0}, наведите курсор на пресет и нажмите {1}. Прежде чем что-то изменится, будут названы все моды, которые он отключит и включит.</value>
+  </data>
+  <data name="Help_Installed_Presets_Step3" xml:space="preserve">
+    <value>Для поиска проблем {0} отключает все моды; {1} снова включает их все.</value>
+  </data>
+  <data name="Help_Installed_Presets_Note" xml:space="preserve">
+    <value>Ничего не удаляется, сначала сохраняется копия ваших профилей SPT, а «Вернуть» всё восстанавливает. После перезапуска в «Пресетах» есть «Вернуть как было» для последнего применённого.</value>
+  </data>
+  <data name="Help_Installed_Presets_Keywords" xml:space="preserve">
+    <value>пресет, пресеты, профиль, mod organizer, mo2, fika, поиск проблем, отключить все, включить все, переключить, сборка, preset</value>
+  </data>
+  <data name="Presets_WaitForScan" xml:space="preserve">
+    <value>«Ваши подписки» ещё сканируются - попробуйте через минуту.</value>
+  </data>
+  <data name="Presets_InTwoPlaces_one" xml:space="preserve">
+    <value>{0} мод есть в установке дважды - включённым и в своей папке .disabled - и не будет затронут. Разберитесь с ним через подсказку на его карточке.</value>
+  </data>
+  <data name="Presets_InTwoPlaces_few" xml:space="preserve">
+    <value>{0} мода есть в установке дважды - включёнными и в своих папках .disabled - и не будут затронуты. Разберитесь с ними через подсказки на их карточках.</value>
+  </data>
+  <data name="Presets_InTwoPlaces_many" xml:space="preserve">
+    <value>{0} модов есть в установке дважды - включёнными и в своих папках .disabled - и не будут затронуты. Разберитесь с ними через подсказки на их карточках.</value>
+  </data>
+  <data name="Presets_OnlyInTwoPlaces_one" xml:space="preserve">
+    <value>Менять нечего, кроме {0} мода, который есть в установке дважды - включённым и в своей папке .disabled. Сначала разберитесь с ним на его карточке.</value>
+  </data>
+  <data name="Presets_OnlyInTwoPlaces_few" xml:space="preserve">
+    <value>Менять нечего, кроме {0} модов, которые есть в установке дважды - включёнными и в своих папках .disabled. Сначала разберитесь с ними на их карточках.</value>
+  </data>
+  <data name="Presets_OnlyInTwoPlaces_many" xml:space="preserve">
+    <value>Менять нечего, кроме {0} модов, которые есть в установке дважды - включёнными и в своих папках .disabled. Сначала разберитесь с ними на их карточках.</value>
+  </data>
+  <data name="ModInstall_NothingToPlaceFormat" xml:space="preserve">
+    <value>{0} {1} не установлен: каждый файл в нём (всего {2}) заменил бы файл, принадлежащий SPT, BepInEx, игре или SSPTMM, например {3}. Ничего не изменено.</value>
+  </data>
+  <data name="Downloads_KeptAppFiles_one" xml:space="preserve">
+    <value>{0} файл в этом архиве лёг бы поверх собственных файлов SSPTMM и был пропущен.</value>
+  </data>
+  <data name="Downloads_KeptAppFiles_few" xml:space="preserve">
+    <value>{0} файла в этом архиве легли бы поверх собственных файлов SSPTMM и были пропущены.</value>
+  </data>
+  <data name="Downloads_KeptAppFiles_many" xml:space="preserve">
+    <value>{0} файлов в этом архиве легли бы поверх собственных файлов SSPTMM и были пропущены.</value>
+  </data>
+  <data name="AppUpdate_ConsentTitle" xml:space="preserve">
+    <value>Проверять новые релизы SSPTMM?</value>
+  </data>
+  <data name="AppUpdate_ConsentBody" xml:space="preserve">
+    <value>При каждом запуске SSPTMM может спрашивать у GitHub, не вышел ли новый релиз SSPTMM, и показывать точку рядом со «Справкой» и «О программе», если вышел. Отправляется только номер версии SSPTMM, и само приложение ничего не скачивает и не устанавливает.
+
+Если на этом компьютере используется Server Map, та же проверка спрашивает у sp-mod.com, не вышел ли новый мод Server Map.
+
+Это можно изменить в любой момент в «Справка &gt; О программе», где «Проверить сейчас» работает всегда.</value>
+  </data>
+  <data name="AppUpdate_ConsentYes" xml:space="preserve">
+    <value>Проверять при запуске</value>
+  </data>
+  <data name="AppUpdate_ConsentNo" xml:space="preserve">
+    <value>Не проверять</value>
+  </data>
+  <data name="AppUpdate_CheckAtStart" xml:space="preserve">
+    <value>Проверять новые релизы при запуске SSPTMM</value>
+  </data>
+  <data name="AppUpdate_CheckAtStartToolTip" xml:space="preserve">
+    <value>Спрашивает у GitHub (и у sp-mod.com - про мод Server Map, если он используется), не вышел ли новый релиз. Отправляется только номер версии SSPTMM; ничего не скачивается.</value>
+  </data>
+  <data name="App_InstallCutOffTitle" xml:space="preserve">
+    <value>Установка не завершилась</value>
+  </data>
+  <data name="App_InstallCutOffFormat" xml:space="preserve">
+    <value>SSPTMM закрылся, не закончив установку {0}. Уже размещённые файлы учтены, а мод показан как незавершённый в «Ваших подписках» - обновите или переустановите его там, чтобы закончить.</value>
+  </data>
+  <data name="About_InstallUpdate" xml:space="preserve">
+    <value>Установить обновление</value>
+  </data>
+  <data name="About_InstallConfirmTitle" xml:space="preserve">
+    <value>Установить SSPTMM {0}?</value>
+  </data>
+  <data name="About_InstallConfirmBodyFormat" xml:space="preserve">
+    <value>SSPTMM скачает {0} с GitHub ({1}), закроется, положит новую версию поверх этой папки и запустится снова. Ваши настройки, записи об установках и резервные копии в папке Data останутся как есть.
+
+Если что-то пойдёт не так до замены файлов, ничего не изменится.</value>
+  </data>
+  <data name="About_InstallConfirmYes" xml:space="preserve">
+    <value>Установить обновление</value>
+  </data>
+  <data name="About_InstallConfirmNo" xml:space="preserve">
+    <value>Не сейчас</value>
+  </data>
+  <data name="About_SizeUnknown" xml:space="preserve">
+    <value>размер неизвестен</value>
+  </data>
+  <data name="Play_ModsNeedSomething_one" xml:space="preserve">
+    <value>{0} моду нужно то, чего нет или что отключено: {1}. Смотрите «Ваши подписки».</value>
+  </data>
+  <data name="Play_ModsNeedSomething_few" xml:space="preserve">
+    <value>{0} модам нужно то, чего нет или что отключено: {1}. Смотрите «Ваши подписки».</value>
+  </data>
+  <data name="Play_ModsNeedSomething_many" xml:space="preserve">
+    <value>{0} модам нужно то, чего нет или что отключено: {1}. Смотрите «Ваши подписки».</value>
+  </data>
+  <data name="Diagnose_Title_ProfileItemMissing" xml:space="preserve">
+    <value>В профиле есть предмет, который не добавляет ни один мод</value>
+  </data>
+  <data name="Diagnose_Body_ProfileItemMissing" xml:space="preserve">
+    <value>В профиле есть предмет (ID {0}), который не добавляет ни один установленный мод, поэтому SPT его не загружает - и сброс (вайп) не поможет, потому что SPT не сохраняет изменения профиля, который не загружает. Верните мод, добавляющий этот предмет, восстановите резервную копию профиля или создайте новый профиль. Либо сохраните профиль: установите removeModItemsFromProfile и removeInvalidTradersFromProfile в true в core.json SPT (SPT_Data\configs в папке сервера) и перезапустите сервер - тогда SPT сам уберёт из профиля всё недостающее. Кнопка «Включить их» сделает это за вас.</value>
+  </data>
+  <data name="Diagnose_Title_ProfileTraderMissing" xml:space="preserve">
+    <value>Профиль знает торговца, которого не добавляет ни один мод</value>
+  </data>
+  <data name="Diagnose_Body_ProfileTraderMissing" xml:space="preserve">
+    <value>Профиль имел дело с торговцем (ID {0}), которого не добавляет ни один установленный мод, поэтому SPT его не загружает - и сброс (вайп) не поможет, потому что SPT не сохраняет изменения профиля, который не загружает. Верните мод, добавляющий этого торговца, восстановите резервную копию профиля или создайте новый профиль. Либо сохраните профиль: установите removeModItemsFromProfile и removeInvalidTradersFromProfile в true в core.json SPT (SPT_Data\configs в папке сервера) и перезапустите сервер - тогда SPT сам уберёт из профиля всё недостающее. Кнопка «Включить их» сделает это за вас.</value>
+  </data>
+  <data name="Play_DirectProfileInvalid" xml:space="preserve">
+    <value>SPT не загружает этот профиль: в нём есть предметы, торговец или одежда из мода, который больше не установлен. Сброс не поможет - SPT никогда не сохраняет сброс профиля, который не загружает. Верните мод, восстановите резервную копию профиля («Параметры») или создайте новый профиль. Либо сохраните профиль: установите removeModItemsFromProfile и removeInvalidTradersFromProfile в true в core.json SPT (SPT_Data\configs в папке сервера; кнопка «Включить их», если она появится ниже, сделает это за вас) и перезапустите сервер - тогда SPT сам уберёт из профиля всё недостающее. Ничего не запущено.</value>
+  </data>
+  <data name="Menu_AddToGroup" xml:space="preserve">
+    <value>Добавить в группу</value>
+  </data>
+  <data name="Menu_AddPickedToGroupFormat" xml:space="preserve">
+    <value>Добавить выбранные ({0}) в группу</value>
+  </data>
+  <data name="Menu_NewGroup" xml:space="preserve">
+    <value>Новая группа...</value>
+  </data>
+  <data name="Menu_NewGroupTitle" xml:space="preserve">
+    <value>Новая группа</value>
+  </data>
+  <data name="Menu_RemoveFromGroup" xml:space="preserve">
+    <value>Убрать из группы</value>
+  </data>
+  <data name="Diagnose_ProfileFix" xml:space="preserve">
+    <value>Включить их</value>
+  </data>
+  <data name="Diagnose_ProfileFixTitle" xml:space="preserve">
+    <value>Пусть SPT почистит профиль</value>
+  </data>
+  <data name="Diagnose_ProfileFixConfirmFormat" xml:space="preserve">
+    <value>Установить removeModItemsFromProfile и removeInvalidTradersFromProfile в true в:
+{0}
+
+При следующем запуске сервера SPT уберёт из каждого профиля предметы и торговцев, которых не добавляет ни один установленный мод, и загрузит профиль. Убранное не вернётся, если позже вы вернёте мод, - это сможет только резервная копия профиля, сделанная раньше.
+
+Файл в нынешнем виде сохраняется рядом ({1}). Включить их?</value>
+  </data>
+  <data name="Diagnose_ProfileFixDone" xml:space="preserve">
+    <value>Включено в core.json. Перезапустите сервер SPT, чтобы он почистил профиль, затем снова прочитайте логи.</value>
+  </data>
+  <data name="Diagnose_ProfileFixNotFound" xml:space="preserve">
+    <value>В core.json нет обоих переключателей в ожидаемом виде, поэтому он не изменён.</value>
+  </data>
+  <data name="Diagnose_ProfileFixFailedFormat" xml:space="preserve">
+    <value>Не удалось изменить core.json: {0}</value>
+  </data>
+  <data name="Diagnose_ProfileFixAlreadyOn" xml:space="preserve">
+    <value>removeModItemsFromProfile и removeInvalidTradersFromProfile в core.json уже включены. Если сервер не перезапускался после их включения, перезапустите его; если перезапускался, то недостающее - это то, что они не чистят: верните мод или восстановите резервную копию профиля.</value>
+  </data>
+  <data name="Installed_SharedFolderFormat" xml:space="preserve">
+    <value>Делит папку с {0}. Включение и отключение, обновление или отписка затрагивают только его собственные файлы.</value>
+  </data>
+  <data name="Installed_SharedFolderByHandFormat" xml:space="preserve">
+    <value>Делит папку с {0}, установленным вручную, поэтому их файлы не различить: включение, отключение или удаление одного делает то же самое с обоими.</value>
+  </data>
+  <data name="Installed_SharedFolderRemoveFormat" xml:space="preserve">
+    <value>{0} делит папку с {1} и установлен вручную. Его удаление забрало бы всю папку, включая {1}, поэтому он не удалён - уберите файлы {0} из папки сами.</value>
+  </data>
+  <data name="Play_ProfileFixDone" xml:space="preserve">
+    <value>Включено в core.json. Перезапустите сервер SPT, чтобы он почистил профиль, затем снова нажмите «Играть».</value>
+  </data>
+  <data name="Nav_Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Nav_Forward" xml:space="preserve">
+    <value>Вперёд</value>
+  </data>
+  <data name="Nav_Home" xml:space="preserve">
+    <value>Домой (Alt+Home) - какая это страница, выбирается в «Параметры &gt; Общие»</value>
+  </data>
+  <data name="Options_HomePageHeader" xml:space="preserve">
+    <value>Домашняя страница</value>
+  </data>
+  <data name="Options_HomePageHint" xml:space="preserve">
+    <value>Где открывается SSPTMM и куда ведёт «Домой».</value>
+  </data>
+  <data name="Options_HomePageDescription" xml:space="preserve">
+    <value>Страница, с которой открывается окно, и та, на которую ведёт кнопка «Домой» рядом со стрелками назад и вперёд, - как «Начальная страница» в самом Steam. Если открыть SSPTMM из уведомления об обновлении, он всё равно откроется на «Ваших подписках».</value>
+  </data>
+  <data name="Options_HomeWorkshop" xml:space="preserve">
+    <value>Главная Мастерской</value>
+  </data>
+  <data name="Installed_GroupMergeTitle" xml:space="preserve">
+    <value>Это имя занято</value>
+  </data>
+  <data name="Installed_GroupMergeFormat" xml:space="preserve">
+    <value>Группа {0} уже есть. Перенести моды этой группы в {0} и удалить эту группу?
+
+«Нет» оставит эту группу со старым именем.</value>
+  </data>
+  <data name="Options_HomeLastPage" xml:space="preserve">
+    <value>Последняя открытая страница</value>
+  </data>
+  <data name="Menu_Rename" xml:space="preserve">
+    <value>Переименовать...</value>
+  </data>
+  <data name="Menu_RenameTitle" xml:space="preserve">
+    <value>Своё название для этого мода (пусто - его собственное)</value>
+  </data>
+  <data name="Menu_RenameSave" xml:space="preserve">
+    <value>Переименовать</value>
+  </data>
+  <data name="Menu_OpenClientFolder" xml:space="preserve">
+    <value>Открыть папку клиента</value>
+  </data>
+  <data name="Menu_OpenServerFolder" xml:space="preserve">
+    <value>Открыть папку сервера</value>
+  </data>
 </root>

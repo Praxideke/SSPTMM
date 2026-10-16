@@ -5616,4 +5616,3417 @@ Vedi Dipendenze e conflitti.</value>
   <data name="Common_OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="Common_PinnedToolTip" xml:space="preserve">
+    <value>Fissato - applicare una collezione non disattiva mai questo mod</value>
+  </data>
+  <data name="Common_AttributeFilterToolTip" xml:space="preserve">
+    <value>Filtra per supporto Fika, pubblicità, dipendenze e addon</value>
+  </data>
+  <data name="Browse_SaveAsDefaultToolTip" xml:space="preserve">
+    <value>Apre questa pagina con i filtri e l'ordinamento impostati adesso, comprese le spunte delle versioni SPT. La casella di ricerca non è inclusa, e Per pagina non va salvato: la pagina tiene l'ultimo scelto. Puoi azzerarlo di nuovo dalle Opzioni.</value>
+  </data>
+  <data name="Installed_RemoveToolTip" xml:space="preserve">
+    <value>Annulla sottoscrizione: rimuovi i file di questo mod dalla tua installazione SPT</value>
+  </data>
+  <data name="ModLists_PinToolTip" xml:space="preserve">
+    <value>Fissa questo mod così nessuna lista che applichi lo metterà mai da parte. Per i mod dell'HUD e di qualità della vita che vuoi tenere qualunque lista usi. Rimuovi il fissaggio qui o dal mod in Oggetti sottoscritti.</value>
+  </data>
+  <data name="Options_PageDefaultsDescription" xml:space="preserve">
+    <value>Sfoglia ha un pulsante Salva come predefinito sotto l'ingranaggio accanto alla casella di ricerca: apre Sfoglia con i filtri e l'ordinamento impostati in quel momento. Oggetti sottoscritti non ha bisogno di pulsanti: si apre con i filtri, l'ordinamento e la vista in cui l'hai lasciato, e lì Azzera filtri li riporta a quelli dell'app. Quello che hai scritto in una casella di ricerca non viene mai conservato. Neanche Per pagina va salvato: ogni pagina si apre su Infinito finché non scegli lì una dimensione, poi tiene l'ultima che hai scelto.</value>
+  </data>
+  <data name="Options_DataFilesDescription" xml:space="preserve">
+    <value>Visualizza o modifica a mano i file JSON che questa app conserva in Data\, compreso installed-mods.json - utile quando i controlli di versione di Oggetti sottoscritti non bastano.</value>
+  </data>
+  <data name="Play_ServerDescription" xml:space="preserve">
+    <value>Avvia il server di questa installazione e lo lascia in esecuzione nella sua finestra della console. Continua a funzionare anche se chiudi questa app. Mentre è in esecuzione, Avvia server diventa Ferma server. Riavvia lo ferma e lo avvia di nuovo - dopo aver modificato una configurazione o aggiunto un mod server.</value>
+  </data>
+  <data name="Downloads_Description" xml:space="preserve">
+    <value>Si scaricano fino a tre mod alla volta e si installano uno per volta, nell'ordine in cui li hai messi in coda - sottoscrivine quanti vuoi e torna qui per vedere l'avanzamento.</value>
+  </data>
+  <data name="Downloads_Empty" xml:space="preserve">
+    <value>Ancora niente in coda - premi Sottoscrivi sulla pagina di un mod, o Aggiorna nella sua finestra di aggiornamento, per aggiungere qualcosa qui.</value>
+  </data>
+  <data name="ModListFile_TypeName" xml:space="preserve">
+    <value>Lista di mod SPT</value>
+  </data>
+  <data name="AppUpdate_NoDownloadFileFormat" xml:space="preserve">
+    <value>GitHub elenca {0} ma il suo download non è allegato alla release. Apri la pagina della release e scaricalo a mano.</value>
+  </data>
+  <data name="AppUpdate_ReleaseMissingExeFormat" xml:space="preserve">
+    <value>La release {0} non contiene {1} dove SSPTMM se lo aspetta. Scaricala dalla pagina della release ed estraila a mano sopra questa cartella.</value>
+  </data>
+  <data name="AppUpdate_FolderNotWritableFormat" xml:space="preserve">
+    <value>SSPTMM non può scrivere nella propria cartella ({0}), quindi non può aggiornarsi da solo. Spostalo fuori da Programmi, oppure scarica la nuova versione dalla pagina della release ed estraila a mano sopra questa cartella.</value>
+  </data>
+  <data name="AppUpdate_UnexpectedFormat" xml:space="preserve">
+    <value>L'aggiornamento non è riuscito: {0}. Non è stato cambiato niente - se continua a succedere, scaricalo dalla pagina della release ed estrailo a mano sopra questa cartella.</value>
+  </data>
+  <data name="ServerMap_ServingOwnList_one" xml:space="preserve">
+    <value>Questo server distribuisce la tua lista "{0}" (revisione {1}, 1 mod). Resta tua e puoi modificarla nella pagina Collezioni - pubblicala di nuovo dopo una modifica per aggiornare ciò che il server distribuisce.</value>
+  </data>
+  <data name="ServerMap_ServingOwnList_other" xml:space="preserve">
+    <value>Questo server distribuisce la tua lista "{0}" (revisione {1}, {2} mod). Resta tua e puoi modificarla nella pagina Collezioni - pubblicala di nuovo dopo una modifica per aggiornare ciò che il server distribuisce.</value>
+  </data>
+  <data name="ServerMap_ListSaved_one" xml:space="preserve">
+    <value>"{0}" (revisione {1}, 1 mod) è salvata nelle tue liste di mod. Si applica dalla pagina Collezioni, che prima mostra cosa cambierebbe.</value>
+  </data>
+  <data name="ServerMap_ListSaved_other" xml:space="preserve">
+    <value>"{0}" (revisione {1}, {2} mod) è salvata nelle tue liste di mod. Si applica dalla pagina Collezioni, che prima mostra cosa cambierebbe.</value>
+  </data>
+  <data name="ServerMap_NoList" xml:space="preserve">
+    <value>Questo server non pubblica una lista di mod. Il suo gestore ne pubblica una con "Pubblica su questo server" nella pagina Collezioni, dall'app sulla macchina che esegue il server.</value>
+  </data>
+  <data name="Installed_PinnedFormat" xml:space="preserve">
+    <value>{0} fissato - applicare una collezione non lo disattiverà. I mod fissati stanno in cima.</value>
+  </data>
+  <data name="Browse_DisabledFormat" xml:space="preserve">
+    <value>{0} è disattivato - attivalo in Oggetti sottoscritti prima di reinstallarlo.</value>
+  </data>
+  <data name="Installed_Pin" xml:space="preserve">
+    <value>Mantieni tra le collezioni</value>
+  </data>
+  <data name="Installed_Unpin" xml:space="preserve">
+    <value>Non mantenere più</value>
+  </data>
+  <data name="Installed_PinToolTip" xml:space="preserve">
+    <value>Fissa questo mod: applicare una delle tue collezioni non lo disattiva mai, anche se la collezione non lo include. I mod fissati stanno in cima a Oggetti sottoscritti. Per i mod dell'HUD e di qualità della vita che vuoi qualunque collezione usi.</value>
+  </data>
+  <data name="Installed_UnpinToolTip" xml:space="preserve">
+    <value>Rimuovi il fissaggio da questo mod, così applicare una collezione che non lo include può di nuovo disattivarlo.</value>
+  </data>
+  <data name="Downloads_Pause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="Downloads_Resume" xml:space="preserve">
+    <value>Riprendi</value>
+  </data>
+  <data name="Downloads_PauseToolTip" xml:space="preserve">
+    <value>In pausa non parte nessun download. Quello già in corso finisce, e così le installazioni.</value>
+  </data>
+  <data name="Downloads_PausedWaiting" xml:space="preserve">
+    <value>In pausa - attende Riprendi</value>
+  </data>
+  <data name="Downloads_CouldNotSwitchOnFormat" xml:space="preserve">
+    <value>{0} è disattivato e non è stato possibile attivarlo per l'aggiornamento, quindi non è cambiato niente: {1}</value>
+  </data>
+  <data name="Downloads_LeftSwitchedOnFormat" xml:space="preserve">
+    <value>{0} era disattivato e non è stato possibile disattivare di nuovo tutto l'aggiornamento - controllalo in Oggetti sottoscritti.</value>
+  </data>
+  <data name="ModUpdate_StaysDisabledFormat" xml:space="preserve">
+    <value>{0} è disattivato. Viene attivato per l'aggiornamento e poi disattivato di nuovo, quindi resta disattivato.</value>
+  </data>
+  <data name="ModUpdate_DisabledNoticeFormat" xml:space="preserve">
+    <value>{0} è disattivato. Riattivalo in Oggetti sottoscritti per aggiornarlo o riscaricarlo.</value>
+  </data>
+  <data name="AppUpdate_DownloadingFormat" xml:space="preserve">
+    <value>Download di {0} da GitHub...</value>
+  </data>
+  <data name="AppUpdate_DownloadingProgressFormat" xml:space="preserve">
+    <value>Download di {0} da GitHub... {1:P0}</value>
+  </data>
+  <data name="PreLaunch_ComparedFormat" xml:space="preserve">
+    <value>Confrontato con "{0}": {1}. Applica la lista nella pagina Collezioni per sistemare, o entra comunque - qui niente te lo impedisce.</value>
+  </data>
+  <data name="Addon_ActionInstallAnyway" xml:space="preserve">
+    <value>Installa comunque</value>
+  </data>
+  <data name="Addon_AnywayTitle" xml:space="preserve">
+    <value>Vuoi installare comunque questo addon?</value>
+  </data>
+  <data name="Addon_AnywayMismatchFormat" xml:space="preserve">
+    <value>{0} {1} dice di richiedere {2} {3}. Tu hai {2} {4}.
+
+Quello che un addon dice di richiedere è la parola del suo autore ed è spesso non aggiornato, quindi potrebbe funzionare lo stesso. Potrebbe anche non caricarsi, o rompere {2}.
+
+Vuoi installarlo comunque?</value>
+  </data>
+  <data name="Addon_AnywayNoParentFormat" xml:space="preserve">
+    <value>{0} è un addon per {1}, e SSPTMM non trova {1} in questa installazione SPT.
+
+Se {1} c'è comunque - installato a mano con un altro nome, per esempio - l'addon potrebbe funzionare. Senza, i file dell'addon non fanno niente o impediscono al gioco di caricarsi.
+
+Vuoi installarlo comunque?</value>
+  </data>
+  <data name="Addon_AnywayCancelledFormat" xml:space="preserve">
+    <value>{0} non è stato installato.</value>
+  </data>
+  <data name="Addon_ByFormat" xml:space="preserve">
+    <value>di {0}</value>
+  </data>
+  <data name="Addon_FilterHint" xml:space="preserve">
+    <value>Cerca tra questi addon</value>
+  </data>
+  <data name="Addon_FilterNone" xml:space="preserve">
+    <value>Nessun addon corrisponde.</value>
+  </data>
+  <data name="Item_TabAddonsFormat" xml:space="preserve">
+    <value>Addon ({0})</value>
+  </data>
+  <data name="Item_AddonsHeader" xml:space="preserve">
+    <value>ADDON PER QUESTO OGGETTO</value>
+  </data>
+  <data name="Item_AddonsOpen" xml:space="preserve">
+    <value>Visualizza</value>
+  </data>
+  <data name="Hub_ModSiteToolTip" xml:space="preserve">
+    <value>Apri sp-mod.com nel browser</value>
+  </data>
+  <data name="Workshop_BannerHeadline" xml:space="preserve">
+    <value>Modding per Single Player Tarkov</value>
+  </data>
+  <data name="Workshop_BannerBody" xml:space="preserve">
+    <value>Scopri mod, addon e collezioni, e aggiungili alla tua installazione SPT con un clic.</value>
+  </data>
+  <data name="Workshop_SptVersionHeader" xml:space="preserve">
+    <value>VERSIONE SPT</value>
+  </data>
+  <data name="Workshop_ModTags" xml:space="preserve">
+    <value>TAG DEI MOD</value>
+  </data>
+  <data name="Workshop_SearchOptionsToolTip" xml:space="preserve">
+    <value>Opzioni di ricerca</value>
+  </data>
+  <data name="Workshop_PostedFormat" xml:space="preserve">
+    <value>Pubblicato: {0:d MMM yyyy, HH:mm}</value>
+  </data>
+  <data name="Workshop_UpdatedFormat" xml:space="preserve">
+    <value>Aggiornato: {0:d MMM yyyy, HH:mm}</value>
+  </data>
+  <data name="Workshop_FavouritesFormat" xml:space="preserve">
+    <value>{0:N0} preferiti</value>
+  </data>
+  <data name="WorkshopHome_TabTopRated" xml:space="preserve">
+    <value>I più votati</value>
+  </data>
+  <data name="WorkshopHome_TopRatedNote" xml:space="preserve">
+    <value>I mod con più consensi su sp-mod.com</value>
+  </data>
+  <data name="WorkshopHome_MostSubscribedNote" xml:space="preserve">
+    <value>I mod più scaricati di sempre</value>
+  </data>
+  <data name="WorkshopHome_LastUpdatedNote" xml:space="preserve">
+    <value>I mod aggiornati più di recente</value>
+  </data>
+  <data name="WorkshopHome_NewNote" xml:space="preserve">
+    <value>I mod pubblicati più di recente</value>
+  </data>
+  <data name="WorkshopHome_EmptyWeek" xml:space="preserve">
+    <value>Nell'ultima settimana non è stato pubblicato niente.</value>
+  </data>
+  <data name="Item_OptionalFormat" xml:space="preserve">
+    <value>{0} (facoltativo)</value>
+  </data>
+  <data name="Item_TagsLabel" xml:space="preserve">
+    <value>Tag:</value>
+  </data>
+  <data name="Item_LicenseLabel" xml:space="preserve">
+    <value>Licenza:</value>
+  </data>
+  <data name="Item_StatDownloads" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Item_StatEndorsements" xml:space="preserve">
+    <value>Consensi</value>
+  </data>
+  <data name="Item_CopyLink" xml:space="preserve">
+    <value>Copia link</value>
+  </data>
+  <data name="Item_LinkCopied" xml:space="preserve">
+    <value>Link copiato.</value>
+  </data>
+  <data name="Item_FileSizeKb" xml:space="preserve">
+    <value>{0:N3} KB</value>
+  </data>
+  <data name="Item_FileSizeMb" xml:space="preserve">
+    <value>{0:N3} MB</value>
+  </data>
+  <data name="Item_CloseToolTip" xml:space="preserve">
+    <value>Torna al Workshop (Esc)</value>
+  </data>
+  <data name="Workshop_PerPageInfinite" xml:space="preserve">
+    <value>Infinito</value>
+  </data>
+  <data name="Workshop_LoadingMore" xml:space="preserve">
+    <value>Scorri per vederne altri...</value>
+  </data>
+  <data name="Viewer_OpenInBrowser" xml:space="preserve">
+    <value>Apri nel browser</value>
+  </data>
+  <data name="Viewer_WatchOnYouTube" xml:space="preserve">
+    <value>Guarda su YouTube</value>
+  </data>
+  <data name="Browse_CheckingRequirementsFormat" xml:space="preserve">
+    <value>Verifica di cosa richiede {0}...</value>
+  </data>
+  <data name="Browse_QueuedWithRequirements_one" xml:space="preserve">
+    <value>{0} {1} messo in coda insieme a 1 mod richiesto - vedi la pagina Download per l'avanzamento.</value>
+  </data>
+  <data name="Browse_QueuedWithRequirements_other" xml:space="preserve">
+    <value>{0} {1} messo in coda insieme a {2} mod richiesti - vedi la pagina Download per l'avanzamento.</value>
+  </data>
+  <data name="ModPage_StepFormat" xml:space="preserve">
+    <value>{0} di {1}: {2}</value>
+  </data>
+  <data name="ModPage_NextPage" xml:space="preserve">
+    <value>Pagina successiva</value>
+  </data>
+  <data name="ModPage_PreviousPage" xml:space="preserve">
+    <value>Pagina precedente</value>
+  </data>
+  <data name="ModPage_Done" xml:space="preserve">
+    <value>Fatto</value>
+  </data>
+  <data name="ModPage_Close" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="Item_TabVersions" xml:space="preserve">
+    <value>Versioni</value>
+  </data>
+  <data name="Item_VersionInstall" xml:space="preserve">
+    <value>Installa questa versione</value>
+  </data>
+  <data name="Item_VersionSwitch" xml:space="preserve">
+    <value>Passa a questa versione</value>
+  </data>
+  <data name="Item_VersionInstalled" xml:space="preserve">
+    <value>Installata</value>
+  </data>
+  <data name="Item_VersionReleasedFormat" xml:space="preserve">
+    <value>Pubblicata il {0:d MMM yyyy, HH:mm}</value>
+  </data>
+  <data name="Item_VersionDownloadsFormat" xml:space="preserve">
+    <value>{0:N0} download</value>
+  </data>
+  <data name="Item_VersionDependencies" xml:space="preserve">
+    <value>Dipendenze:</value>
+  </data>
+  <data name="Item_VersionFika" xml:space="preserve">
+    <value>Compatibile con Fika</value>
+  </data>
+  <data name="Item_VersionsMore" xml:space="preserve">
+    <value>Mostra altre versioni</value>
+  </data>
+  <data name="Item_MoreByFormat" xml:space="preserve">
+    <value>ALTRO DI {0}</value>
+  </data>
+  <data name="Item_RequiredBy_one" xml:space="preserve">
+    <value>RICHIESTO DA {0:N0} OGGETTO</value>
+  </data>
+  <data name="Item_RequiredBy_other" xml:space="preserve">
+    <value>RICHIESTO DA {0:N0} OGGETTI</value>
+  </data>
+  <data name="Item_CommentsSignIn" xml:space="preserve">
+    <value>Accedi qui a sp-mod.com per commentare o reagire; resterai connesso.</value>
+  </data>
+  <data name="Item_CommentsUnavailable" xml:space="preserve">
+    <value>I commenti si aprono su sp-mod.com nel browser - su questo PC manca il runtime WebView2 per mostrarli qui.</value>
+  </data>
+  <data name="Item_CommentsOpen" xml:space="preserve">
+    <value>Apri i commenti</value>
+  </data>
+  <data name="Item_AuthorToolTip" xml:space="preserve">
+    <value>Apri la sua pagina del Workshop</value>
+  </data>
+  <data name="Item_PlayVideo" xml:space="preserve">
+    <value>Riproduci video</value>
+  </data>
+  <data name="Item_Checking" xml:space="preserve">
+    <value>Verifica...</value>
+  </data>
+  <data name="Viewer_CounterFormat" xml:space="preserve">
+    <value>{0} / {1}</value>
+  </data>
+  <data name="Installed_UpdateAll_one" xml:space="preserve">
+    <value>Aggiorna {0:N0} oggetto</value>
+  </data>
+  <data name="Installed_UpdateAll_other" xml:space="preserve">
+    <value>Aggiorna tutti ({0})</value>
+  </data>
+  <data name="Browse_SelfModFormat" xml:space="preserve">
+    <value>{0} è questa app, non un mod SPT, quindi non viene installato in SPT - si aggiorna da sé dalla pagina Aggiornamento app.</value>
+  </data>
+  <data name="Item_DateThisYearFormat" xml:space="preserve">
+    <value>{0:d MMM, HH:mm}</value>
+  </data>
+  <data name="Item_DateFormat" xml:space="preserve">
+    <value>{0:d MMM yyyy, HH:mm}</value>
+  </data>
+  <data name="Item_ChangeNoteUpdateFormat" xml:space="preserve">
+    <value>Aggiornamento: {0}</value>
+  </data>
+  <data name="Item_ChangeNoteVersionFormat" xml:space="preserve">
+    <value>Versione {0}</value>
+  </data>
+  <data name="Item_ChangeNoteSptFormat" xml:space="preserve">
+    <value>Funziona con SPT {0}</value>
+  </data>
+  <data name="Item_ChangeNotesShowingFormat" xml:space="preserve">
+    <value>Visualizzate {0}-{1} di {2} voci</value>
+  </data>
+  <data name="Item_ChangeNotesMore" xml:space="preserve">
+    <value>Mostra aggiornamenti precedenti</value>
+  </data>
+  <data name="Item_GuidLabel" xml:space="preserve">
+    <value>GUID:</value>
+  </data>
+  <data name="Item_SourceCodeLabel" xml:space="preserve">
+    <value>Codice sorgente:</value>
+  </data>
+  <data name="Item_SourceCodeLinkFormat" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
+  <data name="Item_VirusTotalLabel" xml:space="preserve">
+    <value>Risultati VirusTotal:</value>
+  </data>
+  <data name="Item_VirusTotalOpen" xml:space="preserve">
+    <value>Visualizza</value>
+  </data>
+  <data name="Item_DependencyVersionFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="Item_CheatNoticeLead" xml:space="preserve">
+    <value>Attenzione:</value>
+  </data>
+  <data name="Item_CheatNotice" xml:space="preserve">
+    <value>Questo mod offre funzionalità simili ai classici cheat per il multigiocatore, ma è stato progettato esclusivamente per l'uso con SPT. Tentare di usare questo software sui server live di EFT non funzionerà e comporterà un ban immediato e permanente da EFT e SPT.</value>
+  </data>
+  <data name="Item_CheatNoticeMore" xml:space="preserve">
+    <value>Consulta le linee guida sui contenuti per maggiori informazioni.</value>
+  </data>
+  <data name="Item_ProfileNoticeLead" xml:space="preserve">
+    <value>Avviso:</value>
+  </data>
+  <data name="Item_ProfileNotice" xml:space="preserve">
+    <value>Questo mod può apportare modifiche permanenti al tuo profilo, e potrebbe non essere rimovibile senza iniziare un nuovo profilo.</value>
+  </data>
+  <data name="Item_ProfileNoticeMore" xml:space="preserve">
+    <value>Maggiori informazioni.</value>
+  </data>
+  <data name="Item_CommentsNone" xml:space="preserve">
+    <value>Questo oggetto non ha una sezione commenti su sp-mod.com.</value>
+  </data>
+  <data name="Subscribe_RequiredTitle" xml:space="preserve">
+    <value>Oggetti richiesti aggiuntivi</value>
+  </data>
+  <data name="Subscribe_RequiredIntroFormat" xml:space="preserve">
+    <value>{0} richiede tutti i seguenti altri oggetti per funzionare correttamente.</value>
+  </data>
+  <data name="Subscribe_RequiredClickNote" xml:space="preserve">
+    <value>Puoi fare clic su ciascuno qui per leggerne la pagina su sp-mod.com prima di procedere.</value>
+  </data>
+  <data name="Subscribe_RequiredAllNote" xml:space="preserve">
+    <value>L'elenco comprende gli oggetti che questi richiedono a loro volta. Sottoscrivere solo questo oggetto li esclude tutti, e SPT potrebbe non caricarlo senza di essi.</value>
+  </data>
+  <data name="Subscribe_JustThisItem" xml:space="preserve">
+    <value>Sottoscrivi solo questo oggetto</value>
+  </data>
+  <data name="Subscribe_All" xml:space="preserve">
+    <value>Sottoscrivi tutti</value>
+  </data>
+  <data name="Item_JustSubscribedFormat" xml:space="preserve">
+    <value>Questo oggetto è stato aggiunto alle tue {0}. SPT lo caricherà al prossimo avvio.</value>
+  </data>
+  <data name="Item_JustSubscribedLink" xml:space="preserve">
+    <value>Sottoscrizioni</value>
+  </data>
+  <data name="Browse_ChipSearchFormat" xml:space="preserve">
+    <value>Risultati per: "{0}"</value>
+  </data>
+  <data name="Browse_ChipCategoryFormat" xml:space="preserve">
+    <value>Tipo di contenuto: {0}</value>
+  </data>
+  <data name="Browse_ChipRemoveToolTip" xml:space="preserve">
+    <value>Rimuovi questo filtro</value>
+  </data>
+  <data name="Workshop_ClearSearch" xml:space="preserve">
+    <value>Cancella ricerca</value>
+  </data>
+  <data name="Collection_AddTitle" xml:space="preserve">
+    <value>Aggiungi alla collezione</value>
+  </data>
+  <data name="Collection_AddIntroFormat" xml:space="preserve">
+    <value>'{0}' verrà aggiunto alle collezioni selezionate qui sotto:</value>
+  </data>
+  <data name="Collection_AddNoneYet" xml:space="preserve">
+    <value>Non hai collezioni salvate. Puoi crearne una nuova inserendo un nome qui sotto.</value>
+  </data>
+  <data name="Collection_CreateNew" xml:space="preserve">
+    <value>Crea nuova collezione</value>
+  </data>
+  <data name="Collection_AddConfirm" xml:space="preserve">
+    <value>Aggiungi alle collezioni selezionate</value>
+  </data>
+  <data name="Collection_AddToolTip" xml:space="preserve">
+    <value>Aggiungi a una delle tue collezioni</value>
+  </data>
+  <data name="Collection_Added_one" xml:space="preserve">
+    <value>{0} aggiunto a {1} collezione.</value>
+  </data>
+  <data name="Collection_Added_other" xml:space="preserve">
+    <value>{0} aggiunto a {1} collezioni.</value>
+  </data>
+  <data name="Collection_Removed_one" xml:space="preserve">
+    <value>{0} tolto da {1} collezione.</value>
+  </data>
+  <data name="Collection_Removed_other" xml:space="preserve">
+    <value>{0} tolto da {1} collezioni.</value>
+  </data>
+  <data name="Collection_ItemCount_one" xml:space="preserve">
+    <value>{0:N0} oggetto</value>
+  </data>
+  <data name="Collection_ItemCount_other" xml:space="preserve">
+    <value>{0:N0} oggetti</value>
+  </data>
+  <data name="Item_InCollections_one" xml:space="preserve">
+    <value>IN UNA DELLE TUE COLLEZIONI</value>
+  </data>
+  <data name="Item_InCollections_other" xml:space="preserve">
+    <value>IN {0:N0} DELLE TUE COLLEZIONI</value>
+  </data>
+  <data name="Collection_ViewPage" xml:space="preserve">
+    <value>Visualizza collezione</value>
+  </data>
+  <data name="Collection_ViewPageToolTip" xml:space="preserve">
+    <value>Mostra questa collezione come pagina del Workshop</value>
+  </data>
+  <data name="Collection_ItemsHeader" xml:space="preserve">
+    <value>OGGETTI</value>
+  </data>
+  <data name="Collection_ItemsCountFormat" xml:space="preserve">
+    <value>({0:N0})</value>
+  </data>
+  <data name="Collection_CreatedBy_one" xml:space="preserve">
+    <value>UNA COLLEZIONE DI {0:N0} OGGETTO CREATA DA</value>
+  </data>
+  <data name="Collection_CreatedBy_other" xml:space="preserve">
+    <value>UNA COLLEZIONE DI {0:N0} OGGETTI CREATA DA</value>
+  </data>
+  <data name="Collection_NoItems" xml:space="preserve">
+    <value>Nessun oggetto in questa collezione</value>
+  </data>
+  <data name="Collection_SubscribeAll" xml:space="preserve">
+    <value>Sottoscrivi tutti</value>
+  </data>
+  <data name="Collection_UnsubscribeAll" xml:space="preserve">
+    <value>Annulla tutte le sottoscrizioni</value>
+  </data>
+  <data name="Collection_SaveToCollection" xml:space="preserve">
+    <value>Salva in una collezione</value>
+  </data>
+  <data name="Collection_Manage" xml:space="preserve">
+    <value>Gestisci in Collezioni</value>
+  </data>
+  <data name="Collection_SubscribeAllTitle" xml:space="preserve">
+    <value>Sottoscrivi tutti</value>
+  </data>
+  <data name="Collection_SubscribeAllBody" xml:space="preserve">
+    <value>Vuoi aggiungere gli oggetti di questa collezione alle tue sottoscrizioni, o sovrascrivere le tue sottoscrizioni perché contengano solo gli oggetti di questa collezione?</value>
+  </data>
+  <data name="Collection_AddOnly" xml:space="preserve">
+    <value>Aggiungi soltanto</value>
+  </data>
+  <data name="Collection_Overwrite" xml:space="preserve">
+    <value>Sovrascrivi le mie sottoscrizioni</value>
+  </data>
+  <data name="Collection_OverwriteBody" xml:space="preserve">
+    <value>Vuoi davvero sovrascrivere le tue sottoscrizioni? Ogni mod che non è in questa collezione verrà messo da parte (disattivato, non eliminato) e potrà essere riattivato da Oggetti sottoscritti. Potresti voler salvare prima le tue sottoscrizioni attuali in una collezione. La pagina Collezioni mostra tutto ciò che cambierà prima che cambi.</value>
+  </data>
+  <data name="Collection_OverwriteYes" xml:space="preserve">
+    <value>Sì, sovrascrivi le mie sottoscrizioni</value>
+  </data>
+  <data name="Collection_SaveCurrent" xml:space="preserve">
+    <value>Salva le sottoscrizioni attuali in una collezione</value>
+  </data>
+  <data name="Collection_CaptureHint" xml:space="preserve">
+    <value>Dai un nome a una nuova collezione e scegli Cattura per salvare ciò che è installato adesso.</value>
+  </data>
+  <data name="Collection_UnsubscribeAllBody_one" xml:space="preserve">
+    <value>L'unico oggetto installato di questa collezione può essere messo da parte (disattivato - torna con un clic in Oggetti sottoscritti) o rimosso (i suoi file eliminati, dopo aver copiato a parte i suoi file di configurazione).</value>
+  </data>
+  <data name="Collection_UnsubscribeAllBody_other" xml:space="preserve">
+    <value>I {0:N0} oggetti installati di questa collezione possono essere messi da parte (disattivati - tornano con un clic in Oggetti sottoscritti) o rimossi (i loro file eliminati, dopo aver copiato a parte i loro file di configurazione).</value>
+  </data>
+  <data name="Collection_NothingInstalled" xml:space="preserve">
+    <value>Nessuno degli oggetti di questa collezione è installato.</value>
+  </data>
+  <data name="Collection_NamePrompt" xml:space="preserve">
+    <value>Inserisci un nome per questa collezione:</value>
+  </data>
+  <data name="Collection_CopyNameFormat" xml:space="preserve">
+    <value>{0} (copia)</value>
+  </data>
+  <data name="Collection_Save" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="Collection_SavedFormat" xml:space="preserve">
+    <value>Salvata come {0}.</value>
+  </data>
+  <data name="Collection_ByHandNote" xml:space="preserve">
+    <value>Non è su sp-mod.com - installalo a mano.</value>
+  </data>
+  <data name="Collection_AddonNote" xml:space="preserve">
+    <value>Un addon - si installa dalla pagina del suo mod.</value>
+  </data>
+  <data name="Collection_Posted" xml:space="preserve">
+    <value>Pubblicata</value>
+  </data>
+  <data name="Collection_Updated" xml:space="preserve">
+    <value>Aggiornata</value>
+  </data>
+  <data name="Collection_SubscribeToolTip" xml:space="preserve">
+    <value>Sottoscrivi</value>
+  </data>
+  <data name="Collection_UnsubscribeToolTip" xml:space="preserve">
+    <value>Annulla sottoscrizione</value>
+  </data>
+  <data name="Collection_ItemCreatedBy" xml:space="preserve">
+    <value>Creato da</value>
+  </data>
+  <data name="Menu_Open" xml:space="preserve">
+    <value>Apri</value>
+  </data>
+  <data name="Menu_QuickView" xml:space="preserve">
+    <value>Anteprima rapida</value>
+  </data>
+  <data name="Menu_AddToCollection" xml:space="preserve">
+    <value>Aggiungi alla collezione...</value>
+  </data>
+  <data name="QuickView_CreatedBy" xml:space="preserve">
+    <value>CREATO DA:</value>
+  </data>
+  <data name="QuickView_Posted" xml:space="preserve">
+    <value>PUBBLICATO:</value>
+  </data>
+  <data name="QuickView_Updated" xml:space="preserve">
+    <value>AGGIORNATO:</value>
+  </data>
+  <data name="QuickView_FileSize" xml:space="preserve">
+    <value>DIMENSIONE FILE:</value>
+  </data>
+  <data name="QuickView_Downloads" xml:space="preserve">
+    <value>DOWNLOAD:</value>
+  </data>
+  <data name="QuickView_Favorites" xml:space="preserve">
+    <value>PREFERITI:</value>
+  </data>
+  <data name="QuickView_Tags" xml:space="preserve">
+    <value>TAG</value>
+  </data>
+  <data name="QuickView_SeeMore" xml:space="preserve">
+    <value>Mostra di più</value>
+  </data>
+  <data name="Browse_SearchFieldsPrompt" xml:space="preserve">
+    <value>Specifica in quali campi di testo dell'oggetto vuoi cercare:</value>
+  </data>
+  <data name="Browse_SearchTitleAndDescription" xml:space="preserve">
+    <value>Titolo e descrizione</value>
+  </data>
+  <data name="Browse_SearchTitleOnly" xml:space="preserve">
+    <value>Solo titolo</value>
+  </data>
+  <data name="Browse_SearchDescriptionOnly" xml:space="preserve">
+    <value>Solo descrizione</value>
+  </data>
+  <data name="Browse_SearchAuthorHint" xml:space="preserve">
+    <value>Inizia la ricerca con @ per trovare invece gli oggetti di un autore: @Acidphantasm elenca tutto ciò che ha creato Acidphantasm.</value>
+  </data>
+  <data name="Browse_SearchDescriptionNote" xml:space="preserve">
+    <value>Le descrizioni vengono cercate su sp-mod.com, che risponde con le sue 20 corrispondenze migliori.</value>
+  </data>
+  <data name="Browse_ChipSearchTitleOnlyFormat" xml:space="preserve">
+    <value>Risultati per: "{0}" (solo titolo)</value>
+  </data>
+  <data name="Browse_ChipSearchDescriptionOnlyFormat" xml:space="preserve">
+    <value>Risultati per: "{0}" (solo descrizione)</value>
+  </data>
+  <data name="Browse_FilterByDate" xml:space="preserve">
+    <value>Filtra per data</value>
+  </data>
+  <data name="Browse_PostedDate" xml:space="preserve">
+    <value>DATA DI PUBBLICAZIONE</value>
+  </data>
+  <data name="Browse_DateLastUpdated" xml:space="preserve">
+    <value>DATA DELL'ULTIMO AGGIORNAMENTO</value>
+  </data>
+  <data name="Browse_DateBetween" xml:space="preserve">
+    <value>Tra</value>
+  </data>
+  <data name="Browse_DateAnd" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="Browse_ChipPostedBetween" xml:space="preserve">
+    <value>Pubblicati tra il {0} e il {1}</value>
+  </data>
+  <data name="Browse_ChipPostedAfter" xml:space="preserve">
+    <value>Pubblicati dopo il {0}</value>
+  </data>
+  <data name="Browse_ChipPostedBefore" xml:space="preserve">
+    <value>Pubblicati prima del {0}</value>
+  </data>
+  <data name="Browse_ChipUpdatedBetween" xml:space="preserve">
+    <value>Aggiornati tra il {0} e il {1}</value>
+  </data>
+  <data name="Browse_ChipUpdatedAfter" xml:space="preserve">
+    <value>Aggiornati dopo il {0}</value>
+  </data>
+  <data name="Browse_ChipUpdatedBefore" xml:space="preserve">
+    <value>Aggiornati prima del {0}</value>
+  </data>
+  <data name="Installed_HeldBackFormat" xml:space="preserve">
+    <value>Aggiornamento a {0} trattenuto: {1}.</value>
+  </data>
+  <data name="Installed_HeldBackNeedsFormat" xml:space="preserve">
+    <value>{0} richiede {1}</value>
+  </data>
+  <data name="Installed_HeldBackChainFormat" xml:space="preserve">
+    <value>Aggiornamento a {0} trattenuto: richiede un altro aggiornamento, anch'esso trattenuto.</value>
+  </data>
+  <data name="Installed_HeldBackPlainFormat" xml:space="preserve">
+    <value>Aggiornamento a {0} trattenuto da sp-mod.com.</value>
+  </data>
+  <data name="Installed_UpdatesHeldBack_one" xml:space="preserve">
+    <value>{1} è stato lasciato com'era: sp-mod.com ne trattiene l'aggiornamento. La sua finestra di aggiornamento può comunque installarlo.</value>
+  </data>
+  <data name="Installed_UpdatesHeldBack_other" xml:space="preserve">
+    <value>{1} sono stati lasciati com'erano: sp-mod.com ne trattiene gli aggiornamenti. La finestra di aggiornamento di ciascuno può comunque installarlo.</value>
+  </data>
+  <data name="Item_VersionVerified" xml:space="preserve">
+    <value>Verifica superata</value>
+  </data>
+  <data name="Item_VersionVerifiedToolTipFormat" xml:space="preserve">
+    <value>sp-mod.com ha controllato questo download il {0} e ne ha registrato i file.</value>
+  </data>
+  <data name="Item_VersionFiles_one" xml:space="preserve">
+    <value>File in questo download ({0:N0})</value>
+  </data>
+  <data name="Item_VersionFiles_other" xml:space="preserve">
+    <value>File in questo download ({0:N0})</value>
+  </data>
+  <data name="Item_VersionFilesTruncated" xml:space="preserve">
+    <value>Il download contiene più file di quelli registrati da sp-mod.com, quindi questo elenco è incompleto.</value>
+  </data>
+  <data name="Play_StopServer" xml:space="preserve">
+    <value>Ferma server</value>
+  </data>
+  <data name="Play_StopServerToolTip" xml:space="preserve">
+    <value>Arresta il server di questa installazione</value>
+  </data>
+  <data name="Play_StopServerWarning" xml:space="preserve">
+    <value>Chi è in raid su questo server perde il raid. Vuoi fermare il server?</value>
+  </data>
+  <data name="Play_StopServerConfirm" xml:space="preserve">
+    <value>Fermalo</value>
+  </data>
+  <data name="Play_StoppedFormat" xml:space="preserve">
+    <value>{0} fermato.</value>
+  </data>
+  <data name="Play_WaitingForServer" xml:space="preserve">
+    <value>Avvio del server - il launcher si apre appena il server è pronto.</value>
+  </data>
+  <data name="Play_ServerNotUpFormat" xml:space="preserve">
+    <value>Il server non si è messo in ascolto sulla porta {0} entro tre minuti, quindi il launcher non è stato aperto. Aprilo tu quando il server è pronto.</value>
+  </data>
+  <data name="Options_LaunchHeader" xml:space="preserve">
+    <value>Avvio del gioco</value>
+  </data>
+  <data name="Options_LaunchDescription" xml:space="preserve">
+    <value>Avvia server nella pagina Gioca può aprire per te il launcher di SPT appena il server è pronto (in ascolto sulla sua porta).</value>
+  </data>
+  <data name="Workshop_Follow" xml:space="preserve">
+    <value>+ Segui</value>
+  </data>
+  <data name="Workshop_Following" xml:space="preserve">
+    <value>Stai seguendo</value>
+  </data>
+  <data name="Workshop_Unfollow" xml:space="preserve">
+    <value>Non seguire più</value>
+  </data>
+  <data name="Workshop_FollowFormat" xml:space="preserve">
+    <value>Segui {0}</value>
+  </data>
+  <data name="Workshop_UnfollowFormat" xml:space="preserve">
+    <value>Non seguire più {0}</value>
+  </data>
+  <data name="WorkshopHome_FromFollowed" xml:space="preserve">
+    <value>Dagli autori seguiti</value>
+  </data>
+  <data name="WorkshopHome_FromFollowedNote" xml:space="preserve">
+    <value>Oggetti pubblicati di recente dagli autori che segui</value>
+  </data>
+  <data name="Browse_CreatedByFollowed" xml:space="preserve">
+    <value>Creati da autori seguiti</value>
+  </data>
+  <data name="Play_ServerPortTakenFormat" xml:space="preserve">
+    <value>Qualcosa era già in ascolto sulla porta {0} prima dell'avvio del server, quindi non si può sapere quando è pronto - il launcher non è stato aperto. Aprilo tu quando il server è pronto.</value>
+  </data>
+  <data name="FileClash_Title" xml:space="preserve">
+    <value>File già presenti</value>
+  </data>
+  <data name="FileClash_IntroFormat" xml:space="preserve">
+    <value>{0} {1} mette file dove ci sono già questi:</value>
+  </data>
+  <data name="FileClash_ByHandFormat" xml:space="preserve">
+    <value>nella cartella di {0}</value>
+  </data>
+  <data name="FileClash_Unknown" xml:space="preserve">
+    <value>messo lì a mano o da un altro strumento</value>
+  </data>
+  <data name="FileClash_MoreFormat" xml:space="preserve">
+    <value>e altri {0:N0}</value>
+  </data>
+  <data name="FileClash_Outro" xml:space="preserve">
+    <value>L'installazione li sostituisce, e il mod a cui appartengono potrebbe smettere di funzionare. L'elenco viene dal controllo di sp-mod.com sul download di questa versione.</value>
+  </data>
+  <data name="FileClash_InstallAnyway" xml:space="preserve">
+    <value>Installa comunque</value>
+  </data>
+  <data name="Installed_RemovedMany_one" xml:space="preserve">
+    <value>{0:N0} mod rimosso.</value>
+  </data>
+  <data name="Installed_RemovedMany_other" xml:space="preserve">
+    <value>{0:N0} mod rimossi.</value>
+  </data>
+  <data name="Installed_RemoveSkippedDisabled_one" xml:space="preserve">
+    <value>{1} è messo da parte (disattivato) ed è stato lasciato com'era - attivalo prima di rimuoverlo.</value>
+  </data>
+  <data name="Installed_RemoveSkippedDisabled_other" xml:space="preserve">
+    <value>{1} sono messi da parte (disattivati) e sono stati lasciati com'erano - attivali prima di rimuoverli.</value>
+  </data>
+  <data name="Collection_SetAside" xml:space="preserve">
+    <value>Metti da parte</value>
+  </data>
+  <data name="Collection_RemoveAll" xml:space="preserve">
+    <value>Rimuovi</value>
+  </data>
+  <data name="FollowedAuthors_Title" xml:space="preserve">
+    <value>Autori che segui</value>
+  </data>
+  <data name="FollowedAuthors_Header" xml:space="preserve">
+    <value>AUTORI CHE SEGUI</value>
+  </data>
+  <data name="FollowedAuthors_Empty" xml:space="preserve">
+    <value>Non segui ancora nessuno. Segui un autore dal riquadro CREATO DA su uno dei suoi oggetti, o dal menu del clic destro su qualsiasi cosa abbia creato.</value>
+  </data>
+  <data name="FollowedAuthors_ViewAllItems" xml:space="preserve">
+    <value>Mostra tutti i loro oggetti</value>
+  </data>
+  <data name="FollowedAuthors_TheirItems" xml:space="preserve">
+    <value>I suoi oggetti</value>
+  </data>
+  <data name="FollowedAuthors_Items_one" xml:space="preserve">
+    <value>{0:N0} oggetto</value>
+  </data>
+  <data name="FollowedAuthors_Items_other" xml:space="preserve">
+    <value>{0:N0} oggetti</value>
+  </data>
+  <data name="FollowedAuthors_NewestFormat" xml:space="preserve">
+    <value>- ultimo pubblicato {0}</value>
+  </data>
+  <data name="Installed_NotForSptFormat" xml:space="preserve">
+    <value>La versione {0} non funziona su SPT {1}, e nessuna versione più recente lo fa.</value>
+  </data>
+  <data name="Installed_NotForSptWithFormat" xml:space="preserve">
+    <value>La versione {0} non funziona su SPT {1}; la versione {2} sì (la scheda Versioni o la finestra di aggiornamento possono passare a quella).</value>
+  </data>
+  <data name="FileClash_Partial" xml:space="preserve">
+    <value>sp-mod.com elenca solo una parte dei file di questo download, quindi potrebbero essercene altri.</value>
+  </data>
+  <data name="RemoveCheck_Title" xml:space="preserve">
+    <value>Prima di rimuovere</value>
+  </data>
+  <data name="RemoveCheck_RemoveAnyway" xml:space="preserve">
+    <value>Rimuovi comunque</value>
+  </data>
+  <data name="Options_ScrollingHeader" xml:space="preserve">
+    <value>Scorrimento</value>
+  </data>
+  <data name="Options_ScrollingDescription" xml:space="preserve">
+    <value>Lo scorrimento fluido fa scivolare la pagina fino al punto in cui la porta ogni scatto della rotellina, come fa un browser web. Disattivato, la pagina salta lì subito. In entrambi i casi si sposta della stessa distanza.</value>
+  </data>
+  <data name="Installed_UnsubscribeTitleFormat" xml:space="preserve">
+    <value>Vuoi annullare la sottoscrizione a {0}?</value>
+  </data>
+  <data name="Installed_UnsubscribeConfigs_one" xml:space="preserve">
+    <value>{0} ha un proprio file di configurazione o di impostazioni. Mantieni configurazioni lo mette prima da parte in {2}; Elimina configurazioni lo elimina insieme al resto dell'oggetto.</value>
+  </data>
+  <data name="Installed_UnsubscribeConfigs_other" xml:space="preserve">
+    <value>{0} ha {1} propri file di configurazione o di impostazioni. Mantieni configurazioni li mette prima da parte in {2}; Elimina configurazioni li elimina insieme al resto dell'oggetto.</value>
+  </data>
+  <data name="Installed_UnsubscribeKeepConfigs" xml:space="preserve">
+    <value>Annulla sottoscrizione, mantieni configurazioni</value>
+  </data>
+  <data name="Installed_UnsubscribeDeleteConfigs" xml:space="preserve">
+    <value>Annulla sottoscrizione, elimina configurazioni</value>
+  </data>
+  <data name="Installed_UnsubscribeDontAsk" xml:space="preserve">
+    <value>Non chiedere più</value>
+  </data>
+  <data name="Installed_UnsubscribeDontAskNote" xml:space="preserve">
+    <value>Opzioni &gt; Annullamento sottoscrizione riattiva questa domanda. Senza la domanda, i file di configurazione vengono sempre conservati.</value>
+  </data>
+  <data name="Options_UnsubscribeHeader" xml:space="preserve">
+    <value>Annullamento sottoscrizione</value>
+  </data>
+  <data name="Install_LayoutTitleFormat" xml:space="preserve">
+    <value>Dove va {0}?</value>
+  </data>
+  <data name="Install_LayoutBodyFormat" xml:space="preserve">
+    <value>L'archivio di {0} {1} non ha nessuna delle cartelle che di solito ha l'archivio di un mod (BepInEx, user). Contiene:</value>
+  </data>
+  <data name="Install_LayoutMoreFormat" xml:space="preserve">
+    <value>...e altri {0}</value>
+  </data>
+  <data name="Install_LayoutAdvice" xml:space="preserve">
+    <value>Un mod client (DLL che il gioco carica) va in BepInEx\plugins; un mod server (una cartella con package.json) va in user\mods. Se non sei sicuro, controlla la pagina del mod.</value>
+  </data>
+  <data name="Install_LayoutClient" xml:space="preserve">
+    <value>Mod client - BepInEx\plugins</value>
+  </data>
+  <data name="Install_LayoutServer" xml:space="preserve">
+    <value>Mod server - user\mods</value>
+  </data>
+  <data name="Options_AnimationsHeader" xml:space="preserve">
+    <value>Animazioni</value>
+  </data>
+  <data name="Options_AnimationsSummary" xml:space="preserve">
+    <value>Le schede si sollevano sotto il puntatore e le pagine entrano scorrendo</value>
+  </data>
+  <data name="Options_AnimationsDescription" xml:space="preserve">
+    <value>Disattivate, le schede del Workshop restano ferme sotto il puntatore e le pagine cambiano subito. Le pagine già aperte mantengono il comportamento precedente finché SSPTMM non viene riavviato. Lo scorrimento fluido ha il suo interruttore qui sopra.</value>
+  </data>
+  <data name="Options_CatalogHeader" xml:space="preserve">
+    <value>Indirizzo del catalogo</value>
+  </data>
+  <data name="Options_CatalogHint" xml:space="preserve">
+    <value>Da dove vengono elencati i mod: sp-mod.com, o un suo mirror quando non è raggiungibile</value>
+  </data>
+  <data name="Options_CatalogDescription" xml:space="preserve">
+    <value>Un mirror deve rispondere all'API di sp-mod.com (/api/v0) con gli stessi mod e id - viene verificato prima di essere salvato. Commenti, liste di mod e link a sp-mod.com restano di sp-mod.com. Viene usato dal prossimo avvio di SSPTMM. Lascialo vuoto per sp-mod.com.</value>
+  </data>
+  <data name="Options_CatalogUse" xml:space="preserve">
+    <value>Verifica e usa</value>
+  </data>
+  <data name="Options_CatalogReset" xml:space="preserve">
+    <value>Usa sp-mod.com</value>
+  </data>
+  <data name="Options_CatalogNotAnAddress" xml:space="preserve">
+    <value>Questo non è un indirizzo web https.</value>
+  </data>
+  <data name="Options_CatalogChecking" xml:space="preserve">
+    <value>Verifica...</value>
+  </data>
+  <data name="Options_CatalogNoAnswerFormat" xml:space="preserve">
+    <value>{0} non ha risposto come fa il catalogo di sp-mod.com, quindi non è stato salvato.</value>
+  </data>
+  <data name="Options_CatalogNextStart" xml:space="preserve">
+    <value>Salvato. SSPTMM lo userà dal prossimo avvio.</value>
+  </data>
+  <data name="Options_WhileRunningHeader" xml:space="preserve">
+    <value>Consenti modifiche mentre SPT è in esecuzione</value>
+  </data>
+  <data name="Options_WhileRunningSummary" xml:space="preserve">
+    <value>Chiedi invece di rifiutare quando il server SPT o il gioco sono aperti</value>
+  </data>
+  <data name="Options_WhileRunningDescription" xml:space="preserve">
+    <value>Disattivato, i mod non possono essere installati, rimossi, attivati, disattivati o cambiati da una lista mentre il server SPT o il gioco sono in esecuzione. Attivato, ti viene chiesto prima e puoi procedere comunque. I file che il gioco tiene aperti potrebbero non spostarsi e lasciare un mod modificato a metà - Ripristina rimette ciò che è stato spostato - e il server e il gioco vedono una modifica solo dopo un riavvio. I profili non vengono mai ripristinati mentre SPT è in esecuzione: il server li riscriverebbe.</value>
+  </data>
+  <data name="InUse_ConfirmTitle" xml:space="preserve">
+    <value>SPT è ancora in esecuzione</value>
+  </data>
+  <data name="InUse_ConfirmFormat" xml:space="preserve">
+    <value>{0} è ancora aperto. Vuoi modificare comunque i mod?
+
+I file che tiene aperti potrebbero non spostarsi e lasciare un mod modificato a metà - Ripristina rimette ciò che è stato spostato. La modifica si vede solo dopo il riavvio di SPT e del gioco.</value>
+  </data>
+  <data name="InUse_GoAhead" xml:space="preserve">
+    <value>Modifica comunque</value>
+  </data>
+  <data name="Options_UnsubscribeDescription" xml:space="preserve">
+    <value>Prima di rimuovere i file di un oggetto, una domanda indica cosa verrà eliminato e chiede cosa fare dei suoi file di configurazione. Disattivata, gli oggetti vengono rimossi subito e i loro file di configurazione vengono sempre conservati, messi da parte nella cartella LegacyConfigs - con un avviso prima solo quando altri oggetti li usano o verrebbero eliminate cartelle installate a mano.</value>
+  </data>
+  <data name="Installed_UnsubscribeSelected" xml:space="preserve">
+    <value>Annulla sottoscrizione selezionati</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedTitle_one" xml:space="preserve">
+    <value>Vuoi annullare la sottoscrizione a {0:N0} oggetto?</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedTitle_other" xml:space="preserve">
+    <value>Vuoi annullare la sottoscrizione a {0:N0} oggetti?</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedBody_one" xml:space="preserve">
+    <value>I file dell'oggetto selezionato vengono eliminati. I suoi file di configurazione vengono conservati, messi prima da parte in {1}.</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedBody_other" xml:space="preserve">
+    <value>I file dei {0:N0} oggetti selezionati vengono eliminati. I loro file di configurazione vengono conservati, messi prima da parte in {1}.</value>
+  </data>
+  <data name="Installed_UnsubscribeSelectedDisableHint" xml:space="preserve">
+    <value>Per toglierli dal gioco senza eliminarli, usa invece Disattiva selezionati.</value>
+  </data>
+  <data name="Sort_GroupsByCategory" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="Installed_NoCategory" xml:space="preserve">
+    <value>Nessuna categoria</value>
+  </data>
+  <data name="Installed_ByCategoryNote" xml:space="preserve">
+    <value>Ordinati per categoria: i tuoi gruppi tornano con un'altra scelta in Ordina gruppi, e lì gli oggetti si possono trascinare tra i gruppi.</value>
+  </data>
+  <data name="Installed_CategoryRowToolTip" xml:space="preserve">
+    <value>Fai clic per i dettagli</value>
+  </data>
+  <data name="RemoveCheck_NeededIntro_one" xml:space="preserve">
+    <value>Questi oggetti installati usano quello che viene rimosso, e potrebbero smettere di funzionare:</value>
+  </data>
+  <data name="RemoveCheck_NeededIntro_other" xml:space="preserve">
+    <value>Questi oggetti installati usano oggetti che vengono rimossi, e potrebbero smettere di funzionare:</value>
+  </data>
+  <data name="RemoveCheck_FoldersIntro_one" xml:space="preserve">
+    <value>Questo oggetto è stato installato a mano, quindi rimuoverlo elimina:</value>
+  </data>
+  <data name="RemoveCheck_FoldersIntro_other" xml:space="preserve">
+    <value>Questi oggetti sono stati installati a mano, quindi rimuoverli elimina queste cartelle:</value>
+  </data>
+  <data name="ReadModPage_ReaderIntro" xml:space="preserve">
+    <value>La pagina di ogni oggetto come l'ha scritta il suo autore - passaggi di installazione, requisiti, conflitti noti e avvisi. Leggila qui, o aprila su sp-mod.com.</value>
+  </data>
+  <data name="ReadModPage_Read" xml:space="preserve">
+    <value>Leggi qui</value>
+  </data>
+  <data name="ReadModPage_Hide" xml:space="preserve">
+    <value>Nascondi</value>
+  </data>
+  <data name="ReadModPage_Loading" xml:space="preserve">
+    <value>Caricamento della pagina...</value>
+  </data>
+  <data name="ReadModPage_LoadFailed" xml:space="preserve">
+    <value>Non è stato possibile caricare la pagina qui - Apri pagina la mostra su sp-mod.com.</value>
+  </data>
+  <data name="ReadModPage_Empty" xml:space="preserve">
+    <value>Il suo autore non ha scritto niente qui.</value>
+  </data>
+  <data name="ReadModPage_ChangeNotesFormat" xml:space="preserve">
+    <value>Note di rilascio per {0}</value>
+  </data>
+  <data name="Downloads_UsingKept" xml:space="preserve">
+    <value>Uso la copia scaricata in precedenza - niente da scaricare.</value>
+  </data>
+  <data name="Downloads_WaitingToDownload" xml:space="preserve">
+    <value>In attesa di uno slot di download libero...</value>
+  </data>
+  <data name="Downloads_WaitingToInstall" xml:space="preserve">
+    <value>Scaricato - in attesa del suo turno per l'installazione.</value>
+  </data>
+  <data name="Downloads_RetryingFormat" xml:space="preserve">
+    <value>Download non riuscito - nuovo tentativo tra {0:N0} s.</value>
+  </data>
+  <data name="Options_DownloadsHeader" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Options_DownloadsDescription" xml:space="preserve">
+    <value>Si scaricano fino a tre oggetti alla volta mentre quelli prima vengono installati. I file scaricati vengono conservati (fino a 4 GB, i meno usati di recente vanno via per primi), così sottoscrivere di nuovo la stessa versione - dopo aver annullato la sottoscrizione, rimesso una versione o riapplicato una lista di mod - non la scarica di nuovo.</value>
+  </data>
+  <data name="Options_DownloadsClear" xml:space="preserve">
+    <value>Elimina file conservati</value>
+  </data>
+  <data name="Options_DownloadsSizeFormat" xml:space="preserve">
+    <value>Conservati ora: {0}</value>
+  </data>
+  <data name="Workshop_BrowseModsHeader" xml:space="preserve">
+    <value>MOD</value>
+  </data>
+  <data name="Workshop_BrowseCollectionsHeader" xml:space="preserve">
+    <value>COLLEZIONI</value>
+  </data>
+  <data name="Collections_Title" xml:space="preserve">
+    <value>Sfoglia collezioni</value>
+  </data>
+  <data name="Collections_BrowsingTitle" xml:space="preserve">
+    <value>Stai sfogliando: Collezioni</value>
+  </data>
+  <data name="Collections_Breadcrumb" xml:space="preserve">
+    <value>Collezioni</value>
+  </data>
+  <data name="Collections_ByFormat" xml:space="preserve">
+    <value>Di {0}</value>
+  </data>
+  <data name="Collections_Contains_one" xml:space="preserve">
+    <value>Contiene {0:N0} oggetto</value>
+  </data>
+  <data name="Collections_Contains_other" xml:space="preserve">
+    <value>Contiene {0:N0} oggetti</value>
+  </data>
+  <data name="Collections_AllSptVersions" xml:space="preserve">
+    <value>Tutte le versioni SPT</value>
+  </data>
+  <data name="Collections_SortMostRecent" xml:space="preserve">
+    <value>Più recenti</value>
+  </data>
+  <data name="Collections_SearchPlaceholder" xml:space="preserve">
+    <value>Cerca collezioni o chi le ha create, o incolla un link</value>
+  </data>
+  <data name="Collections_RefreshToolTip" xml:space="preserve">
+    <value>Rileggi le collezioni da sp-mod.com</value>
+  </data>
+  <data name="Collections_SptFilterToolTip" xml:space="preserve">
+    <value>Solo collezioni create per questa versione SPT</value>
+  </data>
+  <data name="Collections_SidebarNote" xml:space="preserve">
+    <value>Le collezioni sono le liste di mod pubbliche su sp-mod.com. Sottoscriverne una installa ogni oggetto nella sua versione per la tua versione SPT; gli oggetti che non ne hanno una vengono esclusi e indicati prima.</value>
+  </data>
+  <data name="Collections_Loading" xml:space="preserve">
+    <value>Caricamento delle collezioni da sp-mod.com...</value>
+  </data>
+  <data name="Collections_NoMatches" xml:space="preserve">
+    <value>Nessuna collezione corrisponde ai filtri.</value>
+  </data>
+  <data name="Collections_LoadFailedFormat" xml:space="preserve">
+    <value>Non è stato possibile leggere le collezioni da sp-mod.com: {0}</value>
+  </data>
+  <data name="Collection_ViewOnSite" xml:space="preserve">
+    <value>Visualizza su sp-mod.com</value>
+  </data>
+  <data name="Collection_ViewOnSiteToolTip" xml:space="preserve">
+    <value>Apri la pagina di questa collezione su sp-mod.com</value>
+  </data>
+  <data name="Collection_Loading" xml:space="preserve">
+    <value>Caricamento della collezione da sp-mod.com...</value>
+  </data>
+  <data name="Collection_TryAgain" xml:space="preserve">
+    <value>Riprova</value>
+  </data>
+  <data name="Collection_PublicGone" xml:space="preserve">
+    <value>Questa collezione non è più su sp-mod.com, o non è pubblica.</value>
+  </data>
+  <data name="Collection_PublicLoadFailedFormat" xml:space="preserve">
+    <value>Non è stato possibile leggere la collezione da sp-mod.com: {0}</value>
+  </data>
+  <data name="Collection_ListAuthorToolTip" xml:space="preserve">
+    <value>Apri la sua pagina del Workshop</value>
+  </data>
+  <data name="Collection_ForSptFormat" xml:space="preserve">
+    <value>Per SPT {0}</value>
+  </data>
+  <data name="Collection_NotInCatalogNote" xml:space="preserve">
+    <value>Non ancora nella copia del catalogo di sp-mod.com di questa app - fai clic per aprirlo su sp-mod.com, o ricarica il catalogo dalle opzioni di ricerca di Sfoglia.</value>
+  </data>
+  <data name="Collection_AddonForFormat" xml:space="preserve">
+    <value>Un addon per {0} - Sottoscrivi tutti lo installa con il suo mod.</value>
+  </data>
+  <data name="Collection_NoVersionForSptFormat" xml:space="preserve">
+    <value>Nessuna versione per SPT {0}</value>
+  </data>
+  <data name="Collection_UpdateToFormat" xml:space="preserve">
+    <value>{0} installata - {1} è la versione per SPT {2}</value>
+  </data>
+  <data name="Collection_InstalledVersionFormat" xml:space="preserve">
+    <value>{0} installata</value>
+  </data>
+  <data name="Collection_VersionForSptFormat" xml:space="preserve">
+    <value>{0} per SPT {1}</value>
+  </data>
+  <data name="Collection_SummarySubscribedFormat" xml:space="preserve">
+    <value>{0:N0} di {1:N0} mod sottoscritti</value>
+  </data>
+  <data name="Collection_SummaryChecking" xml:space="preserve">
+    <value>ricerca della versione di ogni oggetto per la tua versione SPT...</value>
+  </data>
+  <data name="Collection_SummaryUpdates_one" xml:space="preserve">
+    <value>{0:N0} può essere aggiornato</value>
+  </data>
+  <data name="Collection_SummaryUpdates_other" xml:space="preserve">
+    <value>{0:N0} possono essere aggiornati</value>
+  </data>
+  <data name="Collection_SummaryNoVersion_one" xml:space="preserve">
+    <value>{0:N0} non ha versioni per SPT {1}</value>
+  </data>
+  <data name="Collection_SummaryNoVersion_other" xml:space="preserve">
+    <value>{0:N0} non hanno versioni per SPT {1}</value>
+  </data>
+  <data name="Collection_SummaryGone_one" xml:space="preserve">
+    <value>{0:N0} non è più su sp-mod.com</value>
+  </data>
+  <data name="Collection_SummaryGone_other" xml:space="preserve">
+    <value>{0:N0} non sono più su sp-mod.com</value>
+  </data>
+  <data name="Collection_WhichVersionsTitle" xml:space="preserve">
+    <value>Quali versioni?</value>
+  </data>
+  <data name="Collection_WhichVersionsBodyFormat" xml:space="preserve">
+    <value>Questa collezione è stata creata per SPT {0}, e questa installazione usa SPT {1}. Vuoi sottoscrivere la versione di ogni oggetto per SPT {1} - gli oggetti che non ne hanno una vengono esclusi - o la sua versione per SPT {0}, come l'aveva l'autore della collezione?</value>
+  </data>
+  <data name="Collection_VersionsForYoursFormat" xml:space="preserve">
+    <value>Per il mio SPT ({0})</value>
+  </data>
+  <data name="Collection_VersionsForListFormat" xml:space="preserve">
+    <value>Per l'SPT della collezione ({0})</value>
+  </data>
+  <data name="Collection_FindingVersionsFormat" xml:space="preserve">
+    <value>Ricerca della versione di ogni oggetto per SPT {0}...</value>
+  </data>
+  <data name="Collection_LeftOut_one" xml:space="preserve">
+    <value>{0:N0} oggetto viene escluso:</value>
+  </data>
+  <data name="Collection_LeftOut_other" xml:space="preserve">
+    <value>{0:N0} oggetti vengono esclusi:</value>
+  </data>
+  <data name="Collection_LeftOutItemFormat" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
+  <data name="Collection_AndMore_one" xml:space="preserve">
+    <value>e un altro</value>
+  </data>
+  <data name="Collection_AndMore_other" xml:space="preserve">
+    <value>e altri {0:N0}</value>
+  </data>
+  <data name="Collection_SkipNoVersionFormat" xml:space="preserve">
+    <value>nessuna versione per SPT {0}</value>
+  </data>
+  <data name="Collection_SkipNotChecked" xml:space="preserve">
+    <value>non è stato possibile chiedere a sp-mod.com quale versione</value>
+  </data>
+  <data name="Collection_ShowMore" xml:space="preserve">
+    <value>Mostra altro</value>
+  </data>
+  <data name="Collection_ShowLess" xml:space="preserve">
+    <value>Mostra meno</value>
+  </data>
+  <data name="Collection_NothingToSubscribeFormat" xml:space="preserve">
+    <value>Nessuno degli oggetti di questa collezione può essere sottoscritto per SPT {0} - il motivo è indicato qui sotto.</value>
+  </data>
+  <data name="Collections_SortOldest" xml:space="preserve">
+    <value>Meno recenti</value>
+  </data>
+  <data name="Collections_SortMostItems" xml:space="preserve">
+    <value>Più oggetti</value>
+  </data>
+  <data name="Collections_SortFewestItems" xml:space="preserve">
+    <value>Meno oggetti</value>
+  </data>
+  <data name="Collections_ReadingFormat" xml:space="preserve">
+    <value>Lettura delle collezioni da sp-mod.com... {0:N0} di {1:N0}</value>
+  </data>
+  <data name="Collections_MoreItemsFormat" xml:space="preserve">
+    <value>+{0:N0}</value>
+  </data>
+  <data name="Options_TabsBackgroundHeader" xml:space="preserve">
+    <value>Schede e sfondo</value>
+  </data>
+  <data name="Options_TabsBackgroundDescription" xml:space="preserve">
+    <value>Le schede Oggetti sottoscritti e Collezioni accanto a Workshop si possono nascondere una per una - entrambe le pagine restano in Workshop &gt; I tuoi oggetti. Al posto della griglia di Steam dietro la finestra puoi mettere un'immagine tua.</value>
+  </data>
+  <data name="Options_SubscribedTabOn" xml:space="preserve">
+    <value>Scheda Oggetti sottoscritti visibile</value>
+  </data>
+  <data name="Options_SubscribedTabOff" xml:space="preserve">
+    <value>Scheda Oggetti sottoscritti nascosta (I tuoi oggetti &gt; Oggetti sottoscritti)</value>
+  </data>
+  <data name="Options_CollectionsTabOn" xml:space="preserve">
+    <value>Scheda Collezioni visibile</value>
+  </data>
+  <data name="Options_CollectionsTabOff" xml:space="preserve">
+    <value>Scheda Collezioni nascosta (I tuoi oggetti &gt; Le tue collezioni)</value>
+  </data>
+  <data name="Options_BackgroundChoose" xml:space="preserve">
+    <value>Scegli immagine...</value>
+  </data>
+  <data name="Options_BackgroundUseGrid" xml:space="preserve">
+    <value>Usa la griglia di Steam</value>
+  </data>
+  <data name="Options_BackgroundCurrentFormat" xml:space="preserve">
+    <value>Sfondo: {0}</value>
+  </data>
+  <data name="Options_BackgroundDarkness" xml:space="preserve">
+    <value>Scurisci</value>
+  </data>
+  <data name="Options_BackgroundChooseTitle" xml:space="preserve">
+    <value>Scegli un'immagine di sfondo</value>
+  </data>
+  <data name="Options_BackgroundPictures" xml:space="preserve">
+    <value>Immagini</value>
+  </data>
+  <data name="Options_BackgroundUnreadable" xml:space="preserve">
+    <value>Non è stato possibile leggere quell'immagine su questo PC - resta la griglia di Steam.</value>
+  </data>
+  <data name="Options_BackgroundCopyFailedFormat" xml:space="preserve">
+    <value>Impossibile copiare l'immagine: {0}</value>
+  </data>
+  <data name="Collection_Share" xml:space="preserve">
+    <value>Condividi</value>
+  </data>
+  <data name="Collection_ShareToolTip" xml:space="preserve">
+    <value>Copia l'indirizzo di questa collezione su sp-mod.com</value>
+  </data>
+  <data name="Collection_DescriptionHeader" xml:space="preserve">
+    <value>DESCRIZIONE</value>
+  </data>
+  <data name="Collection_AssembledBy" xml:space="preserve">
+    <value>COLLEZIONE CREATA DA</value>
+  </data>
+  <data name="Collection_ItemsLabel" xml:space="preserve">
+    <value>Oggetti</value>
+  </data>
+  <data name="Author_WorkshopItems" xml:space="preserve">
+    <value>Oggetti del Workshop</value>
+  </data>
+  <data name="Author_TabCollections" xml:space="preserve">
+    <value>Collezioni</value>
+  </data>
+  <data name="Author_Followers" xml:space="preserve">
+    <value>Follower</value>
+  </data>
+  <data name="Author_MemberSinceFormat" xml:space="preserve">
+    <value>Membro dal {0:d MMM yyyy}</value>
+  </data>
+  <data name="Author_Staff" xml:space="preserve">
+    <value>Staff</value>
+  </data>
+  <data name="Author_ShowingFormat" xml:space="preserve">
+    <value>Mostrati {0}-{1} di {2} risultati</value>
+  </data>
+  <data name="Author_NoItemsFormat" xml:space="preserve">
+    <value>Il catalogo non ha oggetti di {0}.</value>
+  </data>
+  <data name="Author_NoCollections" xml:space="preserve">
+    <value>Nessuna collezione pubblica.</value>
+  </data>
+  <data name="Author_Reading" xml:space="preserve">
+    <value>Lettura della sua pagina su sp-mod.com...</value>
+  </data>
+  <data name="Author_PageNotFound" xml:space="preserve">
+    <value>La sua pagina su sp-mod.com non è stata trovata.</value>
+  </data>
+  <data name="Author_PageFailedFormat" xml:space="preserve">
+    <value>Impossibile leggere la sua pagina su sp-mod.com: {0}</value>
+  </data>
+  <data name="Author_NoPage" xml:space="preserve">
+    <value>La sua pagina su sp-mod.com non è nota qui, quindi vengono mostrati solo i suoi oggetti.</value>
+  </data>
+  <data name="Author_SubscribedToolTip" xml:space="preserve">
+    <value>Sottoscritto</value>
+  </data>
+  <data name="Author_CollectionByFormat" xml:space="preserve">
+    <value>Collezione di {0}</value>
+  </data>
+  <data name="Author_SearchInBrowse" xml:space="preserve">
+    <value>Cerca i suoi oggetti in Sfoglia</value>
+  </data>
+  <data name="Author_SearchInBrowseToolTip" xml:space="preserve">
+    <value>Sfoglia con @nome: tutti i filtri e gli ordinamenti sui suoi oggetti</value>
+  </data>
+  <data name="Author_ViewOnSiteToolTip" xml:space="preserve">
+    <value>Apri la sua pagina su sp-mod.com</value>
+  </data>
+  <data name="Collection_UpdateAllToolTip" xml:space="preserve">
+    <value>Aggiorna ogni oggetto sottoscritto di questa collezione che ha una versione più recente per la tua versione di SPT</value>
+  </data>
+  <data name="Author_TabAddons" xml:space="preserve">
+    <value>Addon</value>
+  </data>
+  <data name="Author_AddonForFormat" xml:space="preserve">
+    <value>Addon per {0}</value>
+  </data>
+  <data name="Author_FollowNote" xml:space="preserve">
+    <value>Seguilo per vedere per primi i suoi nuovi oggetti nella pagina iniziale del Workshop e per trovarlo in I tuoi oggetti &gt; Autori seguiti.</value>
+  </data>
+  <data name="Collection_Favorite" xml:space="preserve">
+    <value>Aggiungi ai preferiti</value>
+  </data>
+  <data name="Collection_Favorited" xml:space="preserve">
+    <value>Nei preferiti</value>
+  </data>
+  <data name="Collection_FavoriteToolTip" xml:space="preserve">
+    <value>Tieni questa collezione in I tuoi oggetti &gt; Preferiti, che ti avvisa quando il suo autore la modifica</value>
+  </data>
+  <data name="Favorites_Title" xml:space="preserve">
+    <value>Preferiti</value>
+  </data>
+  <data name="Favorites_Header" xml:space="preserve">
+    <value>COLLEZIONI PREFERITE</value>
+  </data>
+  <data name="Favorites_Browse" xml:space="preserve">
+    <value>Sfoglia le collezioni</value>
+  </data>
+  <data name="Favorites_Checking" xml:space="preserve">
+    <value>Controllo delle modifiche di ogni collezione su sp-mod.com...</value>
+  </data>
+  <data name="Favorites_Empty" xml:space="preserve">
+    <value>Ancora nessun preferito. Aggiungi una collezione ai preferiti dalla sua pagina o dalla sua anteprima rapida per tenerla qui.</value>
+  </data>
+  <data name="Favorites_Changed" xml:space="preserve">
+    <value>Modificata dall'ultima volta che l'hai aperta</value>
+  </data>
+  <data name="Favorites_CouldNotCheck" xml:space="preserve">
+    <value>Impossibile controllarla in questo momento</value>
+  </data>
+  <data name="App_DataProblemTitle" xml:space="preserve">
+    <value>Un file di dati richiede attenzione</value>
+  </data>
+  <data name="App_DataDamagedFormat" xml:space="preserve">
+    <value>{0} era danneggiato - molto probabilmente per un crash o un'interruzione di corrente durante il salvataggio - e non c'era un backup utilizzabile, quindi l'app si avvia senza il suo contenuto. Non è stato eliminato nulla: la copia danneggiata è conservata come {1}.</value>
+  </data>
+  <data name="App_DataNotKept" xml:space="preserve">
+    <value>(non è stato possibile fare una copia - vedi il log)</value>
+  </data>
+  <data name="App_CloseWhileInstallingTitle" xml:space="preserve">
+    <value>Installazione in corso</value>
+  </data>
+  <data name="App_CloseWhileInstallingFormat" xml:space="preserve">
+    <value>{0} è in fase di installazione. Chiudendo, l'installazione si interrompe a metà; verrà rimesso tutto com'era al prossimo avvio dell'app. Chiudere comunque?</value>
+  </data>
+  <data name="Installed_WaitForInstallFormat" xml:space="preserve">
+    <value>{0} è in fase di installazione. Aspetta che finisca (vedi Download), poi riprova.</value>
+  </data>
+  <data name="ModLists_ImportClashTitle" xml:space="preserve">
+    <value>Importa lista mod</value>
+  </data>
+  <data name="ModLists_ImportOwnListFormat" xml:space="preserve">
+    <value>Questo file contiene "{0}", una lista che hai creato in questa app. Importarlo sopra la tua la renderebbe di sola lettura e annullerebbe le modifiche fatte dopo il salvataggio del file.
+
+Sì - importala come lista separata e lascia la tua com'è
+No - sostituisci la tua con il file
+Annulla - non importare</value>
+  </data>
+  <data name="ModLists_ImportOlderFormat" xml:space="preserve">
+    <value>Questo file contiene una revisione più vecchia di "{0}" (revisione {1}; tu hai la revisione {2}). Sostituire la tua con quella più vecchia?</value>
+  </data>
+  <data name="ModLists_ImportedCopyNameFormat" xml:space="preserve">
+    <value>{0} (importata)</value>
+  </data>
+  <data name="ModInstall_InUseRestoreProfilesFormat" xml:space="preserve">
+    <value>Chiudi {0} prima di ripristinare i profili - il server SPT salva i profili quando si chiude e sovrascriverebbe quelli ripristinati.</value>
+  </data>
+  <data name="Profiles_Header" xml:space="preserve">
+    <value>Backup dei profili SPT</value>
+  </data>
+  <data name="Profiles_DescriptionFormat" xml:space="preserve">
+    <value>Prima che l'app installi, aggiorni, rimuova o disattivi dei mod, o applichi una collezione, viene fatta una copia dei tuoi profili SPT (user/profiles) - ogni volta che i profili sono cambiati dall'ultima copia. Rimuovere un mod può lasciare in un profilo oggetti che SPT non riconosce più, e allora il profilo non si carica; ripristinare una copia di prima ti restituisce il personaggio. Vengono conservate le ultime {0} copie.</value>
+  </data>
+  <data name="Profiles_Empty" xml:space="preserve">
+    <value>Ancora nessuna copia.</value>
+  </data>
+  <data name="Profiles_DetailFormat" xml:space="preserve">
+    <value>File: {0} - {1}</value>
+  </data>
+  <data name="Profiles_Restore" xml:space="preserve">
+    <value>Ripristina</value>
+  </data>
+  <data name="Profiles_BackUpNow" xml:space="preserve">
+    <value>Fai un backup ora</value>
+  </data>
+  <data name="Profiles_OpenFolder" xml:space="preserve">
+    <value>Apri cartella</value>
+  </data>
+  <data name="Profiles_ReasonInstall" xml:space="preserve">
+    <value>Prima di installare o aggiornare un mod</value>
+  </data>
+  <data name="Profiles_ReasonRemove" xml:space="preserve">
+    <value>Prima di rimuovere un mod</value>
+  </data>
+  <data name="Profiles_ReasonList" xml:space="preserve">
+    <value>Prima di applicare una collezione</value>
+  </data>
+  <data name="Profiles_ReasonDisable" xml:space="preserve">
+    <value>Prima di disattivare o attivare dei mod</value>
+  </data>
+  <data name="Profiles_ReasonRestore" xml:space="preserve">
+    <value>Prima di ripristinare una copia più vecchia</value>
+  </data>
+  <data name="Profiles_ReasonManual" xml:space="preserve">
+    <value>Fatta a mano</value>
+  </data>
+  <data name="Profiles_NoneFound" xml:space="preserve">
+    <value>In questa installazione non ci sono ancora profili SPT - vengono creati al primo avvio del server.</value>
+  </data>
+  <data name="Profiles_BackedUp" xml:space="preserve">
+    <value>I profili sono stati copiati.</value>
+  </data>
+  <data name="Profiles_FailedFormat" xml:space="preserve">
+    <value>Non ha funzionato: {0}</value>
+  </data>
+  <data name="Profiles_RestoreTitle" xml:space="preserve">
+    <value>Ripristina i profili</value>
+  </data>
+  <data name="Profiles_RestoreConfirmFormat" xml:space="preserve">
+    <value>Ripristinare i profili com'erano il {0} ({1})?
+
+Il loro contenuto attuale viene copiato prima, quindi puoi annullare allo stesso modo. I profili creati dopo restano come sono.</value>
+  </data>
+  <data name="Profiles_RestoredFormat" xml:space="preserve">
+    <value>I profili del {0} sono stati ripristinati. Quelli che c'erano prima sono in cima alla lista.</value>
+  </data>
+  <data name="Installed_CatalogUnavailable" xml:space="preserve">
+    <value>Non è stato possibile raggiungere sp-mod.com, quindi questi sono i mod trovati nella tua cartella di SPT, senza ciò che il sito sa di loro (aggiornamenti, pagine, requisiti). Ricarica quando sei online.</value>
+  </data>
+  <data name="ModStatus_TooNew" xml:space="preserve">
+    <value>Più recente di quanto previsto dai mod che lo richiedono</value>
+  </data>
+  <data name="Dependencies_RowTooNewFormat" xml:space="preserve">
+    <value>installato {0}, una versione principale più recente di qualsiasi versione adatta (la più recente adatta: {1}) - il mod che lo richiede potrebbe non caricarsi</value>
+  </data>
+  <data name="Dependencies_SummaryDisabledFormat" xml:space="preserve">
+    <value>{0} disattivate</value>
+  </data>
+  <data name="Dependencies_SummaryTooNewFormat" xml:space="preserve">
+    <value>{0} troppo recenti</value>
+  </data>
+  <data name="Installed_NeedsMissingFormat" xml:space="preserve">
+    <value>I suoi file dicono che richiede {0}, che non è installato - la parte che ne ha bisogno non si caricherà.</value>
+  </data>
+  <data name="Installed_NeedsDisabledFormat" xml:space="preserve">
+    <value>I suoi file dicono che richiede {0}, che è disattivato - la parte che ne ha bisogno non si caricherà finché non lo attivi.</value>
+  </data>
+  <data name="Downloads_DepProblemsTitle" xml:space="preserve">
+    <value>Oggetti richiesti che non vanno bene</value>
+  </data>
+  <data name="Downloads_DepProblemsFormat" xml:space="preserve">
+    <value>{0} richiede questi oggetti e, così come sono, potrebbe non caricarsi:
+
+{1}
+
+Installarlo comunque?</value>
+  </data>
+  <data name="Downloads_DepNoCompatibleFormat" xml:space="preserve">
+    <value>{0} - niente di pubblicato è adatto a SPT {1}</value>
+  </data>
+  <data name="Downloads_DepDisabledFormat" xml:space="preserve">
+    <value>{0} {1} - installato, ma disattivato</value>
+  </data>
+  <data name="Downloads_DepTooNewFormat" xml:space="preserve">
+    <value>{0} {1} - una versione principale più recente di qualsiasi versione adatta (la più recente adatta: {2})</value>
+  </data>
+  <data name="Downloads_DepWrongVersionFormat" xml:space="preserve">
+    <value>{0} {1} - non è una versione accettata da questo mod (la più recente accettata: {2})</value>
+  </data>
+  <data name="Downloads_DepConflictFormat" xml:space="preserve">
+    <value>{0} - i tuoi mod ne richiedono versioni che non possono essere soddisfatte tutte</value>
+  </data>
+  <data name="Item_RequiredDisabled" xml:space="preserve">
+    <value>Installato, ma disattivato - SPT non lo carica</value>
+  </data>
+  <data name="Installed_InstallFromFile" xml:space="preserve">
+    <value>Installa da file...</value>
+  </data>
+  <data name="Installed_InstallFromFileToolTip" xml:space="preserve">
+    <value>Installa un archivio di mod che hai già (.zip, .7z, .rar) come un download: viene abbinato alla sua pagina su sp-mod.com quando possibile, e si può rimuovere come qualsiasi altro. Puoi anche trascinare gli archivi su questa pagina.</value>
+  </data>
+  <data name="Installed_InstallFromFileTitle" xml:space="preserve">
+    <value>Installa da file</value>
+  </data>
+  <data name="Installed_InstallFromFileFilter" xml:space="preserve">
+    <value>Archivi di mod|*.zip;*.7z;*.rar;*.tar;*.gz;*.tgz|Tutti i file|*.*</value>
+  </data>
+  <data name="Installed_LocalReadingFormat" xml:space="preserve">
+    <value>Lettura di {0}...</value>
+  </data>
+  <data name="Installed_LocalUnreadableFormat" xml:space="preserve">
+    <value>Impossibile leggere {0} come archivio: {1}</value>
+  </data>
+  <data name="Installed_LocalConfirmMatchedFormat" xml:space="preserve">
+    <value>{0} contiene {1} {2} (abbinato alla sua pagina su sp-mod.com tramite l'ID del mod al suo interno).
+
+Installarlo? Viene installato come un download: la versione che hai ora viene prima messa da parte, e si può rimuovere come qualsiasi altro.</value>
+  </data>
+  <data name="Installed_LocalConfirmUnmatchedFormat" xml:space="preserve">
+    <value>{0} non corrisponde a un singolo mod su sp-mod.com, quindi verrà installato come {1} ({2}), senza pagina del Workshop né aggiornamenti.
+
+Installarlo? Si può rimuovere come qualsiasi altro.</value>
+  </data>
+  <data name="Installed_LocalQueuedFormat" xml:space="preserve">
+    <value>{0} è in fase di installazione - vedi Download.</value>
+  </data>
+  <data name="Downloads_CopyingLocal" xml:space="preserve">
+    <value>Copia dell'archivio...</value>
+  </data>
+  <data name="Upgrade_Button" xml:space="preserve">
+    <value>Verifica aggiornamento SPT</value>
+  </data>
+  <data name="Upgrade_ButtonToolTip" xml:space="preserve">
+    <value>Prima di passare a un SPT più recente: quali dei tuoi mod funzionano già, quali vanno prima aggiornati e quali non hanno ancora niente</value>
+  </data>
+  <data name="Upgrade_Title" xml:space="preserve">
+    <value>Verifica aggiornamento SPT</value>
+  </data>
+  <data name="Upgrade_Intro" xml:space="preserve">
+    <value>Scegli la release di SPT a cui pensi di passare. Qui non viene cambiato nulla: viene solo indicato cosa ha su sp-mod.com ogni mod installato per quella release.</value>
+  </data>
+  <data name="Upgrade_Target" xml:space="preserve">
+    <value>Passaggio a SPT</value>
+  </data>
+  <data name="Upgrade_SummaryFormat" xml:space="preserve">
+    <value>Su SPT {0}: {1} pronti, {2} da aggiornare prima, {3} senza ancora niente, {4} da controllare a mano.</value>
+  </data>
+  <data name="Upgrade_ReadyFormat" xml:space="preserve">
+    <value>{0} (installata) è pubblicata per SPT {1}.</value>
+  </data>
+  <data name="Upgrade_UpdateFormat" xml:space="preserve">
+    <value>{0} (installata) non è pubblicata per SPT {2}; {1} sì - aggiorna a quella dopo il passaggio.</value>
+  </data>
+  <data name="Upgrade_NotYetFormat" xml:space="preserve">
+    <value>Ancora niente di pubblicato per SPT {0}.</value>
+  </data>
+  <data name="Upgrade_UnknownConstraint" xml:space="preserve">
+    <value>Le sue versioni non indicano in modo leggibile per quale SPT sono - controlla la sua pagina.</value>
+  </data>
+  <data name="Upgrade_UnknownNotListed" xml:space="preserve">
+    <value>Non abbinato a una pagina di sp-mod.com (installato a mano o da file) - controllalo a mano.</value>
+  </data>
+  <data name="Upgrade_Offline" xml:space="preserve">
+    <value>Non è stato possibile raggiungere sp-mod.com, quindi la verifica non può ancora dire nulla. Riprova quando sei online.</value>
+  </data>
+  <data name="Play_ServerLog" xml:space="preserve">
+    <value>Log del server</value>
+  </data>
+  <data name="Play_ServerLogNone" xml:space="preserve">
+    <value>Il server non ha ancora scritto un log qui - lo fa dopo essere stato avviato.</value>
+  </data>
+  <data name="Play_ServerLogOpenFolder" xml:space="preserve">
+    <value>Apri cartella dei log</value>
+  </data>
+  <data name="Configs_BackupsToolTip" xml:space="preserve">
+    <value>Versioni precedenti di questo file, conservate a ogni salvataggio fatto qui. Sceglierne una la mette nell'editor - Salva per rimetterla (anche quella attuale viene conservata), Ripristina per lasciare il file com'è.</value>
+  </data>
+  <data name="Configs_BackupLoadedFormat" xml:space="preserve">
+    <value>Nell'editor c'è la copia conservata il {0}. Salva per rimetterla, o Ripristina per lasciare il file com'è.</value>
+  </data>
+  <data name="Downloads_FikaIncompatibleTitle" xml:space="preserve">
+    <value>Non per Fika</value>
+  </data>
+  <data name="Downloads_FikaIncompatibleFormat" xml:space="preserve">
+    <value>Qui è installato Fika, e sp-mod.com indica che questa versione di {0} non funziona con Fika. Se la installi comunque, potrebbe rompere i raid in co-op o impedire a Fika di caricarsi.
+
+Installarla comunque?</value>
+  </data>
+  <data name="Installed_LocalConfirmOfflineFormat" xml:space="preserve">
+    <value>Non è stato possibile raggiungere sp-mod.com, quindi non si può capire quale mod sia {0}. Se lo installi ora, viene conservato come {1} ({2}) - senza pagina del Workshop né aggiornamenti, anche quando tornerai online.
+
+Installarlo comunque? (Oppure riprova quando sei online.)</value>
+  </data>
+  <data name="Installed_LocalConfirmPackFormat" xml:space="preserve">
+    <value>{0} contiene diversi mod di sp-mod.com: {1}. Installati da questo file vengono tenuti insieme come {2} - senza le loro pagine del Workshop né aggiornamenti. Installandoli uno per uno dalle loro pagine, invece, restano aggiornati.
+
+Installare comunque il file così com'è?</value>
+  </data>
+  <data name="Upgrade_NoReleases" xml:space="preserve">
+    <value>Non si conosce ancora nessuna release di SPT più recente di quella installata, quindi non c'è niente da verificare.</value>
+  </data>
+  <data name="Installed_DropNotArchive" xml:space="preserve">
+    <value>Qui si possono trascinare per l'installazione solo archivi di mod (.zip, .7z, .rar, .tar, .gz).</value>
+  </data>
+  <data name="Options_HideServerOn" xml:space="preserve">
+    <value>Esegui il server senza la sua finestra</value>
+  </data>
+  <data name="Options_HideServerOff" xml:space="preserve">
+    <value>Mostra la finestra del server</value>
+  </data>
+  <data name="Options_HideServerNote" xml:space="preserve">
+    <value>Senza finestra, il log del server viene mostrato nella pagina Gioca, e lì Arresta server lo chiude correttamente. Resta in esecuzione se chiudi questa app - arrestalo dalla pagina Gioca.</value>
+  </data>
+  <data name="Play_ServerStoppedStarting" xml:space="preserve">
+    <value>Il server si è chiuso prima di essere pronto, quindi il launcher non è stato aperto. Il log del server indica il motivo.</value>
+  </data>
+  <data name="Play_WaitingForServerOnly" xml:space="preserve">
+    <value>Avvio del server...</value>
+  </data>
+  <data name="Play_ServerIsUp" xml:space="preserve">
+    <value>Il server è attivo.</value>
+  </data>
+  <data name="Play_ServerStoppedStartingOnly" xml:space="preserve">
+    <value>Il server si è chiuso prima di essere pronto. Il log del server indica il motivo.</value>
+  </data>
+  <data name="Play_ServerDescriptionHidden" xml:space="preserve">
+    <value>Avvia il server di questa installazione senza finestra (Opzioni) - cosa sta facendo compare qui nel log del server. Resta in esecuzione se chiudi questa app. Mentre è in esecuzione, Avvia server diventa Arresta server, che lo chiude correttamente. Riavvia lo arresta e lo avvia di nuovo - dopo aver modificato una configurazione o aggiunto un mod server.</value>
+  </data>
+  <data name="Play_ServerNotUpOnlyFormat" xml:space="preserve">
+    <value>Il server è in esecuzione ma non ha iniziato ad ascoltare sulla porta {0} entro tre minuti. Il log del server potrebbe indicare il motivo.</value>
+  </data>
+  <data name="Installed_GroupingNone" xml:space="preserve">
+    <value>Senza raggruppamento</value>
+  </data>
+  <data name="Installed_GroupingGroups" xml:space="preserve">
+    <value>Raggruppati per i tuoi gruppi</value>
+  </data>
+  <data name="Installed_GroupingCategory" xml:space="preserve">
+    <value>Raggruppati per categoria</value>
+  </data>
+  <data name="Installed_GroupingToolTip" xml:space="preserve">
+    <value>Mostra i mod tutti di seguito, o in sezioni - i tuoi gruppi (quelli della vista Gruppi) o le categorie di sp-mod.com. Nelle sezioni vengono mostrati tutti i mod, senza pagine.</value>
+  </data>
+  <data name="Item_ContentTypeLinkToolTipFormat" xml:space="preserve">
+    <value>Sfoglia {0}, prima i più votati</value>
+  </data>
+  <data name="Options_MonitorConfirmDescription" xml:space="preserve">
+    <value>Quando installi tu un mod scaricato, la scansione successiva di Oggetti sottoscritti lo trova. A quel punto l'app può chiederti di confermarlo, o solo segnalarlo sulla scheda del mod perché tu lo confermi lì. Confermare dice all'app quale versione hai, così il controllo degli aggiornamenti resta corretto.</value>
+  </data>
+  <data name="Options_UpdateNotificationsDescription" xml:space="preserve">
+    <value>Mentre l'app è aperta, chiede ogni tanto a The Forge dei mod che hai installato e mostra una notifica di Windows quando uno di loro ha una nuova release. Vengono chiesti solo i tuoi mod installati. Ogni release viene annunciata una volta sola, e gli aggiornamenti che Oggetti sottoscritti mostra già quando attivi questa opzione non vengono annunciati.</value>
+  </data>
+  <data name="Options_PageDefaultsHint" xml:space="preserve">
+    <value>Sfoglia si apre come l'ha lasciata Salva come predefinito. Oggetti sottoscritti si ricorda da sé.</value>
+  </data>
+  <data name="ServerMap_MachinesEmpty" xml:space="preserve">
+    <value>Nessuno si segnala ancora a questo server. Una macchina compare qui quando qualcuno che usa Steamified SPT Mod Manager o TCF Mod Manager si connette e accetta di condividere ciò che ha installato. Le macchine che non usano nessuno dei due non compaiono mai.</value>
+  </data>
+  <data name="ServerMap_AppVersionFormat" xml:space="preserve">
+    <value>Versione dell'app {0}</value>
+  </data>
+  <data name="ServerMap_StandingUnreadable" xml:space="preserve">
+    <value>Ha inviato una lista mod che questa versione dell'app non sa leggere. Aggiornare l'app su quella macchina dovrebbe risolvere.</value>
+  </data>
+  <data name="Common_ReviewAndInstallToolTip" xml:space="preserve">
+    <value>Apre Collezioni con la lista del server selezionata e la sua anteprima già pronta. Non viene installato nulla finché non premi Applica.</value>
+  </data>
+  <data name="Help_OpenGuideToolTip" xml:space="preserve">
+    <value>La guida di SSPTMM - ogni pagina e opzione, passo passo - nella sua wiki su GitHub. È in inglese.</value>
+  </data>
+  <data name="Help_Start_Setup_Step1" xml:space="preserve">
+    <value>Apri {0} - l'ingranaggio in alto a destra.</value>
+  </data>
+  <data name="Help_Browse_Compatible_Step1" xml:space="preserve">
+    <value>Apri {0}, poi {1}. Parte già filtrato per la tua versione di SPT.</value>
+  </data>
+  <data name="Help_Browse_Compatible_Step2" xml:space="preserve">
+    <value>Passa il mouse su una scheda: una spunta accanto a SPT nel riquadro che si apre significa che la sua versione più recente funziona sulla tua; una croce significa di no.</value>
+  </data>
+  <data name="Help_Browse_Compatible_Step3" xml:space="preserve">
+    <value>Per vederne di più, spunta altre versioni sotto {0} a sinistra, oppure togli la spunta dalla tua per vedere tutte le versioni.</value>
+  </data>
+  <data name="Help_Browse_Install_Title" xml:space="preserve">
+    <value>Sottoscrivere un mod e i mod che gli servono</value>
+  </data>
+  <data name="Help_Browse_Install_Step1" xml:space="preserve">
+    <value>Trova il mod in {0} e fai clic sulla sua scheda per aprirne la pagina, poi premi {1}. Oppure passa il mouse sulla scheda e premi il piccolo + in basso a destra.</value>
+  </data>
+  <data name="Help_Browse_Install_Step2" xml:space="preserve">
+    <value>Se richiede mod che non hai, una finestra li elenca. Premi {0} per prendere anche quelli, o {1} per lasciarli fuori.</value>
+  </data>
+  <data name="Help_Browse_Install_Step3" xml:space="preserve">
+    <value>Poi una finestra ti chiede di leggere le pagine dei mod che non hai ancora visto. Premi {0} su ognuna, leggila, poi premi {1}.</value>
+  </data>
+  <data name="Help_Browse_HideInstalled_Step1" xml:space="preserve">
+    <value>In {0}, sotto {1} a sinistra, spunta la casella col meno accanto a {2}.</value>
+  </data>
+  <data name="Help_Browse_HideInstalled_Step2" xml:space="preserve">
+    <value>Per far aprire Sfoglia sempre così, premi l'ingranaggio accanto alla casella di ricerca, poi {0}.</value>
+  </data>
+  <data name="Help_Installed_Updates_Step2" xml:space="preserve">
+    <value>Per elencare solo quelli, premi {0} e cambia {1} in {2}.</value>
+  </data>
+  <data name="Help_Installed_Update_Note" xml:space="preserve">
+    <value>Un mod con un aggiornamento ha anche un pulsante blu {0} sulla scheda o sulla riga. Per aggiornarne diversi insieme, selezionali con Ctrl+clic e premi {1} nella barra in basso.</value>
+  </data>
+  <data name="Help_Installed_Views_Title" xml:space="preserve">
+    <value>Cambiare la disposizione di Oggetti sottoscritti</value>
+  </data>
+  <data name="Help_Installed_Views_Step1" xml:space="preserve">
+    <value>In {0}, premi una delle tre icone all'estremità destra della barra degli strumenti: {1}, {3} o {2}. Passa il mouse su un'icona per vederne il nome.</value>
+  </data>
+  <data name="Help_Installed_Groups_Step1" xml:space="preserve">
+    <value>In {0}, premi l'icona {1} all'estremità destra della barra degli strumenti.</value>
+  </data>
+  <data name="Help_Installed_Disable_Step1" xml:space="preserve">
+    <value>In {0}, fai clic sull'interruttore sulla scheda o sulla riga del mod - blu è attivo, grigio è disattivo.</value>
+  </data>
+  <data name="Help_Installed_Disable_Step3" xml:space="preserve">
+    <value>Fai di nuovo clic sull'interruttore per riattivarlo.</value>
+  </data>
+  <data name="Help_Installed_DisableMany_Step1" xml:space="preserve">
+    <value>In {0}, tieni premuto Ctrl e fai clic su ogni mod, oppure spunta la casella che compare quando ci passi sopra con il mouse. Maiusc+clic seleziona tutti i mod tra due.</value>
+  </data>
+  <data name="Help_Installed_DisableMany_Step2" xml:space="preserve">
+    <value>Premi {0} nella barra in basso.</value>
+  </data>
+  <data name="Help_ModLists_Capture_Step2" xml:space="preserve">
+    <value>Premi {0} e dalle un nome.</value>
+  </data>
+  <data name="Help_ModLists_Apply_Step1" xml:space="preserve">
+    <value>In {0}, apri la collezione e premi {1}.</value>
+  </data>
+  <data name="Help_ModLists_Apply_Step2" xml:space="preserve">
+    <value>Scegli {0} per tenere gli altri tuoi mod, o {1} per far corrispondere esattamente la collezione. Un'anteprima mostra cosa cambierebbe - per ora non si sposta nulla.</value>
+  </data>
+  <data name="Help_ModLists_Pin_Step2" xml:space="preserve">
+    <value>Un mod fissato non viene mai disattivato applicando una collezione. Porta l'etichetta FISSATO e sta in cima a Oggetti sottoscritti. Premi {0} nello stesso punto per annullare.</value>
+  </data>
+  <data name="Help_ModLists_Edit_Step1" xml:space="preserve">
+    <value>Apri la collezione in {0} e premi {1}. Premi {2} per aggiungerci dei mod, o la X su una riga per toglierne uno.</value>
+  </data>
+  <data name="Help_ModLists_Share_Title" xml:space="preserve">
+    <value>Condividere una collezione con gli amici</value>
+  </data>
+  <data name="Help_ModLists_Share_Step1" xml:space="preserve">
+    <value>Apri la collezione in {0} e premi {1}.</value>
+  </data>
+  <data name="Help_ModLists_Share_Step2" xml:space="preserve">
+    <value>Premi {0} e incollalo ai tuoi amici - per esempio in un messaggio su Discord. Loro premono {1} in {2}, o aprono semplicemente {2}: un codice che hanno copiato viene proposto da sé.</value>
+  </data>
+  <data name="Help_ModLists_Share_Step3" xml:space="preserve">
+    <value>Lo aprono e premono {0}. La loro app scarica ogni mod direttamente da sp-mod.com.</value>
+  </data>
+  <data name="Help_ModLists_Share_Note" xml:space="preserve">
+    <value>Hai cambiato la collezione? Manda di nuovo il codice - la loro copia si aggiorna e vedono cosa è cambiato. Funziona anche un file da Esporta.</value>
+  </data>
+  <data name="Help_ModLists_Undo_Step1" xml:space="preserve">
+    <value>Apri una collezione qualsiasi in {0}, premi {1}, poi {2} sotto le liste salvate.</value>
+  </data>
+  <data name="Help_Browse_Addon_Step1" xml:space="preserve">
+    <value>In {0}, fai clic sulla scheda del mod per aprirne la pagina. Passa prima il mouse su una scheda per vedere se ha degli addon - il riquadro che si apre dice quanti.</value>
+  </data>
+  <data name="Help_Browse_Addon_Step2" xml:space="preserve">
+    <value>Apri la sua scheda Addon - c'è quando il mod ne ha. Premi Installa su quello che vuoi.</value>
+  </data>
+  <data name="Help_Configs_Edit_Step1" xml:space="preserve">
+    <value>Apri {0} dal menu {1} in alto e scegli il file del mod dalla lista - la casella di ricerca lo trova per nome del mod o del file.</value>
+  </data>
+  <data name="Help_Dependencies_Check_Step1" xml:space="preserve">
+    <value>Apri {0} dal menu {2} in alto. Sotto i conflitti, {1} elenca ogni mod installato che richiede altri mod, e se ciascuno è presente.</value>
+  </data>
+  <data name="Help_Footprint_Enable_Step2" xml:space="preserve">
+    <value>{0} compare nel menu {1} in alto.</value>
+  </data>
+  <data name="Help_Footprint_Read_Step1" xml:space="preserve">
+    <value>Apri {0} dal menu {1} in alto. Ogni mod mostra in quali parti del gioco arrivano i suoi file - il client, il server, il disco.</value>
+  </data>
+  <data name="Help_ServerMap_Enable_Step2" xml:space="preserve">
+    <value>{0} compare nel menu {1} in alto.</value>
+  </data>
+  <data name="Help_Downloads_Watch_Step1" xml:space="preserve">
+    <value>Apri {0} - la barra in fondo alla finestra. Ogni mod mostra il suo avanzamento e il tempo rimasto. Se ne scaricano fino a tre insieme, e si installano uno alla volta, nell'ordine in cui li hai messi in coda.</value>
+  </data>
+  <data name="Help_Monitor_Other_Title" xml:space="preserve">
+    <value>Scaricare un mod senza installarlo, o viceversa</value>
+  </data>
+  <data name="Help_Monitor_Other_Step1" xml:space="preserve">
+    <value>Nella pagina di un mod, {0} salva il suo file nella tua cartella di download senza installarlo, che tu l'abbia sottoscritto o no. Fai clic destro su qualsiasi mod per fare lo stesso.</value>
+  </data>
+  <data name="Help_Monitor_Other_Step2" xml:space="preserve">
+    <value>Con le Opzioni impostate su solo download, il piccolo pulsante accanto a {0} installa invece quel singolo mod. Anche la sua finestra di aggiornamento, i suoi addon e {1} hanno, accanto ai pulsanti di installazione, un pulsante che fa il contrario.</value>
+  </data>
+  <data name="Help_Downloads_Watch_Step1_Monitor" xml:space="preserve">
+    <value>Apri {0} - la barra in fondo alla finestra. Ogni mod mostra il suo avanzamento e il tempo rimasto, e se ne scaricano fino a tre insieme.</value>
+  </data>
+  <data name="Help_ReportProblemToolTip" xml:space="preserve">
+    <value>Apre la pagina Issues del repository GitHub di questa app, dove puoi dire all'autore cosa è andato storto. È in inglese.</value>
+  </data>
+  <data name="Help_Installed_Remove_Title" xml:space="preserve">
+    <value>Annullare la sottoscrizione a un mod</value>
+  </data>
+  <data name="Help_Installed_Remove_Note" xml:space="preserve">
+    <value>I file rimossi vengono conservati per un po' ({0}, {1}), e il pulsante Annulla la rimozione in cima a {2} rimette uno qualsiasi di loro. Un mod disattivato va riattivato prima di poterne annullare la sottoscrizione. Per togliere un mod dal gioco senza eliminarlo, disattivalo invece.</value>
+  </data>
+  <data name="Help_Problems_Greyed_Title" xml:space="preserve">
+    <value>Aggiorna è grigio, o non riesco ad annullare la sottoscrizione a un mod</value>
+  </data>
+  <data name="Help_Problems_Greyed_Step1" xml:space="preserve">
+    <value>Il mod è disattivato. In {0}, fai clic sull'interruttore sulla sua scheda per riattivarlo.</value>
+  </data>
+  <data name="Help_Problems_Greyed_Step2" xml:space="preserve">
+    <value>{0} e {1} tornano a funzionare quando è attivo.</value>
+  </data>
+  <data name="Help_Problems_Report_Step1" xml:space="preserve">
+    <value>Premi {0} in cima a questa pagina. Apre la pagina Issues del repository GitHub di questa app.</value>
+  </data>
+  <data name="Help_Browse_Install_Keywords" xml:space="preserve">
+    <value>installare, aggiungere, scaricare, download, dipendenze, sottoscrivere, iscriversi, oggetti richiesti</value>
+  </data>
+  <data name="Help_Browse_HideInstalled_Keywords" xml:space="preserve">
+    <value>nascondere installati, già installati, ce l'ho già, filtro, non installati, sottoscritti, nascondere sottoscritti</value>
+  </data>
+  <data name="Help_Installed_Remove_Keywords" xml:space="preserve">
+    <value>rimuovere, disinstallare, eliminare, cancellare, togliere, annullare sottoscrizione</value>
+  </data>
+  <data name="Help_ModLists_Share_Keywords" xml:space="preserve">
+    <value>condividere, codice, discord, amico, amici, inviare, esportare, importare, file, modpack, pacchetto</value>
+  </data>
+  <data name="Help_Dependencies_Conflicts_Step1" xml:space="preserve">
+    <value>Apri {0} dal menu {2} in alto. {1} in cima elenca i mod installati due volte e i mod che includono copie diverse dello stesso file.</value>
+  </data>
+  <data name="Help_Dependencies_Keep_Note" xml:space="preserve">
+    <value>{0} è grigio quando un'altra copia è stata installata con questa app e ha anche file non duplicati, perché rimuoverla toglierebbe anche quelli. Passa il mouse sul pulsante per vedere il motivo, e annulla invece la sottoscrizione a quel mod in {1}, dove {2} mostra tutto ciò che rimuove. Le copie diverse di un file non hanno un pulsante: tieni il mod che ti serve, o chiedi agli autori.</value>
+  </data>
+  <data name="Help_Dependencies_Spot_Step2" xml:space="preserve">
+    <value>Per mostrare solo quei mod, premi {0} e spunta {1}.</value>
+  </data>
+  <data name="Help_Problems_NotLoading_Step1" xml:space="preserve">
+    <value>Apri {0} dal menu {2} in alto. Sotto {1}, un mod installato due volte, o due mod con file in conflitto, sono la causa più comune.</value>
+  </data>
+  <data name="Help_Monitor_Other_Keywords" xml:space="preserve">
+    <value>solo download, salvare il file, senza installare, download manuale, un mod, contrario, viceversa, eccezione</value>
+  </data>
+  <data name="Help_Problems_Greyed_Keywords" xml:space="preserve">
+    <value>grigio, in grigio, disattivato, pulsante disattivato, non si aggiorna, non riesco ad aggiornare, non riesco a rimuovere, annullare sottoscrizione</value>
+  </data>
+  <data name="Installed_RemoveUnstampedManyFormat" xml:space="preserve">
+    <value>I registri dell'app per questi oggetti non indicano in quale installazione di SPT sono stati fatti. Verranno rimossi da {0}:
+
+{1}</value>
+  </data>
+  <data name="Downloads_KeptSettings_one" xml:space="preserve">
+    <value>Le tue impostazioni in BepInEx\config c'erano già e sono state mantenute: 1 file.</value>
+  </data>
+  <data name="Downloads_KeptSettings_other" xml:space="preserve">
+    <value>Le tue impostazioni in BepInEx\config c'erano già e sono state mantenute: {0} file.</value>
+  </data>
+  <data name="Conflicts_KeepThisToolTip" xml:space="preserve">
+    <value>Tieni questa copia e rimuovi le altre. Finiscono dove vanno i mod rimossi, quindi Annulla in Oggetti sottoscritti può rimetterle.</value>
+  </data>
+  <data name="Conflicts_KeptFormat" xml:space="preserve">
+    <value>Tenuto {0}. Rimosso {1} - Annulla in Oggetti sottoscritti lo rimette.</value>
+  </data>
+  <data name="Conflicts_KeepBlockedFormat" xml:space="preserve">
+    <value>{0} ha anche file non duplicati ed è stato installato con questa app, quindi può essere rimosso solo per intero - se ne andrebbero anche quei file. Annulla invece la sua sottoscrizione in Oggetti sottoscritti, dove Annulla sottoscrizione mostra tutto ciò che rimuove.</value>
+  </data>
+  <data name="Nav_About" xml:space="preserve">
+    <value>Informazioni</value>
+  </data>
+  <data name="About_Description" xml:space="preserve">
+    <value>Un gestore di mod per SPT con l'aspetto e il funzionamento del Workshop di Steam: trova mod e collezioni su sp-mod.com, sottoscrivili e tieni aggiornata la tua installazione.</value>
+  </data>
+  <data name="About_VersionFormat" xml:space="preserve">
+    <value>Versione {0}</value>
+  </data>
+  <data name="About_BasedOnFormat" xml:space="preserve">
+    <value>SSPTMM è nato come fork di TCF Mod Manager di {0}, con licenza MIT.</value>
+  </data>
+  <data name="About_OriginalLink" xml:space="preserve">
+    <value>TCF Mod Manager su sp-mod.com</value>
+  </data>
+  <data name="About_SourceLink" xml:space="preserve">
+    <value>Codice sorgente e segnalazioni su GitHub</value>
+  </data>
+  <data name="About_Updates" xml:space="preserve">
+    <value>SSPTMM ti avvisa soltanto quando su GitHub esce una nuova release. Non scarica né installa mai nulla da solo.</value>
+  </data>
+  <data name="Nav_Tools" xml:space="preserve">
+    <value>Strumenti</value>
+  </data>
+  <data name="Downloads_BarIdle" xml:space="preserve">
+    <value>DOWNLOAD</value>
+  </data>
+  <data name="Downloads_BarManage" xml:space="preserve">
+    <value>Gestisci</value>
+  </data>
+  <data name="Downloads_BarDownloading" xml:space="preserve">
+    <value>DOWNLOAD IN CORSO</value>
+  </data>
+  <data name="Downloads_BarInstalling" xml:space="preserve">
+    <value>INSTALLAZIONE IN CORSO</value>
+  </data>
+  <data name="Downloads_BarDetailFormat" xml:space="preserve">
+    <value>{0} {1} - {2} di {3} oggetti completati</value>
+  </data>
+  <data name="Downloads_BarToolTip" xml:space="preserve">
+    <value>Apri Download: ogni mod in coda, il suo avanzamento, e Riprova o Annulla.</value>
+  </data>
+  <data name="Installed_Filters" xml:space="preserve">
+    <value>Filtri</value>
+  </data>
+  <data name="Installed_FiltersCountFormat" xml:space="preserve">
+    <value>Filtri ({0})</value>
+  </data>
+  <data name="Installed_FiltersToolTip" xml:space="preserve">
+    <value>Restringi la lista per stato di aggiornamento, attivi o disattivi, categoria, gruppo e altro</value>
+  </data>
+  <data name="Installed_MoreToolTip" xml:space="preserve">
+    <value>Altro: installa da file, verifica aggiornamento SPT, ripeti scansione, apri o chiudi tutti</value>
+  </data>
+  <data name="Installed_RescanToolTip" xml:space="preserve">
+    <value>Cerca di nuovo nella cartella di SPT i mod aggiunti o rimossi fuori da questa app</value>
+  </data>
+  <data name="Installed_NothingMatches" xml:space="preserve">
+    <value>Nessun mod corrisponde alla ricerca e ai filtri.</value>
+  </data>
+  <data name="Installed_EmptyTitle" xml:space="preserve">
+    <value>Ancora nessun mod</value>
+  </data>
+  <data name="Installed_EmptyBody" xml:space="preserve">
+    <value>I mod che sottoscrivi nel Workshop vengono installati nella tua cartella di SPT ed elencati qui, dove puoi aggiornarli, disattivarli o annullarne la sottoscrizione. Qui compaiono anche i mod già presenti nella cartella.</value>
+  </data>
+  <data name="Installed_EmptyBrowse" xml:space="preserve">
+    <value>Sfoglia il Workshop</value>
+  </data>
+  <data name="Installed_MoreDetails" xml:space="preserve">
+    <value>Altri dettagli</value>
+  </data>
+  <data name="Installed_FewerDetails" xml:space="preserve">
+    <value>Meno dettagli</value>
+  </data>
+  <data name="Help_Installed_DisableMany_Step3" xml:space="preserve">
+    <value>Premi {0} o Esc per annullare la selezione.</value>
+  </data>
+  <data name="Play_ServerSummary" xml:space="preserve">
+    <value>Avvia il server SPT nella sua finestra. Resta in esecuzione se chiudi questa app.</value>
+  </data>
+  <data name="Play_ServerSummaryHidden" xml:space="preserve">
+    <value>Avvia il server SPT senza finestra - il suo log compare qui sotto. Resta in esecuzione se chiudi questa app.</value>
+  </data>
+  <data name="Play_LauncherSummary" xml:space="preserve">
+    <value>Scegli un profilo e avvia il gioco. Avvia prima il server.</value>
+  </data>
+  <data name="Play_HeadlessSummary" xml:space="preserve">
+    <value>Ospita i raid per gli altri giocatori. Avvia prima il server.</value>
+  </data>
+  <data name="Configs_DisclaimerShort" xml:space="preserve">
+    <value>Un'impostazione sbagliata può rompere il mod o il gioco, e non tocca all'autore rimediare. Prima di ogni salvataggio viene fatto un backup del file.</value>
+  </data>
+  <data name="Options_LaunchSummary" xml:space="preserve">
+    <value>Avvia server apre anche il launcher di SPT, quando il server è pronto.</value>
+  </data>
+  <data name="Options_TabsBackgroundSummary" xml:space="preserve">
+    <value>Nascondi la scheda Oggetti sottoscritti o Collezioni, o usa un'immagine tua.</value>
+  </data>
+  <data name="Options_SectionPlay" xml:space="preserve">
+    <value>Gioca</value>
+  </data>
+  <data name="Options_SectionLook" xml:space="preserve">
+    <value>Visualizzazione</value>
+  </data>
+  <data name="Options_CardPicturesHeader" xml:space="preserve">
+    <value>Immagine dietro ogni mod sottoscritto</value>
+  </data>
+  <data name="Options_CardPicturesSummary" xml:space="preserve">
+    <value>L'immagine di ogni mod, sfocata, dietro la sua scheda - come Steam disegna le sue righe.</value>
+  </data>
+  <data name="Options_CardPicturesDescription" xml:space="preserve">
+    <value>In Oggetti sottoscritti, nelle viste Schede ed Elenco. Se disattivata, le schede sono semplici - vale la pena provare se la pagina scorre lentamente. Ha effetto la prossima volta che apri la pagina.</value>
+  </data>
+  <data name="Options_ScrollingSummary" xml:space="preserve">
+    <value>Lo scorrimento fluido fa scivolare la pagina, come in un browser web.</value>
+  </data>
+  <data name="Options_RemovedModsSummary" xml:space="preserve">
+    <value>Per quanto tempo conservare i mod di cui hai annullato la sottoscrizione, perché Annulla possa riportarli.</value>
+  </data>
+  <data name="Options_DownloadsSummary" xml:space="preserve">
+    <value>Fino a tre download insieme, e i file scaricati vengono conservati per reinstallare.</value>
+  </data>
+  <data name="Options_UnsubscribeSummary" xml:space="preserve">
+    <value>Chiedi cosa verrà eliminato, e cosa fare con i file di configurazione, prima di annullare una sottoscrizione.</value>
+  </data>
+  <data name="Options_ServerMapLanOnlySummary" xml:space="preserve">
+    <value>I giocatori che si connettono via internet non possono vedere la tua lista né la mappa.</value>
+  </data>
+  <data name="Options_ServerMapReportSummary" xml:space="preserve">
+    <value>Mostra questa macchina, i suoi mod e se sta giocando a chiunque abbia la chiave del server.</value>
+  </data>
+  <data name="Profiles_SummaryFormat" xml:space="preserve">
+    <value>I tuoi profili SPT vengono copiati prima che i mod cambino, così uno che non si carica più può essere ripristinato. Vengono conservate le ultime {0} copie.</value>
+  </data>
+  <data name="Installed_SelectionBar_one" xml:space="preserve">
+    <value>1 OGGETTO SELEZIONATO</value>
+  </data>
+  <data name="Installed_SelectionBar_other" xml:space="preserve">
+    <value>{0} OGGETTI SELEZIONATI</value>
+  </data>
+  <data name="Installed_PickToolTip" xml:space="preserve">
+    <value>Seleziona questo. Ctrl+clic ne seleziona diversi, Maiusc+clic tutti quelli tra due.</value>
+  </data>
+  <data name="Installed_SelectionClearToolTip" xml:space="preserve">
+    <value>Annulla tutta la selezione (Esc)</value>
+  </data>
+  <data name="GettingStarted_Title" xml:space="preserve">
+    <value>Per iniziare</value>
+  </data>
+  <data name="GettingStarted_Subtitle" xml:space="preserve">
+    <value>Tre passi per giocare a SPT con i mod.</value>
+  </data>
+  <data name="GettingStarted_Hide" xml:space="preserve">
+    <value>Nascondi</value>
+  </data>
+  <data name="GettingStarted_HideToolTip" xml:space="preserve">
+    <value>Nascondi questa lista. Non tornerà più.</value>
+  </data>
+  <data name="GettingStarted_Done" xml:space="preserve">
+    <value>Fatto</value>
+  </data>
+  <data name="GettingStarted_FolderTitle" xml:space="preserve">
+    <value>Imposta la tua cartella di SPT</value>
+  </data>
+  <data name="GettingStarted_FolderDetail" xml:space="preserve">
+    <value>Dove è installato SPT, così i mod finiscono nel posto giusto.</value>
+  </data>
+  <data name="GettingStarted_FolderAction" xml:space="preserve">
+    <value>Apri Opzioni</value>
+  </data>
+  <data name="GettingStarted_SubscribeTitle" xml:space="preserve">
+    <value>Sottoscrivi un mod</value>
+  </data>
+  <data name="GettingStarted_SubscribeDetail" xml:space="preserve">
+    <value>Trovane uno nel Workshop e premi Sottoscrivi - si installa da solo.</value>
+  </data>
+  <data name="GettingStarted_PlayTitle" xml:space="preserve">
+    <value>Avvia SPT</value>
+  </data>
+  <data name="GettingStarted_PlayDetail" xml:space="preserve">
+    <value>Crea il tuo profilo e premi Gioca - oppure avvia il server e usa il launcher di SPT.</value>
+  </data>
+  <data name="GettingStarted_PlayAction" xml:space="preserve">
+    <value>Vai a Gioca</value>
+  </data>
+  <data name="Collections_ByYou" xml:space="preserve">
+    <value>Creata da te</value>
+  </data>
+  <data name="Collections_FromServerFormat" xml:space="preserve">
+    <value>Dal server {0}</value>
+  </data>
+  <data name="Collections_InstalledFormat" xml:space="preserve">
+    <value>{0} di {1} installati</value>
+  </data>
+  <data name="Collections_AllInstalled" xml:space="preserve">
+    <value>Tutti installati</value>
+  </data>
+  <data name="Collections_Create" xml:space="preserve">
+    <value>Crea dai mod installati</value>
+  </data>
+  <data name="Collections_CreateToolTip" xml:space="preserve">
+    <value>Una nuova collezione dei mod installati e attivi adesso, nelle versioni che hai.</value>
+  </data>
+  <data name="Collections_CreateTitle" xml:space="preserve">
+    <value>Crea collezione</value>
+  </data>
+  <data name="Collections_CreatePrompt" xml:space="preserve">
+    <value>Dai un nome alla nuova collezione. Contiene i mod installati e attivi adesso, nelle versioni che hai.</value>
+  </data>
+  <data name="Collections_EmptyTitle" xml:space="preserve">
+    <value>Ancora nessuna collezione</value>
+  </data>
+  <data name="Collections_EmptyBody" xml:space="preserve">
+    <value>Una collezione è un insieme di mod in versioni precise - tua, di un amico o da sp-mod.com. Creane una da ciò che hai installato, o aggiungine una condivisa da un amico.</value>
+  </data>
+  <data name="Collections_ChipUpdate" xml:space="preserve">
+    <value>Aggiornamento</value>
+  </data>
+  <data name="Collections_ChipShared" xml:space="preserve">
+    <value>Condivisa</value>
+  </data>
+  <data name="Collections_ChipSharedToolTip" xml:space="preserve">
+    <value>Tenuta in una cartella condivisa - gli amici che la seguono ricevono le tue modifiche.</value>
+  </data>
+  <data name="Collections_ChipFollowed" xml:space="preserve">
+    <value>Seguita</value>
+  </data>
+  <data name="Collections_ChipFollowedToolTip" xml:space="preserve">
+    <value>La collezione di un amico che segui - qui ti viene detto quando la cambia.</value>
+  </data>
+  <data name="Sharing_ShareWithFriends" xml:space="preserve">
+    <value>Condividi con gli amici</value>
+  </data>
+  <data name="Sharing_ShareWithFriendsToolTip" xml:space="preserve">
+    <value>Invia questa collezione agli amici - gli stessi mod nelle stesse versioni - come codice da incollare o tramite una cartella condivisa.</value>
+  </data>
+  <data name="Sharing_TitleFormat" xml:space="preserve">
+    <value>Condividi "{0}"</value>
+  </data>
+  <data name="Sharing_DialogIntro" xml:space="preserve">
+    <value>Gli amici ricevono gli stessi mod nelle stesse versioni. Viaggia solo la lista - ogni mod viene comunque scaricato da sp-mod.com.</value>
+  </data>
+  <data name="Sharing_CodeHeading" xml:space="preserve">
+    <value>Codice di condivisione</value>
+  </data>
+  <data name="Sharing_NamePrompt" xml:space="preserve">
+    <value>Il tuo nome, mostrato agli amici come chi l'ha condivisa:</value>
+  </data>
+  <data name="Sharing_CopyCode" xml:space="preserve">
+    <value>Copia codice di condivisione</value>
+  </data>
+  <data name="Sharing_CopiedFormat" xml:space="preserve">
+    <value>Copiato ({0} caratteri). Incollalo ai tuoi amici - lo aggiungono con Aggiungi da codice. Rimandalo dopo aver modificato la collezione.</value>
+  </data>
+  <data name="Sharing_CopyFailedFormat" xml:space="preserve">
+    <value>Impossibile copiarlo: {0}</value>
+  </data>
+  <data name="Sharing_FolderHeading" xml:space="preserve">
+    <value>Cartella condivisa</value>
+  </data>
+  <data name="Sharing_FolderIntro" xml:space="preserve">
+    <value>Tieni questa collezione in una cartella che condividi con gli amici (Dropbox, OneDrive, Google Drive...). Lì viene riscritta ogni volta che la modifichi, e gli amici che la seguono vengono avvisati.</value>
+  </data>
+  <data name="Sharing_NotInFolder" xml:space="preserve">
+    <value>Non è in una cartella condivisa.</value>
+  </data>
+  <data name="Sharing_KeptInFormat" xml:space="preserve">
+    <value>Tenuta in {0}</value>
+  </data>
+  <data name="Sharing_ChooseFolder" xml:space="preserve">
+    <value>Scegli cartella...</value>
+  </data>
+  <data name="Sharing_ChooseFolderTitle" xml:space="preserve">
+    <value>Scegli una cartella che condividi con gli amici</value>
+  </data>
+  <data name="Sharing_StopSharing" xml:space="preserve">
+    <value>Smetti di tenerla lì</value>
+  </data>
+  <data name="Sharing_FolderDone" xml:space="preserve">
+    <value>Salvata lì. Di' ai tuoi amici di seguire quel file con Segui un file condiviso.</value>
+  </data>
+  <data name="Sharing_FolderFailedFormat" xml:space="preserve">
+    <value>Impossibile scriverla lì: {0}</value>
+  </data>
+  <data name="Sharing_FolderStopped" xml:space="preserve">
+    <value>Non è più tenuta lì. Il file già presente nella cartella resta com'è.</value>
+  </data>
+  <data name="Sharing_FollowingHeading" xml:space="preserve">
+    <value>Seguita</value>
+  </data>
+  <data name="Sharing_FollowingFormat" xml:space="preserve">
+    <value>Segui questa collezione in {0}.</value>
+  </data>
+  <data name="Sharing_StopFollowing" xml:space="preserve">
+    <value>Smetti di seguire</value>
+  </data>
+  <data name="Sharing_Unfollowed" xml:space="preserve">
+    <value>Non la segui più. La tua copia resta.</value>
+  </data>
+  <data name="Sharing_Done" xml:space="preserve">
+    <value>Fatto</value>
+  </data>
+  <data name="Sharing_AddFromCode" xml:space="preserve">
+    <value>Aggiungi da codice</value>
+  </data>
+  <data name="Sharing_AddFromCodeToolTip" xml:space="preserve">
+    <value>Incolla un codice di condivisione che ti ha mandato un amico.</value>
+  </data>
+  <data name="Sharing_AddFromFile" xml:space="preserve">
+    <value>Aggiungi da file</value>
+  </data>
+  <data name="Sharing_AddFromFileToolTip" xml:space="preserve">
+    <value>Apri un file di collezione che ti ha mandato un amico.</value>
+  </data>
+  <data name="Sharing_Follow" xml:space="preserve">
+    <value>Segui un file condiviso</value>
+  </data>
+  <data name="Sharing_FollowToolTip" xml:space="preserve">
+    <value>Scegli il file di collezione di un amico in una cartella che condividete. Qui ti viene detto ogni volta che lo cambia.</value>
+  </data>
+  <data name="Sharing_FollowDialogTitle" xml:space="preserve">
+    <value>Segui il file di collezione di un amico</value>
+  </data>
+  <data name="Sharing_PasteCode" xml:space="preserve">
+    <value>Incolla il codice di condivisione che ti ha mandato il tuo amico:</value>
+  </data>
+  <data name="Sharing_Add" xml:space="preserve">
+    <value>Aggiungi</value>
+  </data>
+  <data name="Sharing_Dismiss" xml:space="preserve">
+    <value>Non ora</value>
+  </data>
+  <data name="Sharing_CodeUnreadableFormat" xml:space="preserve">
+    <value>Impossibile leggere quel codice: {0}.</value>
+  </data>
+  <data name="Sharing_ArrivedTitle" xml:space="preserve">
+    <value>Collezione ricevuta</value>
+  </data>
+  <data name="Sharing_AddedFormat" xml:space="preserve">
+    <value>Aggiunta "{0}" di {1} - {2} mod. Aprila per sottoscriverli.</value>
+  </data>
+  <data name="Sharing_AlreadyHaveFormat" xml:space="preserve">
+    <value>Hai già questa versione di "{0}".</value>
+  </data>
+  <data name="Sharing_YourOwnFormat" xml:space="preserve">
+    <value>"{0}" è una tua collezione. Aggiungerla come copia separata?</value>
+  </data>
+  <data name="Sharing_AddAsCopy" xml:space="preserve">
+    <value>Aggiungi come copia</value>
+  </data>
+  <data name="Sharing_OlderFormat" xml:space="preserve">
+    <value>Questa è una copia di "{0}" più vecchia (revisione {1}) di quella che hai (revisione {2}). Tenere la tua?</value>
+  </data>
+  <data name="Sharing_KeepMine" xml:space="preserve">
+    <value>Tieni la mia</value>
+  </data>
+  <data name="Sharing_UseOlder" xml:space="preserve">
+    <value>Usa quella più vecchia</value>
+  </data>
+  <data name="Sharing_UpdatedTitle" xml:space="preserve">
+    <value>Collezione aggiornata</value>
+  </data>
+  <data name="Sharing_UpdatedFormat" xml:space="preserve">
+    <value>"{0}" è stata aggiornata da {1}: {2}.
+
+Sincronizzare ora il tuo gioco?</value>
+  </data>
+  <data name="Sharing_SyncNow" xml:space="preserve">
+    <value>Sincronizza</value>
+  </data>
+  <data name="Sharing_SyncToolTip" xml:space="preserve">
+    <value>Mostra prima cosa verrà installato, aggiornato e messo da parte - non cambia nulla finché non premi Applica.</value>
+  </data>
+  <data name="Sharing_Later" xml:space="preserve">
+    <value>Più tardi</value>
+  </data>
+  <data name="Sharing_Open" xml:space="preserve">
+    <value>Aprila</value>
+  </data>
+  <data name="Sharing_Someone" xml:space="preserve">
+    <value>qualcuno</value>
+  </data>
+  <data name="Sharing_FollowedUpdateFormat" xml:space="preserve">
+    <value>"{0}" ha un aggiornamento da {1}: {2}.</value>
+  </data>
+  <data name="Sharing_ClipboardNewFormat" xml:space="preserve">
+    <value>Negli appunti c'è una collezione: "{0}" di {1}, {2} mod.</value>
+  </data>
+  <data name="Sharing_ClipboardUpdateFormat" xml:space="preserve">
+    <value>Negli appunti c'è un aggiornamento di "{0}" da {1}.</value>
+  </data>
+  <data name="Sharing_NoModChanges" xml:space="preserve">
+    <value>nessuna modifica ai mod</value>
+  </data>
+  <data name="Sharing_DiffAddedFormat" xml:space="preserve">
+    <value>{0} aggiunti ({1})</value>
+  </data>
+  <data name="Sharing_DiffRemovedFormat" xml:space="preserve">
+    <value>{0} rimossi ({1})</value>
+  </data>
+  <data name="Sharing_DiffChangedFormat" xml:space="preserve">
+    <value>{0} aggiornati ({1})</value>
+  </data>
+  <data name="Help_ModLists_Follow_Title" xml:space="preserve">
+    <value>Tenere gli amici sincronizzati in automatico</value>
+  </data>
+  <data name="Help_ModLists_Follow_Step1" xml:space="preserve">
+    <value>Apri la collezione in {0}, premi {1}, poi {2} e scegli una cartella che condividi con gli amici - Dropbox, OneDrive, Google Drive o simili.</value>
+  </data>
+  <data name="Help_ModLists_Follow_Step2" xml:space="preserve">
+    <value>I tuoi amici premono {0} in {1} e scelgono il file nella loro copia di quella cartella.</value>
+  </data>
+  <data name="Help_ModLists_Follow_Step3" xml:space="preserve">
+    <value>Quando cambi la collezione il file viene riscritto. La loro pagina {0} dice cosa è cambiato, e {1} allinea il loro gioco.</value>
+  </data>
+  <data name="Help_ModLists_Follow_Note" xml:space="preserve">
+    <value>Sincronizza mostra prima cosa verrà installato e messo da parte - non cambia nulla finché non premono Applica.</value>
+  </data>
+  <data name="Help_ModLists_Follow_Keywords" xml:space="preserve">
+    <value>sincronizzare, sincronizzazione, seguire, cartella condivisa, dropbox, onedrive, google drive, amici, modpack, aggiornamento</value>
+  </data>
+  <data name="Collections_ManageTitle" xml:space="preserve">
+    <value>Gestisci collezioni</value>
+  </data>
+  <data name="Play_CloseGame" xml:space="preserve">
+    <value>Chiudi il gioco</value>
+  </data>
+  <data name="Play_CloseGameToolTip" xml:space="preserve">
+    <value>Chiudi Escape from Tarkov da qui</value>
+  </data>
+  <data name="Play_CloseGameWarning" xml:space="preserve">
+    <value>Tutto ciò che è in un raid ancora in corso va perso. Chiudere il gioco?</value>
+  </data>
+  <data name="Play_CloseGameConfirm" xml:space="preserve">
+    <value>Chiudilo</value>
+  </data>
+  <data name="Play_CloseGameWithServer" xml:space="preserve">
+    <value>Chiudi il gioco quando il server si ferma</value>
+  </data>
+  <data name="Play_CloseGameWithServerToolTip" xml:space="preserve">
+    <value>Quando il server di questa installazione si ferma - con Arresta server, chiudendo la sua finestra o per un crash - viene chiuso anche il gioco, perché senza server non può salvare nulla. Arresta server chiude prima il gioco, finché il server può ancora rispondergli. Un riavvio da questa pagina non conta.</value>
+  </data>
+  <data name="Play_GameClosed" xml:space="preserve">
+    <value>Il gioco è stato chiuso.</value>
+  </data>
+  <data name="Play_GameNotRunning" xml:space="preserve">
+    <value>Il gioco non è in esecuzione.</value>
+  </data>
+  <data name="Play_GameClosedWithServer" xml:space="preserve">
+    <value>Il server si è fermato, quindi il gioco è stato chiuso.</value>
+  </data>
+  <data name="Downloads_FikaIncompatibleDownloadFormat" xml:space="preserve">
+    <value>Qui è installato Fika, e sp-mod.com indica che questa versione di {0} non funziona con Fika. Una volta installato, potrebbe rompere i raid in co-op o impedire a Fika di caricarsi.
+
+Scaricarlo comunque?</value>
+  </data>
+  <data name="Downloads_DepProblemsDownloadFormat" xml:space="preserve">
+    <value>{0} ha bisogno di questi e, così come sono, potrebbe non caricarsi:
+
+{1}
+
+Scaricarlo comunque?</value>
+  </data>
+  <data name="Item_DownloadOnly" xml:space="preserve">
+    <value>Solo download</value>
+  </data>
+  <data name="Item_DownloadOnlyToolTip" xml:space="preserve">
+    <value>Salva il file di questo mod nella tua cartella dei download senza installarlo.</value>
+  </data>
+  <data name="Help_Monitor_Other_Step3" xml:space="preserve">
+    <value>Passaci sopra con il mouse per vedere in quale verso funziona, poi premilo.</value>
+  </data>
+  <data name="Install_IncompatibleOneDownloadFormat" xml:space="preserve">
+    <value>Nessuna versione di questa mod su sp-mod.com supporta SPT {0}. La più recente è:
+
+{1}
+
+Scaricarla comunque? Una volta installata, SPT potrebbe rifiutarsi di caricarla.</value>
+  </data>
+  <data name="Install_IncompatibleBatchDownloadFormat" xml:space="preserve">
+    <value>Queste non supportano SPT {0}:
+
+{1}
+
+Scaricarle comunque? Una volta installate, SPT potrebbe rifiutarsi di caricarle. No scarica il resto senza di loro.</value>
+  </data>
+  <data name="Install_IncompatibleNotDownloadedFormat" xml:space="preserve">
+    <value>{0} non è stata scaricata - nessuna sua versione supporta SPT {1}.</value>
+  </data>
+  <data name="Downloads_NotAsInArchiveHeader" xml:space="preserve">
+    <value>Alcuni file non sono finiti come li ha l'archivio, quindi il mod potrebbe non funzionare. Reinstallalo, o controlla questi a mano:</value>
+  </data>
+  <data name="Downloads_MismatchMissingFormat" xml:space="preserve">
+    <value>{0} - mancante</value>
+  </data>
+  <data name="Downloads_MismatchSizeFormat" xml:space="preserve">
+    <value>{0} - {1} byte sul disco, {2} nell'archivio</value>
+  </data>
+  <data name="Downloads_MismatchContentsFormat" xml:space="preserve">
+    <value>{0} - diverso dalla copia nell'archivio</value>
+  </data>
+  <data name="Downloads_MismatchUnreadableFormat" xml:space="preserve">
+    <value>{0} - impossibile leggerlo per controllarlo</value>
+  </data>
+  <data name="Downloads_SkippedUserFilesHeader" xml:space="preserve">
+    <value>L'archivio contiene anche file per la cartella user di SPT al di fuori di user\mods e user\patchers. Solo SPT dovrebbe modificarli, quindi non sono stati installati - se il mod ne ha bisogno, leggi la sua pagina:</value>
+  </data>
+  <data name="Play_ToolsHeader" xml:space="preserve">
+    <value>Strumenti dei mod</value>
+  </data>
+  <data name="Play_ToolsSummary" xml:space="preserve">
+    <value>Programmi installati dai tuoi mod - aprili da qui.</value>
+  </data>
+  <data name="Play_ToolsDescription" xml:space="preserve">
+    <value>Ogni .exe che un mod ha messo nella cartella di SPT viene elencato qui da solo - da ciò che ha installato questa app e dalle cartelle dei mod che hai installato a mano. Uno strumento il cui mod è disattivato appare in grigio. Nascondi tutto ciò che non va aperto; si può sempre mostrare di nuovo.</value>
+  </data>
+  <data name="Play_ToolFromFormat" xml:space="preserve">
+    <value>da {0}</value>
+  </data>
+  <data name="Play_ToolOpen" xml:space="preserve">
+    <value>Apri</value>
+  </data>
+  <data name="Play_ToolOpenToolTip" xml:space="preserve">
+    <value>Avvia questo strumento dalla sua cartella</value>
+  </data>
+  <data name="Play_ToolFolderToolTip" xml:space="preserve">
+    <value>Apri la cartella del mod</value>
+  </data>
+  <data name="Play_ToolHide" xml:space="preserve">
+    <value>Nascondi</value>
+  </data>
+  <data name="Play_ToolHideToolTip" xml:space="preserve">
+    <value>Toglilo dalla pagina Gioca. Si può mostrare di nuovo dal link sotto l'elenco.</value>
+  </data>
+  <data name="Play_ToolUnhide" xml:space="preserve">
+    <value>Mostra in Gioca</value>
+  </data>
+  <data name="Play_ToolsShowHidden_one" xml:space="preserve">
+    <value>Mostra {0} strumento nascosto</value>
+  </data>
+  <data name="Play_ToolsShowHidden_other" xml:space="preserve">
+    <value>Mostra {0} strumenti nascosti</value>
+  </data>
+  <data name="Play_ToolsHideHidden" xml:space="preserve">
+    <value>Nascondili di nuovo</value>
+  </data>
+  <data name="Play_ToolNeedsServerRunning" xml:space="preserve">
+    <value>Richiede il server in esecuzione.</value>
+  </data>
+  <data name="Play_ToolNeedsServerRunningDown" xml:space="preserve">
+    <value>Richiede il server in esecuzione - non lo è.</value>
+  </data>
+  <data name="Play_ToolNeedsServerStopped" xml:space="preserve">
+    <value>Usalo con il server fermo - le modifiche valgono dal prossimo avvio.</value>
+  </data>
+  <data name="Play_ToolNeedsServerStoppedUp" xml:space="preserve">
+    <value>Il server è in esecuzione - fermalo prima. Le modifiche valgono dal prossimo avvio.</value>
+  </data>
+  <data name="Play_ToolModDisabledFormat" xml:space="preserve">
+    <value>{0} è disattivato, quindi questo non si può aprire.</value>
+  </data>
+  <data name="Play_ToolOpenedFormat" xml:space="preserve">
+    <value>{0} aperto.</value>
+  </data>
+  <data name="Play_ToolOpenFailedFormat" xml:space="preserve">
+    <value>Impossibile aprire {0}: {1}</value>
+  </data>
+  <data name="Help_Play_Tools_Title" xml:space="preserve">
+    <value>Aprire un programma installato da un mod</value>
+  </data>
+  <data name="Help_Play_Tools_Step1" xml:space="preserve">
+    <value>In {0}, la scheda {1} elenca da sola ogni programma che un mod ha messo nella cartella di SPT - Greed di SVM, give-ui e simili - ciascuno con il mod da cui proviene.</value>
+  </data>
+  <data name="Help_Play_Tools_Step2" xml:space="preserve">
+    <value>Premi {0} per avviarne uno. Il pulsante della cartella accanto apre la cartella del mod, dove strumenti come SVM tengono i loro file.</value>
+  </data>
+  <data name="Help_Play_Tools_Step3" xml:space="preserve">
+    <value>Uno strumento che questa app conosce indica se richiede il server in esecuzione (give-ui) o fermo (Greed di SVM), e offre {0} quando gli serve il server e questo non è attivo.</value>
+  </data>
+  <data name="Help_Play_Tools_Note" xml:space="preserve">
+    <value>Vengono elencati tutti i programmi, quindi uno che non va aperto si può nascondere con {0}; il link sotto l'elenco mostra di nuovo quelli nascosti. Lo strumento di un mod disattivato appare in grigio.</value>
+  </data>
+  <data name="Help_Play_Tools_Keywords" xml:space="preserve">
+    <value>strumenti, tools, exe, programma, Greed, SVM, give-ui, configuratore, app, apri</value>
+  </data>
+  <data name="Sort_RecentlyInstalled" xml:space="preserve">
+    <value>Installati di recente</value>
+  </data>
+  <data name="Sort_EnabledFirst" xml:space="preserve">
+    <value>Prima gli attivati</value>
+  </data>
+  <data name="Sort_DisabledFirst" xml:space="preserve">
+    <value>Prima i disattivati</value>
+  </data>
+  <data name="Installed_GroupingInstallState" xml:space="preserve">
+    <value>Raggruppati per attivati / disattivati</value>
+  </data>
+  <data name="Installed_SectionEnabled" xml:space="preserve">
+    <value>Attivati</value>
+  </data>
+  <data name="Installed_SectionDisabled" xml:space="preserve">
+    <value>Disattivati</value>
+  </data>
+  <data name="Installed_PinnedTag" xml:space="preserve">
+    <value>FISSATO</value>
+  </data>
+  <data name="Installed_RemoveProfileWarningFormat" xml:space="preserve">
+    <value>sp-mod.com indica {0} come un mod che potrebbe apportare modifiche permanenti al tuo profilo e che potrebbe non essere rimovibile senza iniziare un nuovo profilo. Rimuoverlo - o disattivarlo - può lasciare un profilo che SPT non carica. Se succede, rimettilo con Annulla la rimozione, o installalo di nuovo. Una copia dei tuoi profili viene conservata da subito prima che venga tolto (Opzioni &gt; Backup dei profili SPT).</value>
+  </data>
+  <data name="Installed_RemoveProfileManyTitle" xml:space="preserve">
+    <value>Questi potrebbero aver modificato il tuo profilo</value>
+  </data>
+  <data name="Installed_RemoveProfileManyFormat" xml:space="preserve">
+    <value>sp-mod.com indica questi come mod che potrebbero apportare modifiche permanenti al tuo profilo e che potrebbero non essere rimovibili senza iniziare un nuovo profilo:
+{0}
+
+Rimuoverli - o disattivarli - può lasciare un profilo che SPT non carica. Se succede, rimettili con Annulla la rimozione, o installali di nuovo. Una copia dei tuoi profili viene conservata da subito prima che vengano tolti (Opzioni &gt; Backup dei profili SPT).</value>
+  </data>
+  <data name="Installed_RemoveProfileKeepThese" xml:space="preserve">
+    <value>Tieni questi, rimuovi il resto</value>
+  </data>
+  <data name="Installed_RemoveProfileRemoveAll" xml:space="preserve">
+    <value>Rimuovi tutti</value>
+  </data>
+  <data name="Installed_RemoveProfileRemove" xml:space="preserve">
+    <value>Rimuovi</value>
+  </data>
+  <data name="Installed_ReuploadedTag" xml:space="preserve">
+    <value>RICARICATO</value>
+  </data>
+  <data name="Installed_ReuploadNewEntryFormat" xml:space="preserve">
+    <value>{0} {1} è stato caricato di nuovo su sp-mod.com con lo stesso numero di versione: il nuovo caricamento risulta di {2} byte, quello che hai di {3} byte. Scaricalo di nuovo per installare il nuovo caricamento.</value>
+  </data>
+  <data name="Installed_ReuploadListingChangedFormat" xml:space="preserve">
+    <value>Il file di {0} {1} su sp-mod.com ora risulta di {2} byte, mentre quando l'hai installato risultava di {3} byte, quindi molto probabilmente è stato sostituito. Scaricalo di nuovo per installare il nuovo file.</value>
+  </data>
+  <data name="Installed_GetAgain" xml:space="preserve">
+    <value>Scarica di nuovo</value>
+  </data>
+  <data name="Installed_GetAgainToolTip" xml:space="preserve">
+    <value>Scarica di nuovo questa versione da sp-mod.com e installala sopra quella che hai. Le tue impostazioni vengono gestite come in qualsiasi aggiornamento.</value>
+  </data>
+  <data name="Installed_GetAgainQueuedFormat" xml:space="preserve">
+    <value>Nuovo download di {0} {1} - vedi Download.</value>
+  </data>
+  <data name="Installed_GetAgainNotInCatalogFormat" xml:space="preserve">
+    <value>{0} non è nel catalogo di sp-mod.com che ha questa app, quindi non si può scaricare di nuovo da qui.</value>
+  </data>
+  <data name="Nav_Diagnose" xml:space="preserve">
+    <value>Diagnostica log</value>
+  </data>
+  <data name="Diagnose_Description" xml:space="preserve">
+    <value>Legge l'ultima esecuzione del server, il log BepInEx dell'ultima sessione di gioco e il log degli errori del gioco, e ti dice cosa non va e da quale mod viene.</value>
+  </data>
+  <data name="Diagnose_Refresh" xml:space="preserve">
+    <value>Rileggi i log</value>
+  </data>
+  <data name="Diagnose_CopyReport" xml:space="preserve">
+    <value>Copia un report per chiedere aiuto</value>
+  </data>
+  <data name="Diagnose_CopyReportToolTip" xml:space="preserve">
+    <value>Copia ciò che è stato trovato e le righe di log da cui deriva. Il tuo nome utente e la tua cartella di Windows, gli id di profili e oggetti e gli indirizzi degli altri giocatori vengono tolti.</value>
+  </data>
+  <data name="Diagnose_Copied" xml:space="preserve">
+    <value>Copiato. Incollalo dove stai chiedendo aiuto.</value>
+  </data>
+  <data name="Diagnose_Reading" xml:space="preserve">
+    <value>Lettura dei log...</value>
+  </data>
+  <data name="Diagnose_NoInstall" xml:space="preserve">
+    <value>Imposta prima la tua cartella di SPT in Opzioni (l'ingranaggio, in alto a destra).</value>
+  </data>
+  <data name="Diagnose_NothingFound" xml:space="preserve">
+    <value>Nessun problema trovato in questi log.</value>
+  </data>
+  <data name="Diagnose_Found_one" xml:space="preserve">
+    <value>{0} problema trovato.</value>
+  </data>
+  <data name="Diagnose_Found_other" xml:space="preserve">
+    <value>{0} problemi trovati.</value>
+  </data>
+  <data name="Diagnose_OtherErrors_one" xml:space="preserve">
+    <value>{0} altro errore nei log non è tra quelli che questa pagina conosce - è nel report copiato.</value>
+  </data>
+  <data name="Diagnose_OtherErrors_other" xml:space="preserve">
+    <value>{0} altri errori nei log non sono tra quelli che questa pagina conosce - sono nel report copiato.</value>
+  </data>
+  <data name="Diagnose_ServerRunFormat" xml:space="preserve">
+    <value>Log del server: {0}, dall'ultimo avvio alle {1}.</value>
+  </data>
+  <data name="Diagnose_ServerLogNone" xml:space="preserve">
+    <value>Log del server: nessuno trovato - il server non è ancora stato avviato.</value>
+  </data>
+  <data name="Diagnose_BepInExFormat" xml:space="preserve">
+    <value>Gioco: BepInEx\LogOutput.log, dall'ultima volta che il gioco è stato avviato.</value>
+  </data>
+  <data name="Diagnose_BepInExNone" xml:space="preserve">
+    <value>Gioco: nessun log BepInEx - il gioco non è ancora stato avviato con BepInEx.</value>
+  </data>
+  <data name="Diagnose_GameErrorsFormat" xml:space="preserve">
+    <value>Errori del gioco: {0}.</value>
+  </data>
+  <data name="Diagnose_LauncherClears" xml:space="preserve">
+    <value>Il launcher SPT elimina la cartella Logs del gioco ogni volta che lo avvia, quindi qui ci sono solo i log dell'ultima sessione di gioco.</value>
+  </data>
+  <data name="Diagnose_CountFormat" xml:space="preserve">
+    <value>{0} volte</value>
+  </data>
+  <data name="Diagnose_LineFormat" xml:space="preserve">
+    <value>{0}, riga {1}</value>
+  </data>
+  <data name="Diagnose_ShowMod" xml:space="preserve">
+    <value>Mostra in Oggetti sottoscritti</value>
+  </data>
+  <data name="Diagnose_OpenFolder" xml:space="preserve">
+    <value>Apri la sua cartella</value>
+  </data>
+  <data name="Diagnose_OpenLog" xml:space="preserve">
+    <value>Apri il log</value>
+  </data>
+  <data name="Diagnose_GoToPlay" xml:space="preserve">
+    <value>Vai a Gioca</value>
+  </data>
+  <data name="Diagnose_ProfileBackups" xml:space="preserve">
+    <value>Backup dei profili</value>
+  </data>
+  <data name="Diagnose_ModFormat" xml:space="preserve">
+    <value>Mod: {0}</value>
+  </data>
+  <data name="Diagnose_ModsFormat" xml:space="preserve">
+    <value>Mod: {0}</value>
+  </data>
+  <data name="Diagnose_Title_ProfileInvalid" xml:space="preserve">
+    <value>Un profilo non si carica</value>
+  </data>
+  <data name="Diagnose_Body_ProfileInvalid" xml:space="preserve">
+    <value>SPT ha segnato il profilo {0} come non valido e non lo carica - e fare il wipe non serve, perché SPT non salva le modifiche a un profilo che non carica. Rimetti il mod di cui contiene oggetti, trader o abiti, ripristina un backup del profilo o crea un nuovo profilo. Oppure tieni il profilo: imposta removeModItemsFromProfile e removeInvalidTradersFromProfile su true nel core.json di SPT (SPT_Data\configs nella cartella del server) e riavvia il server - SPT toglie allora da solo dal profilo ciò che manca. Attivali lo fa per te.</value>
+  </data>
+  <data name="Diagnose_Title_ProfileClothingMissing" xml:space="preserve">
+    <value>Un profilo indossa abiti di un mod mancante</value>
+  </data>
+  <data name="Diagnose_Body_ProfileClothingMissing" xml:space="preserve">
+    <value>Un profilo ha un abito (id {0}) che nessun mod installato aggiunge. Secondo SPT succede dopo la rimozione di un mod di abiti. Rimetti il mod degli abiti, o ripristina un backup del profilo.</value>
+  </data>
+  <data name="Diagnose_Title_RaidResultsLost" xml:space="preserve">
+    <value>I risultati del raid non sono stati salvati</value>
+  </data>
+  <data name="Diagnose_Body_RaidResultsLost" xml:space="preserve">
+    <value>Alla fine di un raid il gioco ha inviato un valore {0} che il server non conosce, quindi il server non ha potuto leggere i risultati e il raid non è stato salvato. Molto probabilmente un mod che aggiunge a {0} è caricato nel gioco ma la sua parte server no - per esempio manca il suo prepatch in user\patchers.</value>
+  </data>
+  <data name="Diagnose_Title_PortInUse" xml:space="preserve">
+    <value>Il server non è riuscito ad avviarsi</value>
+  </data>
+  <data name="Diagnose_Body_PortInUse" xml:space="preserve">
+    <value>Qualcosa sta già usando {0} - il più delle volte un server ancora in esecuzione. Fermalo dalla pagina Gioca, o chiudi l'altro programma.</value>
+  </data>
+  <data name="Diagnose_Title_PluginMissingDependency" xml:space="preserve">
+    <value>Un mod non si è caricato: manca qualcosa che gli serve</value>
+  </data>
+  <data name="Diagnose_Body_PluginMissingDependency" xml:space="preserve">
+    <value>BepInEx non ha caricato {0}: richiede {1}, che non è installato o è troppo vecchio.</value>
+  </data>
+  <data name="Diagnose_Title_PluginIncompatible" xml:space="preserve">
+    <value>Un mod non si è caricato: non funziona con un altro</value>
+  </data>
+  <data name="Diagnose_Body_PluginIncompatible" xml:space="preserve">
+    <value>BepInEx non ha caricato {0} perché è installato {1}. Disattiva uno dei due.</value>
+  </data>
+  <data name="Diagnose_Title_PluginDependencyNotLoaded" xml:space="preserve">
+    <value>Un mod non si è caricato: uno che gli serve non si è caricato</value>
+  </data>
+  <data name="Diagnose_Body_PluginDependencyNotLoaded" xml:space="preserve">
+    <value>BepInEx ha saltato {0} perché un mod che gli serve non si è caricato. Sistema prima quello.</value>
+  </data>
+  <data name="Diagnose_Title_PluginDuplicate" xml:space="preserve">
+    <value>Un mod è installato due volte</value>
+  </data>
+  <data name="Diagnose_Body_PluginDuplicate" xml:space="preserve">
+    <value>BepInEx ha saltato {0} perché ne è installata una copia più recente. Rimuovi la copia più vecchia.</value>
+  </data>
+  <data name="Diagnose_Title_PluginLoadError" xml:space="preserve">
+    <value>Un mod non è riuscito a caricarsi</value>
+  </data>
+  <data name="Diagnose_Body_PluginLoadError" xml:space="preserve">
+    <value>BepInEx non è riuscito a caricare {0}: {1}</value>
+  </data>
+  <data name="Diagnose_Title_ServerModNotLoaded" xml:space="preserve">
+    <value>Un mod server non è in esecuzione</value>
+  </data>
+  <data name="Diagnose_Body_ServerModNotLoaded" xml:space="preserve">
+    <value>È installato e attivato, ma l'ultimo avvio del server non lo elencava tra i mod caricati. Il log del server attorno a quell'avvio potrebbe dire perché. Se l'hai aggiunto dopo, avvia di nuovo il server.</value>
+  </data>
+  <data name="Diagnose_Title_ModLoaderProblem" xml:space="preserve">
+    <value>Il caricatore dei mod di SPT ha segnalato un problema</value>
+  </data>
+  <data name="Diagnose_Title_RequestFailed" xml:space="preserve">
+    <value>Un errore del server mentre rispondeva al gioco</value>
+  </data>
+  <data name="Diagnose_Body_RequestFailedFormat" xml:space="preserve">
+    <value>Il server ha avuto un errore gestendo {0}: {1}</value>
+  </data>
+  <data name="Diagnose_Title_ScheduledTaskFailed" xml:space="preserve">
+    <value>Un'attività del server continua a fallire</value>
+  </data>
+  <data name="Diagnose_Body_ScheduledTaskFailedFormat" xml:space="preserve">
+    <value>{0} non è riuscita: {1}</value>
+  </data>
+  <data name="Diagnose_FromModCode" xml:space="preserve">
+    <value>L'errore viene dal codice di questo mod. Controlla se c'è un aggiornamento, o invia all'autore il report copiato.</value>
+  </data>
+  <data name="Diagnose_Title_ModReportedError" xml:space="preserve">
+    <value>Un mod ha segnalato un errore</value>
+  </data>
+  <data name="Diagnose_Title_BundleClash" xml:space="preserve">
+    <value>Due mod includono lo stesso bundle</value>
+  </data>
+  <data name="Diagnose_Body_BundleClash" xml:space="preserve">
+    <value>Più di un mod include {0}, e SPT ne ha potuto aggiungere solo uno - la copia dell'altro mod non viene usata.</value>
+  </data>
+  <data name="Diagnose_Title_BundleMissingDependency" xml:space="preserve">
+    <value>Un bundle richiede file che non ci sono</value>
+  </data>
+  <data name="Diagnose_Body_BundleMissingDependency" xml:space="preserve">
+    <value>Il gioco non è riuscito a caricare del tutto {0}: dipende da bundle che non sono installati. Reinstallare il mod potrebbe risolvere; altrimenti, avvisa l'autore.</value>
+  </data>
+  <data name="Diagnose_Title_PluginLoggedErrors" xml:space="preserve">
+    <value>Un mod ha registrato errori nel gioco</value>
+  </data>
+  <data name="Diagnose_ReportIssueToolTip" xml:space="preserve">
+    <value>Apre una nuova issue sul GitHub di SSPTMM con questo report già compilato, e lo copia. Non viene inviato nulla finché non la invii tu da lì.</value>
+  </data>
+  <data name="Diagnose_IssueTitle" xml:space="preserve">
+    <value>Report dei log</value>
+  </data>
+  <data name="Report_VersionsFormat" xml:space="preserve">
+    <value>{0}, SPT {1}, {2}</value>
+  </data>
+  <data name="Report_WindowsFormat" xml:space="preserve">
+    <value>Windows {0} ({1})</value>
+  </data>
+  <data name="Report_CopyError" xml:space="preserve">
+    <value>Copia errore</value>
+  </data>
+  <data name="Report_CopyErrorToolTip" xml:space="preserve">
+    <value>Copia il motivo dell'errore, con le versioni di SSPTMM, SPT e Windows, per una segnalazione di bug. Il tuo nome utente di Windows viene escluso.</value>
+  </data>
+  <data name="Report_OpenIssue" xml:space="preserve">
+    <value>Segnala su GitHub</value>
+  </data>
+  <data name="Report_Shortened" xml:space="preserve">
+    <value>(Abbreviato - il report completo è negli appunti; incollalo qui.)</value>
+  </data>
+  <data name="Diagnose_ReportHeader" xml:space="preserve">
+    <value>Report dei log - {0}, SPT {1}, {2}</value>
+  </data>
+  <data name="Help_Diagnose_Read_Title" xml:space="preserve">
+    <value>Scoprire perché qualcosa non funziona</value>
+  </data>
+  <data name="Help_Diagnose_Read_Step1" xml:space="preserve">
+    <value>In {0}, apri {1}. Legge da solo l'ultima esecuzione del server e i log dell'ultima sessione di gioco.</value>
+  </data>
+  <data name="Help_Diagnose_Read_Step2" xml:space="preserve">
+    <value>Ogni scheda dice con parole semplici cosa è andato storto, da quale mod viene quando il log lo nomina, e la riga di log da cui è stato letto. {0} ti porta a quel mod.</value>
+  </data>
+  <data name="Help_Diagnose_Read_Step3" xml:space="preserve">
+    <value>Dopo aver cambiato qualcosa, avvia di nuovo il server o il gioco, poi premi {0}: i log dicono solo cosa è successo nell'ultima esecuzione.</value>
+  </data>
+  <data name="Help_Diagnose_Read_Note" xml:space="preserve">
+    <value>{0} copia ciò che è stato trovato per chiedere aiuto altrove, togliendo il tuo nome utente di Windows, le cartelle, gli id e gli indirizzi degli altri giocatori. Niente in questa pagina modifica alcun file.</value>
+  </data>
+  <data name="Help_Diagnose_Read_Keywords" xml:space="preserve">
+    <value>log errore errori crash rotto non funziona diagnostica diagnose problema bepinex server launcher report aiuto</value>
+  </data>
+  <data name="Diagnose_ReportServerFormat" xml:space="preserve">
+    <value>Log del server: {0} (la sua ultima esecuzione è iniziata il {1})</value>
+  </data>
+  <data name="Diagnose_ReportGameFormat" xml:space="preserve">
+    <value>Log BepInEx: {0}; errori del gioco: {1}</value>
+  </data>
+  <data name="Diagnose_ReportOtherFormat" xml:space="preserve">
+    <value>Altri errori ({0}):</value>
+  </data>
+  <data name="About_UpdateTitleFormat" xml:space="preserve">
+    <value>{0}: è uscito SSPTMM {1}</value>
+  </data>
+  <data name="About_UpdateBody" xml:space="preserve">
+    <value>Installa aggiornamento lo scarica da GitHub, chiude SSPTMM, mette la nuova versione sopra questa cartella e lo riavvia - le tue impostazioni nella cartella Data restano come sono. Oppure scaricalo dalla pagina della release e decomprimilo tu stesso nello stesso posto.</value>
+  </data>
+  <data name="About_OpenRelease" xml:space="preserve">
+    <value>Apri la pagina della release</value>
+  </data>
+  <data name="About_UpToDate" xml:space="preserve">
+    <value>Hai la release più recente.</value>
+  </data>
+  <data name="About_CheckRateLimited" xml:space="preserve">
+    <value>GitHub ha ricevuto troppe richieste da questa connessione nell'ultima ora. Riprova più tardi.</value>
+  </data>
+  <data name="About_CheckUnreachableFormat" xml:space="preserve">
+    <value>Impossibile raggiungere GitHub: {0}</value>
+  </data>
+  <data name="About_CheckTimedOut" xml:space="preserve">
+    <value>Tempo scaduto per raggiungere GitHub - controlla la connessione e riprova.</value>
+  </data>
+  <data name="About_CheckRefusedFormat" xml:space="preserve">
+    <value>GitHub ha risposto con l'errore {0}. Riprova più tardi.</value>
+  </data>
+  <data name="Options_DirectLaunchHeader" xml:space="preserve">
+    <value>Avvia il gioco da SSPTMM</value>
+  </data>
+  <data name="Options_DirectLaunchSummary" xml:space="preserve">
+    <value>Gioca nella pagina Gioca avvia da solo il server e il gioco - senza la finestra del launcher SPT.</value>
+  </data>
+  <data name="Options_DirectLaunchDescription" xml:space="preserve">
+    <value>Gioca fa ciò che fa il launcher SPT quando premi il suo Start: avvia il server se non è in esecuzione e lo aspetta, controlla che il server e spt-core.dll siano della stessa versione di SPT, ripulisce gli stessi file, applica la patch di gioco di SPT, scarica i bundle dei mod mancanti e avvia il gioco con il profilo che hai scelto. I profili si possono creare, azzerare ed eliminare dal menu ... della scheda Gioca. Le impostazioni del launcher SPT (i file che lascia stare, Clear cache on launch) vengono rispettate. I log dell'ultima sessione di gioco vengono conservati per Diagnostica log.</value>
+  </data>
+  <data name="Options_DirectLaunchWarningTitle" xml:space="preserve">
+    <value>Non realizzato dal team SPT</value>
+  </data>
+  <data name="Options_DirectLaunchWarning" xml:space="preserve">
+    <value>Questo riproduce ciò che fa il launcher di SPT 4.1, ricavato dal suo codice sorgente - non è realizzato né supportato dal team SPT. Un futuro aggiornamento di SPT può cambiare il modo in cui il gioco va avviato; SSPTMM allora torna ad aprire il launcher SPT per le versioni che non conosce. Se il gioco non parte o si comporta in modo strano, disattiva questa opzione e usa il launcher SPT, e quando chiedi aiuto di' che è stato avviato da SSPTMM. Perché tutto giri in background, attiva anche l'avvio del server senza la sua finestra, qui sopra.</value>
+  </data>
+  <data name="Options_DirectLaunchSupportedFormat" xml:space="preserve">
+    <value>Questa installazione è SPT {0}: Gioca avvia il gioco da qui.</value>
+  </data>
+  <data name="Options_DirectLaunchUntestedFormat" xml:space="preserve">
+    <value>Questa installazione è SPT {0}, più recente della {1} con cui è stato verificato. Gioca avvia comunque il gioco da qui, ma se non funziona, usa il launcher SPT.</value>
+  </data>
+  <data name="Options_DirectLaunchUnsupportedFormat" xml:space="preserve">
+    <value>Questa installazione è SPT {0}: da qui si possono avviare solo SPT 4.1.3 e successive della 4.1, quindi Gioca apre il launcher SPT.</value>
+  </data>
+  <data name="Options_DirectLaunchNoInstall" xml:space="preserve">
+    <value>Imposta prima la tua cartella di SPT.</value>
+  </data>
+  <data name="Options_MinimizeWhilePlayingOn" xml:space="preserve">
+    <value>Riduci a icona SSPTMM quando il gioco è avviato</value>
+  </data>
+  <data name="Options_MinimizeWhilePlayingOff" xml:space="preserve">
+    <value>Lascia aperto SSPTMM quando parte il gioco</value>
+  </data>
+  <data name="Profiles_ReasonWipe" xml:space="preserve">
+    <value>Prima di azzerare un profilo</value>
+  </data>
+  <data name="Profiles_ReasonProfileDelete" xml:space="preserve">
+    <value>Prima di eliminare un profilo</value>
+  </data>
+  <data name="Play_DirectHeader" xml:space="preserve">
+    <value>Escape from Tarkov</value>
+  </data>
+  <data name="Play_DirectSummary" xml:space="preserve">
+    <value>Scegli un profilo e premi Gioca - il server si avvia da solo se non è in esecuzione.</value>
+  </data>
+  <data name="Play_DirectDescription" xml:space="preserve">
+    <value>Gioca avvia il server se serve, lo aspetta, esegue i controlli, la patch e i bundle del launcher SPT, poi avvia il gioco con questo profilo. Il launcher SPT non si apre mai. Azzera, Nuovo profilo, Elimina e Svuota cache sono sotto ... accanto a Gioca. Disattivalo in Opzioni per tornare a usare il launcher SPT.</value>
+  </data>
+  <data name="Play_DirectProfileToolTip" xml:space="preserve">
+    <value>Il profilo con cui parte il gioco. I profili vengono letti dalla tua cartella di SPT, quindi compaiono anche prima che il server sia in esecuzione.</value>
+  </data>
+  <data name="Play_ProfileDetailFormat" xml:space="preserve">
+    <value>Livello {0} · {1} · {2}</value>
+  </data>
+  <data name="Play_ProfileNewFormat" xml:space="preserve">
+    <value>{0} · nuovo personaggio · {1}</value>
+  </data>
+  <data name="Play_DirectPlay" xml:space="preserve">
+    <value>GIOCA</value>
+  </data>
+  <data name="Play_DirectPlayToolTip" xml:space="preserve">
+    <value>Avvia il server se serve, poi il gioco con questo profilo.</value>
+  </data>
+  <data name="Play_DirectMoreToolTip" xml:space="preserve">
+    <value>Azzera, nuovo profilo, elimina, svuota cache, launcher SPT</value>
+  </data>
+  <data name="Play_DirectNoProfiles" xml:space="preserve">
+    <value>Ancora nessun profilo - creane uno con Nuovo profilo sotto ...</value>
+  </data>
+  <data name="Play_WipeArmedFormat" xml:space="preserve">
+    <value>Il prossimo Gioca fa ripartire {0} da zero con un nuovo personaggio - i suoi progressi vengono azzerati. Prima viene conservata una copia dei tuoi profili.</value>
+  </data>
+  <data name="Play_DirectUnavailableFormat" xml:space="preserve">
+    <value>Questa installazione è SPT {0}. SSPTMM avvia il gioco da solo solo su SPT 4.1.3 e successive della 4.1, quindi qui usa il launcher SPT.</value>
+  </data>
+  <data name="Play_DirectUntestedFormat" xml:space="preserve">
+    <value>SPT {0} è più recente della {1} con cui è stato verificato. Se il gioco non parte, usa il launcher SPT (sotto ...).</value>
+  </data>
+  <data name="Play_DirectStartingServer" xml:space="preserve">
+    <value>Avvio del server...</value>
+  </data>
+  <data name="Play_DirectWaitingForServerFormat" xml:space="preserve">
+    <value>In attesa che il server si carichi... {0}s</value>
+  </data>
+  <data name="Play_DirectServerStopped" xml:space="preserve">
+    <value>Il server si è fermato prima di essere pronto - il suo log qui sotto dice perché.</value>
+  </data>
+  <data name="Play_DirectServerTimeoutFormat" xml:space="preserve">
+    <value>Il server su {0} non ha risposto entro 3 minuti. Il suo log qui sotto potrebbe dire perché.</value>
+  </data>
+  <data name="Play_DirectStageChecking" xml:space="preserve">
+    <value>Controllo che il server e spt-core.dll siano della stessa versione di SPT...</value>
+  </data>
+  <data name="Play_DirectStageCleaning" xml:space="preserve">
+    <value>Pulizia della cartella del gioco...</value>
+  </data>
+  <data name="Play_DirectStageWiping" xml:space="preserve">
+    <value>Azzeramento del profilo...</value>
+  </data>
+  <data name="Play_DirectStageCache" xml:space="preserve">
+    <value>Svuotamento della cache del gioco...</value>
+  </data>
+  <data name="Play_DirectStagePatching" xml:space="preserve">
+    <value>Applicazione della patch di gioco di SPT...</value>
+  </data>
+  <data name="Play_DirectStageBundlesFormat" xml:space="preserve">
+    <value>Download dei bundle dei mod: {0} di {1} ({2:N0} di {3:N0} MB)...</value>
+  </data>
+  <data name="Play_DirectStageStarting" xml:space="preserve">
+    <value>Avvio del gioco...</value>
+  </data>
+  <data name="Play_DirectStartingGameFormat" xml:space="preserve">
+    <value>Avvio del gioco come {0}...</value>
+  </data>
+  <data name="Play_DirectPlayingFormat" xml:space="preserve">
+    <value>Stai giocando come {0}.</value>
+  </data>
+  <data name="Play_DirectGameNotSeen" xml:space="preserve">
+    <value>Il gioco è stato avviato, ma non è ancora comparso. Se non appare nulla, guarda in BepInEx\LogOutput.log o prova il launcher SPT.</value>
+  </data>
+  <data name="Play_DirectCancelled" xml:space="preserve">
+    <value>Interrotto.</value>
+  </data>
+  <data name="Play_DirectNoGame" xml:space="preserve">
+    <value>EscapeFromTarkov.exe non è nella tua cartella di SPT.</value>
+  </data>
+  <data name="Play_DirectServerUnreachableFormat" xml:space="preserve">
+    <value>Il server non ha risposto: {0}</value>
+  </data>
+  <data name="Play_DirectNoCoreDll" xml:space="preserve">
+    <value>Manca BepInEx\plugins\spt\spt-core.dll - i file client di SPT non ci sono tutti. Reinstalla SPT.</value>
+  </data>
+  <data name="Play_DirectVersionMismatchFormat" xml:space="preserve">
+    <value>Il server è SPT {0} ma spt-core.dll è {1}, quindi il gioco non funzionerebbe con esso. Reinstalla SPT in modo che i due corrispondano. (Il launcher SPT avvia comunque il gioco.)</value>
+  </data>
+  <data name="Play_DirectNoSuchProfile" xml:space="preserve">
+    <value>Il server non ha più questo profilo. Scegline un altro.</value>
+  </data>
+  <data name="Play_DirectWipeRefused" xml:space="preserve">
+    <value>Il server ha rifiutato l'azzeramento - la sua configurazione non permette di azzerare i profili. Non è stato avviato nulla.</value>
+  </data>
+  <data name="Play_DirectPatchFailedFormat" xml:space="preserve">
+    <value>Impossibile applicare la patch di gioco di SPT ({0}): {1}. Non è stato avviato nulla; il launcher SPT incontrerebbe lo stesso problema - di solito reinstallare SPT lo risolve.</value>
+  </data>
+  <data name="Play_DirectBundlesFailedFormat" xml:space="preserve">
+    <value>{0} bundle di mod non si sono scaricati dal server, per esempio {1}. Non è stato avviato nulla.</value>
+  </data>
+  <data name="Play_DirectStartFailedFormat" xml:space="preserve">
+    <value>Impossibile avviare il gioco: {0}</value>
+  </data>
+  <data name="Play_DirectFailed" xml:space="preserve">
+    <value>Impossibile avviare il gioco.</value>
+  </data>
+  <data name="Play_DirectWipe" xml:space="preserve">
+    <value>Azzera questo profilo al prossimo Gioca</value>
+  </data>
+  <data name="Play_DirectWipeCancel" xml:space="preserve">
+    <value>Non azzerare al prossimo Gioca</value>
+  </data>
+  <data name="Play_DirectWipeToolTip" xml:space="preserve">
+    <value>Il prossimo Gioca fa ripartire questo profilo da zero con un nuovo personaggio, come fa il wipe del launcher SPT. Prima viene conservata una copia dei tuoi profili.</value>
+  </data>
+  <data name="Play_DirectNewProfile" xml:space="preserve">
+    <value>Nuovo profilo...</value>
+  </data>
+  <data name="Play_DirectNewProfileToolTip" xml:space="preserve">
+    <value>Crea un profilo sul server - un nome e un'edizione di partenza. Avvia il server se non è in esecuzione.</value>
+  </data>
+  <data name="Play_DirectNewProfileHeader" xml:space="preserve">
+    <value>Nuovo profilo</value>
+  </data>
+  <data name="Play_DirectNewProfileName" xml:space="preserve">
+    <value>Nome del profilo</value>
+  </data>
+  <data name="Play_DirectCreateProfile" xml:space="preserve">
+    <value>Crea</value>
+  </data>
+  <data name="Play_DirectProfileCreatedFormat" xml:space="preserve">
+    <value>Profilo {0} creato. Il gioco crea il suo personaggio la prima volta che ci giochi.</value>
+  </data>
+  <data name="Play_DirectProfileNotCreatedFormat" xml:space="preserve">
+    <value>Il server non ha creato {0} - quel nome potrebbe essere già usato.</value>
+  </data>
+  <data name="Play_DirectDeleteProfile" xml:space="preserve">
+    <value>Elimina questo profilo...</value>
+  </data>
+  <data name="Play_DirectDeleteProfileToolTip" xml:space="preserve">
+    <value>Rimuovi il profilo dal server. Prima viene conservata una copia dei tuoi profili (Opzioni, Backup dei profili SPT).</value>
+  </data>
+  <data name="Play_DirectDeleteWarningFormat" xml:space="preserve">
+    <value>Eliminare {0}? Il suo personaggio e i suoi progressi spariscono dal server. Prima viene conservata una copia dei tuoi profili, che si può ripristinare in Opzioni.</value>
+  </data>
+  <data name="Play_DirectDeleteConfirm" xml:space="preserve">
+    <value>Elimina profilo</value>
+  </data>
+  <data name="Play_DirectDeleteWhileRunning" xml:space="preserve">
+    <value>Chiudi il gioco prima di eliminare un profilo.</value>
+  </data>
+  <data name="Play_DirectProfileDeletedFormat" xml:space="preserve">
+    <value>{0} è stato eliminato. Una copia dei tuoi profili è in Opzioni, Backup dei profili SPT.</value>
+  </data>
+  <data name="Play_DirectProfileNotDeletedFormat" xml:space="preserve">
+    <value>Il server non ha eliminato {0}.</value>
+  </data>
+  <data name="Play_DirectClearCache" xml:space="preserve">
+    <value>Svuota la cache del gioco</value>
+  </data>
+  <data name="Play_DirectClearCacheToolTip" xml:space="preserve">
+    <value>Elimina la cartella user\sptappdata del server, come fa Clear cache del launcher SPT. Viene ricreata al prossimo avvio.</value>
+  </data>
+  <data name="Play_DirectCacheCleared" xml:space="preserve">
+    <value>La cache del gioco è stata svuotata.</value>
+  </data>
+  <data name="Play_DirectCacheWhileRunning" xml:space="preserve">
+    <value>Chiudi il gioco prima di svuotarne la cache.</value>
+  </data>
+  <data name="Play_DirectOpenLauncher" xml:space="preserve">
+    <value>Apri invece il launcher SPT</value>
+  </data>
+  <data name="Play_DirectOpenLauncherToolTip" xml:space="preserve">
+    <value>Avvia il gioco nel modo solito, dal launcher di SPT.</value>
+  </data>
+  <data name="Play_DirectSettings" xml:space="preserve">
+    <value>Impostazioni...</value>
+  </data>
+  <data name="Options_LaunchReplacedByDirect" xml:space="preserve">
+    <value>Non usato mentre "Avvia il gioco da SSPTMM" è attivo - Gioca avvia il gioco da solo.</value>
+  </data>
+  <data name="Help_Play_Direct_Title" xml:space="preserve">
+    <value>Giocare direttamente da SSPTMM</value>
+  </data>
+  <data name="Help_Play_Direct_Step1" xml:space="preserve">
+    <value>È attivo a meno che tu non l'abbia disattivato: {0}, {1}. La nota lì spiega cosa fa.</value>
+  </data>
+  <data name="Help_Play_Direct_Step2" xml:space="preserve">
+    <value>Apri {0}, scegli un profilo e premi {1}. Il server si avvia da solo se non è in esecuzione.</value>
+  </data>
+  <data name="Help_Play_Direct_Step3" xml:space="preserve">
+    <value>Il pulsante ... accanto può azzerare il profilo al prossimo avvio, creare un nuovo profilo, eliminarne uno o svuotare la cache del gioco. Prima di un azzeramento o di un'eliminazione viene conservata una copia dei tuoi profili.</value>
+  </data>
+  <data name="Help_Play_Direct_Note" xml:space="preserve">
+    <value>Funziona con SPT dalla 4.1.3 alla 4.1.6, e non è realizzato né supportato dal team SPT. Se il gioco non parte o si comporta in modo strano, disattivalo e usa {0}.</value>
+  </data>
+  <data name="Help_Play_Direct_Keywords" xml:space="preserve">
+    <value>gioca, play, avvia gioco, launcher, profilo, wipe, azzera, nuovo profilo, elimina profilo, cache</value>
+  </data>
+  <data name="Play_DirectBackupFailed" xml:space="preserve">
+    <value>Non è stato possibile fare una copia dei tuoi profili, quindi non è stato cambiato nulla. Il log dell'app dice perché.</value>
+  </data>
+  <data name="Play_DirectErrorFormat" xml:space="preserve">
+    <value>Gioca si è interrotto: {0}</value>
+  </data>
+  <data name="Play_StoppedAfterGameFormat" xml:space="preserve">
+    <value>{0} fermato. Prima è stato chiuso il gioco, come spuntato qui sotto.</value>
+  </data>
+  <data name="Installed_ClearFiltersToolTip" xml:space="preserve">
+    <value>Riporta tutti i filtri, l'ordinamento e il raggruppamento a quelli predefiniti dell'app. La pagina ricorda ciò che imposti, quindi la prossima volta si aprirà anche così.</value>
+  </data>
+  <data name="Presets_Button" xml:space="preserve">
+    <value>Preset</value>
+  </data>
+  <data name="Presets_ButtonToolTip" xml:space="preserve">
+    <value>Salva quali mod sono attivi e quali no come preset, e passa da un preset all'altro - per Fika, per la risoluzione dei problemi con tutto disattivato, o per qualsiasi altra cosa.</value>
+  </data>
+  <data name="Presets_None" xml:space="preserve">
+    <value>Ancora nessun preset salvato</value>
+  </data>
+  <data name="Presets_SavedOnFormat" xml:space="preserve">
+    <value>Salvato il {0}</value>
+  </data>
+  <data name="Presets_CurrentToolTip" xml:space="preserve">
+    <value>I tuoi mod sono impostati esattamente come in questo preset.</value>
+  </data>
+  <data name="Presets_Apply" xml:space="preserve">
+    <value>Applica</value>
+  </data>
+  <data name="Presets_UpdateToCurrent" xml:space="preserve">
+    <value>Sovrascrivilo con la configurazione attuale</value>
+  </data>
+  <data name="Presets_Rename" xml:space="preserve">
+    <value>Rinomina...</value>
+  </data>
+  <data name="Presets_Delete" xml:space="preserve">
+    <value>Elimina...</value>
+  </data>
+  <data name="Presets_SaveCurrent" xml:space="preserve">
+    <value>Salva la configurazione attuale come preset...</value>
+  </data>
+  <data name="Presets_PutBackFormat" xml:space="preserve">
+    <value>Rimetti i mod com'erano prima di "{0}"</value>
+  </data>
+  <data name="Presets_PutBackToolTipFormat" xml:space="preserve">
+    <value>Attiva e disattiva i mod com'erano subito prima che venisse applicato {0}, {1}. Resta disponibile fino al prossimo preset applicato, anche dopo che Annulla non c'è più.</value>
+  </data>
+  <data name="Presets_DisableAll" xml:space="preserve">
+    <value>Disattiva tutti i mod...</value>
+  </data>
+  <data name="Presets_DisableAllToolTip" xml:space="preserve">
+    <value>Per la risoluzione dei problemi: disattiva tutti i mod. I file di SPT non vengono mai toccati. Rimetti, un preset o Attiva tutti i mod li riattiva.</value>
+  </data>
+  <data name="Presets_EnableAll" xml:space="preserve">
+    <value>Attiva tutti i mod...</value>
+  </data>
+  <data name="Presets_EnableAllToolTip" xml:space="preserve">
+    <value>Attiva tutti i mod installati.</value>
+  </data>
+  <data name="Presets_SaveTitle" xml:space="preserve">
+    <value>Salva preset</value>
+  </data>
+  <data name="Presets_SaveIntro" xml:space="preserve">
+    <value>Salva con un nome quali mod sono attivi e quali no in questo momento. Applicarlo più tardi li attiva e disattiva per corrispondere; i mod installati dopo il salvataggio restano come sono.</value>
+  </data>
+  <data name="Presets_NamePlaceholder" xml:space="preserve">
+    <value>Nome del preset</value>
+  </data>
+  <data name="Presets_SaveConfirm" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="Presets_SaveOver" xml:space="preserve">
+    <value>Sovrascrivi</value>
+  </data>
+  <data name="Presets_ReplaceFormat" xml:space="preserve">
+    <value>Esiste già un preset chiamato {0}. Sovrascriverlo con la configurazione attuale?</value>
+  </data>
+  <data name="Presets_UpdateTitle" xml:space="preserve">
+    <value>Sovrascrivi preset</value>
+  </data>
+  <data name="Presets_UpdateFormat" xml:space="preserve">
+    <value>Sovrascrivere {0} con la configurazione attuale? Ciò che conteneva viene sostituito.</value>
+  </data>
+  <data name="Presets_RenameTitle" xml:space="preserve">
+    <value>Rinomina preset</value>
+  </data>
+  <data name="Presets_RenameConfirm" xml:space="preserve">
+    <value>Rinomina</value>
+  </data>
+  <data name="Presets_DeleteTitle" xml:space="preserve">
+    <value>Elimina preset</value>
+  </data>
+  <data name="Presets_DeleteFormat" xml:space="preserve">
+    <value>Eliminare il preset {0}? I tuoi mod restano come sono.</value>
+  </data>
+  <data name="Presets_DeleteConfirm" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Presets_ApplyTitleFormat" xml:space="preserve">
+    <value>Applicare {0}?</value>
+  </data>
+  <data name="Presets_DisableAllTitle" xml:space="preserve">
+    <value>Disattivare tutti i mod?</value>
+  </data>
+  <data name="Presets_EnableAllTitle" xml:space="preserve">
+    <value>Attivare tutti i mod?</value>
+  </data>
+  <data name="Presets_PutBackTitle" xml:space="preserve">
+    <value>Rimettere i mod com'erano?</value>
+  </data>
+  <data name="Presets_DisableAllName" xml:space="preserve">
+    <value>Disattiva tutti</value>
+  </data>
+  <data name="Presets_EnableAllName" xml:space="preserve">
+    <value>Attiva tutti</value>
+  </data>
+  <data name="Presets_PutBackName" xml:space="preserve">
+    <value>Rimetti</value>
+  </data>
+  <data name="Presets_TurnsOff_one" xml:space="preserve">
+    <value>Disattiva 1 mod:</value>
+  </data>
+  <data name="Presets_TurnsOff_other" xml:space="preserve">
+    <value>Disattiva {0} mod:</value>
+  </data>
+  <data name="Presets_TurnsOn_one" xml:space="preserve">
+    <value>Attiva 1 mod:</value>
+  </data>
+  <data name="Presets_TurnsOn_other" xml:space="preserve">
+    <value>Attiva {0} mod:</value>
+  </data>
+  <data name="Presets_NeedsHeader" xml:space="preserve">
+    <value>Questi resterebbero senza qualcosa di cui hanno bisogno:</value>
+  </data>
+  <data name="Presets_NeedsFormat" xml:space="preserve">
+    <value>{0} richiede {1}, che sarebbe disattivato.</value>
+  </data>
+  <data name="Presets_ProfileModsFormat" xml:space="preserve">
+    <value>sp-mod.com indica questi come mod che potrebbero apportare modifiche permanenti al tuo profilo - disattivarli può lasciare un profilo che SPT non carica:
+{0}</value>
+  </data>
+  <data name="Presets_NotInstalled_one" xml:space="preserve">
+    <value>1 mod di questo preset non è più installato e viene saltato.</value>
+  </data>
+  <data name="Presets_NotInstalled_other" xml:space="preserve">
+    <value>{0} mod di questo preset non sono più installati e vengono saltati.</value>
+  </data>
+  <data name="Presets_NotInPreset_one" xml:space="preserve">
+    <value>1 mod installato dopo il salvataggio di questo preset resta com'è.</value>
+  </data>
+  <data name="Presets_NotInPreset_other" xml:space="preserve">
+    <value>{0} mod installati dopo il salvataggio di questo preset restano come sono.</value>
+  </data>
+  <data name="Presets_SafetyNote" xml:space="preserve">
+    <value>Non viene eliminato nulla - i mod vengono solo spostati dentro e fuori dalle loro cartelle .disabled. Prima viene conservata una copia dei tuoi profili SPT, e Annulla, o Preset &gt; Rimetti, riporta i tuoi mod a come sono adesso.</value>
+  </data>
+  <data name="Presets_ApplyConfirm" xml:space="preserve">
+    <value>Applica</value>
+  </data>
+  <data name="Presets_AlreadyFormat" xml:space="preserve">
+    <value>I tuoi mod sono già impostati come {0}.</value>
+  </data>
+  <data name="Presets_AppliedFormat" xml:space="preserve">
+    <value>{0} applicato: {1} disattivati, {2} attivati.</value>
+  </data>
+  <data name="Presets_UndoFormat" xml:space="preserve">
+    <value>Annulla "{0}"</value>
+  </data>
+  <data name="Presets_SavedFormat" xml:space="preserve">
+    <value>Preset {0} salvato.</value>
+  </data>
+  <data name="Presets_RenamedFormat" xml:space="preserve">
+    <value>Preset rinominato in {0}.</value>
+  </data>
+  <data name="Presets_NameTakenFormat" xml:space="preserve">
+    <value>Un altro preset si chiama già {0}.</value>
+  </data>
+  <data name="Presets_DeletedFormat" xml:space="preserve">
+    <value>Preset {0} eliminato.</value>
+  </data>
+  <data name="Presets_BackupFailed" xml:space="preserve">
+    <value>Non è stato possibile fare una copia dei tuoi profili, quindi nessun mod è stato cambiato. Il log dell'app dice perché.</value>
+  </data>
+  <data name="Presets_CouldNotSaveFormat" xml:space="preserve">
+    <value>Impossibile salvare i preset: {0}</value>
+  </data>
+  <data name="Profiles_ReasonPreset" xml:space="preserve">
+    <value>Prima di applicare un preset di mod</value>
+  </data>
+  <data name="Help_Installed_Presets_Title" xml:space="preserve">
+    <value>Attivare e disattivare gruppi di mod con i preset</value>
+  </data>
+  <data name="Help_Installed_Presets_Step1" xml:space="preserve">
+    <value>Attiva e disattiva i tuoi mod come li vuoi in {0}, poi premi {1} e {2}, e dagli un nome.</value>
+  </data>
+  <data name="Help_Installed_Presets_Step2" xml:space="preserve">
+    <value>Per cambiare, premi {0}, punta un preset e premi {1}. Prima che cambi qualcosa, elenca ogni mod che disattiva e attiva.</value>
+  </data>
+  <data name="Help_Installed_Presets_Step3" xml:space="preserve">
+    <value>Per la risoluzione dei problemi, {0} disattiva tutti i mod; {1} li riattiva tutti.</value>
+  </data>
+  <data name="Help_Installed_Presets_Note" xml:space="preserve">
+    <value>Non viene eliminato nulla, prima viene conservata una copia dei tuoi profili SPT, e Annulla rimette tutto com'era. Dopo un riavvio, Preset ha Rimetti per l'ultimo applicato.</value>
+  </data>
+  <data name="Help_Installed_Presets_Keywords" xml:space="preserve">
+    <value>preset, profilo, profili, mod organizer, mo2, fika, risoluzione problemi, troubleshoot, disattiva tutti, attiva tutti, cambia, configurazione</value>
+  </data>
+  <data name="Presets_WaitForScan" xml:space="preserve">
+    <value>Oggetti sottoscritti sta ancora eseguendo la scansione - riprova tra un attimo.</value>
+  </data>
+  <data name="Presets_InTwoPlaces_one" xml:space="preserve">
+    <value>1 mod è nell'installazione due volte - attivo e nella sua cartella .disabled - e non viene toccato. Il messaggio sulla sua scheda lo risolve.</value>
+  </data>
+  <data name="Presets_InTwoPlaces_other" xml:space="preserve">
+    <value>{0} mod sono nell'installazione due volte - attivi e nella loro cartella .disabled - e non vengono toccati. Il messaggio sulle loro schede li risolve.</value>
+  </data>
+  <data name="Presets_OnlyInTwoPlaces_one" xml:space="preserve">
+    <value>Niente da cambiare, tranne 1 mod che è nell'installazione due volte - attivo e nella sua cartella .disabled. Risolvilo prima sulla sua scheda.</value>
+  </data>
+  <data name="Presets_OnlyInTwoPlaces_other" xml:space="preserve">
+    <value>Niente da cambiare, tranne {0} mod che sono nell'installazione due volte - attivi e nella loro cartella .disabled. Risolvili prima sulle loro schede.</value>
+  </data>
+  <data name="ModInstall_NothingToPlaceFormat" xml:space="preserve">
+    <value>{0} {1} non è stato installato: ogni suo file ({2} in tutto) avrebbe sostituito uno appartenente a SPT, BepInEx, al gioco o a SSPTMM, come {3}. Non è stato cambiato nulla.</value>
+  </data>
+  <data name="Downloads_KeptAppFiles_one" xml:space="preserve">
+    <value>1 file di questo archivio sarebbe finito sopra i file di SSPTMM ed è stato escluso.</value>
+  </data>
+  <data name="Downloads_KeptAppFiles_other" xml:space="preserve">
+    <value>{0} file di questo archivio sarebbero finiti sopra i file di SSPTMM e sono stati esclusi.</value>
+  </data>
+  <data name="AppUpdate_ConsentTitle" xml:space="preserve">
+    <value>Controllare le nuove release di SSPTMM?</value>
+  </data>
+  <data name="AppUpdate_ConsentBody" xml:space="preserve">
+    <value>SSPTMM può chiedere a GitHub, a ogni avvio, se è uscita una nuova release di SSPTMM, e mostrare un punto accanto a Guida e Informazioni quando c'è. Non invia altro che il numero di versione di SSPTMM, e non scarica né installa mai nulla da solo.
+
+Se su questo PC è in uso la Server Map, lo stesso controllo chiede a sp-mod.com se è uscita una nuova versione del mod Server Map.
+
+Puoi cambiarlo in qualsiasi momento in Guida &gt; Informazioni, dove Controlla ora funziona sempre.</value>
+  </data>
+  <data name="AppUpdate_ConsentYes" xml:space="preserve">
+    <value>Controlla all'avvio</value>
+  </data>
+  <data name="AppUpdate_ConsentNo" xml:space="preserve">
+    <value>Non controllare</value>
+  </data>
+  <data name="AppUpdate_CheckAtStart" xml:space="preserve">
+    <value>Controlla le nuove release all'avvio di SSPTMM</value>
+  </data>
+  <data name="AppUpdate_CheckAtStartToolTip" xml:space="preserve">
+    <value>Chiede a GitHub (e a sp-mod.com, per il mod Server Map dove è in uso) se è uscita una nuova release. Viene inviato solo il numero di versione di SSPTMM; non viene scaricato nulla.</value>
+  </data>
+  <data name="App_InstallCutOffTitle" xml:space="preserve">
+    <value>Un'installazione non è stata completata</value>
+  </data>
+  <data name="App_InstallCutOffFormat" xml:space="preserve">
+    <value>SSPTMM è stato chiuso prima di finire di installare {0}. I file che aveva già messo sono registrati, e il mod risulta incompleto in Oggetti sottoscritti - aggiornalo o reinstallalo da lì per finire.</value>
+  </data>
+  <data name="About_InstallUpdate" xml:space="preserve">
+    <value>Installa aggiornamento</value>
+  </data>
+  <data name="About_InstallConfirmTitle" xml:space="preserve">
+    <value>Installare SSPTMM {0}?</value>
+  </data>
+  <data name="About_InstallConfirmBodyFormat" xml:space="preserve">
+    <value>SSPTMM scaricherà {0} da GitHub ({1}), si chiuderà, metterà la nuova versione sopra questa cartella e si riavvierà. Le tue impostazioni, i registri di installazione e i backup nella cartella Data restano come sono.
+
+Se qualcosa va storto prima che i file vengano sostituiti, non viene cambiato nulla.</value>
+  </data>
+  <data name="About_InstallConfirmYes" xml:space="preserve">
+    <value>Installa aggiornamento</value>
+  </data>
+  <data name="About_InstallConfirmNo" xml:space="preserve">
+    <value>Non ora</value>
+  </data>
+  <data name="About_SizeUnknown" xml:space="preserve">
+    <value>dimensione sconosciuta</value>
+  </data>
+  <data name="Play_ModsNeedSomething_one" xml:space="preserve">
+    <value>Un mod ha bisogno di qualcosa che manca o è disattivato: {1}. Vedi Oggetti sottoscritti.</value>
+  </data>
+  <data name="Play_ModsNeedSomething_other" xml:space="preserve">
+    <value>{0} mod hanno bisogno di qualcosa che manca o è disattivato: {1}. Vedi Oggetti sottoscritti.</value>
+  </data>
+  <data name="Diagnose_Title_ProfileItemMissing" xml:space="preserve">
+    <value>Un profilo contiene un oggetto che nessun mod aggiunge</value>
+  </data>
+  <data name="Diagnose_Body_ProfileItemMissing" xml:space="preserve">
+    <value>Un profilo contiene un oggetto (id {0}) che nessun mod installato aggiunge, quindi SPT non lo carica - e fare il wipe non serve, perché SPT non salva le modifiche a un profilo che non carica. Rimetti il mod che aggiunge l'oggetto, ripristina un backup del profilo o crea un nuovo profilo. Oppure tieni il profilo: imposta removeModItemsFromProfile e removeInvalidTradersFromProfile su true nel core.json di SPT (SPT_Data\configs nella cartella del server) e riavvia il server - SPT toglie allora da solo dal profilo ciò che manca. Attivali lo fa per te.</value>
+  </data>
+  <data name="Diagnose_Title_ProfileTraderMissing" xml:space="preserve">
+    <value>Un profilo conosce un trader che nessun mod aggiunge</value>
+  </data>
+  <data name="Diagnose_Body_ProfileTraderMissing" xml:space="preserve">
+    <value>Un profilo ha avuto a che fare con un trader (id {0}) che nessun mod installato aggiunge, quindi SPT non lo carica - e fare il wipe non serve, perché SPT non salva le modifiche a un profilo che non carica. Rimetti il mod che aggiunge il trader, ripristina un backup del profilo o crea un nuovo profilo. Oppure tieni il profilo: imposta removeModItemsFromProfile e removeInvalidTradersFromProfile su true nel core.json di SPT (SPT_Data\configs nella cartella del server) e riavvia il server - SPT toglie allora da solo dal profilo ciò che manca. Attivali lo fa per te.</value>
+  </data>
+  <data name="Play_DirectProfileInvalid" xml:space="preserve">
+    <value>SPT non carica questo profilo: contiene oggetti, un trader o abiti di un mod che non è più installato. Fare il wipe non serve - SPT non salva mai il wipe di un profilo che non carica. Rimetti il mod, ripristina un backup del profilo (Opzioni) o crea un nuovo profilo. Oppure tieni il profilo: imposta removeModItemsFromProfile e removeInvalidTradersFromProfile su true nel core.json di SPT (SPT_Data\configs nella cartella del server; Attivali, quando compare qui sotto, lo fa per te) e riavvia il server - SPT toglie allora da solo dal profilo ciò che manca. Non è stato avviato nulla.</value>
+  </data>
+  <data name="Menu_AddToGroup" xml:space="preserve">
+    <value>Aggiungi al gruppo</value>
+  </data>
+  <data name="Menu_AddPickedToGroupFormat" xml:space="preserve">
+    <value>Aggiungi {0} selezionati al gruppo</value>
+  </data>
+  <data name="Menu_NewGroup" xml:space="preserve">
+    <value>Nuovo gruppo...</value>
+  </data>
+  <data name="Menu_NewGroupTitle" xml:space="preserve">
+    <value>Nuovo gruppo</value>
+  </data>
+  <data name="Menu_RemoveFromGroup" xml:space="preserve">
+    <value>Rimuovi dal gruppo</value>
+  </data>
+  <data name="Diagnose_ProfileFix" xml:space="preserve">
+    <value>Attivali</value>
+  </data>
+  <data name="Diagnose_ProfileFixTitle" xml:space="preserve">
+    <value>Lascia che SPT ripulisca il profilo</value>
+  </data>
+  <data name="Diagnose_ProfileFixConfirmFormat" xml:space="preserve">
+    <value>Imposta removeModItemsFromProfile e removeInvalidTradersFromProfile su true in:
+{0}
+
+Al prossimo avvio del server, SPT toglie da ogni profilo gli oggetti e i trader che nessun mod installato aggiunge, e carica il profilo. Ciò che toglie non torna se in seguito rimetti il mod - un backup del profilo fatto prima sì.
+
+Il file così com'è ora viene conservato accanto ({1}). Attivarli?</value>
+  </data>
+  <data name="Diagnose_ProfileFixDone" xml:space="preserve">
+    <value>Attivati in core.json. Riavvia il server SPT perché ripulisca il profilo, poi rileggi i log.</value>
+  </data>
+  <data name="Diagnose_ProfileFixNotFound" xml:space="preserve">
+    <value>core.json non contiene entrambe le opzioni come previsto, quindi non è stato modificato.</value>
+  </data>
+  <data name="Diagnose_ProfileFixFailedFormat" xml:space="preserve">
+    <value>Impossibile modificare core.json: {0}</value>
+  </data>
+  <data name="Diagnose_ProfileFixAlreadyOn" xml:space="preserve">
+    <value>removeModItemsFromProfile e removeInvalidTradersFromProfile sono già attivi in core.json. Se il server non è stato riavviato da quando sono stati attivati, riavvialo; se lo è stato, ciò che manca è qualcosa che non ripuliscono - rimetti il mod o ripristina un backup del profilo.</value>
+  </data>
+  <data name="Installed_SharedFolderFormat" xml:space="preserve">
+    <value>Condivide la sua cartella con {0}. Attivarlo o disattivarlo, aggiornarlo o annullarne la sottoscrizione tocca solo i suoi file.</value>
+  </data>
+  <data name="Installed_SharedFolderByHandFormat" xml:space="preserve">
+    <value>Condivide la sua cartella con {0}, installato a mano, quindi i loro file non si possono distinguere: attivarne o disattivarne uno, o rimuoverlo, fa lo stesso con entrambi.</value>
+  </data>
+  <data name="Installed_SharedFolderRemoveFormat" xml:space="preserve">
+    <value>{0} condivide la sua cartella con {1} ed è stato installato a mano. Rimuoverlo toglierebbe l'intera cartella, {1} compreso, quindi non è stato rimosso - togli tu i file di {0} dalla cartella.</value>
+  </data>
+  <data name="Play_ProfileFixDone" xml:space="preserve">
+    <value>Attivati in core.json. Riavvia il server SPT perché ripulisca il profilo, poi premi di nuovo Gioca.</value>
+  </data>
+  <data name="Nav_Back" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="Nav_Forward" xml:space="preserve">
+    <value>Avanti</value>
+  </data>
+  <data name="Nav_Home" xml:space="preserve">
+    <value>Pagina iniziale (Alt+Home) - quale pagina sia si può scegliere in Opzioni &gt; Generale</value>
+  </data>
+  <data name="Options_HomePageHeader" xml:space="preserve">
+    <value>Pagina iniziale</value>
+  </data>
+  <data name="Options_HomePageHint" xml:space="preserve">
+    <value>Dove si apre SSPTMM, e dove ti porta Pagina iniziale.</value>
+  </data>
+  <data name="Options_HomePageDescription" xml:space="preserve">
+    <value>La pagina su cui si apre la finestra, e quella a cui porta il pulsante Pagina iniziale accanto alle frecce indietro e avanti - come la "Posizione di avvio" di Steam. Aprire SSPTMM da una notifica di aggiornamento porta comunque a Oggetti sottoscritti.</value>
+  </data>
+  <data name="Options_HomeWorkshop" xml:space="preserve">
+    <value>Pagina iniziale del Workshop</value>
+  </data>
+  <data name="Installed_GroupMergeTitle" xml:space="preserve">
+    <value>Quel nome è già usato</value>
+  </data>
+  <data name="Installed_GroupMergeFormat" xml:space="preserve">
+    <value>Esiste già un gruppo chiamato {0}. Spostare i mod di questo gruppo in {0} ed eliminare questo gruppo?
+
+No mantiene questo gruppo con il suo vecchio nome.</value>
+  </data>
+  <data name="Options_HomeLastPage" xml:space="preserve">
+    <value>Dove avevo lasciato</value>
+  </data>
+  <data name="Menu_Rename" xml:space="preserve">
+    <value>Rinomina...</value>
+  </data>
+  <data name="Menu_RenameTitle" xml:space="preserve">
+    <value>Un nome tuo per questo mod (vuoto per il suo)</value>
+  </data>
+  <data name="Menu_RenameSave" xml:space="preserve">
+    <value>Rinomina</value>
+  </data>
+  <data name="Menu_OpenClientFolder" xml:space="preserve">
+    <value>Apri cartella client</value>
+  </data>
+  <data name="Menu_OpenServerFolder" xml:space="preserve">
+    <value>Apri cartella server</value>
+  </data>
 </root>

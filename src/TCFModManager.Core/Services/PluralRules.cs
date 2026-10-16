@@ -55,6 +55,11 @@ public static class PluralRules
             "fr" => FrenchAndFriends(n),
             "ru" or "uk" => EastSlavic(n),
 
+            // Fork (1.4.2): Chinese does not inflect for number - one form, "_other", for every
+            // count. Answering One for 1 would look up "_one", which a translation never holds, and
+            // resource fallback would hand back the English one.
+            "zh" => PluralCategory.Other,
+
             _ => TwoForm(n),
         };
     }

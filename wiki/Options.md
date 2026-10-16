@@ -9,7 +9,7 @@ The gear at the top right. Each setting has a one-line explanation and a **?** w
 | Setting | What it does |
 |---|---|
 | SPT Install Folder | Your SPT **game** folder, with `EscapeFromTarkov.exe` in it. Its SPT version sets Browse's version filter and flags mods that don't run on it. |
-| Language | The app's own text. Mod descriptions stay in their author's language. |
+| Language | The app's own text: English, Deutsch, Français, Italiano, Русский or 简体中文, or Windows' own language when it is one of them. Mod descriptions stay in their author's language. The translations are machine-made and not yet read by native speakers. |
 | Window | How the window opens: remember the last size and position (default), or other choices. F11 switches full screen at any time. |
 | Home page | Where SSPTMM opens and where the Home button goes: Workshop home (default), Browse, Subscribed items, Collections, Play, or Where I left off (the page on screen when SSPTMM was last left). Opening it from an update notification still goes to Subscribed items. |
 

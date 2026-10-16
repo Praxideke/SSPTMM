@@ -30,21 +30,24 @@
         note on SteamFontLight below.
     -->
     <!--  Segoe UI after it, so a character Noto Sans does not have (an emoji in a mod description,
-          CJK in a mod name) falls back to what Windows always has rather than to nothing.  -->
-    <FontFamily x:Key="SteamFont">pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI</FontFamily>
+          CJK in a mod name) falls back to what Windows always has rather than to nothing. Fork
+          (1.4.2): then Microsoft YaHei UI, which every Windows since 8 has, for Chinese - the app's
+          own text in the zh-Hans translation as well as a mod's name - rather than whichever face
+          WPF's last-resort fallback picks.  -->
+    <FontFamily x:Key="SteamFont">pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI, Microsoft YaHei UI</FontFamily>
     <!--  Light and Medium name their own family first and fall back to "Noto Sans": font engines
           disagree on whether those two files are families of their own (their legacy names) or
           weights of Noto Sans (their typographic names). Every use also asks for the weight, so
           whichever grouping wins, the right face is picked.  -->
-    <FontFamily x:Key="SteamFontLight">pack://application:,,,/Themes/Fonts/#Noto Sans Light, pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI</FontFamily>
-    <FontFamily x:Key="SteamFontMedium">pack://application:,,,/Themes/Fonts/#Noto Sans Medium, pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI</FontFamily>
+    <FontFamily x:Key="SteamFontLight">pack://application:,,,/Themes/Fonts/#Noto Sans Light, pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI, Microsoft YaHei UI</FontFamily>
+    <FontFamily x:Key="SteamFontMedium">pack://application:,,,/Themes/Fonts/#Noto Sans Medium, pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI, Microsoft YaHei UI</FontFamily>
 
     <!-- WPF UI's own control styles (text boxes, rich text, combo boxes) take their face from this
          key rather than inheriting it, so without it they stayed in Segoe UI beside Noto Sans text. -->
     <!-- Code in descriptions: Windows 11's code face, then the older ones. -->
     <FontFamily x:Key="SteamMonospace">Cascadia Mono, Consolas, Courier New</FontFamily>
 
-    <FontFamily x:Key="ContentControlThemeFontFamily">pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI</FontFamily>
+    <FontFamily x:Key="ContentControlThemeFontFamily">pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI, Microsoft YaHei UI</FontFamily>
 
     <!--  Steam rounds its buttons, fields and dropdowns by 2px and its popups barely at all. Both
           keys are read by WPF-UI's templates through DynamicResource, so this reaches every control.  -->

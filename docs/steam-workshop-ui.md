@@ -2489,6 +2489,23 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   StaticResource, 0 when off; the NavigationView's transition goes to None. Checked on a hidden
   desktop that Browse still builds its cards; the look with it off was not seen.
 - The Options gear had no UI Automation name; it has Options' now.
+- **Languages completed.** The 1,076 units missing from each of de, fr and it (1,074 from ru) and
+  all 2,806 for the new zh-Hans were machine translated in batches of 360: each batch read the
+  language's existing file for its wording and form of address, Chinese a glossary of Steam's own
+  Chinese terms, and every batch was checked for its keys, its plural forms (ru one/few/many, zh
+  other only) and its numbered placeholders before it was merged. Two Chinese terms that batches
+  chose differently were made one afterwards (addon, Footprint). Date patterns were set once per
+  language, day first and 24-hour, since English's `h:mm tt` has no AM/PM to show in any of them.
+  Each language's Meta_TranslationCredit says it is machine translated. Seen on a hidden desktop in
+  Chinese (Workshop home, Downloads) and Russian (Workshop home); the other pages, and German,
+  French and Italian, were not looked at.
+- **Chinese**: `PluralRules` answers Other for every count, since a translation holds only `_other`
+  and asking for `_one` would fall back to English's. The Steam fonts end in Microsoft YaHei UI after
+  Segoe UI, so Chinese is drawn in it rather than in WPF's last resort. Common_SentenceSeparator is
+  empty. The build's coverage line no longer calls every family of a one-form language lonely.
+- **The downloads bar** set its idle words when its view model was made, before the language was
+  applied, so it read "DOWNLOADS - Manage" in every language until a download started.
+  `AppLanguage.ApplyStored` now raises Changed when it changes the language, and the bar listens.
 - **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
   build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
   the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if

@@ -185,6 +185,15 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         _ = PrepareLoopAsync();
         _ = InstallLoopAsync();
 
+        // Fork (1.4.2): the idle bar's words are set rather than bound, so they follow a language
+        // change here; a busy bar is rewritten with each progress tick anyway.
+        AppLanguage.Changed += (_, _) =>
+        {
+            if (BarActive) return;
+            BarTitle = Strings.Downloads_BarIdle;
+            BarDetail = Strings.Downloads_BarManage;
+        };
+
         // Leftovers from downloads the app was closed during, and anything over the budget.
         Task.Run(() => _archives.Trim(new HashSet<string>()));
     }
