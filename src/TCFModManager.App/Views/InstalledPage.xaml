@@ -379,9 +379,41 @@
         <!-- A section's header - a group, Ungrouped or a category: fold, name (or the rename box),
              count and state, and for a group enable/disable/invert, move, rename and delete. Shared
              by the Groups view and Cards' and List's sections. -->
+        <!-- Fork (1.4.2): a group's colour before its name - a ring while it has none. A click
+             offers the colours (InstalledPage.GroupColor_Click). -->
+        <Style x:Key="GroupColorDot" TargetType="Button">
+            <Setter Property="Width" Value="12" />
+            <Setter Property="Height" Value="12" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="ToolTip" Value="{Binding ColorToolTip}" />
+            <Setter Property="AutomationProperties.Name" Value="{Binding ColorToolTip}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="Dot"
+                            Background="{Binding ColorBrush, TargetNullValue={x:Static Brushes.Transparent}}"
+                            BorderBrush="{DynamicResource TextFillColorTertiaryBrush}"
+                            BorderThickness="1"
+                            CornerRadius="6" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Dot" Property="BorderBrush" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <DataTemplate x:Key="SectionHeaderTemplate" DataType="{x:Type viewmodels:ModGroupSectionViewModel}">
             <!-- Section header: collapse toggle, name (or rename box), reorder/rename/delete. -->
-            <Grid>
+            <Grid Background="Transparent" ContextMenuOpening="SectionHeader_ContextMenuOpening">
+                <Grid.ContextMenu>
+                    <ContextMenu Style="{StaticResource SteamPopupMenu}" />
+                </Grid.ContextMenu>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -401,16 +433,23 @@
                 </ui:Button>
 
                 <Grid Grid.Column="1" VerticalAlignment="Center">
+                    <DockPanel Visibility="{Binding IsEditing, Converter={StaticResource FalseToVisible}}">
+                    <Button
+                        DockPanel.Dock="Left"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource GroupColorDot}"
+                        Visibility="{Binding IsRealGroup, Converter={StaticResource BoolToVis}}"
+                        Click="GroupColor_Click" />
                     <TextBlock
                         VerticalAlignment="Center"
-                        TextTrimming="CharacterEllipsis"
-                        Visibility="{Binding IsEditing, Converter={StaticResource FalseToVisible}}">
+                        TextTrimming="CharacterEllipsis">
                         <Run Text="{Binding Name, Mode=OneWay}" FontWeight="SemiBold" />
                         <Run Text=" " />
                         <Run Text="{Binding CountLabel, Mode=OneWay}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                         <Run Text=" " />
                         <Run Text="{Binding StateLabel, Mode=OneWay}" Foreground="{DynamicResource SystemFillColorCautionBrush}" />
                     </TextBlock>
+                    </DockPanel>
 
                     <ui:TextBox
                         Visibility="{Binding IsEditing, Converter={StaticResource BoolToVis}}"
@@ -933,6 +972,13 @@
                     ContentTemplate="{StaticResource ModDetailBody}"
                     Content="{Binding}" />
             </ui:CardExpander>
+            <!-- Fork (1.4.2): the mod's colour, or its group's, down the left edge (ModOwnColors). -->
+            <Border
+                Width="3"
+                HorizontalAlignment="Left"
+                Background="{Binding ColorBrush}"
+                ToolTip="{Binding ColorToolTip}"
+                Visibility="{Binding HasColor, Converter={StaticResource BoolToVis}}" />
             </Grid>
         </DataTemplate>
 
@@ -1089,6 +1135,13 @@
                     ContentTemplate="{StaticResource ModDetailBody}"
                     Content="{Binding}" />
             </ui:CardExpander>
+            <!-- Fork (1.4.2): the mod's colour, or its group's, down the left edge (ModOwnColors). -->
+            <Border
+                Width="3"
+                HorizontalAlignment="Left"
+                Background="{Binding ColorBrush}"
+                ToolTip="{Binding ColorToolTip}"
+                Visibility="{Binding HasColor, Converter={StaticResource BoolToVis}}" />
             </Grid>
         </DataTemplate>
 
@@ -1312,6 +1365,29 @@
                             ToolTip="{loc:Str Installed_GroupFilterToolTip}"
                             ItemsSource="{Binding GroupFilterOptions}"
                             SelectedItem="{Binding SelectedGroupFilter}" />
+                        <!-- Fork (1.4.2): the colours given to mods and groups that are in use. -->
+                        <ComboBox
+                            Margin="0,0,0,6"
+                            HorizontalAlignment="Stretch"
+                            ToolTip="{loc:Str Installed_ColorFilterToolTip}"
+                            ItemsSource="{Binding ColorFilterOptions}"
+                            SelectedItem="{Binding SelectedColorFilter}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border
+                                            Width="10"
+                                            Height="10"
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            Background="{Binding Brush}"
+                                            CornerRadius="5"
+                                            Visibility="{Binding Brush, Converter={StaticResource NullToCollapsed}}" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Label}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
 
                         <!-- The same tick boxes Browse carries, plus Installed's own two. -->
                         <ItemsControl Focusable="False" Margin="0,2,0,4" ItemsSource="{Binding AttributeOptions}">
@@ -1609,6 +1685,14 @@
                                                         IsHitTestVisible="False"
                                                         Template="{StaticResource SubscribedBackdrop}"
                                                         Tag="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" />
+                                                    <!-- Fork (1.4.2): the mod's colour, as on a card. -->
+                                                    <Border
+                                                        Width="3"
+                                                        Margin="-8,-6,0,-6"
+                                                        HorizontalAlignment="Left"
+                                                        Background="{Binding ColorBrush}"
+                                                        ToolTip="{Binding ColorToolTip}"
+                                                        Visibility="{Binding HasColor, Converter={StaticResource BoolToVis}}" />
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />

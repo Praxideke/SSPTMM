@@ -27,9 +27,10 @@ the same details; click a card or row to open it.
 
 - **Sort**: by name, author or group (A-Z / Z-A), **Recently installed** (newest install or
   update first), or **Enabled first** / **Disabled first** (each half by name).
-- **Search** by name, or **@name** for the author.
+- **Search** by name, or **@name** for the author, or **color:red** for the mods drawn in a
+  colour (a colour's name, a hex like `color:#5BA32B`, or `color:none`).
 - **Filters**: update status (updates available, up to date, not on sp-mod.com, recently
-  installed), enabled/disabled, category, group, and Fika compatible, hide ads, has dependencies,
+  installed), enabled/disabled, category, group, colour, and Fika compatible, hide ads, has dependencies,
   has addons, downloaded but not confirmed, has conflicts.
 - The page **remembers** its filters, sort, grouping and view: it opens the way you left it. The
   search box is not kept. **Clear filters** puts the filters, sort and grouping back to the app's own.
@@ -50,8 +51,10 @@ the same details; click a card or row to open it.
   - **Go back to (version)** after an update - the copy kept when it was updated goes back, with
     its configs as they were, offline. The version you leave is kept, so you can go forward
     again. Only while [Options](Options) > Keep removed mods still holds the old copy.
+  - **Colour** - a strip down the mod's left edge, in one of ten colours or one of your own
+    (six hex digits). It wins over its group's colour; **No colour** takes it away.
   - With several mods picked (Ctrl+click, Shift+click, Ctrl+A): Enable, Disable, Update and
-    Unsubscribe for all of them, and Add to group.
+    Unsubscribe for all of them, Add to group and Colour.
 - Flags when the installed version doesn't run on your SPT, or when it needs a mod that is missing
   or disabled - read from the mod's own files, so it works offline and for hand-installed mods.
 - **PINNED** - see below. **RE-UPLOADED** - see below. **DISABLED**.

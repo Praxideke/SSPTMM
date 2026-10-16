@@ -11429,4 +11429,76 @@ No keeps this group under its old name.</value>
   <data name="Options_BackgroundBlur" xml:space="preserve">
     <value>Blur</value>
   </data>
+  <data name="Color_Red" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="Color_Orange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+  <data name="Color_Yellow" xml:space="preserve">
+    <value>Yellow</value>
+  </data>
+  <data name="Color_Green" xml:space="preserve">
+    <value>Green</value>
+  </data>
+  <data name="Color_Teal" xml:space="preserve">
+    <value>Teal</value>
+  </data>
+  <data name="Color_Blue" xml:space="preserve">
+    <value>Blue</value>
+  </data>
+  <data name="Color_Purple" xml:space="preserve">
+    <value>Purple</value>
+  </data>
+  <data name="Color_Pink" xml:space="preserve">
+    <value>Pink</value>
+  </data>
+  <data name="Color_Brown" xml:space="preserve">
+    <value>Brown</value>
+  </data>
+  <data name="Color_Grey" xml:space="preserve">
+    <value>Grey</value>
+  </data>
+  <data name="Menu_Color" xml:space="preserve">
+    <value>Colour</value>
+  </data>
+  <data name="Menu_ColorPickedFormat" xml:space="preserve">
+    <value>Colour {0} selected</value>
+  </data>
+  <data name="Menu_ColorCustom" xml:space="preserve">
+    <value>Custom colour...</value>
+  </data>
+  <data name="Menu_ColorNone" xml:space="preserve">
+    <value>No colour</value>
+  </data>
+  <data name="Menu_ColorCustomTitle" xml:space="preserve">
+    <value>A colour of your own</value>
+  </data>
+  <data name="Menu_ColorCustomHint" xml:space="preserve">
+    <value>Six hex digits, such as #5BA32B</value>
+  </data>
+  <data name="Filter_AnyColor" xml:space="preserve">
+    <value>Any colour</value>
+  </data>
+  <data name="Filter_NoColor" xml:space="preserve">
+    <value>No colour</value>
+  </data>
+  <data name="Installed_ColorFormat" xml:space="preserve">
+    <value>Colour: {0}</value>
+  </data>
+  <data name="Installed_ColorFromGroupFormat" xml:space="preserve">
+    <value>Colour: {0}, from the group {1}</value>
+  </data>
+  <data name="Installed_ColorSearchWord" xml:space="preserve">
+    <value>colour</value>
+  </data>
+  <data name="Installed_GroupColorFormat" xml:space="preserve">
+    <value>Group colour: {0} - click to change it</value>
+  </data>
+  <data name="Installed_GroupColorNone" xml:space="preserve">
+    <value>Give this group a colour</value>
+  </data>
+  <data name="Installed_ColorFilterToolTip" xml:space="preserve">
+    <value>Only the mods drawn in one colour - their own, or their group's. Typing color:red in the search box does the same.</value>
+  </data>
 </root>

@@ -844,6 +844,43 @@ public partial class InstalledPage : Page
         }, DispatcherPriority.Input);
     }
 
+    // Fork (1.4.2): a group's colour - the dot before its name, or a right-click on its header,
+    // offers the palette (ModContextMenu.FillColors).
+    private void GroupColor_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement { DataContext: ModGroupSectionViewModel section } element) return;
+
+        var menu = new ContextMenu
+        {
+            Style = (Style)FindResource("SteamPopupMenu"),
+            PlacementTarget = element,
+            Placement = PlacementMode.Bottom,
+        };
+        Behaviors.ModContextMenu.FillColors(menu.Items, section.Color, section.Color is not null, color => ViewModel.ColorGroup(section, color));
+        menu.IsOpen = true;
+    }
+
+    private void SectionHeader_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        // Not over the rename box, which has its own menu; and only a group of yours has a colour.
+        if (sender is not FrameworkElement { DataContext: ModGroupSectionViewModel section, ContextMenu: { } menu }
+            || !section.IsRealGroup
+            || e.OriginalSource is DependencyObject source && FindAncestor<TextBox>(source) is not null)
+        {
+            e.Handled = true;
+            return;
+        }
+
+        menu.Items.Clear();
+        Behaviors.ModContextMenu.FillColors(menu.Items, section.Color, section.Color is not null, color => ViewModel.ColorGroup(section, color));
+    }
+
+    private static T? FindAncestor<T>(DependencyObject? node) where T : DependencyObject
+    {
+        while (node is not null and not T) node = node is Visual ? VisualTreeHelper.GetParent(node) : LogicalTreeHelper.GetParent(node);
+        return node as T;
+    }
+
     private void RenameTextBox_KeyDown(object sender, KeyEventArgs e)
     {
         if (sender is not FrameworkElement { DataContext: ModGroupSectionViewModel section }) return;

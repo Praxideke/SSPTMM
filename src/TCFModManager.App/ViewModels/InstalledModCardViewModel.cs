@@ -206,6 +206,28 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     [ObservableProperty]
     private string? _note;
 
+    // Fork (1.4.2): the colour given to this mod (ModOwnColors) and to its group, "#RRGGBB" or null.
+    // Its own is drawn in place of its group's.
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Color), nameof(ColorBrush), nameof(HasColor), nameof(ColorToolTip))]
+    private string? _ownColor;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Color), nameof(ColorBrush), nameof(HasColor), nameof(ColorToolTip))]
+    private string? _groupColor;
+
+    public string? Color => OwnColor ?? GroupColor;
+
+    public System.Windows.Media.SolidColorBrush? ColorBrush => ModOwnColors.BrushOf(Color);
+
+    public bool HasColor => Color is not null;
+
+    public string? ColorToolTip => OwnColor is { } own
+        ? Text(Strings.Installed_ColorFormat, ModOwnColors.NameOf(own))
+        : GroupColor is { } group
+            ? Text(Strings.Installed_ColorFromGroupFormat, ModOwnColors.NameOf(group), GroupName)
+            : null;
+
     // Client half's folder (or, for a loose top-level DLL, the DLL itself). Null when there's no client half.
     public string? ClientFolderPath { get; init; }
 
@@ -489,6 +511,7 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(GroupLabel))]
     [NotifyPropertyChangedFor(nameof(IsGrouped))]
+    [NotifyPropertyChangedFor(nameof(ColorToolTip))]
     private string? _groupName;
 
     // The same assignment as GroupName, by id - what the Group filter matches on, since two groups

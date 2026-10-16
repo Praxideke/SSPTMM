@@ -2600,6 +2600,18 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   for Normal, from 460px (at most 3) for Roomy. Seen: Compact at 1720px; Roomy not.
 - **Background blur.** A BlurEffect on the picture, 0-20px, the picture reaching 40px past the
   window so the faded edge is never on screen. Seen at 14px on a hidden desktop.
+- **Colours for groups and mods.** `ModColors` (Core): the palette of ten (HUNCH: picked by eye
+  to read on Steam's navy and on OLED black, none of them the accent's blue), `Normalize` to
+  `#RRGGBB`, and `Matches` for the filter and the search's `color:` word. A group's colour is kept
+  in `mod_groups.json` (`ModGroup.Color`), a mod's own in settings (`ModColors`, keyed like a name
+  you gave it, so it follows the mod through updates); a card's colour is its own, else its
+  group's. Drawn as a 3px strip down the card's and the List row's left edge and the Groups
+  view's row, and as a 12px dot before a group's name - a ring while it has none. The dot's click
+  and a right-click on the header offer the colours; a mod's right-click has **Colour**, for every
+  picked mod when it is among them. Filters > Colour lists the palette's colours in use, then
+  custom ones. Seen on a hidden desktop: the strips on Cards, a mod's own orange over its group's
+  teal, the header dots. Not seen: the menus open, the custom-colour dialog, the filter and the
+  search, the List and Groups views.
 - **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
   build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
   the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if
@@ -2696,8 +2708,9 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   is ignored until the next check, but that was not seen happen.
 - Options > Look (1.4.2): where a colour stops being the accent or a surface (the hue,
   saturation and lightness lines in `LookColors.RoleOf`, and `TintedFrom`, 0.15), the 45% of light a surface keeps under
-  OLED black, the three card sizes and their column widths, and the blur's 20px top - all set by
-  eye from the screenshots, not measured.
+  OLED black, the three card sizes and their column widths, the blur's 20px top, and the ten
+  colours for groups and mods (`ModColors.Palette`) - all set by eye from the screenshots, not
+  measured.
 - Critical/error red (`#E05A5A`): no error state on the pages measured.
 - Outlined "View All" hover fill.
 - Whether Steam's file sizes count in 1000s or 1024s ("22.946 KB" reads as 1000s).

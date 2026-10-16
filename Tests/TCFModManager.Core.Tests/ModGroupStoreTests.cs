@@ -186,6 +186,19 @@ public class ModGroupStoreTests : IDisposable
         Assert.False(new ModGroupStore(_file).Load().Groups.Single().IsCollapsed);
     }
 
+    // Fork (1.4.2): a group's colour, in capitals; anything that isn't one takes it away.
+    [Fact]
+    public void SetColor_IsKept()
+    {
+        var group = _store.AddGroup("Bots");
+
+        _store.SetColor(group.Id, "#e5534b");
+        Assert.Equal("#E5534B", new ModGroupStore(_file).Load().Groups.Single().Color);
+
+        _store.SetColor(group.Id, "not a colour");
+        Assert.Null(new ModGroupStore(_file).Load().Groups.Single().Color);
+    }
+
     [Fact]
     public void ADamagedFile_ReadsAsNoGroups()
     {

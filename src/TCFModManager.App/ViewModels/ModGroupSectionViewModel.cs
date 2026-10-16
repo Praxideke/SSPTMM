@@ -38,6 +38,17 @@ public partial class ModGroupSectionViewModel : LocalizedViewModel
     [ObservableProperty]
     private string _name = string.Empty;
 
+    // Fork (1.4.2): a group's colour, "#RRGGBB" or null; the dot before its name.
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ColorBrush), nameof(ColorToolTip))]
+    private string? _color;
+
+    public System.Windows.Media.SolidColorBrush? ColorBrush => Services.ModOwnColors.BrushOf(Color);
+
+    public string ColorToolTip => Color is { } color
+        ? Text(Strings.Installed_GroupColorFormat, Services.ModOwnColors.NameOf(color))
+        : Strings.Installed_GroupColorNone;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ChevronGlyph))]
     private bool _isCollapsed;
@@ -89,6 +100,7 @@ public partial class ModGroupSectionViewModel : LocalizedViewModel
         GroupId = group.Id,
         Name = group.Name,
         IsCollapsed = group.IsCollapsed,
+        Color = group.Color,
     };
 
     public static ModGroupSectionViewModel ForCategory(string? category, bool collapsed) => new()

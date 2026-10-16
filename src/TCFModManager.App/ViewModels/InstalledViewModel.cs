@@ -834,6 +834,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             SelectedEnabledFilter = DefaultEnabledFilter();
             SelectedGroupFilter = GroupFilterOptions.FirstOrDefault(o => o.SameAs(DefaultGroupFilter()))
                 ?? GroupFilterOptions[0];
+            SelectedColorFilter = ColorFilterItem.Any; // Fork (1.4.2)
             SelectedSortOption = DefaultSortOption();
             SelectedGroupSortOption = DefaultGroupSortOption();
             SelectedGrouping = DefaultGrouping();
@@ -1046,6 +1047,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             ApplyPins(cards);
             ModNicknames.Apply(cards); // Fork (1.4.2)
             ModNotes.Apply(cards); // Fork (1.4.2)
+            ModOwnColors.Apply(cards); // Fork (1.4.2)
             ApplyReuploads(cards, installRecords); // Fork
             ApplyPendingDownloads(cards, downloads);
             ApplyLeftovers(cards);
@@ -2934,6 +2936,10 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         // author instead of name - e.g. "@Acidphantasm".
         var authorQuery = query.StartsWith('@') ? query[1..].Trim() : null;
 
+        // Fork (1.4.2): "color:red" (or a colour's name in the app's language, or its hex) finds
+        // the mods drawn in that colour, "color:none" those in none.
+        var colorQuery = ColorQuery(query);
+
         var recentSince = DateTimeOffset.Now.AddDays(-RecentDays);
 
         var matched = _all
@@ -2953,7 +2959,10 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             })
             .Where(m => SelectedGroupFilter.AllGroups
                 || (SelectedGroupFilter.GroupId is { } groupId ? m.GroupId == groupId : !m.IsGrouped))
-            .Where(m => authorQuery is not null
+            .Where(m => SelectedColorFilter.Matches(m.Color)) // Fork (1.4.2)
+            .Where(m => colorQuery is not null
+                ? ModColors.Matches(m.Color, colorQuery, ModOwnColors.NameOf)
+                : authorQuery is not null
                 ? MatchesAuthor(m, authorQuery)
                 : query.Length == 0 || Matches(m.DisplayTitle, query) || Matches(m.Name, query)
                     || (m.Note is { } note && Matches(note, query))) // Fork (1.4.2): your notes too
@@ -3063,6 +3072,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     {
         var data = AppServices.ModGroups.Load();
         var namesById = data.Groups.ToDictionary(g => g.Id, g => g.Name);
+        var colorsById = data.Groups.ToDictionary(g => g.Id, g => g.Color); // Fork (1.4.2)
 
         foreach (var card in _all)
         {
@@ -3075,6 +3085,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
             card.GroupId = assigned;
             card.GroupName = assigned is { } value ? namesById[value] : null;
+            card.GroupColor = assigned is { } colored ? ModColors.Normalize(colorsById[colored]) : null;
         }
 
         // Same as the category list above: the saved default the first time, the current selection
@@ -3098,6 +3109,8 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         {
             _suppressAutoApplyFilter = false;
         }
+
+        RefreshColorFilter(); // Fork (1.4.2): a group's colour is a card's colour too
 
         RememberIfPending(); // Fork
     }
@@ -3193,6 +3206,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
                 // From the store every time: a rename that was cancelled or left blank goes back to
                 // the saved name this way, as a fresh section used to.
                 section.Name = group.Name;
+                section.Color = group.Color; // Fork (1.4.2)
                 section.IsEditing = false;
                 section.IsCollapsed = group.IsCollapsed;
                 section.CanReorder = order == GroupSortOption.Manual;

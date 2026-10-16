@@ -38,6 +38,10 @@ public sealed class AppSettings
     // Fork (1.4.2): your notes on installed mods (right-click > Note...), keyed as ModNames.
     public Dictionary<string, string> ModNotes { get; set; } = [];
 
+    // Fork (1.4.2): a colour of your own for an installed mod (right-click > Colour), "#RRGGBB",
+    // keyed as ModNames. It is drawn in place of its group's colour.
+    public Dictionary<string, string> ModColors { get; set; } = [];
+
     // Fork (1.4.2): updates you chose to skip, "id:<mod id>" or "addon:<addon id>" to the version
     // skipped. A newer version than that one is offered as usual.
     public Dictionary<string, string> SkippedUpdates { get; set; } = [];

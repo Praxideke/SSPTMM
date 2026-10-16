@@ -9602,4 +9602,76 @@
   <data name="Options_BackgroundBlur" xml:space="preserve">
     <value>Размытие</value>
   </data>
+  <data name="Color_Red" xml:space="preserve">
+    <value>Красный</value>
+  </data>
+  <data name="Color_Orange" xml:space="preserve">
+    <value>Оранжевый</value>
+  </data>
+  <data name="Color_Yellow" xml:space="preserve">
+    <value>Жёлтый</value>
+  </data>
+  <data name="Color_Green" xml:space="preserve">
+    <value>Зелёный</value>
+  </data>
+  <data name="Color_Teal" xml:space="preserve">
+    <value>Бирюзовый</value>
+  </data>
+  <data name="Color_Blue" xml:space="preserve">
+    <value>Синий</value>
+  </data>
+  <data name="Color_Purple" xml:space="preserve">
+    <value>Фиолетовый</value>
+  </data>
+  <data name="Color_Pink" xml:space="preserve">
+    <value>Розовый</value>
+  </data>
+  <data name="Color_Brown" xml:space="preserve">
+    <value>Коричневый</value>
+  </data>
+  <data name="Color_Grey" xml:space="preserve">
+    <value>Серый</value>
+  </data>
+  <data name="Menu_Color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="Menu_ColorPickedFormat" xml:space="preserve">
+    <value>Цвет для выбранных ({0})</value>
+  </data>
+  <data name="Menu_ColorCustom" xml:space="preserve">
+    <value>Свой цвет...</value>
+  </data>
+  <data name="Menu_ColorNone" xml:space="preserve">
+    <value>Без цвета</value>
+  </data>
+  <data name="Menu_ColorCustomTitle" xml:space="preserve">
+    <value>Свой цвет</value>
+  </data>
+  <data name="Menu_ColorCustomHint" xml:space="preserve">
+    <value>Шесть шестнадцатеричных цифр, например #5BA32B</value>
+  </data>
+  <data name="Filter_AnyColor" xml:space="preserve">
+    <value>Любой цвет</value>
+  </data>
+  <data name="Filter_NoColor" xml:space="preserve">
+    <value>Без цвета</value>
+  </data>
+  <data name="Installed_ColorFormat" xml:space="preserve">
+    <value>Цвет: {0}</value>
+  </data>
+  <data name="Installed_ColorFromGroupFormat" xml:space="preserve">
+    <value>Цвет: {0}, от группы {1}</value>
+  </data>
+  <data name="Installed_ColorSearchWord" xml:space="preserve">
+    <value>цвет</value>
+  </data>
+  <data name="Installed_GroupColorFormat" xml:space="preserve">
+    <value>Цвет группы: {0} — нажмите, чтобы изменить</value>
+  </data>
+  <data name="Installed_GroupColorNone" xml:space="preserve">
+    <value>Задать цвет этой группе</value>
+  </data>
+  <data name="Installed_ColorFilterToolTip" xml:space="preserve">
+    <value>Только моды одного цвета — своего или цвета их группы. То же делает цвет:красный в поиске.</value>
+  </data>
 </root>

@@ -35,6 +35,8 @@ From 1.3.0 or later: Help > About > **Install update**. From an older version: c
 - **OLED black**, Options > Look: the pages black instead of Steam's navy. Cards, bars and dialogs stay a little lighter so they still stand off the page.
 - **Card size**, Options > Look: Compact, Normal or Roomy cards and rows on Subscribed items - smaller pictures and more to a row, or larger and fewer.
 - **Blur the background picture**, Options > Look > Tabs and background: a Blur slider under Darken, for a picture of your own behind the window.
+- **Colours for groups and mods.** Click the dot before a group's name, or right-click its header, to give the group a colour: each of its mods gets a strip of it down the card's left edge, in every view. Right-click a mod > **Colour** gives it one of its own, which wins over its group's - for several picked mods at once too. Ten colours to pick from, or **Custom colour...** for any six hex digits.
+- **Filter by colour.** Filters > Colour shows only the mods drawn in one colour, their own or their group's, or those with none; typing `color:red` (or `colour:`, or a hex like `color:#5BA32B`) in the search box does the same.
 - **Told when the downloads finish.** When the queue empties while SSPTMM is in the tray, a Windows notification says how many were done and how many failed; while it is minimised or behind other windows, its taskbar button flashes.
 
 - **All of SSPTMM in German, French, Italian and Russian**, not only Steam's terms: about a third of the app - Help, Options' explanations, most messages, everything new - showed in English in those languages, and none of it does now. Dates follow the language (day first, 24-hour clock) instead of English's "Oct 16, 2026 @ 2:34PM".

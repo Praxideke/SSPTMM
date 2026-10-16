@@ -9182,4 +9182,76 @@ Non garde ce groupe sous son ancien nom.</value>
   <data name="Options_BackgroundBlur" xml:space="preserve">
     <value>Flou</value>
   </data>
+  <data name="Color_Red" xml:space="preserve">
+    <value>Rouge</value>
+  </data>
+  <data name="Color_Orange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+  <data name="Color_Yellow" xml:space="preserve">
+    <value>Jaune</value>
+  </data>
+  <data name="Color_Green" xml:space="preserve">
+    <value>Vert</value>
+  </data>
+  <data name="Color_Teal" xml:space="preserve">
+    <value>Turquoise</value>
+  </data>
+  <data name="Color_Blue" xml:space="preserve">
+    <value>Bleu</value>
+  </data>
+  <data name="Color_Purple" xml:space="preserve">
+    <value>Violet</value>
+  </data>
+  <data name="Color_Pink" xml:space="preserve">
+    <value>Rose</value>
+  </data>
+  <data name="Color_Brown" xml:space="preserve">
+    <value>Marron</value>
+  </data>
+  <data name="Color_Grey" xml:space="preserve">
+    <value>Gris</value>
+  </data>
+  <data name="Menu_Color" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="Menu_ColorPickedFormat" xml:space="preserve">
+    <value>Couleur des {0} sélectionnés</value>
+  </data>
+  <data name="Menu_ColorCustom" xml:space="preserve">
+    <value>Couleur personnalisée...</value>
+  </data>
+  <data name="Menu_ColorNone" xml:space="preserve">
+    <value>Aucune couleur</value>
+  </data>
+  <data name="Menu_ColorCustomTitle" xml:space="preserve">
+    <value>Une couleur à vous</value>
+  </data>
+  <data name="Menu_ColorCustomHint" xml:space="preserve">
+    <value>Six chiffres hexadécimaux, par exemple #5BA32B</value>
+  </data>
+  <data name="Filter_AnyColor" xml:space="preserve">
+    <value>Toutes les couleurs</value>
+  </data>
+  <data name="Filter_NoColor" xml:space="preserve">
+    <value>Sans couleur</value>
+  </data>
+  <data name="Installed_ColorFormat" xml:space="preserve">
+    <value>Couleur : {0}</value>
+  </data>
+  <data name="Installed_ColorFromGroupFormat" xml:space="preserve">
+    <value>Couleur : {0}, celle du groupe {1}</value>
+  </data>
+  <data name="Installed_ColorSearchWord" xml:space="preserve">
+    <value>couleur</value>
+  </data>
+  <data name="Installed_GroupColorFormat" xml:space="preserve">
+    <value>Couleur du groupe : {0} - cliquez pour la changer</value>
+  </data>
+  <data name="Installed_GroupColorNone" xml:space="preserve">
+    <value>Donner une couleur à ce groupe</value>
+  </data>
+  <data name="Installed_ColorFilterToolTip" xml:space="preserve">
+    <value>Seulement les mods d'une couleur - la leur ou celle de leur groupe. Taper couleur:rouge dans la recherche fait de même.</value>
+  </data>
 </root>

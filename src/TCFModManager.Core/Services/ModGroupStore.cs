@@ -107,6 +107,17 @@ public sealed class ModGroupStore
         Save(data);
     }
 
+    // Fork (1.4.2): the group's colour, "#RRGGBB" or null for none (see ModColors).
+    public void SetColor(Guid groupId, string? color)
+    {
+        var data = Load();
+        var group = data.Groups.FirstOrDefault(g => g.Id == groupId);
+        if (group is null) return;
+
+        group.Color = ModColors.Normalize(color);
+        Save(data);
+    }
+
     public void SetCollapsed(Guid groupId, bool collapsed)
     {
         var data = Load();

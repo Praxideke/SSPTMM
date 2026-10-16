@@ -92,6 +92,7 @@ public static class ModContextMenu
         {
             if (mod is not null) menu.Items.Add(Rule());
             menu.Items.Add(GroupMenu(page, card));
+            menu.Items.Add(ModColorMenu(page, card)); // Fork (1.4.2)
             menu.Items.Add(Item(Strings.Menu_Rename, () => page.RenameMod(card))); // Fork (1.4.2)
             menu.Items.Add(Item(Strings.Menu_Note, () => page.EditNote(card))); // Fork (1.4.2)
 
@@ -125,6 +126,7 @@ public static class ModContextMenu
         menu.Items.Add(Command(Strings.Installed_UpdateSelected, page.UpdateSelectedCommand));
         menu.Items.Add(Rule());
         menu.Items.Add(GroupMenu(page, card));
+        menu.Items.Add(ModColorMenu(page, card)); // Fork (1.4.2)
         menu.Items.Add(Rule());
         menu.Items.Add(Command(Strings.Installed_UnsubscribeSelected, page.UnsubscribeSelectedCommand));
     }
@@ -170,6 +172,68 @@ public static class ModContextMenu
         }
 
         return menu;
+    }
+
+    // Fork (1.4.2): Colour for this mod, or for every picked one when it is among two or more.
+    private static MenuItem ModColorMenu(ViewModels.InstalledViewModel page, ViewModels.InstalledModCardViewModel card)
+    {
+        var mods = page.ModsFor(card);
+        var header = mods.Count > 1 ? LocalizationService.Text(Strings.Menu_ColorPickedFormat, mods.Count) : Strings.Menu_Color;
+        var shared = mods.Select(m => m.OwnColor).Distinct().Count() == 1 ? mods[0].OwnColor : null;
+        return ColorMenu(header, shared, mods.Any(m => m.OwnColor is not null), color => page.ColorMods(mods, color));
+    }
+
+    //
+    // Fork (1.4.2): a colour menu - the palette's ten, each with its swatch, then Custom colour...
+    // and, when there is one to take away, No colour. The colour already given is ticked.
+    //
+    public static MenuItem ColorMenu(string header, string? current, bool canClear, Action<string?> set)
+    {
+        var menu = new MenuItem { Header = header, Style = ItemStyle() };
+        FillColors(menu.Items, current, canClear, set);
+        return menu;
+    }
+
+    public static void FillColors(ItemCollection items, string? current, bool canClear, Action<string?> set)
+    {
+        foreach (var swatch in Core.Services.ModColors.Palette)
+        {
+            var item = Item(string.Empty, () => set(swatch.Hex));
+            item.Header = Swatched(ModOwnColors.NameOf(swatch), ModOwnColors.BrushOf(swatch.Hex), swatch.Hex == current);
+            items.Add(item);
+        }
+
+        items.Add(Rule());
+        var custom = current is not null && Core.Services.ModColors.SwatchOf(current) is null ? current : null;
+        var customItem = Item(string.Empty, () =>
+        {
+            if (ViewModels.InstalledViewModel.AskCustomColor(custom) is { } color) set(color);
+        });
+        customItem.Header = Swatched(Strings.Menu_ColorCustom, ModOwnColors.BrushOf(custom), custom is not null);
+        items.Add(customItem);
+
+        if (canClear) items.Add(Item(Strings.Menu_ColorNone, () => set(null)));
+    }
+
+    // A swatch before the name; ringed when it is the colour given now.
+    private static StackPanel Swatched(string name, Brush? fill, bool current)
+    {
+        var dot = new Border
+        {
+            Width = 12,
+            Height = 12,
+            CornerRadius = new CornerRadius(6),
+            Margin = new Thickness(0, 0, 8, 0),
+            VerticalAlignment = VerticalAlignment.Center,
+            Background = fill ?? Brushes.Transparent,
+            BorderBrush = current ? Brushes.White : (Brush)Application.Current.FindResource("TextFillColorTertiaryBrush"),
+            BorderThickness = new Thickness(current ? 2 : fill is null ? 1 : 0),
+        };
+        return new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Children = { dot, new TextBlock { Text = name, VerticalAlignment = VerticalAlignment.Center } },
+        };
     }
 
     private static void Fill(ContextMenu menu, Mod mod, FrameworkElement source)
