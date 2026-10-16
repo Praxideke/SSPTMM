@@ -2612,6 +2612,18 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   custom ones. Seen on a hidden desktop: the strips on Cards, a mod's own orange over its group's
   teal, the header dots. Not seen: the menus open, the custom-colour dialog, the filter and the
   search, the List and Groups views.
+- **Updates list.** Update all became a split button: the arrow (or a right-click on Update all)
+  opens a popup under it, right edges lined up, 460px wide, the rows scrolling past 420px (HUNCH,
+  both). `UpdateListRow` follows the download queue's card for its mod at that version
+  (`Items.CollectionChanged`, so it catches updates asked for anywhere): waiting, the percentage,
+  installing, a tick in Steam's green, a retry on failure (the card's own Retry). The spinner turns
+  only with Options > Look > Animations on. Done rows leave when the list closes. A row's update
+  goes through `UpdateCards` like any other, so the same questions are asked; the popup closes
+  when one is, and opens again after. `ModUpdates`' hand-installed warning has three answers when
+  the batch holds other mods too (Update all, Only the others, Cancel); with only hand-installed
+  mods it is the Yes/No it was. Seen on a hidden desktop: the split button, the list with eleven
+  updates and a hand-installed tag, the three-answer warning. Not seen: a row while it
+  downloads, installs, finishes or fails - nothing was downloaded here - and Skip from the list.
 - **Look files.** `LookFile` (Core): JSON with a version, the accent, OLED black, card size,
   the background picture's bytes and extension, its darkness and blur, group colours by group
   name (an id is only this PC's) and the mods' own colours under their settings keys. A picture
@@ -2738,6 +2750,8 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   measured.
 - Play on another PC's server (1.4.2): three tries 1.5s apart, each ping given 3s, and an 8s
   connect timeout - chosen for a host across the internet, not tried against one.
+- The updates list (1.4.2): 460px wide, scrolling past 420px, the spinner's 1.2s turn and the
+  tick's green (#75B022, the Getting started tick's) - set by eye, not measured.
 - Critical/error red (`#E05A5A`): no error state on the pages measured.
 - Outlined "View All" hover fill.
 - Whether Steam's file sizes count in 1000s or 1024s ("22.946 KB" reads as 1000s).

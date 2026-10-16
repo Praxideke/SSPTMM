@@ -3067,4 +3067,25 @@ internal static class Strings
     internal static string Play_RemoteAddedFormat => LocalizationService.Get("Play_RemoteAddedFormat");
     internal static string Play_WipeArmedRemoteFormat => LocalizationService.Get("Play_WipeArmedRemoteFormat");
     internal static string Play_DirectDeleteWarningRemoteFormat => LocalizationService.Get("Play_DirectDeleteWarningRemoteFormat");
+    internal static string Installed_UpdateAllToolTip => LocalizationService.Get("Installed_UpdateAllToolTip");
+    internal static string Installed_UpdateListToolTip => LocalizationService.Get("Installed_UpdateListToolTip");
+    internal static string Installed_UpdateListHeader => LocalizationService.Get("Installed_UpdateListHeader");
+    internal static string Installed_UpdateListOpenDownloads => LocalizationService.Get("Installed_UpdateListOpenDownloads");
+    internal static string Installed_UpdateListVersionsFormat => LocalizationService.Get("Installed_UpdateListVersionsFormat");
+    internal static string Installed_UpdateListUpdateFormat => LocalizationService.Get("Installed_UpdateListUpdateFormat");
+    internal static string Installed_UpdateListWaiting => LocalizationService.Get("Installed_UpdateListWaiting");
+    internal static string Installed_UpdateListPercentFormat => LocalizationService.Get("Installed_UpdateListPercentFormat");
+    internal static string Installed_UpdateListInstalling => LocalizationService.Get("Installed_UpdateListInstalling");
+    internal static string Installed_UpdateListFailed => LocalizationService.Get("Installed_UpdateListFailed");
+    internal static string Installed_UpdateListRetry => LocalizationService.Get("Installed_UpdateListRetry");
+    internal static string Installed_UpdateListDone => LocalizationService.Get("Installed_UpdateListDone");
+    internal static string Installed_UpdateListHandInstalled => LocalizationService.Get("Installed_UpdateListHandInstalled");
+    internal static string Installed_UpdateListHandInstalledToolTip => LocalizationService.Get("Installed_UpdateListHandInstalledToolTip");
+    internal static string Installed_UpdateListSwitchedOff => LocalizationService.Get("Installed_UpdateListSwitchedOff");
+    internal static string Installed_UpdateListSkip => LocalizationService.Get("Installed_UpdateListSkip");
+    internal static string Installed_UpdateListSkipToolTip => LocalizationService.Get("Installed_UpdateListSkipToolTip");
+    internal static string Installed_UpdateHandInstalledMixedNote => LocalizationService.Get("Installed_UpdateHandInstalledMixedNote");
+    internal static string Installed_UpdateHandInstalledUpdate => LocalizationService.Get("Installed_UpdateHandInstalledUpdate");
+    internal static string Installed_UpdateHandInstalledLeaveOut => LocalizationService.Get("Installed_UpdateHandInstalledLeaveOut");
+    internal static string Installed_UpdateHandInstalledLeftOutFormat => LocalizationService.Get("Installed_UpdateHandInstalledLeftOutFormat");
 }

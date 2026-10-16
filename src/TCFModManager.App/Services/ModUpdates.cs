@@ -36,14 +36,24 @@ public static class ModUpdates
         // single-mod path warns at all: there is no record of which files the current version
         // placed, so the new one goes on top of it.
         //
+        // Fork (1.4.2): with other mods in the batch too, Leave them out updates those and not the
+        // hand-installed ones. No used to cancel the lot, so one mod of your own held back every
+        // other update.
+        //
+        var queue = targets.ToList();
+        var handLeftOut = string.Empty;
         var handInstalled = targets.Where(t => !t.IsAppManaged).Select(t => t.Title).ToList();
-        if (!downloadOnly && handInstalled.Count > 0 && TCFModManager.App.Views.SteamMessageBox.Show(
-                LocalizationService.Text(Strings.Installed_UpdateHandInstalledBodyFormat, TextLists.Join(handInstalled)),
-                Strings.Installed_UpdateHandInstalledTitle(handInstalled.Count),
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning) != MessageBoxResult.Yes)
+        if (!downloadOnly && handInstalled.Count > 0)
         {
-            return (Strings.Installed_UpdateCancelled, false);
+            switch (AskHandInstalled(handInstalled, mixed: handInstalled.Count < targets.Count))
+            {
+                case HandInstalledAnswer.Cancel:
+                    return (Strings.Installed_UpdateCancelled, false);
+                case HandInstalledAnswer.LeaveOut:
+                    queue.RemoveAll(t => !t.IsAppManaged);
+                    handLeftOut = LocalizationService.Text(Strings.Installed_UpdateHandInstalledLeftOutFormat, TextLists.Join(handInstalled));
+                    break;
+            }
         }
 
         //
@@ -51,7 +61,6 @@ public static class ModUpdates
         // back to the newest when none does - is asked about once for the batch. No leaves those out
         // and updates the rest.
         //
-        var queue = targets.ToList();
         var incompatible = queue
             .Select(t => (Target: t, Version: t.Mod.Versions?.FirstOrDefault(v => v.Version == t.Version)))
             .Where(t => SptCompatibility.IsIncompatible(t.Version?.SptVersionConstraint))
@@ -70,7 +79,7 @@ public static class ModUpdates
                 AppServices.SptEnvironment.InstalledVersion,
                 TextLists.Join([.. incompatible.Select(t => t.Target.Title)]));
 
-            if (queue.Count == 0) return (leftOut, false);
+            if (queue.Count == 0) return (Join(handLeftOut, leftOut), false);
         }
 
         // The same dialog a single install goes through, asked once for the batch - each with the
@@ -90,9 +99,45 @@ public static class ModUpdates
                 downloadOnly: downloadOnly, keepDisabled: target.KeepDisabled);
         }
 
-        var queued = Strings.Installed_UpdateQueued(queue.Count);
-        return (leftOut.Length == 0 ? queued : string.Join(Strings.Common_SentenceSeparator, queued, leftOut), true);
+        return (Join(Strings.Installed_UpdateQueued(queue.Count), handLeftOut, leftOut), true);
     }
+
+    private enum HandInstalledAnswer
+    {
+        Update,
+        LeaveOut,
+        Cancel,
+    }
+
+    private static HandInstalledAnswer AskHandInstalled(IReadOnlyList<string> titles, bool mixed)
+    {
+        var body = LocalizationService.Text(Strings.Installed_UpdateHandInstalledBodyFormat, TextLists.Join(titles));
+        var title = Strings.Installed_UpdateHandInstalledTitle(titles.Count);
+
+        if (!mixed)
+        {
+            return SteamMessageBox.Show(body, title, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes
+                ? HandInstalledAnswer.Update
+                : HandInstalledAnswer.Cancel;
+        }
+
+        var chosen = SteamDialog.Show(
+            title,
+            body + "\n\n" + Strings.Installed_UpdateHandInstalledMixedNote,
+            new SteamDialogChoice(Strings.Installed_UpdateHandInstalledUpdate, SteamDialogButton.Green),
+            new SteamDialogChoice(Strings.Installed_UpdateHandInstalledLeaveOut, SteamDialogButton.Blue, IsDefault: true),
+            new SteamDialogChoice(Strings.Common_Cancel, SteamDialogButton.Grey));
+
+        return chosen switch
+        {
+            0 => HandInstalledAnswer.Update,
+            1 => HandInstalledAnswer.LeaveOut,
+            _ => HandInstalledAnswer.Cancel,
+        };
+    }
+
+    private static string Join(params string[] sentences) =>
+        string.Join(Strings.Common_SentenceSeparator, sentences.Where(s => s.Length > 0));
 
     // The version's own record, for its download link.
     private static async Task<ModVersion?> ResolveVersionLinkAsync(Mod mod, string version)

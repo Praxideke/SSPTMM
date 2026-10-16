@@ -11603,4 +11603,67 @@ No keeps this group under its old name.</value>
   <data name="Play_DirectDeleteWarningRemoteFormat" xml:space="preserve">
     <value>Delete {0}? Its character and progress go from the server. The profile is on another PC, so SSPTMM can't keep a copy first.</value>
   </data>
+  <data name="Installed_UpdateAllToolTip" xml:space="preserve">
+    <value>Updates every mod with an update waiting. Right-click, or the arrow beside it, to pick which.</value>
+  </data>
+  <data name="Installed_UpdateListToolTip" xml:space="preserve">
+    <value>Pick which mods to update</value>
+  </data>
+  <data name="Installed_UpdateListHeader" xml:space="preserve">
+    <value>Updates waiting</value>
+  </data>
+  <data name="Installed_UpdateListOpenDownloads" xml:space="preserve">
+    <value>Open Downloads</value>
+  </data>
+  <data name="Installed_UpdateListVersionsFormat" xml:space="preserve">
+    <value>{0} → {1}</value>
+  </data>
+  <data name="Installed_UpdateListUpdateFormat" xml:space="preserve">
+    <value>Update to {0}</value>
+  </data>
+  <data name="Installed_UpdateListWaiting" xml:space="preserve">
+    <value>Waiting</value>
+  </data>
+  <data name="Installed_UpdateListPercentFormat" xml:space="preserve">
+    <value>{0}%</value>
+  </data>
+  <data name="Installed_UpdateListInstalling" xml:space="preserve">
+    <value>Installing</value>
+  </data>
+  <data name="Installed_UpdateListFailed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Installed_UpdateListRetry" xml:space="preserve">
+    <value>Try again - the Downloads page says why it failed</value>
+  </data>
+  <data name="Installed_UpdateListDone" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalled" xml:space="preserve">
+    <value>hand-installed</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalledToolTip" xml:space="preserve">
+    <value>Not installed through SSPTMM: the new version goes on top of the old one's files, and you are asked first.</value>
+  </data>
+  <data name="Installed_UpdateListSwitchedOff" xml:space="preserve">
+    <value>switched off</value>
+  </data>
+  <data name="Installed_UpdateListSkip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Installed_UpdateListSkipToolTip" xml:space="preserve">
+    <value>Skip this update: the mod stops showing as out of date until a newer version comes out. Stop skipping on its right-click menu takes that back.</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledMixedNote" xml:space="preserve">
+    <value>Only the others leaves the mods named above as they are and updates the rest.</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledUpdate" xml:space="preserve">
+    <value>Update all</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeaveOut" xml:space="preserve">
+    <value>Only the others</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeftOutFormat" xml:space="preserve">
+    <value>Not updated, as you asked: {0}.</value>
+  </data>
 </root>

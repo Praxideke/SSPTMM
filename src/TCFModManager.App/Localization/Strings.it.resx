@@ -9356,4 +9356,67 @@ No mantiene questo gruppo con il suo vecchio nome.</value>
   <data name="Play_DirectDeleteWarningRemoteFormat" xml:space="preserve">
     <value>Eliminare {0}? Personaggio e progressi spariscono dal server. Il profilo è su un altro PC, quindi SSPTMM non può tenerne una copia prima.</value>
   </data>
+  <data name="Installed_UpdateAllToolTip" xml:space="preserve">
+    <value>Aggiorna ogni mod con un aggiornamento in attesa. Clic destro, o la freccia accanto, per scegliere quali.</value>
+  </data>
+  <data name="Installed_UpdateListToolTip" xml:space="preserve">
+    <value>Scegli quali mod aggiornare</value>
+  </data>
+  <data name="Installed_UpdateListHeader" xml:space="preserve">
+    <value>Aggiornamenti in attesa</value>
+  </data>
+  <data name="Installed_UpdateListOpenDownloads" xml:space="preserve">
+    <value>Apri Download</value>
+  </data>
+  <data name="Installed_UpdateListVersionsFormat" xml:space="preserve">
+    <value>{0} → {1}</value>
+  </data>
+  <data name="Installed_UpdateListUpdateFormat" xml:space="preserve">
+    <value>Aggiorna a {0}</value>
+  </data>
+  <data name="Installed_UpdateListWaiting" xml:space="preserve">
+    <value>In attesa</value>
+  </data>
+  <data name="Installed_UpdateListPercentFormat" xml:space="preserve">
+    <value>{0}%</value>
+  </data>
+  <data name="Installed_UpdateListInstalling" xml:space="preserve">
+    <value>Installazione</value>
+  </data>
+  <data name="Installed_UpdateListFailed" xml:space="preserve">
+    <value>Non riuscito</value>
+  </data>
+  <data name="Installed_UpdateListRetry" xml:space="preserve">
+    <value>Riprova – la pagina Download dice perché non è riuscito</value>
+  </data>
+  <data name="Installed_UpdateListDone" xml:space="preserve">
+    <value>Aggiornato</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalled" xml:space="preserve">
+    <value>installata a mano</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalledToolTip" xml:space="preserve">
+    <value>Non installata tramite SSPTMM: la nuova versione va sopra i file della vecchia, e ti viene chiesto prima.</value>
+  </data>
+  <data name="Installed_UpdateListSwitchedOff" xml:space="preserve">
+    <value>disattivata</value>
+  </data>
+  <data name="Installed_UpdateListSkip" xml:space="preserve">
+    <value>Salta</value>
+  </data>
+  <data name="Installed_UpdateListSkipToolTip" xml:space="preserve">
+    <value>Salta questo aggiornamento: la mod non appare più come non aggiornata finché non esce una versione più recente. «Smetti di saltare» nel suo menu del clic destro lo annulla.</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledMixedNote" xml:space="preserve">
+    <value>Solo le altre lascia le mod indicate sopra come sono e aggiorna il resto.</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledUpdate" xml:space="preserve">
+    <value>Aggiorna tutte</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeaveOut" xml:space="preserve">
+    <value>Solo le altre</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeftOutFormat" xml:space="preserve">
+    <value>Non aggiornate, come richiesto: {0}.</value>
+  </data>
 </root>

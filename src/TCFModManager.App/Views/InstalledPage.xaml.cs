@@ -403,6 +403,57 @@ public partial class InstalledPage : Page
     }
 
     //
+    // Fork (1.4.2): the list of waiting updates, from the arrow beside Update all or a right-click
+    // on it. A click on the arrow while the list is open closes it: the popup has already closed
+    // itself on that press, so it is not opened again straight after.
+    //
+    private DateTime _updateListClosedAt;
+
+    private void UpdateList_Click(object sender, RoutedEventArgs e)
+    {
+        if (DateTime.UtcNow - _updateListClosedAt < TimeSpan.FromMilliseconds(250)) return;
+        OpenUpdateList();
+    }
+
+    private void UpdateAll_RightClick(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
+        OpenUpdateList();
+    }
+
+    private bool _reopensUpdateList;
+
+    private void OpenUpdateList()
+    {
+        if (!_reopensUpdateList)
+        {
+            ViewModel.UpdateListActed += (_, _) =>
+            {
+                if (!UpdateListPopup.IsOpen && ViewModel.UpdateRows.Count > 0) OpenUpdateList();
+            };
+            _reopensUpdateList = true;
+        }
+
+        ViewModel.OpenUpdateList();
+
+        // Its right edge under the arrow's, so it opens into the window rather than off its side.
+        UpdateListPopup.HorizontalOffset = UpdateListButton.ActualWidth - UpdateListPanel.Width;
+        UpdateListPopup.IsOpen = true;
+    }
+
+    private void UpdateListPopup_Closed(object? sender, EventArgs e)
+    {
+        _updateListClosedAt = DateTime.UtcNow;
+        ViewModel.CloseUpdateList();
+    }
+
+    private void UpdateListDownloads_Click(object sender, RoutedEventArgs e)
+    {
+        UpdateListPopup.IsOpen = false;
+        AppNavigation.Navigate(typeof(DownloadsPage));
+    }
+
+    //
     // Fork (SSPTMM, UI tidy-up 2): the toolbar's "..." menu - the page actions used now and then
     // rather than every visit, which each had a button of their own on the toolbar before. Built on
     // each click, so every entry reads the page as it is right now (Multi select and List badges

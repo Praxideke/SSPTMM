@@ -8927,4 +8927,67 @@
   <data name="Play_DirectDeleteWarningRemoteFormat" xml:space="preserve">
     <value>删除 {0}？其角色和进度将从服务器上消失。该配置文件在另一台电脑上，因此 SSPTMM 无法事先保留副本。</value>
   </data>
+  <data name="Installed_UpdateAllToolTip" xml:space="preserve">
+    <value>更新每个有可用更新的模组。右键单击或点旁边的箭头，可选择更新哪些。</value>
+  </data>
+  <data name="Installed_UpdateListToolTip" xml:space="preserve">
+    <value>选择要更新的模组</value>
+  </data>
+  <data name="Installed_UpdateListHeader" xml:space="preserve">
+    <value>待更新</value>
+  </data>
+  <data name="Installed_UpdateListOpenDownloads" xml:space="preserve">
+    <value>打开下载</value>
+  </data>
+  <data name="Installed_UpdateListVersionsFormat" xml:space="preserve">
+    <value>{0} → {1}</value>
+  </data>
+  <data name="Installed_UpdateListUpdateFormat" xml:space="preserve">
+    <value>更新到 {0}</value>
+  </data>
+  <data name="Installed_UpdateListWaiting" xml:space="preserve">
+    <value>等待中</value>
+  </data>
+  <data name="Installed_UpdateListPercentFormat" xml:space="preserve">
+    <value>{0}%</value>
+  </data>
+  <data name="Installed_UpdateListInstalling" xml:space="preserve">
+    <value>正在安装</value>
+  </data>
+  <data name="Installed_UpdateListFailed" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="Installed_UpdateListRetry" xml:space="preserve">
+    <value>重试——“下载”页面会说明失败原因</value>
+  </data>
+  <data name="Installed_UpdateListDone" xml:space="preserve">
+    <value>已更新</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalled" xml:space="preserve">
+    <value>手动安装</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalledToolTip" xml:space="preserve">
+    <value>不是通过 SSPTMM 安装的：新版本会覆盖在旧版本的文件之上，并会先询问你。</value>
+  </data>
+  <data name="Installed_UpdateListSwitchedOff" xml:space="preserve">
+    <value>已关闭</value>
+  </data>
+  <data name="Installed_UpdateListSkip" xml:space="preserve">
+    <value>跳过</value>
+  </data>
+  <data name="Installed_UpdateListSkipToolTip" xml:space="preserve">
+    <value>跳过此更新：在更新的版本发布之前，该模组不再显示为过期。右键菜单中的“停止跳过”可撤销。</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledMixedNote" xml:space="preserve">
+    <value>“仅其他”会保留上面列出的模组不变，并更新其余模组。</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledUpdate" xml:space="preserve">
+    <value>全部更新</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeaveOut" xml:space="preserve">
+    <value>仅其他</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeftOutFormat" xml:space="preserve">
+    <value>已按你的要求未更新：{0}。</value>
+  </data>
 </root>

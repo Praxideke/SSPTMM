@@ -43,6 +43,14 @@ the same details; click a card or row to open it.
   that would break another installed mod is held back and says so: Update all leaves it out, and
   update notifications don't announce it. Update all goes in dependency order - a library before
   the mods that use it. A disabled mod is updated too and stays disabled.
+- **To update some mods and not others**, click the arrow beside Update all, or right-click Update
+  all. Each waiting update is listed with its versions, and **hand-installed** or **switched off**
+  where that applies. A row's button updates just that mod and then shows how it is going -
+  waiting, the download's percentage, installing, then a tick. A failed one gets a retry button,
+  and **Open Downloads** shows why. **Skip** skips that update until a newer one comes out.
+- When Update all includes mods you installed yourself, SSPTMM warns that their new files go on
+  top of the old ones, and offers **Update all**, **Only the others** (the rest are updated,
+  yours are left as they are) or Cancel.
 - Right-click a mod for **Rename...** (a name of your own; empty gives it back its own), **Open
   client folder** and **Open server folder**, beside the group items. Also:
   - **Note...** - a line of your own, shown under the mod's name and found by the search.

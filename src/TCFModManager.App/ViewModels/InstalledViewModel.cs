@@ -2107,6 +2107,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         MarkUpdatableCards(); // Fork: each card's own Update (InstalledViewModel.Toolbar.cs)
         OnPropertyChanged(nameof(UpdatableCount));
         OnPropertyChanged(nameof(HasUpdates));
+        OnPropertyChanged(nameof(ShowsUpdateAll));
         OnPropertyChanged(nameof(UpdateAllLabel));
         UpdateAllCommand.NotifyCanExecuteChanged();
     }

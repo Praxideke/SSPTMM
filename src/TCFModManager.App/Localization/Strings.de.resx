@@ -9356,4 +9356,67 @@ Mit Nein behält diese Gruppe ihren alten Namen.</value>
   <data name="Play_DirectDeleteWarningRemoteFormat" xml:space="preserve">
     <value>{0} löschen? Charakter und Fortschritt verschwinden vom Server. Das Profil liegt auf einem anderen PC, daher kann SSPTMM vorher keine Kopie anlegen.</value>
   </data>
+  <data name="Installed_UpdateAllToolTip" xml:space="preserve">
+    <value>Aktualisiert jede Mod, für die ein Update bereitsteht. Rechtsklick oder der Pfeil daneben, um auszuwählen, welche.</value>
+  </data>
+  <data name="Installed_UpdateListToolTip" xml:space="preserve">
+    <value>Auswählen, welche Mods aktualisiert werden</value>
+  </data>
+  <data name="Installed_UpdateListHeader" xml:space="preserve">
+    <value>Bereitstehende Updates</value>
+  </data>
+  <data name="Installed_UpdateListOpenDownloads" xml:space="preserve">
+    <value>Downloads öffnen</value>
+  </data>
+  <data name="Installed_UpdateListVersionsFormat" xml:space="preserve">
+    <value>{0} → {1}</value>
+  </data>
+  <data name="Installed_UpdateListUpdateFormat" xml:space="preserve">
+    <value>Auf {0} aktualisieren</value>
+  </data>
+  <data name="Installed_UpdateListWaiting" xml:space="preserve">
+    <value>Wartet</value>
+  </data>
+  <data name="Installed_UpdateListPercentFormat" xml:space="preserve">
+    <value>{0} %</value>
+  </data>
+  <data name="Installed_UpdateListInstalling" xml:space="preserve">
+    <value>Wird installiert</value>
+  </data>
+  <data name="Installed_UpdateListFailed" xml:space="preserve">
+    <value>Fehlgeschlagen</value>
+  </data>
+  <data name="Installed_UpdateListRetry" xml:space="preserve">
+    <value>Erneut versuchen – die Seite „Downloads“ zeigt, warum es fehlschlug</value>
+  </data>
+  <data name="Installed_UpdateListDone" xml:space="preserve">
+    <value>Aktualisiert</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalled" xml:space="preserve">
+    <value>von Hand installiert</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalledToolTip" xml:space="preserve">
+    <value>Nicht über SSPTMM installiert: Die neue Version kommt über die Dateien der alten, und du wirst vorher gefragt.</value>
+  </data>
+  <data name="Installed_UpdateListSwitchedOff" xml:space="preserve">
+    <value>ausgeschaltet</value>
+  </data>
+  <data name="Installed_UpdateListSkip" xml:space="preserve">
+    <value>Überspringen</value>
+  </data>
+  <data name="Installed_UpdateListSkipToolTip" xml:space="preserve">
+    <value>Dieses Update überspringen: Die Mod wird nicht mehr als veraltet angezeigt, bis eine neuere Version erscheint. „Nicht mehr überspringen“ im Rechtsklickmenü nimmt das zurück.</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledMixedNote" xml:space="preserve">
+    <value>„Nur die anderen“ lässt die oben genannten Mods, wie sie sind, und aktualisiert den Rest.</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledUpdate" xml:space="preserve">
+    <value>Alle aktualisieren</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeaveOut" xml:space="preserve">
+    <value>Nur die anderen</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeftOutFormat" xml:space="preserve">
+    <value>Wie gewünscht nicht aktualisiert: {0}.</value>
+  </data>
 </root>

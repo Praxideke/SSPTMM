@@ -9776,4 +9776,67 @@
   <data name="Play_DirectDeleteWarningRemoteFormat" xml:space="preserve">
     <value>Удалить {0}? Персонаж и прогресс пропадут с сервера. Профиль на другом ПК, поэтому SSPTMM не может заранее сохранить копию.</value>
   </data>
+  <data name="Installed_UpdateAllToolTip" xml:space="preserve">
+    <value>Обновляет каждый мод, для которого есть обновление. Правый клик или стрелка рядом — чтобы выбрать, какие.</value>
+  </data>
+  <data name="Installed_UpdateListToolTip" xml:space="preserve">
+    <value>Выбрать, какие моды обновить</value>
+  </data>
+  <data name="Installed_UpdateListHeader" xml:space="preserve">
+    <value>Ожидающие обновления</value>
+  </data>
+  <data name="Installed_UpdateListOpenDownloads" xml:space="preserve">
+    <value>Открыть загрузки</value>
+  </data>
+  <data name="Installed_UpdateListVersionsFormat" xml:space="preserve">
+    <value>{0} → {1}</value>
+  </data>
+  <data name="Installed_UpdateListUpdateFormat" xml:space="preserve">
+    <value>Обновить до {0}</value>
+  </data>
+  <data name="Installed_UpdateListWaiting" xml:space="preserve">
+    <value>Ожидает</value>
+  </data>
+  <data name="Installed_UpdateListPercentFormat" xml:space="preserve">
+    <value>{0}%</value>
+  </data>
+  <data name="Installed_UpdateListInstalling" xml:space="preserve">
+    <value>Установка</value>
+  </data>
+  <data name="Installed_UpdateListFailed" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Installed_UpdateListRetry" xml:space="preserve">
+    <value>Повторить — на странице «Загрузки» сказано, почему не вышло</value>
+  </data>
+  <data name="Installed_UpdateListDone" xml:space="preserve">
+    <value>Обновлено</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalled" xml:space="preserve">
+    <value>установлен вручную</value>
+  </data>
+  <data name="Installed_UpdateListHandInstalledToolTip" xml:space="preserve">
+    <value>Установлен не через SSPTMM: новая версия ляжет поверх файлов старой, и сначала вас спросят.</value>
+  </data>
+  <data name="Installed_UpdateListSwitchedOff" xml:space="preserve">
+    <value>выключен</value>
+  </data>
+  <data name="Installed_UpdateListSkip" xml:space="preserve">
+    <value>Пропустить</value>
+  </data>
+  <data name="Installed_UpdateListSkipToolTip" xml:space="preserve">
+    <value>Пропустить это обновление: мод перестанет считаться устаревшим, пока не выйдет более новая версия. «Не пропускать» в его меню правого клика отменяет это.</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledMixedNote" xml:space="preserve">
+    <value>«Только остальные» оставит названные выше моды как есть и обновит остальные.</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledUpdate" xml:space="preserve">
+    <value>Обновить все</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeaveOut" xml:space="preserve">
+    <value>Только остальные</value>
+  </data>
+  <data name="Installed_UpdateHandInstalledLeftOutFormat" xml:space="preserve">
+    <value>Не обновлены, как вы просили: {0}.</value>
+  </data>
 </root>
