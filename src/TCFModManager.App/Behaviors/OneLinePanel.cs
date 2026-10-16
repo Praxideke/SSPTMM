@@ -19,15 +19,9 @@ public sealed class OneLinePanel : Panel
     private const double CounterPadding = 6;
     private const double CounterFontSize = 11;
 
-    private static readonly Brush CounterFill = Frozen(Color.FromArgb(0x33, 0x67, 0xC1, 0xF5));
-    private static readonly Brush CounterText = Frozen(Color.FromRgb(0x67, 0xC1, 0xF5));
-
-    private static Brush Frozen(Color color)
-    {
-        var brush = new SolidColorBrush(color);
-        brush.Freeze();
-        return brush;
-    }
+    // The link blue, in the accent chosen in Options > Look.
+    private static Brush CounterFill => Look.AppLook.BrushFor(0x3367C1F5);
+    private static Brush CounterText => Look.AppLook.BrushFor(0xFF67C1F5);
 
     // How many children the last arrange left out, and where their count is drawn.
     private int _hidden;

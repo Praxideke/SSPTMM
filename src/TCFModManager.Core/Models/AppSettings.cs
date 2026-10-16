@@ -309,6 +309,19 @@ public sealed class AppSettings
 
     public double BackgroundDarkness { get; set; } = 0.55;
 
+    // Fork (1.4.2): the picture blurred by this many pixels, 0 to 20 (Options > Look).
+    public double BackgroundBlur { get; set; }
+
+    // Fork (1.4.2): Options > Look. The accent as #RRGGBB; null for Steam blue.
+    public string? AccentColor { get; set; }
+
+    // Fork (1.4.2): OLED black - the pages black and their surfaces darker, in place of Steam's navy.
+    public bool OledBlack { get; set; }
+
+    // Fork (1.4.2): how much room the cards and rows on Subscribed items take.
+    [JsonConverter(typeof(JsonStringEnumConverter<CardSize>))]
+    public CardSize CardSize { get; set; } = CardSize.Normal;
+
     //
     // Where the main window opens and how big. Always present, the same as ServerMap below, and
     // never null for the same reason: this file is offered for hand-editing, so a "Window": null

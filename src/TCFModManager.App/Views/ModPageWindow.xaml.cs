@@ -25,7 +25,7 @@ public partial class ModPageWindow : FluentWindow
         _index = start;
         InitializeComponent();
 
-        Browser.DefaultBackgroundColor = System.Drawing.Color.FromArgb(0x1B, 0x28, 0x38);
+        Browser.DefaultBackgroundColor = Look.AppLook.DrawingColorFor(0xFF1B2838);
 
         // Until the web view has started there is no page to step from: the steps appear with
         // the first one (ShowPage), and the way out is Close.

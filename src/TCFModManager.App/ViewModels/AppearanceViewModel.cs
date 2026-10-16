@@ -34,6 +34,13 @@ public sealed partial class AppearanceViewModel : ObservableObject
     [ObservableProperty]
     private double _backgroundDarkness = 0.55;
 
+    // Fork (1.4.2): how far the picture is blurred, in pixels; 0 leaves it sharp.
+    [ObservableProperty]
+    private double _backgroundBlur;
+
+    // HUNCH: past 20px a picture is a wash of colour, which the darkness slider already gives.
+    public const double MaximumBlur = 20;
+
     private string? _loadedPath;
 
     /// <summary>The folder the chosen picture is copied into.</summary>
@@ -47,6 +54,7 @@ public sealed partial class AppearanceViewModel : ObservableObject
         ShowCollectionsTab = settings.ShowCollectionsTab;
         HomePage = settings.HomePage;
         BackgroundDarkness = Math.Clamp(settings.BackgroundDarkness, 0, 0.9);
+        BackgroundBlur = Math.Clamp(settings.BackgroundBlur, 0, MaximumBlur);
 
         if (settings.BackgroundImage != _loadedPath)
         {

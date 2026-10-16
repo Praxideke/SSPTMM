@@ -8690,4 +8690,67 @@
   <data name="Help_Start_Keys_Keywords" xml:space="preserve">
     <value>键盘 快捷键 热键 ctrl f5 搜索 刷新 粘贴 链接 缩放 大小 比例</value>
   </data>
+  <data name="Options_AccentHeader" xml:space="preserve">
+    <value>强调色</value>
+  </data>
+  <data name="Options_AccentSummary" xml:space="preserve">
+    <value>按钮、标签页和链接的蓝色，换成你自己的颜色</value>
+  </data>
+  <data name="Options_AccentDescription" xml:space="preserve">
+    <value>Steam 的所有蓝色都随它变化，较浅和较深的色调也一样。若这里没有想要的颜色，可输入六位十六进制数，例如 #5BA32B。Steam 蓝为 #1A9FFF。</value>
+  </data>
+  <data name="Options_AccentSteamBlue" xml:space="preserve">
+    <value>Steam 蓝</value>
+  </data>
+  <data name="Options_AccentGreen" xml:space="preserve">
+    <value>绿色</value>
+  </data>
+  <data name="Options_AccentOrange" xml:space="preserve">
+    <value>橙色</value>
+  </data>
+  <data name="Options_AccentPurple" xml:space="preserve">
+    <value>紫色</value>
+  </data>
+  <data name="Options_AccentRed" xml:space="preserve">
+    <value>红色</value>
+  </data>
+  <data name="Options_AccentPink" xml:space="preserve">
+    <value>粉色</value>
+  </data>
+  <data name="Options_AccentCustom" xml:space="preserve">
+    <value>强调色（十六进制）</value>
+  </data>
+  <data name="Options_AccentInvalid" xml:space="preserve">
+    <value>六位十六进制数，例如 #5BA32B</value>
+  </data>
+  <data name="Options_OledHeader" xml:space="preserve">
+    <value>OLED 纯黑</value>
+  </data>
+  <data name="Options_OledSummary" xml:space="preserve">
+    <value>页面改为黑色，而非 Steam 的深蓝</value>
+  </data>
+  <data name="Options_OledDescription" xml:space="preserve">
+    <value>页面背景变为纯黑。卡片、栏和对话框保留一点亮度，仍能从页面中区分出来。图片和强调色不变。</value>
+  </data>
+  <data name="Options_CardSizeHeader" xml:space="preserve">
+    <value>卡片大小</value>
+  </data>
+  <data name="Options_CardSizeSummary" xml:space="preserve">
+    <value>“已订阅的物品”中卡片的大小，以及一行能放几张</value>
+  </data>
+  <data name="Options_CardSizeDescription" xml:space="preserve">
+    <value>紧凑：每行更多卡片，图片更小；宽松：更少、更大。标准是一直以来的大小。下次打开“已订阅的物品”时生效。</value>
+  </data>
+  <data name="Options_CardSizeCompact" xml:space="preserve">
+    <value>紧凑</value>
+  </data>
+  <data name="Options_CardSizeNormal" xml:space="preserve">
+    <value>标准</value>
+  </data>
+  <data name="Options_CardSizeRoomy" xml:space="preserve">
+    <value>宽松</value>
+  </data>
+  <data name="Options_BackgroundBlur" xml:space="preserve">
+    <value>模糊</value>
+  </data>
 </root>

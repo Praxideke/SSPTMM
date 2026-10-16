@@ -1,6 +1,7 @@
 <Page
     x:Class="TCFModManager.App.Views.OptionsPage"
     Loaded="Page_Loaded"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -40,10 +41,10 @@
         <converters:NullToVisibilityConverter x:Key="NullToCollapsed" />
         <converters:InverseBooleanConverter x:Key="Inverse" />
 
-        <SolidColorBrush x:Key="OptionsNavFill" Color="#171D25" />
-        <SolidColorBrush x:Key="OptionsRowFill" Color="#1C2028" />
-        <SolidColorBrush x:Key="OptionsRowLine" Color="#2C313B" />
-        <SolidColorBrush x:Key="OptionsBodyFill" Color="#171A20" />
+        <SolidColorBrush x:Key="OptionsNavFill" Color="{look:Color #171D25}" />
+        <SolidColorBrush x:Key="OptionsRowFill" Color="{look:Color #1C2028}" />
+        <SolidColorBrush x:Key="OptionsRowLine" Color="{look:Color #2C313B}" />
+        <SolidColorBrush x:Key="OptionsBodyFill" Color="{look:Color #171A20}" />
 
         <!-- On a bar of its own colour, joined to its rows: over a background picture of the
              user's own (Options > Tabs and background) a heading on nothing could not be read. -->
@@ -120,7 +121,7 @@
         <Style x:Key="SettingExpander" TargetType="ui:CardExpander" BasedOn="{StaticResource {x:Type ui:CardExpander}}">
             <Style.Resources>
                 <!-- What the expander's template fills its opened part with. -->
-                <SolidColorBrush x:Key="CardBackground" Color="#171A20" />
+                <SolidColorBrush x:Key="CardBackground" Color="{look:Color #171A20}" />
             </Style.Resources>
             <Setter Property="Margin" Value="0,0,0,1" />
             <Setter Property="Padding" Value="18,14,14,14" />
@@ -568,9 +569,18 @@
                                                     Margin="0,8,0,0"
                                                     Text="{Binding BackgroundFileName, StringFormat={loc:Str Options_BackgroundCurrentFormat}}"
                                                     Visibility="{Binding BackgroundFileName, Converter={StaticResource NullToCollapsed}}" />
-                                                <StackPanel Margin="0,8,0,0" Orientation="Horizontal" Visibility="{Binding HasBackgroundImage, Converter={StaticResource BoolToVisibility}}">
+                                                <Grid Margin="0,8,0,0" Visibility="{Binding HasBackgroundImage, Converter={StaticResource BoolToVisibility}}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
                                                     <TextBlock VerticalAlignment="Center" Text="{loc:Str Options_BackgroundDarkness}" />
                                                     <Slider
+                                                        Grid.Column="1"
                                                         Width="220"
                                                         Margin="10,0,0,0"
                                                         VerticalAlignment="Center"
@@ -578,8 +588,23 @@
                                                         Minimum="0"
                                                         SmallChange="0.05"
                                                         LargeChange="0.1"
+                                                        AutomationProperties.Name="{loc:Str Options_BackgroundDarkness}"
                                                         Value="{Binding BackgroundDarkness, Delay=250}" />
-                                                </StackPanel>
+                                                    <!-- Fork (1.4.2): the picture out of focus, as far as AppearanceViewModel.MaximumBlur. -->
+                                                    <TextBlock Grid.Row="1" Margin="0,8,0,0" VerticalAlignment="Center" Text="{loc:Str Options_BackgroundBlur}" />
+                                                    <Slider
+                                                        Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        Width="220"
+                                                        Margin="10,8,0,0"
+                                                        VerticalAlignment="Center"
+                                                        Maximum="{Binding MaximumBlur}"
+                                                        Minimum="0"
+                                                        SmallChange="1"
+                                                        LargeChange="4"
+                                                        AutomationProperties.Name="{loc:Str Options_BackgroundBlur}"
+                                                        Value="{Binding BackgroundBlur, Delay=250}" />
+                                                </Grid>
                                                 <TextBlock
                                                     Margin="0,8,0,0"
                                                     TextWrapping="Wrap"
@@ -590,6 +615,104 @@
                                         </Border>
                                     </StackPanel>
                                 </ui:CardExpander>
+
+                                <!-- Fork (1.4.2): the colour every one of Steam's blues follows (Look/AppLook). -->
+                                <ui:CardControl
+                                    Style="{StaticResource SettingRow}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource SettingTitle}" Text="{loc:Str Options_AccentHeader}" />
+                                            <TextBlock Style="{StaticResource SettingHint}"><Run Text="{loc:Str Options_AccentSummary}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Options_AccentDescription}" /></InlineUIContainer></TextBlock>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding AccentSwatches}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Button
+                                                            Width="28"
+                                                            Height="28"
+                                                            Margin="0,0,4,0"
+                                                            AutomationProperties.Name="{Binding Label}"
+                                                            Command="{Binding DataContext.PickAccentCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                                            CommandParameter="{Binding}"
+                                                            Cursor="Hand"
+                                                            ToolTip="{Binding Label}">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border
+                                                                        x:Name="Ring"
+                                                                        Padding="2"
+                                                                        Background="Transparent"
+                                                                        BorderBrush="Transparent"
+                                                                        BorderThickness="2"
+                                                                        CornerRadius="14">
+                                                                        <Ellipse Fill="{Binding Fill}" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter TargetName="Ring" Property="BorderBrush" Value="#80FFFFFF" />
+                                                                        </Trigger>
+                                                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                                            <Setter TargetName="Ring" Property="BorderBrush" Value="#FFFFFF" />
+                                                                        </DataTrigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <ui:TextBox
+                                                MinWidth="110"
+                                                Margin="6,0,0,0"
+                                                VerticalAlignment="Center"
+                                                AutomationProperties.Name="{loc:Str Options_AccentCustom}"
+                                                ClearButtonEnabled="False"
+                                                ToolTip="{loc:Str Options_AccentCustom}"
+                                                Text="{Binding AccentInput, UpdateSourceTrigger=PropertyChanged, Delay=400}" />
+                                        </StackPanel>
+                                        <TextBlock
+                                            Margin="0,6,0,0"
+                                            HorizontalAlignment="Right"
+                                            Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                            Text="{loc:Str Options_AccentInvalid}"
+                                            Visibility="{Binding AccentInputInvalid, Converter={StaticResource BoolToVisibility}}" />
+                                    </StackPanel>
+                                </ui:CardControl>
+
+                                <!-- Fork (1.4.2): the pages black in place of Steam's navy (Look/AppLook). -->
+                                <ui:CardControl
+                                    Style="{StaticResource SettingRow}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource SettingTitle}" Text="{loc:Str Options_OledHeader}" />
+                                            <TextBlock Style="{StaticResource SettingHint}"><Run Text="{loc:Str Options_OledSummary}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Options_OledDescription}" /></InlineUIContainer></TextBlock>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <ui:ToggleSwitch Style="{StaticResource RowSwitch}" IsChecked="{Binding OledBlack}" />
+                                </ui:CardControl>
+
+                                <!-- Fork (1.4.2): Subscribed items' cards smaller or larger (Look/CardSizes). -->
+                                <ui:CardControl
+                                    Style="{StaticResource SettingRow}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource SettingTitle}" Text="{loc:Str Options_CardSizeHeader}" />
+                                            <TextBlock Style="{StaticResource SettingHint}"><Run Text="{loc:Str Options_CardSizeSummary}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Options_CardSizeDescription}" /></InlineUIContainer></TextBlock>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <ComboBox
+                                        MinWidth="200"
+                                        ItemsSource="{Binding CardSizeOptions}"
+                                        SelectedItem="{Binding SelectedCardSize}" />
+                                </ui:CardControl>
 
                                 <!-- Fork (round 47): each subscribed mod's own picture, blurred, behind its card. -->
                                 <ui:CardControl

@@ -9119,4 +9119,67 @@ Mit Nein behält diese Gruppe ihren alten Namen.</value>
   <data name="Help_Start_Keys_Keywords" xml:space="preserve">
     <value>tastenkürzel tastatur shortcuts strg f5 suche aktualisieren einfügen link zoom größe skalierung</value>
   </data>
+  <data name="Options_AccentHeader" xml:space="preserve">
+    <value>Akzentfarbe</value>
+  </data>
+  <data name="Options_AccentSummary" xml:space="preserve">
+    <value>Das Blau von Schaltflächen, Tabs und Links in einer eigenen Farbe</value>
+  </data>
+  <data name="Options_AccentDescription" xml:space="preserve">
+    <value>Alle Blautöne von Steam folgen ihr, auch die helleren und dunkleren. Für eine Farbe, die hier fehlt, sechs Hex-Ziffern eingeben, etwa #5BA32B. Steam-Blau ist #1A9FFF.</value>
+  </data>
+  <data name="Options_AccentSteamBlue" xml:space="preserve">
+    <value>Steam-Blau</value>
+  </data>
+  <data name="Options_AccentGreen" xml:space="preserve">
+    <value>Grün</value>
+  </data>
+  <data name="Options_AccentOrange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+  <data name="Options_AccentPurple" xml:space="preserve">
+    <value>Lila</value>
+  </data>
+  <data name="Options_AccentRed" xml:space="preserve">
+    <value>Rot</value>
+  </data>
+  <data name="Options_AccentPink" xml:space="preserve">
+    <value>Pink</value>
+  </data>
+  <data name="Options_AccentCustom" xml:space="preserve">
+    <value>Akzentfarbe als Hex</value>
+  </data>
+  <data name="Options_AccentInvalid" xml:space="preserve">
+    <value>Sechs Hex-Ziffern, etwa #5BA32B</value>
+  </data>
+  <data name="Options_OledHeader" xml:space="preserve">
+    <value>OLED-Schwarz</value>
+  </data>
+  <data name="Options_OledSummary" xml:space="preserve">
+    <value>Seiten schwarz statt im Marineblau von Steam</value>
+  </data>
+  <data name="Options_OledDescription" xml:space="preserve">
+    <value>Die Seitenhintergründe werden ganz schwarz. Karten, Leisten und Dialoge behalten etwas Helligkeit, damit sie sich weiter von der Seite abheben. Bilder und die Akzentfarbe bleiben unverändert.</value>
+  </data>
+  <data name="Options_CardSizeHeader" xml:space="preserve">
+    <value>Kartengröße</value>
+  </data>
+  <data name="Options_CardSizeSummary" xml:space="preserve">
+    <value>Wie groß die Karten unter Abonnierte Inhalte sind und wie viele nebeneinander passen</value>
+  </data>
+  <data name="Options_CardSizeDescription" xml:space="preserve">
+    <value>Kompakt passt mehr Karten in eine Reihe, mit kleineren Bildern; Geräumig weniger und größere. Normal ist die Größe, die sie immer hatten. Wird beim nächsten Öffnen von Abonnierte Inhalte übernommen.</value>
+  </data>
+  <data name="Options_CardSizeCompact" xml:space="preserve">
+    <value>Kompakt</value>
+  </data>
+  <data name="Options_CardSizeNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Options_CardSizeRoomy" xml:space="preserve">
+    <value>Geräumig</value>
+  </data>
+  <data name="Options_BackgroundBlur" xml:space="preserve">
+    <value>Unschärfe</value>
+  </data>
 </root>

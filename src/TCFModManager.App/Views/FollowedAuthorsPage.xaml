@@ -7,6 +7,7 @@
 -->
 <Page
     x:Class="TCFModManager.App.Views.FollowedAuthorsPage"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -49,7 +50,7 @@
         <ItemsControl Focusable="False" Margin="0,8,0,0" ItemsSource="{Binding Authors}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border x:Name="Row" Margin="0,0,0,2" Padding="10" Background="#335485B7">
+                    <Border x:Name="Row" Margin="0,0,0,2" Padding="10" Background="{look:Brush #335485B7}">
                         <DockPanel>
                             <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
                                 <Button Margin="0,0,10,0" Style="{StaticResource SteamGeneralButton}" Command="{Binding OpenItemsCommand}">
@@ -78,7 +79,7 @@
                     </Border>
                     <DataTemplate.Triggers>
                         <Trigger SourceName="Row" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Row" Property="Background" Value="#4D75BAFF" />
+                            <Setter TargetName="Row" Property="Background" Value="{look:Brush #4D75BAFF}" />
                         </Trigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>

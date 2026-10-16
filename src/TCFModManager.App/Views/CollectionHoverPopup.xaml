@@ -7,6 +7,7 @@
 -->
 <UserControl
     x:Class="TCFModManager.App.Views.CollectionHoverPopup"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:TCFModManager.App.Converters"
@@ -39,8 +40,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Width="50" Height="50" Margin="0,0,4,4">
-                        <Border Background="#262B34" Visibility="{Binding IsMore, Converter={StaticResource FalseToVisible}}">
-                            <Border Background="#070707" Visibility="{Binding Picture, Converter={StaticResource NullToCollapsed}}">
+                        <Border Background="{look:Brush #262B34}" Visibility="{Binding IsMore, Converter={StaticResource FalseToVisible}}">
+                            <Border Background="{look:Brush #070707}" Visibility="{Binding Picture, Converter={StaticResource NullToCollapsed}}">
                                 <Image Stretch="Uniform" behaviors:ThumbnailLoader.DecodeWidth="50" behaviors:ThumbnailLoader.Source="{Binding Picture}" />
                             </Border>
                         </Border>

@@ -14,6 +14,7 @@
 <Page
     x:Class="TCFModManager.App.Views.InstalledPage"
     PreviewKeyDown="Page_PreviewKeyDown"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -61,13 +62,13 @@
                             Padding="6,1"
                             CornerRadius="2"
                             ToolTip="{loc:Str Installed_ListChipToolTip}"
-                            Background="#3367C1F5">
+                            Background="{look:Brush #3367C1F5}">
                             <TextBlock
                                 Text="{Binding}"
                                 FontSize="11"
                                 TextTrimming="CharacterEllipsis"
                                 MaxWidth="140"
-                                Foreground="#67C1F5" />
+                                Foreground="{look:Brush #67C1F5}" />
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -511,7 +512,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="Track" Width="34" Height="18" CornerRadius="9" Background="#1A9FFF">
+                        <Border x:Name="Track" Width="34" Height="18" CornerRadius="9" Background="{look:Brush #1A9FFF}">
                             <Ellipse x:Name="Knob" Width="12" Height="12" Margin="3,0" HorizontalAlignment="Right" Fill="White" />
                         </Border>
                         <ControlTemplate.Triggers>
@@ -525,7 +526,7 @@
                                     <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
                                     <Condition Binding="{Binding IsDisabled}" Value="False" />
                                 </MultiDataTrigger.Conditions>
-                                <Setter TargetName="Track" Property="Background" Value="#47B2FF" />
+                                <Setter TargetName="Track" Property="Background" Value="{look:Brush #47B2FF}" />
                             </MultiDataTrigger>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
@@ -617,7 +618,7 @@
             <Grid>
                 <behaviors:CardShadow x:Name="Shadow" />
 
-                <Border x:Name="Panel" Background="#273B52" CornerRadius="4" />
+                <Border x:Name="Panel" Background="{look:Brush #273B52}" CornerRadius="4" />
                 <Border CornerRadius="4">
                     <Border.Style>
                         <Style TargetType="Border">
@@ -631,7 +632,7 @@
                     </Border.Style>
                 </Border>
 
-                <Border x:Name="HoverTint" Background="#33BED1E4" CornerRadius="4" Visibility="Hidden" />
+                <Border x:Name="HoverTint" Background="{look:Brush #33BED1E4}" CornerRadius="4" Visibility="Hidden" />
                 <Border
                     x:Name="PickedEdge"
                     Background="{StaticResource RowSelectedBrush}"
@@ -644,7 +645,7 @@
                 <!-- A disabled mod: the panel at 45%, in its colour, and no shadow (see
                      SubscribedTitle for why not an opacity). -->
                 <DataTrigger Binding="{Binding IsDisabled}" Value="True">
-                    <Setter TargetName="Panel" Property="Background" Value="#73273B52" />
+                    <Setter TargetName="Panel" Property="Background" Value="{look:Brush #73273B52}" />
                     <Setter TargetName="Shadow" Property="Visibility" Value="Collapsed" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="True">
@@ -669,7 +670,7 @@
             </Style.Resources>
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="Padding" Value="12,12,12,12" />
+            <Setter Property="Padding" Value="{DynamicResource SubscribedCardPadding}" />
             <Style.Triggers>
                 <!-- Its arrow, on a disabled mod's card. -->
                 <DataTrigger Binding="{Binding IsDisabled}" Value="True">
@@ -754,7 +755,7 @@
                  other picked thing in the app does (SubscribedBackdrop), so what a bulk
                  enable, disable or remove is about to act on is readable from across the
                  grid rather than from a checkbox at the corner of each card. -->
-            <Grid x:Name="CardRoot" Margin="0,0,10,10" VerticalAlignment="Top">
+            <Grid x:Name="CardRoot" Margin="{DynamicResource SubscribedCardMargin}" VerticalAlignment="Top">
             <ContentControl
                 Focusable="False"
                 IsHitTestVisible="False"
@@ -831,8 +832,8 @@
                             <DockPanel>
                             <Grid
                                 DockPanel.Dock="Left"
-                                Width="56"
-                                Height="56"
+                                Width="{DynamicResource SubscribedThumbSize}"
+                                Height="{DynamicResource SubscribedThumbSize}"
                                 Margin="0,0,10,0"
                                 Background="{StaticResource SteamPreviewBackground}"
                                 ClipToBounds="True"
@@ -938,7 +939,7 @@
         <DataTemplate x:Key="ModListRowTemplate" DataType="{x:Type viewmodels:InstalledModCardViewModel}">
             <!-- The same backdrop as the cards: in Multi select a ticked row carries the
                  accent edge, and a click on it ticks it. -->
-            <Grid x:Name="RowRoot" Margin="0,0,10,10">
+            <Grid x:Name="RowRoot" Margin="{DynamicResource SubscribedCardMargin}">
             <ContentControl
                 Focusable="False"
                 IsHitTestVisible="False"
@@ -984,8 +985,8 @@
                         <DockPanel Grid.Column="2" VerticalAlignment="Center">
                             <Grid
                                 DockPanel.Dock="Left"
-                                Width="56"
-                                Height="56"
+                                Width="{DynamicResource SubscribedThumbSize}"
+                                Height="{DynamicResource SubscribedThumbSize}"
                                 Margin="0,0,10,0"
                                 Background="{StaticResource SteamPreviewBackground}"
                                 ClipToBounds="True"
@@ -1553,7 +1554,7 @@
                         <ui:Card
                             Margin="0,0,6,8"
                             Padding="10"
-                            Background="#1B1D21"
+                            Background="{look:Brush #1B1D21}"
                             BorderBrush="Transparent"
                             AllowDrop="True"
                             DragOver="Section_DragOver"
@@ -1952,7 +1953,7 @@
             Grid.Row="6"
             Margin="-24,10,-24,-16"
             Padding="24,10"
-            Background="#23262E"
+            Background="{look:Brush #23262E}"
             BorderBrush="{StaticResource SteamBlue}"
             BorderThickness="0,1,0,0"
             Visibility="{Binding HasAnySelection, Converter={StaticResource BoolToVis}}">

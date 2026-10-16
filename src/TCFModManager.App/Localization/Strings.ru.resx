@@ -9539,4 +9539,67 @@
   <data name="Help_Start_Keys_Keywords" xml:space="preserve">
     <value>сочетания клавиш горячие клавиши ctrl f5 поиск обновить вставить ссылка масштаб размер</value>
   </data>
+  <data name="Options_AccentHeader" xml:space="preserve">
+    <value>Цвет акцента</value>
+  </data>
+  <data name="Options_AccentSummary" xml:space="preserve">
+    <value>Синий цвет кнопок, вкладок и ссылок — в своём цвете</value>
+  </data>
+  <data name="Options_AccentDescription" xml:space="preserve">
+    <value>За ним следуют все синие Steam, в том числе более светлые и тёмные оттенки. Для цвета, которого здесь нет, введите шесть шестнадцатеричных цифр, например #5BA32B. Синий Steam — #1A9FFF.</value>
+  </data>
+  <data name="Options_AccentSteamBlue" xml:space="preserve">
+    <value>Синий Steam</value>
+  </data>
+  <data name="Options_AccentGreen" xml:space="preserve">
+    <value>Зелёный</value>
+  </data>
+  <data name="Options_AccentOrange" xml:space="preserve">
+    <value>Оранжевый</value>
+  </data>
+  <data name="Options_AccentPurple" xml:space="preserve">
+    <value>Фиолетовый</value>
+  </data>
+  <data name="Options_AccentRed" xml:space="preserve">
+    <value>Красный</value>
+  </data>
+  <data name="Options_AccentPink" xml:space="preserve">
+    <value>Розовый</value>
+  </data>
+  <data name="Options_AccentCustom" xml:space="preserve">
+    <value>Цвет акцента в шестнадцатеричном виде</value>
+  </data>
+  <data name="Options_AccentInvalid" xml:space="preserve">
+    <value>Шесть шестнадцатеричных цифр, например #5BA32B</value>
+  </data>
+  <data name="Options_OledHeader" xml:space="preserve">
+    <value>Чёрный для OLED</value>
+  </data>
+  <data name="Options_OledSummary" xml:space="preserve">
+    <value>Страницы чёрные вместо тёмно-синего Steam</value>
+  </data>
+  <data name="Options_OledDescription" xml:space="preserve">
+    <value>Фон страниц становится полностью чёрным. Карточки, панели и диалоги остаются чуть светлее, чтобы по-прежнему выделяться на странице. Картинки и цвет акцента не меняются.</value>
+  </data>
+  <data name="Options_CardSizeHeader" xml:space="preserve">
+    <value>Размер карточек</value>
+  </data>
+  <data name="Options_CardSizeSummary" xml:space="preserve">
+    <value>Насколько велики карточки в «Ваших подписках» и сколько их помещается в ряд</value>
+  </data>
+  <data name="Options_CardSizeDescription" xml:space="preserve">
+    <value>Компактные — больше карточек в ряду и меньше картинки; просторные — меньше и крупнее. Обычные — привычный размер. Применяется при следующем открытии «Ваших подписок».</value>
+  </data>
+  <data name="Options_CardSizeCompact" xml:space="preserve">
+    <value>Компактные</value>
+  </data>
+  <data name="Options_CardSizeNormal" xml:space="preserve">
+    <value>Обычные</value>
+  </data>
+  <data name="Options_CardSizeRoomy" xml:space="preserve">
+    <value>Просторные</value>
+  </data>
+  <data name="Options_BackgroundBlur" xml:space="preserve">
+    <value>Размытие</value>
+  </data>
 </root>

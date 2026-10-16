@@ -9119,4 +9119,67 @@ Non garde ce groupe sous son ancien nom.</value>
   <data name="Help_Start_Keys_Keywords" xml:space="preserve">
     <value>raccourcis clavier touches ctrl f5 recherche actualiser coller lien zoom taille échelle</value>
   </data>
+  <data name="Options_AccentHeader" xml:space="preserve">
+    <value>Couleur d'accent</value>
+  </data>
+  <data name="Options_AccentSummary" xml:space="preserve">
+    <value>Le bleu des boutons, onglets et liens, dans une couleur de votre choix</value>
+  </data>
+  <data name="Options_AccentDescription" xml:space="preserve">
+    <value>Tous les bleus de Steam la suivent, les teintes plus claires et plus foncées aussi. Saisissez six chiffres hexadécimaux pour une couleur absente d'ici, par exemple #5BA32B. Le bleu Steam est #1A9FFF.</value>
+  </data>
+  <data name="Options_AccentSteamBlue" xml:space="preserve">
+    <value>Bleu Steam</value>
+  </data>
+  <data name="Options_AccentGreen" xml:space="preserve">
+    <value>Vert</value>
+  </data>
+  <data name="Options_AccentOrange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+  <data name="Options_AccentPurple" xml:space="preserve">
+    <value>Violet</value>
+  </data>
+  <data name="Options_AccentRed" xml:space="preserve">
+    <value>Rouge</value>
+  </data>
+  <data name="Options_AccentPink" xml:space="preserve">
+    <value>Rose</value>
+  </data>
+  <data name="Options_AccentCustom" xml:space="preserve">
+    <value>Couleur d'accent en hexadécimal</value>
+  </data>
+  <data name="Options_AccentInvalid" xml:space="preserve">
+    <value>Six chiffres hexadécimaux, par exemple #5BA32B</value>
+  </data>
+  <data name="Options_OledHeader" xml:space="preserve">
+    <value>Noir OLED</value>
+  </data>
+  <data name="Options_OledSummary" xml:space="preserve">
+    <value>Les pages en noir au lieu du bleu marine de Steam</value>
+  </data>
+  <data name="Options_OledDescription" xml:space="preserve">
+    <value>Les fonds de page deviennent entièrement noirs. Les cartes, barres et boîtes de dialogue gardent un peu de leur clarté pour se détacher encore de la page. Les images et la couleur d'accent ne changent pas.</value>
+  </data>
+  <data name="Options_CardSizeHeader" xml:space="preserve">
+    <value>Taille des cartes</value>
+  </data>
+  <data name="Options_CardSizeSummary" xml:space="preserve">
+    <value>La taille des cartes dans « Articles faisant l'objet d'un abonnement », et combien tiennent sur une ligne</value>
+  </data>
+  <data name="Options_CardSizeDescription" xml:space="preserve">
+    <value>Compacte place plus de cartes par ligne, avec des images plus petites ; Spacieuse en place moins, et plus grandes. Normale est la taille qu'elles ont toujours eue. Pris en compte à la prochaine ouverture de cette page.</value>
+  </data>
+  <data name="Options_CardSizeCompact" xml:space="preserve">
+    <value>Compacte</value>
+  </data>
+  <data name="Options_CardSizeNormal" xml:space="preserve">
+    <value>Normale</value>
+  </data>
+  <data name="Options_CardSizeRoomy" xml:space="preserve">
+    <value>Spacieuse</value>
+  </data>
+  <data name="Options_BackgroundBlur" xml:space="preserve">
+    <value>Flou</value>
+  </data>
 </root>

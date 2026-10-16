@@ -32,10 +32,6 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     // DefaultPageSize().
     private const int DefaultPageSizeValue = 12;
 
-    // Below this a card can't show its summary line without truncating it to uselessness. Only
-    // reachable on a very narrow window, where Columns is already 1.
-    private const double MinimumCardWidth = 240;
-
     /// <summary>Raised after RemoveAsync actually removes a mod from disk. Lets BrowseViewModel refresh its
     /// cards' install/update status dots. Static since InstalledViewModel is a fresh instance per navigation.</summary>
     public static event EventHandler? ModRemoved;
@@ -359,7 +355,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     // Width of one card slot in the Cards WrapPanel - see UpdateLayoutForWidth for why the cards
     // are no longer in a UniformGrid.
     [ObservableProperty]
-    private double _cardWidth = MinimumCardWidth;
+    private double _cardWidth = Look.CardSizes.MinimumWidth;
 
     //
     // Whether cards and rows show which mod lists a mod belongs to. Persisted rather than reset per
@@ -926,13 +922,9 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         //
         if (availableWidth <= 0) return;
 
-        Columns = availableWidth switch
-        {
-            < 700 => 1,
-            < 1050 => 2,
-            < 1400 => 3,
-            _ => 4,
-        };
+        // Fork (1.4.2): how many fit follows Options > Look > Card size (Look.CardSizes). The page
+        // is made afresh each visit, so a size changed in Options is taken up on the way back here.
+        Columns = Look.CardSizes.ColumnsFor(availableWidth);
 
         //
         // The cards sit in a WrapPanel now rather than a UniformGrid, because a UniformGrid forces
@@ -944,7 +936,10 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         // the available width wraps a card onto the next row, so a four-column layout would
         // silently become three.
         //
-        CardWidth = Math.Max(MinimumCardWidth, Math.Floor((availableWidth - 1) / Columns));
+        // Below the size's minimum a card can't show its summary line without truncating it to
+        // uselessness. Only reachable on a very narrow window, where Columns is already 1.
+        //
+        CardWidth = Math.Max(Look.CardSizes.MinimumWidth, Math.Floor((availableWidth - 1) / Columns));
     }
 
     //

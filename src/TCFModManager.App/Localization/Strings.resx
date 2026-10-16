@@ -11366,4 +11366,67 @@ No keeps this group under its old name.</value>
     <value>keyboard shortcuts keys hotkeys ctrl f5 search refresh paste link zoom size scale</value>
     <comment>Search words for the topic, any order.</comment>
   </data>
+  <data name="Options_AccentHeader" xml:space="preserve">
+    <value>Accent colour</value>
+  </data>
+  <data name="Options_AccentSummary" xml:space="preserve">
+    <value>The blue of buttons, tabs and links, in a colour of your own</value>
+  </data>
+  <data name="Options_AccentDescription" xml:space="preserve">
+    <value>Every one of Steam's blues follows it, the lighter and darker shades too. Type six hex digits for a colour that isn't here, such as #5BA32B. Steam blue is #1A9FFF.</value>
+  </data>
+  <data name="Options_AccentSteamBlue" xml:space="preserve">
+    <value>Steam blue</value>
+  </data>
+  <data name="Options_AccentGreen" xml:space="preserve">
+    <value>Green</value>
+  </data>
+  <data name="Options_AccentOrange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+  <data name="Options_AccentPurple" xml:space="preserve">
+    <value>Purple</value>
+  </data>
+  <data name="Options_AccentRed" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="Options_AccentPink" xml:space="preserve">
+    <value>Pink</value>
+  </data>
+  <data name="Options_AccentCustom" xml:space="preserve">
+    <value>Accent colour as hex</value>
+  </data>
+  <data name="Options_AccentInvalid" xml:space="preserve">
+    <value>Six hex digits, such as #5BA32B</value>
+  </data>
+  <data name="Options_OledHeader" xml:space="preserve">
+    <value>OLED black</value>
+  </data>
+  <data name="Options_OledSummary" xml:space="preserve">
+    <value>Pages drawn black instead of Steam's navy</value>
+  </data>
+  <data name="Options_OledDescription" xml:space="preserve">
+    <value>The page backgrounds go fully black. Cards, bars and dialogs keep a little of their light, so they still stand off the page. Pictures and the accent colour are not changed.</value>
+  </data>
+  <data name="Options_CardSizeHeader" xml:space="preserve">
+    <value>Card size</value>
+  </data>
+  <data name="Options_CardSizeSummary" xml:space="preserve">
+    <value>How large the Subscribed items cards are, and how many fit across</value>
+  </data>
+  <data name="Options_CardSizeDescription" xml:space="preserve">
+    <value>Compact fits more cards to a row, with smaller pictures; Roomy fits fewer and larger. Normal is the size they have always been. Taken up the next time Subscribed items is opened.</value>
+  </data>
+  <data name="Options_CardSizeCompact" xml:space="preserve">
+    <value>Compact</value>
+  </data>
+  <data name="Options_CardSizeNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Options_CardSizeRoomy" xml:space="preserve">
+    <value>Roomy</value>
+  </data>
+  <data name="Options_BackgroundBlur" xml:space="preserve">
+    <value>Blur</value>
+  </data>
 </root>

@@ -659,6 +659,7 @@ public partial class OptionsViewModel : LocalizedViewModel
         RefreshInstallRole(settings);
 
         HookDirectLaunch(); // Fork
+        LoadLook(settings); // Fork (1.4.2): OptionsViewModel.Look.cs
         _loaded = true;
     }
 

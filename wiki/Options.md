@@ -24,7 +24,10 @@ The gear at the top right. Each setting has a one-line explanation and a **?** w
 
 | Setting | What it does |
 |---|---|
-| Tabs and background | Hide the Subscribed items or Collections tab (both stay under Workshop > Your Items), or put a picture of your own behind the window. |
+| Tabs and background | Hide the Subscribed items or Collections tab (both stay under Workshop > Your Items), or put a picture of your own behind the window, darkened and blurred as far as you like. |
+| Accent colour | Steam blue, one of five others, or any colour as six hex digits (#5BA32B). Every one of Steam's blues in the window follows it at once, lighter and darker shades too. |
+| OLED black | The pages black instead of Steam's navy; cards, bars and dialogs keep a little light so they stand off the page. Pictures and the accent are left as they are. |
+| Card size | Compact, Normal or Roomy cards and rows on Subscribed items: smaller pictures and more to a row, or larger and fewer. Takes hold the next time the page is opened. |
 | Picture behind each subscribed mod | On by default. On Subscribed items, each mod's own picture, out of focus, sits behind its card or row, as Steam draws its rows. Off: plain cards - worth trying if the page is slow to scroll. Takes hold the next time the page is opened. |
 | Scrolling | Smooth scrolling, as a web browser does, or jump at once. |
 | Animations | Workshop cards rising under the pointer and pages sliding in. Pages already open keep the old way until a restart. |

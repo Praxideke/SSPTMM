@@ -31,6 +31,10 @@ From 1.3.0 or later: Help > About > **Install update**. From an older version: c
 - **Notes on a mod.** Right-click > **Note...**: a line of your own (needs a config change, broke with another mod...), shown under the mod's name in every view and found by the search.
 - **The right-click menu acts on every picked mod.** With several mods picked (Ctrl+click, Shift+click, Ctrl+A), right-click offers Enable, Disable, Update and Unsubscribe for all of them, and Add to group.
 - **Free space checked before a big download.** When the queue would need more room than the SPT drive has - the downloads unpacked and installed, with some to spare - it is paused before anything starts, and says how much is needed and free; **Download anyway** goes on regardless.
+- **Accent colour**, Options > Look: Steam blue or green, orange, purple, red, pink, or any colour typed as six hex digits. Every blue in the window follows it at once - buttons, tabs, links, switches, the header's glow - in its lighter and darker shades too.
+- **OLED black**, Options > Look: the pages black instead of Steam's navy. Cards, bars and dialogs stay a little lighter so they still stand off the page.
+- **Card size**, Options > Look: Compact, Normal or Roomy cards and rows on Subscribed items - smaller pictures and more to a row, or larger and fewer.
+- **Blur the background picture**, Options > Look > Tabs and background: a Blur slider under Darken, for a picture of your own behind the window.
 - **Told when the downloads finish.** When the queue empties while SSPTMM is in the tray, a Windows notification says how many were done and how many failed; while it is minimised or behind other windows, its taskbar button flashes.
 
 - **All of SSPTMM in German, French, Italian and Russian**, not only Steam's terms: about a third of the app - Help, Options' explanations, most messages, everything new - showed in English in those languages, and none of it does now. Dates follow the language (day first, 24-hour clock) instead of English's "Oct 16, 2026 @ 2:34PM".

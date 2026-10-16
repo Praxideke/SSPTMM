@@ -9119,4 +9119,67 @@ No mantiene questo gruppo con il suo vecchio nome.</value>
   <data name="Help_Start_Keys_Keywords" xml:space="preserve">
     <value>scorciatoie tastiera tasti ctrl f5 cerca aggiorna incolla link zoom dimensione scala</value>
   </data>
+  <data name="Options_AccentHeader" xml:space="preserve">
+    <value>Colore di accento</value>
+  </data>
+  <data name="Options_AccentSummary" xml:space="preserve">
+    <value>Il blu di pulsanti, schede e link, in un colore a tua scelta</value>
+  </data>
+  <data name="Options_AccentDescription" xml:space="preserve">
+    <value>Tutti i blu di Steam lo seguono, anche le tonalità più chiare e più scure. Per un colore che qui non c'è, scrivi sei cifre esadecimali, ad esempio #5BA32B. Il blu di Steam è #1A9FFF.</value>
+  </data>
+  <data name="Options_AccentSteamBlue" xml:space="preserve">
+    <value>Blu Steam</value>
+  </data>
+  <data name="Options_AccentGreen" xml:space="preserve">
+    <value>Verde</value>
+  </data>
+  <data name="Options_AccentOrange" xml:space="preserve">
+    <value>Arancione</value>
+  </data>
+  <data name="Options_AccentPurple" xml:space="preserve">
+    <value>Viola</value>
+  </data>
+  <data name="Options_AccentRed" xml:space="preserve">
+    <value>Rosso</value>
+  </data>
+  <data name="Options_AccentPink" xml:space="preserve">
+    <value>Rosa</value>
+  </data>
+  <data name="Options_AccentCustom" xml:space="preserve">
+    <value>Colore di accento in esadecimale</value>
+  </data>
+  <data name="Options_AccentInvalid" xml:space="preserve">
+    <value>Sei cifre esadecimali, ad esempio #5BA32B</value>
+  </data>
+  <data name="Options_OledHeader" xml:space="preserve">
+    <value>Nero OLED</value>
+  </data>
+  <data name="Options_OledSummary" xml:space="preserve">
+    <value>Pagine nere invece del blu notte di Steam</value>
+  </data>
+  <data name="Options_OledDescription" xml:space="preserve">
+    <value>Gli sfondi delle pagine diventano completamente neri. Schede, barre e finestre di dialogo conservano un po' di luce, così si staccano ancora dalla pagina. Le immagini e il colore di accento non cambiano.</value>
+  </data>
+  <data name="Options_CardSizeHeader" xml:space="preserve">
+    <value>Dimensione delle schede</value>
+  </data>
+  <data name="Options_CardSizeSummary" xml:space="preserve">
+    <value>Quanto sono grandi le schede di Oggetti sottoscritti e quante ne stanno in una riga</value>
+  </data>
+  <data name="Options_CardSizeDescription" xml:space="preserve">
+    <value>Compatta mette più schede per riga, con immagini più piccole; Ampia ne mette meno e più grandi. Normale è la dimensione di sempre. Si applica alla prossima apertura di Oggetti sottoscritti.</value>
+  </data>
+  <data name="Options_CardSizeCompact" xml:space="preserve">
+    <value>Compatta</value>
+  </data>
+  <data name="Options_CardSizeNormal" xml:space="preserve">
+    <value>Normale</value>
+  </data>
+  <data name="Options_CardSizeRoomy" xml:space="preserve">
+    <value>Ampia</value>
+  </data>
+  <data name="Options_BackgroundBlur" xml:space="preserve">
+    <value>Sfocatura</value>
+  </data>
 </root>

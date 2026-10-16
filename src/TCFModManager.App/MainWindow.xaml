@@ -1,5 +1,6 @@
 <ui:FluentWindow
     x:Class="TCFModManager.App.MainWindow"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -60,17 +61,24 @@
         </Border>
 
         <!-- A picture of the user's own in place of the grid (Options > Tabs and background),
-             darkened by the amount chosen there so the text over it stays readable. -->
+             darkened by the amount chosen there so the text over it stays readable, and blurred
+             if asked. The picture reaches past the window by twice the most blur, so the edges a
+             blur fades out are never on screen. -->
         <Grid
             Grid.RowSpan="6"
+            ClipToBounds="True"
             DataContext="{x:Static app:AppServices.Appearance}"
             IsHitTestVisible="False"
             Visibility="{Binding HasBackgroundImage, Converter={StaticResource BoolToVis}}">
             <Grid.CacheMode>
                 <BitmapCache />
             </Grid.CacheMode>
-            <Rectangle Fill="#1B2838" />
-            <Image Source="{Binding BackgroundImage}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Rectangle Fill="{look:Brush #1B2838}" />
+            <Image Margin="-40" Source="{Binding BackgroundImage}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image.Effect>
+                    <BlurEffect KernelType="Gaussian" Radius="{Binding BackgroundBlur}" RenderingBias="Performance" />
+                </Image.Effect>
+            </Image>
             <Rectangle Fill="Black" Opacity="{Binding BackgroundDarkness}" />
         </Grid>
 

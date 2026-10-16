@@ -2988,4 +2988,25 @@ internal static class Strings
     internal static string Help_Start_Keys_Step2 => LocalizationService.Get("Help_Start_Keys_Step2");
     internal static string Help_Start_Keys_Step3 => LocalizationService.Get("Help_Start_Keys_Step3");
     internal static string Help_Start_Keys_Keywords => LocalizationService.Get("Help_Start_Keys_Keywords");
+    internal static string Options_AccentHeader => LocalizationService.Get("Options_AccentHeader");
+    internal static string Options_AccentSummary => LocalizationService.Get("Options_AccentSummary");
+    internal static string Options_AccentDescription => LocalizationService.Get("Options_AccentDescription");
+    internal static string Options_AccentSteamBlue => LocalizationService.Get("Options_AccentSteamBlue");
+    internal static string Options_AccentGreen => LocalizationService.Get("Options_AccentGreen");
+    internal static string Options_AccentOrange => LocalizationService.Get("Options_AccentOrange");
+    internal static string Options_AccentPurple => LocalizationService.Get("Options_AccentPurple");
+    internal static string Options_AccentRed => LocalizationService.Get("Options_AccentRed");
+    internal static string Options_AccentPink => LocalizationService.Get("Options_AccentPink");
+    internal static string Options_AccentCustom => LocalizationService.Get("Options_AccentCustom");
+    internal static string Options_AccentInvalid => LocalizationService.Get("Options_AccentInvalid");
+    internal static string Options_OledHeader => LocalizationService.Get("Options_OledHeader");
+    internal static string Options_OledSummary => LocalizationService.Get("Options_OledSummary");
+    internal static string Options_OledDescription => LocalizationService.Get("Options_OledDescription");
+    internal static string Options_CardSizeHeader => LocalizationService.Get("Options_CardSizeHeader");
+    internal static string Options_CardSizeSummary => LocalizationService.Get("Options_CardSizeSummary");
+    internal static string Options_CardSizeDescription => LocalizationService.Get("Options_CardSizeDescription");
+    internal static string Options_CardSizeCompact => LocalizationService.Get("Options_CardSizeCompact");
+    internal static string Options_CardSizeNormal => LocalizationService.Get("Options_CardSizeNormal");
+    internal static string Options_CardSizeRoomy => LocalizationService.Get("Options_CardSizeRoomy");
+    internal static string Options_BackgroundBlur => LocalizationService.Get("Options_BackgroundBlur");
 }

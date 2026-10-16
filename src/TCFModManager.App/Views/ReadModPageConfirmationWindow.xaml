@@ -1,5 +1,6 @@
 <Window
     x:Class="TCFModManager.App.Views.ReadModPageConfirmationWindow"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -7,7 +8,7 @@
     xmlns:behaviors="clr-namespace:TCFModManager.App.Behaviors"
     xmlns:converters="clr-namespace:TCFModManager.App.Converters"
     Width="560"
-    Background="#25282E"
+    Background="{look:Brush #25282E}"
     FontFamily="{StaticResource SteamFont}"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
@@ -48,8 +49,8 @@
         <Rectangle Grid.Row="0" Height="1">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Offset="0" Color="#00CCFF" />
-                    <GradientStop Offset="1" Color="#3366FF" />
+                    <GradientStop Offset="0" Color="{look:Color #00CCFF}" />
+                    <GradientStop Offset="1" Color="{look:Color #3366FF}" />
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>

@@ -2568,6 +2568,27 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   the expanded state go by folder name, so two mods in one folder share them. Neither the go-back
   dialog, the link drop nor the overlay keys were clicked through: posted clicks still reach no
   control on the hidden desktop.
+- **Accent colour and OLED black.** `LookColors` (Core) sorts a colour into the accent (hue
+  190-225, saturation 0.4 or more, lightness 0.12-0.92), a surface (every channel 0x45 or under,
+  or that hue tinted 0.2-0.4 and lightness 0.3 or under, as the cards' #273B52) or neither, and
+  draws it: an accent turned by the chosen colour's hue and saturation from Steam blue and moved
+  by its lightness, less towards white and black; a surface, with OLED black on, black if it is
+  one of the four page backgrounds and kept at 45% of its light otherwise. Every such literal in
+  the XAML was rewritten as `{look:Brush #..}` / `{look:Color #..}` (Look/LookExtensions): a
+  DynamicResource named after the colour, which `AppLook.Apply` sets in the application's
+  resources. A style's Setter gets the DynamicResourceExtension itself, and a template's first
+  call (made with no element) gets the markup extension back, to be asked again per element.
+  SteamTheme.xaml's own colours of those kinds are set under their names, its brushes read them
+  as DynamicResource, and WPF-UI's accent follows. Code-made brushes (OneLinePanel's counter,
+  the WebView2 backgrounds) ask `AppLook` for the colour. Seen on a hidden desktop: green with
+  OLED black (Subscribed items), orange with OLED black (Workshop home), purple (Subscribed
+  items), and purple picked on Options > Look changing the window at once. Not seen: the other
+  pages in these colours, the custom hex box typed into, a dialog or the mod page's WebView2.
+- **Card size.** `CardSizes`: thumbnails 40/56/72, gaps 6/10/14, padding 8/12/16 as resources
+  the Subscribed items templates read; columns from 320px (at most 5) for Compact, the old steps
+  for Normal, from 460px (at most 3) for Roomy. Seen: Compact at 1720px; Roomy not.
+- **Background blur.** A BlurEffect on the picture, 0-20px, the picture reaching 40px past the
+  window so the faded edge is never on screen. Seen at 14px on a hidden desktop.
 - **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
   build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
   the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if
@@ -2662,6 +2683,10 @@ From another mod manager (trappuss: "research it and see if there's anything cou
 - That cloud-sync folders (Dropbox, OneDrive, Google Drive) deliver the shared file promptly and
   whole. Only a plain local folder was tested here. A file caught mid-sync reads as damaged and
   is ignored until the next check, but that was not seen happen.
+- Options > Look (1.4.2): where a colour stops being the accent or a surface (the hue,
+  saturation and lightness lines in `LookColors.RoleOf`), the 45% of light a surface keeps under
+  OLED black, the three card sizes and their column widths, and the blur's 20px top - all set by
+  eye from the screenshots, not measured.
 - Critical/error red (`#E05A5A`): no error state on the pages measured.
 - Outlined "View All" hover fill.
 - Whether Steam's file sizes count in 1000s or 1024s ("22.946 KB" reads as 1000s).
