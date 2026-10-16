@@ -11540,4 +11540,67 @@ No keeps this group under its old name.</value>
   <data name="Options_LookLoadFailed" xml:space="preserve">
     <value>That is not a look file, or it is damaged.</value>
   </data>
+  <data name="Play_ServerToolTip" xml:space="preserve">
+    <value>The server the game plays on: this PC's own, or another PC's - a Fika host or a friend's SPT server. The servers added in SPT's launcher are listed too.</value>
+  </data>
+  <data name="Play_ServerThisPc" xml:space="preserve">
+    <value>This PC</value>
+  </data>
+  <data name="Play_ServerThisPcDetail" xml:space="preserve">
+    <value>The SPT server in this install - Play starts it when it isn't running</value>
+  </data>
+  <data name="Play_ServerFromLauncherFormat" xml:space="preserve">
+    <value>{0} - added in SPT's launcher</value>
+  </data>
+  <data name="Play_RemoteNoteFormat" xml:space="preserve">
+    <value>Playing on {0} ({1}). Its server runs on that PC, so Play doesn't start one here, and the profiles are the ones on it. Your SPT version and mods have to match the server's - for Fika, the host's Fika version too.</value>
+  </data>
+  <data name="Play_RemoteConnectingFormat" xml:space="preserve">
+    <value>Connecting to {0}...</value>
+  </data>
+  <data name="Play_RemoteNoAnswerFormat" xml:space="preserve">
+    <value>{0} didn't answer at {1}. Check the address, that its server is running, and that its port is open to you.</value>
+  </data>
+  <data name="Play_RemoteCertificateChangedFormat" xml:space="preserve">
+    <value>{0} showed a different certificate from the one it showed before, so SSPTMM didn't connect. That happens when its SPT was reinstalled or it is reached through a tunnel with a certificate of its own - and when something is between you and it. Trust it only if you know why it changed.</value>
+  </data>
+  <data name="Play_RemoteTrustCertificate" xml:space="preserve">
+    <value>Trust the new certificate</value>
+  </data>
+  <data name="Play_RemoteCertificateTrusted" xml:space="preserve">
+    <value>The new certificate is trusted. Press Play again.</value>
+  </data>
+  <data name="Play_RemoteReloadProfiles" xml:space="preserve">
+    <value>Reload profiles from the server</value>
+  </data>
+  <data name="Play_RemoteAddServer" xml:space="preserve">
+    <value>Add a server...</value>
+  </data>
+  <data name="Play_RemoteAddServerToolTip" xml:space="preserve">
+    <value>Another PC's SPT server to play on - a Fika host, or a friend's</value>
+  </data>
+  <data name="Play_RemoteRemoveServer" xml:space="preserve">
+    <value>Remove this server</value>
+  </data>
+  <data name="Play_RemoteAddTitle" xml:space="preserve">
+    <value>Add a server</value>
+  </data>
+  <data name="Play_RemoteAddName" xml:space="preserve">
+    <value>Name, such as Fika night</value>
+  </data>
+  <data name="Play_RemoteAddAddress" xml:space="preserve">
+    <value>Address and port, such as 203.0.113.7:6969</value>
+  </data>
+  <data name="Play_RemoteAddInvalid" xml:space="preserve">
+    <value>That isn't another PC's address: an IP address or a name, then : and the port. This PC's own server is already listed.</value>
+  </data>
+  <data name="Play_RemoteAddedFormat" xml:space="preserve">
+    <value>{0} added.</value>
+  </data>
+  <data name="Play_WipeArmedRemoteFormat" xml:space="preserve">
+    <value>The next Play starts {0} over with a new character - its progress on the server is wiped. The profile is on another PC, so SSPTMM can't keep a copy first.</value>
+  </data>
+  <data name="Play_DirectDeleteWarningRemoteFormat" xml:space="preserve">
+    <value>Delete {0}? Its character and progress go from the server. The profile is on another PC, so SSPTMM can't keep a copy first.</value>
+  </data>
 </root>

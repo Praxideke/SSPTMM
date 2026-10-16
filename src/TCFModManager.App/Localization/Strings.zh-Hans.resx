@@ -8864,4 +8864,67 @@
   <data name="Options_LookLoadFailed" xml:space="preserve">
     <value>这不是外观文件，或文件已损坏。</value>
   </data>
+  <data name="Play_ServerToolTip" xml:space="preserve">
+    <value>游戏所用的服务器：本机的，或另一台电脑的——Fika 主机或朋友的 SPT 服务器。在 SPT 启动器中添加的服务器也会列出。</value>
+  </data>
+  <data name="Play_ServerThisPc" xml:space="preserve">
+    <value>本机</value>
+  </data>
+  <data name="Play_ServerThisPcDetail" xml:space="preserve">
+    <value>此安装中的 SPT 服务器——未运行时“开始游戏”会启动它</value>
+  </data>
+  <data name="Play_ServerFromLauncherFormat" xml:space="preserve">
+    <value>{0} - 在 SPT 启动器中添加</value>
+  </data>
+  <data name="Play_RemoteNoteFormat" xml:space="preserve">
+    <value>正在 {0}（{1}）上游戏。它的服务器运行在那台电脑上，因此“开始游戏”不会在此启动服务器，配置文件也是那里的。你的 SPT 版本和模组必须与服务器一致——使用 Fika 时，主机的 Fika 版本也要一致。</value>
+  </data>
+  <data name="Play_RemoteConnectingFormat" xml:space="preserve">
+    <value>正在连接 {0}...</value>
+  </data>
+  <data name="Play_RemoteNoAnswerFormat" xml:space="preserve">
+    <value>{0} 在 {1} 没有响应。请检查地址、其服务器是否正在运行，以及其端口是否对你开放。</value>
+  </data>
+  <data name="Play_RemoteCertificateChangedFormat" xml:space="preserve">
+    <value>{0} 出示的证书与之前不同，因此 SSPTMM 没有连接。这种情况会在其 SPT 重新安装、或通过带有自己证书的隧道访问时发生——也会在你和它之间有其他东西时发生。只有在你知道它为何改变时才信任它。</value>
+  </data>
+  <data name="Play_RemoteTrustCertificate" xml:space="preserve">
+    <value>信任新证书</value>
+  </data>
+  <data name="Play_RemoteCertificateTrusted" xml:space="preserve">
+    <value>已信任新证书。请再次点击“开始游戏”。</value>
+  </data>
+  <data name="Play_RemoteReloadProfiles" xml:space="preserve">
+    <value>从服务器重新加载配置文件</value>
+  </data>
+  <data name="Play_RemoteAddServer" xml:space="preserve">
+    <value>添加服务器...</value>
+  </data>
+  <data name="Play_RemoteAddServerToolTip" xml:space="preserve">
+    <value>要在其上游戏的另一台电脑的 SPT 服务器——Fika 主机或朋友的服务器</value>
+  </data>
+  <data name="Play_RemoteRemoveServer" xml:space="preserve">
+    <value>移除此服务器</value>
+  </data>
+  <data name="Play_RemoteAddTitle" xml:space="preserve">
+    <value>添加服务器</value>
+  </data>
+  <data name="Play_RemoteAddName" xml:space="preserve">
+    <value>名称，例如 Fika 之夜</value>
+  </data>
+  <data name="Play_RemoteAddAddress" xml:space="preserve">
+    <value>地址和端口，例如 203.0.113.7:6969</value>
+  </data>
+  <data name="Play_RemoteAddInvalid" xml:space="preserve">
+    <value>这不是另一台电脑的地址：IP 地址或名称，然后是 : 和端口。本机的服务器已在列表中。</value>
+  </data>
+  <data name="Play_RemoteAddedFormat" xml:space="preserve">
+    <value>已添加 {0}。</value>
+  </data>
+  <data name="Play_WipeArmedRemoteFormat" xml:space="preserve">
+    <value>下次“开始游戏”时 {0} 将以新角色重新开始——其在服务器上的进度会被清除。该配置文件在另一台电脑上，因此 SSPTMM 无法事先保留副本。</value>
+  </data>
+  <data name="Play_DirectDeleteWarningRemoteFormat" xml:space="preserve">
+    <value>删除 {0}？其角色和进度将从服务器上消失。该配置文件在另一台电脑上，因此 SSPTMM 无法事先保留副本。</value>
+  </data>
 </root>

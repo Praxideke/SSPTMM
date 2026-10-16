@@ -9293,4 +9293,67 @@ Non garde ce groupe sous son ancien nom.</value>
   <data name="Options_LookLoadFailed" xml:space="preserve">
     <value>Ce n'est pas un fichier d'apparence, ou il est endommagé.</value>
   </data>
+  <data name="Play_ServerToolTip" xml:space="preserve">
+    <value>Le serveur sur lequel le jeu tourne : celui de ce PC, ou celui d'un autre - un hôte Fika ou le serveur SPT d'un ami. Les serveurs ajoutés dans le lanceur SPT sont listés aussi.</value>
+  </data>
+  <data name="Play_ServerThisPc" xml:space="preserve">
+    <value>Ce PC</value>
+  </data>
+  <data name="Play_ServerThisPcDetail" xml:space="preserve">
+    <value>Le serveur SPT de cette installation - Jouer le démarre s'il ne tourne pas</value>
+  </data>
+  <data name="Play_ServerFromLauncherFormat" xml:space="preserve">
+    <value>{0} - ajouté dans le lanceur SPT</value>
+  </data>
+  <data name="Play_RemoteNoteFormat" xml:space="preserve">
+    <value>Partie sur {0} ({1}). Son serveur tourne sur ce PC-là : Jouer n'en démarre pas ici, et les profils sont ceux qui s'y trouvent. Votre version de SPT et vos mods doivent correspondre à ceux du serveur - pour Fika, la version Fika de l'hôte aussi.</value>
+  </data>
+  <data name="Play_RemoteConnectingFormat" xml:space="preserve">
+    <value>Connexion à {0}...</value>
+  </data>
+  <data name="Play_RemoteNoAnswerFormat" xml:space="preserve">
+    <value>{0} n'a pas répondu à {1}. Vérifiez l'adresse, que son serveur tourne et que son port vous est ouvert.</value>
+  </data>
+  <data name="Play_RemoteCertificateChangedFormat" xml:space="preserve">
+    <value>{0} a présenté un certificat différent de celui d'avant, donc SSPTMM ne s'est pas connecté. Cela arrive quand son SPT a été réinstallé ou qu'on l'atteint par un tunnel qui a son propre certificat - et quand quelque chose se trouve entre vous et lui. Faites-lui confiance seulement si vous savez pourquoi il a changé.</value>
+  </data>
+  <data name="Play_RemoteTrustCertificate" xml:space="preserve">
+    <value>Faire confiance au nouveau certificat</value>
+  </data>
+  <data name="Play_RemoteCertificateTrusted" xml:space="preserve">
+    <value>Le nouveau certificat est approuvé. Appuyez de nouveau sur Jouer.</value>
+  </data>
+  <data name="Play_RemoteReloadProfiles" xml:space="preserve">
+    <value>Recharger les profils depuis le serveur</value>
+  </data>
+  <data name="Play_RemoteAddServer" xml:space="preserve">
+    <value>Ajouter un serveur...</value>
+  </data>
+  <data name="Play_RemoteAddServerToolTip" xml:space="preserve">
+    <value>Le serveur SPT d'un autre PC sur lequel jouer - un hôte Fika, ou celui d'un ami</value>
+  </data>
+  <data name="Play_RemoteRemoveServer" xml:space="preserve">
+    <value>Retirer ce serveur</value>
+  </data>
+  <data name="Play_RemoteAddTitle" xml:space="preserve">
+    <value>Ajouter un serveur</value>
+  </data>
+  <data name="Play_RemoteAddName" xml:space="preserve">
+    <value>Nom, par exemple Soirée Fika</value>
+  </data>
+  <data name="Play_RemoteAddAddress" xml:space="preserve">
+    <value>Adresse et port, par exemple 203.0.113.7:6969</value>
+  </data>
+  <data name="Play_RemoteAddInvalid" xml:space="preserve">
+    <value>Ce n'est pas l'adresse d'un autre PC : une adresse IP ou un nom, puis : et le port. Le serveur de ce PC est déjà dans la liste.</value>
+  </data>
+  <data name="Play_RemoteAddedFormat" xml:space="preserve">
+    <value>{0} ajouté.</value>
+  </data>
+  <data name="Play_WipeArmedRemoteFormat" xml:space="preserve">
+    <value>La prochaine partie recommence {0} avec un nouveau personnage - sa progression sur le serveur est effacée. Le profil est sur un autre PC, donc SSPTMM ne peut pas en garder une copie avant.</value>
+  </data>
+  <data name="Play_DirectDeleteWarningRemoteFormat" xml:space="preserve">
+    <value>Supprimer {0} ? Son personnage et sa progression disparaissent du serveur. Le profil est sur un autre PC, donc SSPTMM ne peut pas en garder une copie avant.</value>
+  </data>
 </root>

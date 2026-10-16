@@ -2620,6 +2620,22 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   numbers, drops colours that are not six hex digits, and redraws: the accent, card size,
   background, this page's controls and Subscribed items' strips. Seen: the row on Options > Look
   on a hidden desktop; the round trip in tests. Not seen: the file dialogs, a load in the window.
+- **Play on another PC's server (Fika).** From SPT 4.1's launcher source: a server is
+  {Name, IpAddress host:port, ServerId}, its own entry is id 1721162719, the user's added ones
+  are in `user\Launcher\LauncherSettings.json` > `Servers`; the patches come from this PC's
+  `SPT_Data\Launcher\Patches` and the bundles go to this PC's `SPT_Runtime\user\cache\bundles`,
+  so every client-side step stays local and only the API calls go to the other PC. The launcher
+  takes any certificate; SSPTMM pins the first one per address (`ServerCertificatePin`, as the
+  Server Map does) and refuses a different one until **Trust the new certificate**.
+  `SptLauncherApi.ForRemote`, `TryNormalizeAddress` (scheme and trailing slash dropped, 6969 by
+  default, IPv6 bracketed), `IsLocalAddress` (this PC's addresses are This PC, not a remote).
+  Play's card: a server list (This PC, the launcher's, the added ones) shown when there are two
+  or more; with a remote one, no server start, profiles from its API, no backup on Wipe/Delete,
+  Close the game when the server stops hidden, "No profiles yet" only once it answered with none.
+  Seen on a hidden desktop: the list with a remote picked, the note, the "didn't answer" error
+  against an unreachable address. Tested: the pin on a loopback TLS server (first use, same
+  certificate, another refused), the address parsing, the launcher's servers read. Not seen: a
+  real Fika host end to end, the add-server dialog, the trust button after a change.
 - **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
   build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
   the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if
@@ -2720,6 +2736,8 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   colours for groups and mods (`ModColors.Palette`) and a look file's 16 MB for its picture
   (`LookFile.MaximumPictureBytes`) - all set by eye from the screenshots, not
   measured.
+- Play on another PC's server (1.4.2): three tries 1.5s apart, each ping given 3s, and an 8s
+  connect timeout - chosen for a host across the internet, not tried against one.
 - Critical/error red (`#E05A5A`): no error state on the pages measured.
 - Outlined "View All" hover fill.
 - Whether Steam's file sizes count in 1000s or 1024s ("22.946 KB" reads as 1000s).

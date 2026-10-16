@@ -3046,4 +3046,25 @@ internal static class Strings
     internal static string Options_LookSaveFailedFormat => LocalizationService.Get("Options_LookSaveFailedFormat");
     internal static string Options_LookLoadedFormat => LocalizationService.Get("Options_LookLoadedFormat");
     internal static string Options_LookLoadFailed => LocalizationService.Get("Options_LookLoadFailed");
+    internal static string Play_ServerToolTip => LocalizationService.Get("Play_ServerToolTip");
+    internal static string Play_ServerThisPc => LocalizationService.Get("Play_ServerThisPc");
+    internal static string Play_ServerThisPcDetail => LocalizationService.Get("Play_ServerThisPcDetail");
+    internal static string Play_ServerFromLauncherFormat => LocalizationService.Get("Play_ServerFromLauncherFormat");
+    internal static string Play_RemoteNoteFormat => LocalizationService.Get("Play_RemoteNoteFormat");
+    internal static string Play_RemoteConnectingFormat => LocalizationService.Get("Play_RemoteConnectingFormat");
+    internal static string Play_RemoteNoAnswerFormat => LocalizationService.Get("Play_RemoteNoAnswerFormat");
+    internal static string Play_RemoteCertificateChangedFormat => LocalizationService.Get("Play_RemoteCertificateChangedFormat");
+    internal static string Play_RemoteTrustCertificate => LocalizationService.Get("Play_RemoteTrustCertificate");
+    internal static string Play_RemoteCertificateTrusted => LocalizationService.Get("Play_RemoteCertificateTrusted");
+    internal static string Play_RemoteReloadProfiles => LocalizationService.Get("Play_RemoteReloadProfiles");
+    internal static string Play_RemoteAddServer => LocalizationService.Get("Play_RemoteAddServer");
+    internal static string Play_RemoteAddServerToolTip => LocalizationService.Get("Play_RemoteAddServerToolTip");
+    internal static string Play_RemoteRemoveServer => LocalizationService.Get("Play_RemoteRemoveServer");
+    internal static string Play_RemoteAddTitle => LocalizationService.Get("Play_RemoteAddTitle");
+    internal static string Play_RemoteAddName => LocalizationService.Get("Play_RemoteAddName");
+    internal static string Play_RemoteAddAddress => LocalizationService.Get("Play_RemoteAddAddress");
+    internal static string Play_RemoteAddInvalid => LocalizationService.Get("Play_RemoteAddInvalid");
+    internal static string Play_RemoteAddedFormat => LocalizationService.Get("Play_RemoteAddedFormat");
+    internal static string Play_WipeArmedRemoteFormat => LocalizationService.Get("Play_WipeArmedRemoteFormat");
+    internal static string Play_DirectDeleteWarningRemoteFormat => LocalizationService.Get("Play_DirectDeleteWarningRemoteFormat");
 }

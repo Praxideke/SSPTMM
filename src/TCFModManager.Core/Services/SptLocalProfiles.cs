@@ -121,7 +121,17 @@ public static class SptLocalProfiles
 //
 public sealed record SptLauncherSettings
 {
+    // The SPT launcher's own server id for this PC's server (SPTarkov.Core Configuration/Server).
+    public const string LocalServerId = "1721162719";
+
     public IReadOnlyList<string> ExcludeFromCleanup { get; init; } = [];
+
+    // Fork (1.4.2): the servers added in SPT's launcher (its "Servers"; this PC's own is not
+    // listed there), as "host:port" - a Fika host, or a friend's SPT server.
+    public IReadOnlyList<SptLauncherServer> Servers { get; init; } = [];
+
+    // The server of the profile it last started; LocalServerId for this PC's.
+    public string? PreferredServerId { get; init; }
 
     public bool ClearCacheOnLaunch { get; init; }
 
@@ -142,15 +152,34 @@ public sealed record SptLauncherSettings
                 : [];
 
             string? preferred = null;
-            if (root.TryGetProperty("PreferredProfile", out var pref) && pref.ValueKind == JsonValueKind.Object
-                && pref.TryGetProperty("ProfileId", out var pid) && pid.ValueKind == JsonValueKind.String)
+            string? preferredServer = null;
+            if (root.TryGetProperty("PreferredProfile", out var pref) && pref.ValueKind == JsonValueKind.Object)
             {
-                preferred = pid.GetString();
+                if (pref.TryGetProperty("ProfileId", out var pid) && pid.ValueKind == JsonValueKind.String) preferred = pid.GetString();
+                if (pref.TryGetProperty("ServerId", out var sid) && sid.ValueKind == JsonValueKind.String) preferredServer = sid.GetString();
+            }
+
+            var servers = new List<SptLauncherServer>();
+            if (root.TryGetProperty("Servers", out var serverList) && serverList.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var entry in serverList.EnumerateArray())
+                {
+                    if (entry.ValueKind != JsonValueKind.Object) continue;
+                    var name = entry.TryGetProperty("Name", out var n) && n.ValueKind == JsonValueKind.String ? n.GetString()?.Trim() : null;
+                    var id = entry.TryGetProperty("ServerId", out var i) && i.ValueKind == JsonValueKind.String ? i.GetString() : null;
+                    if (id == LocalServerId) continue;
+                    if (!entry.TryGetProperty("IpAddress", out var ip) || ip.ValueKind != JsonValueKind.String
+                        || !SptLauncherApi.TryNormalizeAddress(ip.GetString(), out var address)) continue;
+
+                    servers.Add(new SptLauncherServer(string.IsNullOrEmpty(name) ? address : name, address, id));
+                }
             }
 
             return new SptLauncherSettings
             {
                 ExcludeFromCleanup = excluded,
+                Servers = servers,
+                PreferredServerId = preferredServer,
                 ClearCacheOnLaunch = root.TryGetProperty("ClearCacheOnLaunch", out var clear) && clear.ValueKind == JsonValueKind.True,
                 PreferredProfileId = preferred,
             };
@@ -162,3 +191,6 @@ public sealed record SptLauncherSettings
         }
     }
 }
+
+/// <summary>Fork (1.4.2): a server added in SPT's launcher - its name, "host:port", and its id there.</summary>
+public sealed record SptLauncherServer(string Name, string Address, string? ServerId);

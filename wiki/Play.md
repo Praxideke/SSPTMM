@@ -81,6 +81,32 @@ launcher:
 - It keeps a copy of the last three game logs before they are cleared, so
   [Diagnose logs](Diagnose-Logs) can still read the last game's errors.
 
+### Another PC's server (Fika)
+
+To play on a Fika host or a friend's SPT server, pick it in the server list above the profiles.
+The list shows when there is more than **This PC** on it: the servers added in SPT's launcher are
+there, and **...** > **Add a server...** adds one - a name of your own and its address
+(`203.0.113.7`, `fika.example.org:6969`, or the `https://` link the host gave you; without a port,
+6969). **Remove this server** on the same menu takes back one you added.
+
+With another PC's server picked:
+
+- Play doesn't start a server here. It checks that one answers (a few tries), and if it doesn't,
+  says to check the address, that its server is running and that its port is open to you.
+- The profiles are the ones on that server. **New profile**, **Delete** and **Wipe** act on
+  them, and keep no copy here - the profiles are on the other PC. **Reload profiles from the
+  server** on **...** asks again.
+- The game files are still this PC's: the clean-up, SPT's game patches and the mods' bundles
+  are done here, as SPT's launcher does. Your SPT version and mods have to match the server's -
+  for Fika, the host's Fika version too.
+- SPT servers make their own certificate, so the first one a server shows is trusted and
+  remembered. If it shows another later, Play stops and says so: that is right after the host
+  sets SPT up again, and **Trust the new certificate** takes the new one; otherwise it may not be
+  the same server.
+- **Close the game when the server stops** is hidden: it watches this PC's server only.
+
+Pick **This PC** to go back to your own server.
+
 ## Mod tools
 
 ![Mod tools, with SVM's Greed](https://raw.githubusercontent.com/trappuss/SSPTMM/main/docs/images/17-play-mod-tools.png)

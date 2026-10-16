@@ -9713,4 +9713,67 @@
   <data name="Options_LookLoadFailed" xml:space="preserve">
     <value>Это не файл оформления, или он повреждён.</value>
   </data>
+  <data name="Play_ServerToolTip" xml:space="preserve">
+    <value>Сервер, на котором идёт игра: сервер этого ПК или другого — хост Fika или SPT-сервер друга. Серверы, добавленные в лаунчере SPT, тоже здесь.</value>
+  </data>
+  <data name="Play_ServerThisPc" xml:space="preserve">
+    <value>Этот ПК</value>
+  </data>
+  <data name="Play_ServerThisPcDetail" xml:space="preserve">
+    <value>SPT-сервер этой установки — «Играть» запускает его, если он не запущен</value>
+  </data>
+  <data name="Play_ServerFromLauncherFormat" xml:space="preserve">
+    <value>{0} — добавлен в лаунчере SPT</value>
+  </data>
+  <data name="Play_RemoteNoteFormat" xml:space="preserve">
+    <value>Игра на {0} ({1}). Его сервер работает на том ПК, поэтому «Играть» не запускает сервер здесь, а профили — те, что на нём. Версия SPT и моды должны совпадать с серверными — для Fika и версия Fika у хоста.</value>
+  </data>
+  <data name="Play_RemoteConnectingFormat" xml:space="preserve">
+    <value>Подключение к {0}...</value>
+  </data>
+  <data name="Play_RemoteNoAnswerFormat" xml:space="preserve">
+    <value>{0} не ответил по адресу {1}. Проверьте адрес, что его сервер запущен и что его порт для вас открыт.</value>
+  </data>
+  <data name="Play_RemoteCertificateChangedFormat" xml:space="preserve">
+    <value>{0} показал не тот сертификат, что раньше, поэтому SSPTMM не подключился. Так бывает, когда его SPT переустановили или к нему подключаются через туннель со своим сертификатом — и когда между вами что-то стоит. Доверяйте, только если знаете, почему он изменился.</value>
+  </data>
+  <data name="Play_RemoteTrustCertificate" xml:space="preserve">
+    <value>Доверять новому сертификату</value>
+  </data>
+  <data name="Play_RemoteCertificateTrusted" xml:space="preserve">
+    <value>Новому сертификату теперь доверяют. Нажмите «Играть» ещё раз.</value>
+  </data>
+  <data name="Play_RemoteReloadProfiles" xml:space="preserve">
+    <value>Заново загрузить профили с сервера</value>
+  </data>
+  <data name="Play_RemoteAddServer" xml:space="preserve">
+    <value>Добавить сервер...</value>
+  </data>
+  <data name="Play_RemoteAddServerToolTip" xml:space="preserve">
+    <value>SPT-сервер другого ПК для игры — хост Fika или сервер друга</value>
+  </data>
+  <data name="Play_RemoteRemoveServer" xml:space="preserve">
+    <value>Убрать этот сервер</value>
+  </data>
+  <data name="Play_RemoteAddTitle" xml:space="preserve">
+    <value>Добавить сервер</value>
+  </data>
+  <data name="Play_RemoteAddName" xml:space="preserve">
+    <value>Название, например «Вечер Fika»</value>
+  </data>
+  <data name="Play_RemoteAddAddress" xml:space="preserve">
+    <value>Адрес и порт, например 203.0.113.7:6969</value>
+  </data>
+  <data name="Play_RemoteAddInvalid" xml:space="preserve">
+    <value>Это не адрес другого ПК: IP-адрес или имя, затем : и порт. Сервер этого ПК уже в списке.</value>
+  </data>
+  <data name="Play_RemoteAddedFormat" xml:space="preserve">
+    <value>{0} добавлен.</value>
+  </data>
+  <data name="Play_WipeArmedRemoteFormat" xml:space="preserve">
+    <value>При следующем запуске {0} начнёт заново с новым персонажем — прогресс на сервере будет стёрт. Профиль на другом ПК, поэтому SSPTMM не может заранее сохранить копию.</value>
+  </data>
+  <data name="Play_DirectDeleteWarningRemoteFormat" xml:space="preserve">
+    <value>Удалить {0}? Персонаж и прогресс пропадут с сервера. Профиль на другом ПК, поэтому SSPTMM не может заранее сохранить копию.</value>
+  </data>
 </root>

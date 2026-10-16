@@ -137,6 +137,23 @@ public sealed class AppSettings
     // last started, else the first.
     public string? DirectLaunchProfileId { get; set; }
 
+    //
+    // Fork (1.4.2): the server Play starts the game against, as "host:port" - a Fika host or anyone's
+    // SPT server on another PC. Null: this PC's own, started first when it is not running.
+    //
+    public string? PlayServerAddress { get; set; }
+
+    // Servers added on the Play card (... > Add a server...). Those added in SPT's launcher are read
+    // from its settings and listed beside these, not copied here.
+    public List<PlayServerEntry> PlayServers { get; set; } = [];
+
+    //
+    // "host:port" -> the SHA-256 thumbprint of the certificate that server showed the first time
+    // Play reached it. SPT's certificate is self-signed for localhost and fails the usual checks at
+    // any other address, so this is the check that means anything (ServerMap/ServerCertificatePin).
+    //
+    public Dictionary<string, string> PlayServerPins { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
     // Minimise SSPTMM once the game has started from it, as SPT's launcher does by default.
     public bool MinimizeWhilePlaying { get; set; } = true;
 
@@ -463,6 +480,14 @@ public sealed class ServerMapSettings
     public bool HasKey => !string.IsNullOrWhiteSpace(SharedKey);
 
     public ServerMapEndpoint ToEndpoint() => new(Host ?? string.Empty, Port, PinnedThumbprint, SharedKey);
+}
+
+// Fork (1.4.2): a server added on the Play card - see AppSettings.PlayServers.
+public sealed class PlayServerEntry
+{
+    public string Name { get; set; } = string.Empty;
+
+    public string Address { get; set; } = string.Empty;
 }
 
 // An author followed from the Workshop pages - see AppSettings.FollowedAuthors.
