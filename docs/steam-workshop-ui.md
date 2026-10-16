@@ -2593,7 +2593,7 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   Its brushes are read from a copy of SteamTheme.xaml and set there as brushes too: reading
   every value of the merged dictionary made its brushes before the accent was set, and they
   kept Windows' own accent, whatever colour that is - the Options switches and
-  sliders and the selected view button were red in every look until this. Seen: Steam blue
+  sliders and the selected view button showed it in every look until this. Seen: Steam blue
   and purple on Options, purple picked there, purple on Subscribed items.
 - **Card size.** `CardSizes`: thumbnails 40/56/72, gaps 6/10/14, padding 8/12/16 as resources
   the Subscribed items templates read; columns from 320px (at most 5) for Compact, the old steps

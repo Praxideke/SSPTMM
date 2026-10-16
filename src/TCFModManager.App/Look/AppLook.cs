@@ -21,7 +21,7 @@ public static class AppLook
     private static readonly Dictionary<string, (uint Written, bool IsColor)> Registered = [];
 
     // SteamTheme.xaml's own colours that can change, by name, as written there; and its brushes
-    // drawn in one of them, by name: the colour's name and the brush's opacity.
+    // drawn in one of them, by name, with that colour's name and the brush's opacity.
     private static Dictionary<string, uint>? _themeColors;
     private static Dictionary<string, (string Color, double Opacity)>? _themeBrushes;
 
@@ -53,9 +53,11 @@ public static class AppLook
         ReadTheme();
         foreach (var (key, written) in _themeColors!) app.Resources[key] = ToColor(Drawn(written));
 
-        // And the brushes made from them, as brushes of their own: a brush in a merged dictionary
-        // keeps the colour its DynamicResource found when it was first made, and does not follow
-        // the application's resources after that.
+        // And the brushes made from them, as brushes of their own in the same place. WPF-UI's
+        // controls read these by DynamicResource; the theme's own brushes, which name a colour
+        // WPF-UI also has, did not follow it reliably (Windows' accent showed through). Not the
+        // brushes of SteamStyles.xaml: those follow their {look:Color} by themselves, and are
+        // held by StaticResource, which a brush put here would never reach.
         foreach (var (key, (color, opacity)) in _themeBrushes!)
         {
             var brush = new SolidColorBrush(ToColor(Drawn(_themeColors[color]))) { Opacity = opacity };
@@ -78,7 +80,7 @@ public static class AppLook
         if (!LookColors.TryParse(hex, out var written))
             throw new FormatException(hex); // a {look:...} written with something other than #RRGGBB or #AARRGGBB
 
-        var key = (isColor ? "Look.Color." : "Look.Brush.") + LookColors.ToHex(written);
+        var key = (isColor ? LookColorPrefix : "Look.Brush.") + LookColors.ToHex(written);
         if (!Registered.ContainsKey(key))
         {
             Registered[key] = (written, isColor);
@@ -113,8 +115,8 @@ public static class AppLook
 
     //
     // Read once, from a copy of SteamTheme.xaml of its own: reading every value of the merged one
-    // would make all its brushes there and then, before the accent is set, and they would keep the
-    // colour they found - Windows' own accent, as WPF-UI sets it at startup.
+    // would make all its brushes there and then, before the accent is set, with whatever colour
+    // was there then - Windows' own accent, as WPF-UI sets it at startup.
     //
     private static void ReadTheme()
     {
@@ -149,6 +151,8 @@ public static class AppLook
                 _themeBrushes[key] = (color, brush.Opacity);
         }
     }
+
+    private const string LookColorPrefix = "Look.Color.";
 
     // The colour a brush reads by DynamicResource: the expression WPF keeps for it is not public,
     // but its ResourceKey is.
