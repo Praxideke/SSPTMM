@@ -168,7 +168,8 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         DownloadQueueItemViewModel? dependencyOf = null,
         long? totalBytes = null,
         bool downloadOnly = false,
-        string? downloadSubfolder = null)
+        string? downloadSubfolder = null,
+        IReadOnlyList<InstalledMod>? keepDisabled = null)
     {
         if (dependencyOf is not null)
         {
@@ -178,7 +179,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
 
         var item = new DownloadQueueItemViewModel(
             target, versionLabel, installPath, resolveVersion, checkDependencies, totalBytes,
-            downloadOnly, downloadSubfolder);
+            downloadOnly, downloadSubfolder) { KeepDisabled = keepDisabled };
         dependencyOf?.AddDependency(item);
         item.PropertyChanged += OnItemChanged;
 
@@ -572,6 +573,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
 
         string? archive = null;
         var keepArchive = true;
+        IReadOnlyList<ModMove>? switchedOn = null;
         try
         {
             archive = await turn.Archive;
@@ -593,8 +595,15 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
 
             item.Status = DownloadQueueItemStatus.Installing;
 
+            // Fork (1.4.2): a disabled mod is switched on so the update finds the files its record
+            // names, and switched off again below whether the install worked or not.
+            switchedOn = SwitchOnForUpdate(item);
+
             var result = await AppServices.ModInstall.InstallAsync(
                 item.Target, item.Version!, item.InstallPath, status, null, turn.Token, downloadedArchive: archive);
+
+            var stillOn = SwitchBackOff(item, switchedOn);
+            switchedOn = null;
 
             item.Status = DownloadQueueItemStatus.Completed;
             item.Progress = 1.0;
@@ -635,7 +644,9 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
             item.StatusDetail = named.Count > 0
                 ? string.Join(Environment.NewLine, new[] { item.StatusMessage, "" }.Concat(named))
                 : null;
-            item.WarningText = InstallWarning(result.NotAsInArchive, userSkips); // Fork
+            item.WarningText = InstallWarning(result.NotAsInArchive, userSkips) is { } warning // Fork
+                ? stillOn is null ? warning : warning + Environment.NewLine + stillOn
+                : stillOn;
             ItemInstalled?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
@@ -651,8 +662,53 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         }
         finally
         {
+            if (switchedOn is not null) SwitchBackOff(item, switchedOn);
             if (archive is not null) Release(archive, keepArchive);
         }
+    }
+
+    //
+    // Fork (1.4.2): updating a disabled mod. Its folders go back where its record says they are, so
+    // the install takes the old version out and puts the new one in its place, as for any update;
+    // SwitchBackOff then moves what is at those places to ".disabled" again. One that couldn't be
+    // switched on stops the update with everything put back.
+    //
+    private static IReadOnlyList<ModMove>? SwitchOnForUpdate(DownloadQueueItemViewModel item)
+    {
+        if (item.KeepDisabled is not { Count: > 0 } off) return null;
+
+        var on = ModDisableService.Apply(off, disable: false, item.InstallPath);
+        if (on.Failed.Count == 0) return on.Moved;
+
+        ModDisableService.Revert(on.Moved, item.InstallPath);
+        throw new InvalidOperationException(Text(
+            Strings.Downloads_CouldNotSwitchOnFormat, item.ModName, on.Failed[0].Reason));
+    }
+
+    // What to say when some of it is left switched on: a folder under a new name in the new version,
+    // a file in use, or SPT started meanwhile. Nothing when it is all off again.
+    private static string? SwitchBackOff(DownloadQueueItemViewModel item, IReadOnlyList<ModMove>? switchedOn)
+    {
+        if (switchedOn is not { Count: > 0 } || item.KeepDisabled is not { } entries) return null;
+
+        var back = switchedOn
+            .Select(move => (Move: move, Entry: entries.FirstOrDefault(e =>
+                string.Equals(e.FolderPath, move.From, StringComparison.OrdinalIgnoreCase))))
+            .Where(m => m.Entry is not null && (Directory.Exists(m.Move.To) || File.Exists(m.Move.To)))
+            .Select(m => new InstalledMod { Name = m.Entry!.Name, Target = m.Entry.Target, FolderPath = m.Move.To })
+            .ToList();
+
+        try
+        {
+            var off = ModDisableService.Apply(back, disable: true, item.InstallPath);
+            if (off.Failed.Count == 0 && back.Count == switchedOn.Count) return null;
+        }
+        catch (ModInstallException ex)
+        {
+            AppLog.Warn("Downloads", $"{item.ModName} left switched on after its update: {ex.Reason}");
+        }
+
+        return Text(Strings.Downloads_LeftSwitchedOnFormat, item.ModName);
     }
 
     // Done with an archive: kept (within the budget) when downloads are kept and it installed,

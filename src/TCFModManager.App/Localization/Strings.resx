@@ -3326,6 +3326,18 @@ Whichever you pick, the version currently on disk is copied into {1} first.</val
     <value>Settings you changed will be carried into the new version's config files, and your current copies kept in Data\LegacyConfigs.</value>
     <comment>Shown before an update, when this mod's config policy is ConfigPolicy_Merge. Data\LegacyConfigs is a folder path and stays as it is.</comment>
   </data>
+  <data name="Downloads_CouldNotSwitchOnFormat" xml:space="preserve">
+    <value>{0} is disabled and couldn't be switched on for the update, so nothing changed: {1}</value>
+    <comment>{0} is a mod name. {1} is why, as the program gives it.</comment>
+  </data>
+  <data name="Downloads_LeftSwitchedOnFormat" xml:space="preserve">
+    <value>{0} was disabled, and not all of the update could be switched off again - check it in Subscribed items.</value>
+    <comment>{0} is a mod name. Subscribed items is the page name - translate it as in Workshop_SubscribedItems.</comment>
+  </data>
+  <data name="ModUpdate_StaysDisabledFormat" xml:space="preserve">
+    <value>{0} is disabled. It is switched on for the update and off again after, so it stays disabled.</value>
+    <comment>{0} is a mod name.</comment>
+  </data>
   <data name="ModUpdate_DisabledNoticeFormat" xml:space="preserve">
     <value>{0} is disabled. Turn it back on in Subscribed items to update or redownload it.</value>
     <comment>{0} is a mod name. Subscribed items is the page name - translate it as in Workshop_SubscribedItems.</comment>
@@ -4686,7 +4698,7 @@ Install it anyway?</value>
 
 This was written to:
 {1}</value>
-    <comment>{0} is the error itself, which arrives in English from .NET; {1} is the path to the log file.</comment>
+    <comment>{0} is the error itself, which arrives in English from .NET; {1} is the path to the log file. Under it: Copy error, Report on GitHub, OK.</comment>
   </data>
   <data name="Hub_Title" xml:space="preserve">
     <value>Single Player Tarkov</value>
@@ -5795,6 +5807,32 @@ This was written to:
   <data name="Options_UnsubscribeHeader" xml:space="preserve">
     <value>Unsubscribing</value>
     <comment>Options card heading.</comment>
+  </data>
+  <data name="Options_WhileRunningHeader" xml:space="preserve">
+    <value>Allow changes while SPT is running</value>
+    <comment>Options card title.</comment>
+  </data>
+  <data name="Options_WhileRunningSummary" xml:space="preserve">
+    <value>Ask instead of refusing when the SPT server or the game is open</value>
+    <comment>Options card text.</comment>
+  </data>
+  <data name="Options_WhileRunningDescription" xml:space="preserve">
+    <value>Off, mods can't be installed, removed, switched on or off or changed by a list while the SPT server or the game is running. On, you're asked first and can go ahead anyway. Files the game has open may fail to move and leave a mod half changed - Undo puts back what moved - and the server and game only see a change after a restart. Profiles are never restored while SPT runs: the server would write them back.</value>
+    <comment>Options card text.</comment>
+  </data>
+  <data name="InUse_ConfirmTitle" xml:space="preserve">
+    <value>SPT is still running</value>
+    <comment>Title of the question asked before changing mods while the SPT server or the game is open.</comment>
+  </data>
+  <data name="InUse_ConfirmFormat" xml:space="preserve">
+    <value>{0} is still open. Change the mods anyway?
+
+Files it has open may fail to move and leave a mod half changed - Undo puts back what moved. The change is only seen after SPT and the game are restarted.</value>
+    <comment>{0} is one or more process names, joined by Common_ListSeparator and Common_ListPairFormat.</comment>
+  </data>
+  <data name="InUse_GoAhead" xml:space="preserve">
+    <value>Change anyway</value>
+    <comment>Button: go ahead with the change while SPT runs.</comment>
   </data>
   <data name="Options_UnsubscribeDescription" xml:space="preserve">
     <value>Before an item's files are removed, a question says what will be deleted and asks what to do with its config files. Turned off, items are removed at once and their config files are always kept, set aside in the LegacyConfigs folder - with a warning first only when other items use them or folders installed by hand would be deleted.</value>
@@ -10148,9 +10186,41 @@ Removing them - or turning them off - can leave a profile SPT won't load. If tha
     <value>A mod logged errors in the game</value>
     <comment>Diagnose logs finding</comment>
   </data>
+  <data name="Diagnose_ReportIssueToolTip" xml:space="preserve">
+    <value>Opens a new issue on SSPTMM's GitHub with this report filled in, and copies it. Nothing is sent until you submit it there.</value>
+    <comment>Tooltip on the Diagnose page's Report on GitHub button.</comment>
+  </data>
+  <data name="Diagnose_IssueTitle" xml:space="preserve">
+    <value>Log report</value>
+    <comment>Title of a GitHub issue opened from Diagnose when nothing was found to name it after.</comment>
+  </data>
+  <data name="Report_VersionsFormat" xml:space="preserve">
+    <value>{0}, SPT {1}, {2}</value>
+    <comment>First line of a copied error. {0} is the app and its version, {1} SPT's version, {2} Windows and its version.</comment>
+  </data>
+  <data name="Report_WindowsFormat" xml:space="preserve">
+    <value>Windows {0} ({1})</value>
+    <comment>In a copied error. {0} is 10 or 11, {1} the full version number. Windows is a proper name.</comment>
+  </data>
+  <data name="Report_CopyError" xml:space="preserve">
+    <value>Copy error</value>
+    <comment>Button: copy what went wrong to the clipboard.</comment>
+  </data>
+  <data name="Report_CopyErrorToolTip" xml:space="preserve">
+    <value>Copies why it failed, with the versions of SSPTMM, SPT and Windows, for a bug report. Your Windows user name is left out.</value>
+    <comment>Tooltip on a failed download's Copy error button.</comment>
+  </data>
+  <data name="Report_OpenIssue" xml:space="preserve">
+    <value>Report on GitHub</value>
+    <comment>Button: open a new GitHub issue with the error filled in.</comment>
+  </data>
+  <data name="Report_Shortened" xml:space="preserve">
+    <value>(Shortened - the whole report is on your clipboard; paste it here.)</value>
+    <comment>Last line of a GitHub issue opened with a report too long for the link.</comment>
+  </data>
   <data name="Diagnose_ReportHeader" xml:space="preserve">
-    <value>Log report - {0}, SPT {1}</value>
-    <comment>First line of the copied report.</comment>
+    <value>Log report - {0}, SPT {1}, {2}</value>
+    <comment>First line of the copied report. {0} is the app and its version, {1} SPT's version, {2} Windows and its version.</comment>
   </data>
   <data name="Help_Diagnose_Read_Title" xml:space="preserve">
     <value>Find out why something isn't working</value>
@@ -11071,5 +11141,13 @@ No keeps this group under its old name.</value>
   <data name="Options_HomeLastPage" xml:space="preserve">
     <value>Where I left off</value>
     <comment>Home page choice: the page that was on screen when SSPTMM was last closed.</comment>
+  </data>
+  <data name="Menu_OpenClientFolder" xml:space="preserve">
+    <value>Open client folder</value>
+    <comment>Right-click menu on an installed mod: opens its BepInEx folder in Explorer.</comment>
+  </data>
+  <data name="Menu_OpenServerFolder" xml:space="preserve">
+    <value>Open server folder</value>
+    <comment>Right-click menu on an installed mod: opens its user\mods folder in Explorer.</comment>
   </data>
 </root>

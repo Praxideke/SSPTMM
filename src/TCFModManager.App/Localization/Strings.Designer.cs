@@ -932,6 +932,9 @@ internal static class Strings
     internal static string ModUpdate_ConfigKeepMine => LocalizationService.Get("ModUpdate_ConfigKeepMine");
     internal static string ModUpdate_ConfigTakeNew => LocalizationService.Get("ModUpdate_ConfigTakeNew");
     internal static string ModUpdate_ConfigMerge => LocalizationService.Get("ModUpdate_ConfigMerge");
+    internal static string Downloads_CouldNotSwitchOnFormat => LocalizationService.Get("Downloads_CouldNotSwitchOnFormat");
+    internal static string Downloads_LeftSwitchedOnFormat => LocalizationService.Get("Downloads_LeftSwitchedOnFormat");
+    internal static string ModUpdate_StaysDisabledFormat => LocalizationService.Get("ModUpdate_StaysDisabledFormat");
     internal static string ModUpdate_DisabledNoticeFormat => LocalizationService.Get("ModUpdate_DisabledNoticeFormat");
     internal static string ModUpdate_ShowingAllVersions => LocalizationService.Get("ModUpdate_ShowingAllVersions");
     internal static string ModUpdate_Hidden(int count, params object?[] values) =>
@@ -1556,6 +1559,12 @@ internal static class Strings
     internal static string Installed_UnsubscribeDontAsk => LocalizationService.Get("Installed_UnsubscribeDontAsk");
     internal static string Installed_UnsubscribeDontAskNote => LocalizationService.Get("Installed_UnsubscribeDontAskNote");
     internal static string Options_UnsubscribeHeader => LocalizationService.Get("Options_UnsubscribeHeader");
+    internal static string Options_WhileRunningHeader => LocalizationService.Get("Options_WhileRunningHeader");
+    internal static string Options_WhileRunningSummary => LocalizationService.Get("Options_WhileRunningSummary");
+    internal static string Options_WhileRunningDescription => LocalizationService.Get("Options_WhileRunningDescription");
+    internal static string InUse_ConfirmTitle => LocalizationService.Get("InUse_ConfirmTitle");
+    internal static string InUse_ConfirmFormat => LocalizationService.Get("InUse_ConfirmFormat");
+    internal static string InUse_GoAhead => LocalizationService.Get("InUse_GoAhead");
     internal static string Options_UnsubscribeDescription => LocalizationService.Get("Options_UnsubscribeDescription");
     internal static string Installed_UnsubscribeSelected => LocalizationService.Get("Installed_UnsubscribeSelected");
     internal static string Installed_UnsubscribeSelectedTitle(int count, params object?[] values) =>
@@ -2687,6 +2696,14 @@ internal static class Strings
     internal static string Diagnose_Title_BundleMissingDependency => LocalizationService.Get("Diagnose_Title_BundleMissingDependency");
     internal static string Diagnose_Body_BundleMissingDependency => LocalizationService.Get("Diagnose_Body_BundleMissingDependency");
     internal static string Diagnose_Title_PluginLoggedErrors => LocalizationService.Get("Diagnose_Title_PluginLoggedErrors");
+    internal static string Diagnose_ReportIssueToolTip => LocalizationService.Get("Diagnose_ReportIssueToolTip");
+    internal static string Diagnose_IssueTitle => LocalizationService.Get("Diagnose_IssueTitle");
+    internal static string Report_VersionsFormat => LocalizationService.Get("Report_VersionsFormat");
+    internal static string Report_WindowsFormat => LocalizationService.Get("Report_WindowsFormat");
+    internal static string Report_CopyError => LocalizationService.Get("Report_CopyError");
+    internal static string Report_CopyErrorToolTip => LocalizationService.Get("Report_CopyErrorToolTip");
+    internal static string Report_OpenIssue => LocalizationService.Get("Report_OpenIssue");
+    internal static string Report_Shortened => LocalizationService.Get("Report_Shortened");
     internal static string Diagnose_ReportHeader => LocalizationService.Get("Diagnose_ReportHeader");
     internal static string Help_Diagnose_Read_Title => LocalizationService.Get("Help_Diagnose_Read_Title");
     internal static string Help_Diagnose_Read_Step1 => LocalizationService.Get("Help_Diagnose_Read_Step1");
@@ -2915,4 +2932,6 @@ internal static class Strings
     internal static string Installed_GroupMergeTitle => LocalizationService.Get("Installed_GroupMergeTitle");
     internal static string Installed_GroupMergeFormat => LocalizationService.Get("Installed_GroupMergeFormat");
     internal static string Options_HomeLastPage => LocalizationService.Get("Options_HomeLastPage");
+    internal static string Menu_OpenClientFolder => LocalizationService.Get("Menu_OpenClientFolder");
+    internal static string Menu_OpenServerFolder => LocalizationService.Get("Menu_OpenServerFolder");
 }

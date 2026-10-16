@@ -323,6 +323,22 @@ public partial class OptionsViewModel : LocalizedViewModel
         RefreshKeptDownloads();
     }
 
+    // Changes while SPT runs ask instead of refusing - see AppSettings.AllowChangesWhileRunning.
+    [ObservableProperty]
+    private bool _allowChangesWhileRunning;
+
+    partial void OnAllowChangesWhileRunningChanged(bool value)
+    {
+        Services.RunningInstallGate.Enabled = value;
+        if (!_loaded) return;
+
+        var settings = _settings.Load();
+        settings.AllowChangesWhileRunning = value;
+        _settings.Save(settings);
+
+        AppLog.Info("Options", value ? "changes while SPT runs asked" : "changes while SPT runs refused");
+    }
+
     // Whether downloaded archives are kept - see AppSettings.KeepDownloads.
     [ObservableProperty]
     private bool _keepDownloads;
@@ -500,6 +516,7 @@ public partial class OptionsViewModel : LocalizedViewModel
         _cardPictures = settings.CardPictures;
         _confirmUnsubscribe = settings.ConfirmUnsubscribe;
         _keepDownloads = settings.KeepDownloads;
+        _allowChangesWhileRunning = settings.AllowChangesWhileRunning;
         _showSubscribedItemsTab = settings.ShowSubscribedItemsTab;
         _showCollectionsTab = settings.ShowCollectionsTab;
         _backgroundDarkness = Math.Clamp(settings.BackgroundDarkness, 0, 0.9);

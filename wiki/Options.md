@@ -47,6 +47,7 @@ The gear at the top right. Each setting has a one-line explanation and a **?** w
 | Keep removed mods | How long unsubscribed mods are kept, so Undo can bring them back. They are kept in `.tcfmm-removed` inside your SPT folder. |
 | Downloads | Keep downloaded files for reinstalling (up to 4 GB), or clear them. |
 | Unsubscribing | Ask what will be deleted, and what to do with config files, before unsubscribing. |
+| Allow changes while SPT is running | Off: installing, removing, switching on or off, Undo and applying a list are refused while the SPT server or the game is open. On: you're asked first and can go ahead (one yes covers a batch). Files in use may fail to move, and SPT only sees a change after a restart. Profiles are never restored while SPT runs. |
 
 ## Updates
 

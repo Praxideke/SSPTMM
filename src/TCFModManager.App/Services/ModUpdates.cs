@@ -8,8 +8,10 @@ using TCFModManager.Core.SpModApi;
 namespace TCFModManager.App.Services;
 
 /// <summary>One mod to update: what to call it, its listing, the version to update to, and whether
-/// this app installed the copy it replaces.</summary>
-public readonly record struct UpdateTarget(string Title, Mod Mod, string Version, bool IsAppManaged);
+/// this app installed the copy it replaces. KeepDisabled: the switched-off copy's folders, put back
+/// for the update and switched off again after it.</summary>
+public readonly record struct UpdateTarget(
+    string Title, Mod Mod, string Version, bool IsAppManaged, IReadOnlyList<InstalledMod>? KeepDisabled = null);
 
 //
 // Queues a batch of updates the one way both Update all buttons do it - Subscribed items' and a
@@ -85,7 +87,7 @@ public static class ModUpdates
             var version = target.Version;
             AppServices.DownloadQueue.Enqueue(
                 InstallTarget.For(mod), version, installPath, () => ResolveVersionLinkAsync(mod, version),
-                downloadOnly: downloadOnly);
+                downloadOnly: downloadOnly, keepDisabled: target.KeepDisabled);
         }
 
         var queued = Strings.Installed_UpdateQueued(queue.Count);

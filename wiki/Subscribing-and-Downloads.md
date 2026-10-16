@@ -24,7 +24,8 @@
   for the Downloads page.
 - **Up to three downloads at once**; installs happen one at a time, in the order you queued them.
 - A download that fails for a passing reason is retried, and a broken-off one carries on from where
-  it stopped when the server allows it.
+  it stopped when the server allows it. One that fails for good has **Retry** and **Copy error** -
+  the reason with the versions of SSPTMM, SPT and Windows, for a bug report.
 - Downloads are **kept** (up to 4 GB, oldest-used go first), so installing the same version again
   doesn't download it again. [Options](Options) > Downloads can turn this off or clear them.
 - After every install or update, each file on disk is **checked against the archive**. The card

@@ -143,6 +143,14 @@ public sealed class AppSettings
     public bool ConfirmUnsubscribe { get; set; } = true;
 
     //
+    // Fork (1.4.2): with the SPT server or the game running, installing, removing, switching on or
+    // off, undoing and applying a list ask "are you sure?" instead of refusing, as Mod Organizer 2
+    // does. Off by default: files the game has open may not move. Restoring profiles is refused
+    // either way - the server writes them back.
+    //
+    public bool AllowChangesWhileRunning { get; set; }
+
+    //
     // Whether downloaded archives are kept (Data\Downloads, within ModArchiveCache's budget) so a
     // version installed again - subscribed to again, put back, a mod list re-applied - is not
     // downloaded again. On by default.

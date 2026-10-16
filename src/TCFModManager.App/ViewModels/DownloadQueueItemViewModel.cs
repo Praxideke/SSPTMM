@@ -2,6 +2,7 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TCFModManager.App.Localization;
+using TCFModManager.App.Services;
 using TCFModManager.Core.Models;
 using TCFModManager.Core.Services;
 
@@ -56,6 +57,10 @@ public sealed partial class DownloadQueueItemViewModel : LocalizedViewModel
 
     // A mod list's name, for a list apply's downloads to go into their own subfolder (§9).
     public string? DownloadSubfolder { get; }
+
+    // Fork (1.4.2): the update of a disabled mod - its switched-off folders, switched on for the
+    // install and off again after it.
+    public IReadOnlyList<InstalledMod>? KeepDisabled { get; init; }
 
     //
     // Where a download-only item's archive was saved, once it has been. Drives Show in folder.
@@ -326,6 +331,16 @@ public sealed partial class DownloadQueueItemViewModel : LocalizedViewModel
     // version before placing files, and a retry goes through the same path, so the second attempt
     // tidies up after the first.
     //
+    // Fork (1.4.2): a failed card's reason, with the versions behind it, to paste into a report.
+    public bool IsFailed => Status == DownloadQueueItemStatus.Failed;
+
+    [RelayCommand]
+    private void CopyError()
+    {
+        var what = ModName + " " + VersionLabel + Environment.NewLine + StatusMessage;
+        ErrorReport.Copy(ErrorReport.Build(what));
+    }
+
     [RelayCommand(CanExecute = nameof(CanRetry))]
     private void Retry()
     {
@@ -444,5 +459,6 @@ public sealed partial class DownloadQueueItemViewModel : LocalizedViewModel
         OnPropertyChanged(nameof(CanCancel));
         OnPropertyChanged(nameof(CanRetry));
         OnPropertyChanged(nameof(IsFinished));
+        OnPropertyChanged(nameof(IsFailed));
     }
 }

@@ -32,6 +32,13 @@
                     Command="{Binding CopyReportCommand}"
                     IsEnabled="{Binding IsNotBusy}" />
                 <ui:Button
+                    Margin="0,0,8,0"
+                    Content="{loc:Str Report_OpenIssue}"
+                    Icon="{ui:SymbolIcon Bug24}"
+                    ToolTip="{loc:Str Diagnose_ReportIssueToolTip}"
+                    Command="{Binding ReportIssueCommand}"
+                    IsEnabled="{Binding IsNotBusy}" />
+                <ui:Button
                     Content="{loc:Str Diagnose_Refresh}"
                     Icon="{ui:SymbolIcon ArrowSync24}"
                     Command="{Binding RefreshCommand}"

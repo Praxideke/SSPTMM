@@ -144,13 +144,28 @@ public sealed class ModInstallService(
     }
 
     //
+    // Fork (1.4.2): Options > Allow changes while SPT runs. Set by the App: asked, instead of
+    // refusing, when something is running; true goes ahead. Null refuses as before (tests, and the
+    // option off).
+    //
+    public static Func<ModInstallAction, IReadOnlyList<string>, bool>? ConfirmInUse { get; set; }
+
+    // What stands in the way of <paramref name="action"/>: what RunningBlockers finds, unless the
+    // user said to go ahead anyway.
+    public static IReadOnlyList<string> Blockers(ModInstallAction action, string? installPath = null)
+    {
+        var running = RunningBlockers(installPath);
+        return running.Count > 0 && ConfirmInUse?.Invoke(action, running) == true ? [] : running;
+    }
+
+    //
     // Throws when a blocking process is running, carrying what to close and which operation was
     // refused. It takes the operation rather than a verb phrase: the caller says what it was doing,
     // App/Services/ModInstallProblems says it in English.
     //
     public static void EnsureInstallNotInUse(ModInstallAction action, string? installPath = null)
     {
-        var running = RunningBlockers(installPath);
+        var running = Blockers(action, installPath);
         if (running.Count == 0) return;
 
         throw new ModInstallException(ModInstallFailure.InstallInUse)

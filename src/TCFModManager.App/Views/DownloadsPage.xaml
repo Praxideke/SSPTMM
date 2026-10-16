@@ -289,6 +289,17 @@
                                         Command="{Binding RetryCommand}"
                                         Visibility="{Binding CanRetry, Converter={StaticResource BoolToVisibility}}" />
 
+                                    <!-- Fork (1.4.2): the reason, with the app's, SPT's and Windows' versions, for a report. -->
+                                    <ui:Button
+                                        Margin="0,6,0,0"
+                                        Padding="10,4"
+                                        HorizontalAlignment="Right"
+                                        Icon="{ui:SymbolIcon Copy24}"
+                                        Content="{loc:Str Report_CopyError}"
+                                        ToolTip="{loc:Str Report_CopyErrorToolTip}"
+                                        Command="{Binding CopyErrorCommand}"
+                                        Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibility}}" />
+
                                     <!-- A download-only item's archive, once saved (Monitor mode). -->
                                     <ui:Button
                                         Margin="0,8,0,0"

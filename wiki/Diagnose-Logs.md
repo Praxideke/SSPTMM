@@ -54,5 +54,10 @@ whole logs, and never a profile. Taken out first:
 - profile and item ids (each becomes `id-` and six characters, the same each time);
 - other players' IP addresses (`<ip>:port`).
 
+The report starts with the versions of SSPTMM, SPT and Windows. **Report on GitHub** opens a new
+issue on SSPTMM's GitHub with the report filled in (and copies it, for a long one); nothing is sent
+until you submit it there. A failed download's **Copy error** and the crash message's buttons do the
+same for one error.
+
 Paste it into a [GitHub issue](https://github.com/trappuss/SSPTMM/issues) or wherever you ask for
 help.

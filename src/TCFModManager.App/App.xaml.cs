@@ -94,6 +94,10 @@ public partial class App : Application
         Behaviors.SmoothScrolling.Enabled = new Core.Services.SettingsService().Load().SmoothScrolling;
         Behaviors.SmoothScrolling.Register();
 
+        // Fork (1.4.2): changes while SPT runs, asked rather than refused when Options says so.
+        Services.RunningInstallGate.Enabled = new Core.Services.SettingsService().Load().AllowChangesWhileRunning;
+        Services.RunningInstallGate.Register();
+
         // Fork: each subscribed mod's picture behind its card, unless switched off in Options.
         Behaviors.CardBackdrop.Enabled = new Core.Services.SettingsService().Load().CardPictures;
 
@@ -302,11 +306,31 @@ public partial class App : Application
         // Keyed like everything else, and safe to be: Get falls back to the key itself rather than
         // throwing, so even a failure inside the language stack leaves a readable dialog.
         //
-        MessageBox.Show(
-            LocalizationService.Text(Strings.App_CrashBodyFormat, e.Exception, AppLog.CurrentFile),
-            Strings.App_CrashTitle,
-            MessageBoxButton.OK,
-            MessageBoxImage.Error);
+        // Fork (1.4.2): Steam's dialog, with the error to copy or report on GitHub - the plain
+        // message box when the dialog itself can't be shown.
+        var body = LocalizationService.Text(Strings.App_CrashBodyFormat, e.Exception.Message, AppLog.CurrentFile);
+        try
+        {
+            var choice = Views.SteamDialog.Show(
+                Strings.App_CrashTitle,
+                body,
+                new Views.SteamDialogChoice(Strings.Report_CopyError, Views.SteamDialogButton.Grey),
+                new Views.SteamDialogChoice(Strings.Report_OpenIssue, Views.SteamDialogButton.Blue),
+                new Views.SteamDialogChoice(Strings.Common_OK, Views.SteamDialogButton.Green, IsDefault: true));
+
+            var report = ErrorReport.Build(e.Exception.Message, e.Exception);
+            if (choice == 0) ErrorReport.Copy(report);
+            else if (choice == 1) ErrorReport.OpenIssue(ErrorReport.Title(e.Exception.GetType().Name + ": " + e.Exception.Message), report);
+        }
+        catch (Exception shown)
+        {
+            AppLog.Error("App", "Couldn't show the crash dialog", shown);
+            MessageBox.Show(
+                LocalizationService.Text(Strings.App_CrashBodyFormat, e.Exception, AppLog.CurrentFile),
+                Strings.App_CrashTitle,
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
 
         e.Handled = true;
     }

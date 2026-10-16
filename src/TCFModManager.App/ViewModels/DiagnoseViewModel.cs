@@ -291,6 +291,18 @@ public sealed partial class DiagnoseViewModel : LocalizedViewModel
         }
     }
 
+    // Fork (1.4.2): the same report, in a new GitHub issue (and on the clipboard).
+    [RelayCommand]
+    private void ReportIssue()
+    {
+        if (_last is null) return;
+
+        var report = BuildReport(_last);
+        var title = _last.Findings.Count > 0 ? new LogFindingRow(_last.Findings[0]).Title : Strings.Diagnose_IssueTitle;
+        ErrorReport.OpenIssue(ErrorReport.Title(title), report);
+        StatusMessage = Strings.Diagnose_Copied;
+    }
+
     //
     // What was found and the lines behind it, then the errors no check knew - never whole logs, and
     // never a profile. Redacted last, over the whole text (LogRedactor).
@@ -302,7 +314,8 @@ public sealed partial class DiagnoseViewModel : LocalizedViewModel
         var files = diagnosis.Files;
         var text = new StringBuilder();
         text.AppendLine(T(Strings.Diagnose_ReportHeader,
-            SelfMod.ShortName + " " + AppVersion.Current, AppServices.SptEnvironment.InstalledVersion ?? "?"));
+            SelfMod.ShortName + " " + AppVersion.Current, AppServices.SptEnvironment.InstalledVersion ?? "?",
+            ErrorReport.WindowsVersion()));
         text.AppendLine(T(Strings.Diagnose_ReportServerFormat,
             Path.GetFileName(files.Server) ?? "-", diagnosis.ServerRunStartedAt?.ToString("s") ?? "-"));
         text.AppendLine(T(Strings.Diagnose_ReportGameFormat,

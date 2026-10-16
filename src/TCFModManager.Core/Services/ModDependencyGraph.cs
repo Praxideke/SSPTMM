@@ -108,6 +108,39 @@ public sealed class ModDependencyGraph
     public IReadOnlyList<ModDependencyLink> DependenciesOf(InstalledMod mod) =>
         _dependencies.TryGetValue(mod, out var links) ? links : [];
 
+    //
+    // Fork (1.4.2): <paramref name="items"/> put so each comes after what it needs among them, hard
+    // or soft - the order a batch of updates installs in, so a library is updated before the mods
+    // that use it. Otherwise they stay in the order given; a cycle is broken where it closes.
+    //
+    public IReadOnlyList<T> DependencyOrder<T>(IReadOnlyList<T> items, Func<T, IEnumerable<InstalledMod>> entries)
+    {
+        var owner = new Dictionary<InstalledMod, int>();
+        for (var i = 0; i < items.Count; i++)
+            foreach (var entry in entries(items[i])) owner.TryAdd(entry, i);
+
+        var placed = new bool[items.Count];
+        var visiting = new bool[items.Count];
+        var order = new List<T>(items.Count);
+
+        void Visit(int i)
+        {
+            if (placed[i] || visiting[i]) return;
+            visiting[i] = true;
+
+            foreach (var entry in entries(items[i]))
+                foreach (var link in DependenciesOf(entry))
+                    if (owner.TryGetValue(link.Dependency, out var j) && j != i) Visit(j);
+
+            visiting[i] = false;
+            placed[i] = true;
+            order.Add(items[i]);
+        }
+
+        for (var i = 0; i < items.Count; i++) Visit(i);
+        return order;
+    }
+
     // Identifiers a mod declares that nothing installed provides.
     public IReadOnlyList<string> UnresolvedOf(InstalledMod mod) =>
         _unresolved.TryGetValue(mod, out var identifiers) ? identifiers : [];

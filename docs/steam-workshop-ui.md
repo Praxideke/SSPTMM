@@ -2441,11 +2441,44 @@ core.json fix for an invalid profile offered from Diagnose.
 - The profile messages pointed at `SPT\SPT_Data\configs\core.json`; SPT 4.1's server is
   `SPT_Runtime`. They now name SPT_Data\configs in the server's folder.
 
+From another mod manager (trappuss: "research it and see if there's anything could learn", then
+"add all suggested"), and Mod Organizer 2's "are you sure?" while the game runs:
+
+- **Changes while SPT runs.** `ModInstallService.ConfirmInUse`, set by the App
+  (`RunningInstallGate`), is asked when something is running; `Blockers(action, path)` is what the
+  pre-checks and `EnsureInstallNotInUse` now go by. Off (the default), null and tests refuse as
+  before. RestoreProfiles is always refused: the server writes the profiles back. A yes holds for
+  two minutes after the last change it let through while the same programs run (HUNCH), so a
+  batch - and the second check inside each step - asks once. The question is on the UI thread
+  (`Dispatcher.Invoke`), from the download queue's install too. Config edits only warned before
+  and still do. Not checked with SPT running.
+- **Update all in dependency order.** `ModDependencyGraph.DependencyOrder` puts each update after
+  what it needs among the batch (hard or soft), else as given; a cycle is broken where it closes.
+  Installs already run one at a time in the order queued, so the order queued is the order
+  installed. A collection page's Update all has no local graph and is unchanged.
+- **Updating a disabled mod.** The queue item carries `KeepDisabled` (the card's disabled
+  entries): before the install they are switched on (`ModDisableService.Apply`), so the update
+  finds what its record names; after it, whether it worked or not, what is at those places is
+  switched off again. One that won't switch on stops the update with everything put back; a
+  folder that couldn't go back (renamed by the new version, in use) is a warning on the card. A
+  disabled card sharing its folder is still refused: the new version's files aren't known to be
+  its own. Not checked on a real disabled mod.
+- **The right-click menu's folder items** run the card's own Open client/server folder.
+- **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
+  build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
+  the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if
+  that can't be shown); Diagnose's **Report on GitHub**. The issue opens in the browser at
+  `/issues/new?title=&body=`, the body cut at 2,500 characters (HUNCH: under GitHub's address
+  limit once escaped) with the whole on the clipboard. Not checked: the crash dialog (nothing to
+  crash it on purpose) and the issue page opening.
+
 ## Values that could not be measured (marked HUNCH in the source)
 
 - Round 53: the back and forward arrows' greys and 32x36 box (Steam's are in its client, not on a
   page that can be read), the Add to group submenu's offset, leaving clothing out of the
-  profile-cleaning offer, fifteen places in an arrow's list, and a hundred item pages' places kept.
+  profile-cleaning offer, fifteen places in an arrow's list, a hundred item pages' places kept,
+  two minutes for a yes to changes while SPT runs, and 2,500 characters of a report in an issue's
+  address.
 
 - Round 52: the addon rows' layout and sizes (Steam has no addons; its palette, this app's
   arrangement), and seven as the number of addons from which a search box is worth its room.

@@ -143,7 +143,7 @@ public static class ModListApplier
         var disables = plan.Disable.ToList();
 
         if ((enables.Count > 0 || disables.Count > 0)
-            && ModInstallService.RunningBlockers(options.InstallPath) is { Count: > 0 } blockers)
+            && ModInstallService.Blockers(ModInstallAction.ApplyList, options.InstallPath) is { Count: > 0 } blockers)
         {
             return Stopped(plan, manual, null, ModListStop.InstallInUse, running: blockers);
         }

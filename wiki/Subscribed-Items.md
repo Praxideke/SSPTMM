@@ -40,7 +40,9 @@ the same details; click a card or row to open it.
   first checks what else needs it.
 - A blue **Update** when an update for your SPT is out, and **Update all** at the top. An update
   that would break another installed mod is held back and says so: Update all leaves it out, and
-  update notifications don't announce it.
+  update notifications don't announce it. Update all goes in dependency order - a library before
+  the mods that use it. A disabled mod is updated too and stays disabled.
+- Right-click a mod for **Open client folder** and **Open server folder**, beside the group items.
 - Flags when the installed version doesn't run on your SPT, or when it needs a mod that is missing
   or disabled - read from the mod's own files, so it works offline and for hand-installed mods.
 - **PINNED** - see below. **RE-UPLOADED** - see below. **DISABLED**.
@@ -72,7 +74,8 @@ ones installed after the preset was saved (those stay as they are). Then:
 - mods are only moved in and out of their `.disabled` folders, as the switch on a mod does - nothing
   is deleted;
 - **Undo** puts it back in one step;
-- it is refused while SPT is running or a mod is being installed.
+- it is refused while SPT is running (unless [Options](Options) allows changes while it runs) or a
+  mod is being installed.
 
 Two mods installed into one folder are kept each by itself, and switched by their own files, as
 their cards are.

@@ -176,7 +176,7 @@ public partial class InstalledViewModel
             return false;
         }
 
-        if (ModInstallService.RunningBlockers(install) is { Count: > 0 } blockers)
+        if (ModInstallService.Blockers(ModInstallAction.Disable, install) is { Count: > 0 } blockers)
         {
             StatusMessage = ModInstallProblems.InstallInUse(blockers, ModInstallAction.Disable);
             return false;

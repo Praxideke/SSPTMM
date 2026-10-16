@@ -179,6 +179,7 @@
                         Style="{StaticResource SteamHubGear}"
                         Tag="{x:Type views:OptionsPage}"
                         ToolTip="{loc:Str Nav_Options}"
+                        AutomationProperties.Name="{loc:Str Nav_Options}"
                         Click="HubTab_Click" />
                     <Button
                         DockPanel.Dock="Right"

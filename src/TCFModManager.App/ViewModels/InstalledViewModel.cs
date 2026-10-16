@@ -1737,7 +1737,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         var installPath = AppServices.SptEnvironment.InstallPath;
         if (string.IsNullOrWhiteSpace(installPath)) return StatusMessage = AppMessages.NoSptInstallFolder;
 
-        if (ModInstallService.RunningBlockers(installPath) is { Count: > 0 } blockers)
+        if (ModInstallService.Blockers(ModInstallAction.Remove, installPath) is { Count: > 0 } blockers)
             return StatusMessage = ModInstallProblems.InstallInUse(blockers, ModInstallAction.Remove);
 
         var disabled = cards.Where(c => c.IsDisabled).ToList();
@@ -1910,7 +1910,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             return;
         }
 
-        if (ModInstallService.RunningBlockers(installPath) is { Count: > 0 } blockers)
+        if (ModInstallService.Blockers(ModInstallAction.SortOutDuplicate, installPath) is { Count: > 0 } blockers)
         {
             StatusMessage = ModInstallProblems.InstallInUse(blockers, ModInstallAction.SortOutDuplicate);
             return;
@@ -2039,10 +2039,16 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             .Select(m => ModGroupStore.KeyFor(m.Name))
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
+    // Fork (1.4.2): a disabled mod too - it is switched on for the update and off again after. Not
+    // one sharing its folder with another: its files can't be told from the new version's.
     private static bool IsUpdatable(InstalledModCardViewModel card) =>
-        card is { UpdateAvailable: true, IsDisabled: false, IsAddon: false, ModId: not null }
+        card is { UpdateAvailable: true, IsAddon: false, ModId: not null }
+        && !CannotUpdateDisabled(card)
         && card.LatestPublishedVersion is not null
         && !IsHeldBack(card);
+
+    private static bool CannotUpdateDisabled(InstalledModCardViewModel card) =>
+        card is { IsDisabled: true, SharedFolderParts: not null };
 
     // sp-mod.com holds back the very version this update would install. A different, newer version
     // being held back leaves this one alone.
@@ -2121,7 +2127,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         var targets = selected.Where(IsUpdatable).ToList();
 
         // Held back by sp-mod.com: said, and left for the mod's own update dialog.
-        var heldBack = selected.Where(c => c is { UpdateAvailable: true, IsDisabled: false } && IsHeldBack(c)).ToList();
+        var heldBack = selected.Where(c => c is { UpdateAvailable: true } && !CannotUpdateDisabled(c) && IsHeldBack(c)).ToList();
         var heldBackNote = heldBack.Count == 0
             ? null
             : Strings.Installed_UpdatesHeldBack(heldBack.Count, heldBack.Count, TextLists.Join(heldBack.Select(c => c.DisplayTitle).ToList()));
@@ -2155,8 +2161,13 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         }
 
         // Asked and queued the way every Update all is - see ModUpdates.
+        // Fork (1.4.2): in dependency order, so a library installs before the mods that use it.
+        resolved = [.. _dependencies.DependencyOrder(resolved, r => r.Card.Entries)];
+
         var (said, queued) = ModUpdates.Queue(resolved
-            .Select(r => new UpdateTarget(r.Card.DisplayTitle, r.Mod, r.Version, r.Card.IsAppManaged))
+            .Select(r => new UpdateTarget(
+                r.Card.DisplayTitle, r.Mod, r.Version, r.Card.IsAppManaged,
+                r.Card.IsDisabled ? [.. r.Card.Entries.Where(e => e.IsDisabled)] : null))
             .ToList());
         if (!queued)
         {
@@ -2178,7 +2189,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     {
         if (selected.Count == 0) return Strings.Installed_NothingSelected;
 
-        var disabled = selected.Count(c => c is { UpdateAvailable: true, IsDisabled: true });
+        var disabled = selected.Count(c => c is { UpdateAvailable: true } && CannotUpdateDisabled(c));
         var addons = selected.Count(c => c is { UpdateAvailable: true, IsAddon: true });
 
         var reasons = new List<string>();
@@ -2200,7 +2211,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     {
         var parts = new List<string>();
 
-        var disabled = selected.Count(c => c is { UpdateAvailable: true, IsDisabled: true });
+        var disabled = selected.Count(c => c is { UpdateAvailable: true } && CannotUpdateDisabled(c));
         var addons = selected.Count(c => c is { UpdateAvailable: true, IsAddon: true });
         var noUpdate = selected.Count(c => c.UpdateAvailable != true);
 
@@ -2308,11 +2319,10 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
         // Checked before anything is asked or moved, so a locked install is reported up front
         // rather than after the user has answered a dialog. ModDisableService guards again itself.
-        if (ModInstallService.RunningBlockers(AppServices.SptEnvironment.InstallPath) is { Count: > 0 } blockers)
+        var switching = disable ? ModInstallAction.Disable : ModInstallAction.Enable;
+        if (ModInstallService.Blockers(switching, AppServices.SptEnvironment.InstallPath) is { Count: > 0 } blockers)
         {
-            StatusMessage = ModInstallProblems.InstallInUse(
-                blockers,
-                disable ? ModInstallAction.Disable : ModInstallAction.Enable);
+            StatusMessage = ModInstallProblems.InstallInUse(blockers, switching);
             return null;
         }
 

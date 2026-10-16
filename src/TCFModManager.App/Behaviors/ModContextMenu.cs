@@ -82,6 +82,13 @@ public static class ModContextMenu
         {
             if (mod is not null) menu.Items.Add(Rule());
             menu.Items.Add(GroupMenu(page, card));
+
+            // Fork (1.4.2): the card's own folder buttons, on the menu too.
+            if (card.ClientFolderLink is not null || card.ServerFolderLink is not null) menu.Items.Add(Rule());
+            if (card.ClientFolderLink is { } client)
+                menu.Items.Add(Item(Strings.Menu_OpenClientFolder, () => page.OpenModFolderCommand.Execute(client)));
+            if (card.ServerFolderLink is { } server)
+                menu.Items.Add(Item(Strings.Menu_OpenServerFolder, () => page.OpenModFolderCommand.Execute(server)));
         }
 
         menu.PlacementTarget = element;
