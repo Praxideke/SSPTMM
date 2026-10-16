@@ -43,7 +43,15 @@ the same details; click a card or row to open it.
   update notifications don't announce it. Update all goes in dependency order - a library before
   the mods that use it. A disabled mod is updated too and stays disabled.
 - Right-click a mod for **Rename...** (a name of your own; empty gives it back its own), **Open
-  client folder** and **Open server folder**, beside the group items.
+  client folder** and **Open server folder**, beside the group items. Also:
+  - **Note...** - a line of your own, shown under the mod's name and found by the search.
+  - **Skip this update (version)** - the mod stops showing as out of date, and Update all and
+    notifications leave it out, until a newer version comes out. **Stop skipping** undoes it.
+  - **Go back to (version)** after an update - the copy kept when it was updated goes back, with
+    its configs as they were, offline. The version you leave is kept, so you can go forward
+    again. Only while [Options](Options) > Keep removed mods still holds the old copy.
+  - With several mods picked (Ctrl+click, Shift+click, Ctrl+A): Enable, Disable, Update and
+    Unsubscribe for all of them, and Add to group.
 - Flags when the installed version doesn't run on your SPT, or when it needs a mod that is missing
   or disabled - read from the mod's own files, so it works offline and for hand-installed mods.
 - **PINNED** - see below. **RE-UPLOADED** - see below. **DISABLED**.

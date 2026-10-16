@@ -28,6 +28,7 @@ The gear at the top right. Each setting has a one-line explanation and a **?** w
 | Picture behind each subscribed mod | On by default. On Subscribed items, each mod's own picture, out of focus, sits behind its card or row, as Steam draws its rows. Off: plain cards - worth trying if the page is slow to scroll. Takes hold the next time the page is opened. |
 | Scrolling | Smooth scrolling, as a web browser does, or jump at once. |
 | Animations | Workshop cards rising under the pointer and pages sliding in. Pages already open keep the old way until a restart. |
+| Interface size | Everything in the window larger or smaller, 80% to 200%; Ctrl+=, Ctrl+- and Ctrl+0 (100%) do the same anywhere. Menus, tooltips and dialogs keep their own size. |
 
 ## Pages
 

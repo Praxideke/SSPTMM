@@ -13,6 +13,8 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:converters="clr-namespace:TCFModManager.App.Converters"
     xmlns:loc="clr-namespace:TCFModManager.App.Localization"
+    xmlns:behaviors="clr-namespace:TCFModManager.App.Behaviors"
+    behaviors:Shortcuts.Refresh="{Binding ScanCommand}"
     Title="{loc:Str Nav_Configs}"
     Loaded="ConfigsPage_Loaded"
     ScrollViewer.CanContentScroll="False">
@@ -92,6 +94,7 @@
                     Margin="0,0,0,8"
                     PlaceholderText="{loc:Str Configs_SearchPlaceholder}"
                     Icon="{ui:SymbolIcon Search24}"
+                    behaviors:Shortcuts.Search="True"
                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
                 <ComboBox

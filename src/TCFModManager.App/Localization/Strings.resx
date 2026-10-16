@@ -11246,4 +11246,124 @@ No keeps this group under its old name.</value>
     <value>Open server folder</value>
     <comment>Right-click menu on an installed mod: opens its user\mods folder in Explorer.</comment>
   </data>
+  <data name="Menu_Note" xml:space="preserve">
+    <value>Note...</value>
+    <comment>Right-click menu on an installed mod: write a note of your own on it.</comment>
+  </data>
+  <data name="Menu_NoteTitleFormat" xml:space="preserve">
+    <value>Your note on {0}</value>
+    <comment>Title of the note question. {0} is the mod.</comment>
+  </data>
+  <data name="Menu_NoteHint" xml:space="preserve">
+    <value>Needs a config change, broke with another mod... (empty for none)</value>
+    <comment>Placeholder in the note box.</comment>
+  </data>
+  <data name="Menu_SkipUpdateFormat" xml:space="preserve">
+    <value>Skip this update ({0})</value>
+    <comment>Right-click menu on an installed mod with an update. {0} is the version skipped.</comment>
+  </data>
+  <data name="Menu_StopSkippingFormat" xml:space="preserve">
+    <value>Stop skipping {0}</value>
+    <comment>Right-click menu on an installed mod whose update was skipped. {0} is that version.</comment>
+  </data>
+  <data name="Menu_GoBackFormat" xml:space="preserve">
+    <value>Go back to {0}</value>
+    <comment>Right-click menu on an installed mod an update replaced. {0} is the version it had before.</comment>
+  </data>
+  <data name="Installed_SkippedUpdateFormat" xml:space="preserve">
+    <value>Update {0} skipped. A newer version is offered as usual; right-click to stop skipping this one.</value>
+    <comment>On a mod card whose update was skipped. {0} is the version.</comment>
+  </data>
+  <data name="Installed_SkippingFormat" xml:space="preserve">
+    <value>Skipping {1} of {0}: it is not counted as an update until a newer version comes out.</value>
+    <comment>Status line after Skip this update. {0} is the mod, {1} the version.</comment>
+  </data>
+  <data name="Installed_StoppedSkippingFormat" xml:space="preserve">
+    <value>{0}: its update is offered again.</value>
+    <comment>Status line after Stop skipping. {0} is the mod.</comment>
+  </data>
+  <data name="Installed_GoBackTitleFormat" xml:space="preserve">
+    <value>Go back to {0}?</value>
+    <comment>Title of the question before going back. {0} is the earlier version.</comment>
+  </data>
+  <data name="Installed_GoBackBodyFormat" xml:space="preserve">
+    <value>{0} {1} is put back from the copy kept when it was updated to {2}, so this works offline and after the author has taken {1} down. Its config files go back to how they were then. {2} is kept the same way, so you can come back to it from this menu.</value>
+    <comment>Body of that question. {0} is the mod, {1} the earlier version, {2} the version installed now.</comment>
+  </data>
+  <data name="Installed_GoBack" xml:space="preserve">
+    <value>Go back</value>
+    <comment>Button in that question.</comment>
+  </data>
+  <data name="Installed_WentBackFormat" xml:space="preserve">
+    <value>{0} is back to {1}.</value>
+    <comment>Status line after going back. {0} is the mod, {1} the version.</comment>
+  </data>
+  <data name="Installed_WentBackBlockedFormat" xml:space="preserve">
+    <value>{0} is back to {1}, but something has taken the place of some of its files since. Those were not written over and stay in {2}.</value>
+    <comment>Status line after going back when some paths were taken. {2} is a folder.</comment>
+  </data>
+  <data name="Options_InterfaceScaleHeader" xml:space="preserve">
+    <value>Interface size</value>
+    <comment>Options card title.</comment>
+  </data>
+  <data name="Options_InterfaceScaleSummary" xml:space="preserve">
+    <value>Everything in the window larger or smaller - also Ctrl+= and Ctrl+-, Ctrl+0 for 100%</value>
+    <comment>Options card text. The key names stay as they are.</comment>
+  </data>
+  <data name="Options_InterfaceScaleDescription" xml:space="preserve">
+    <value>For a small or a very sharp screen, or long labels in your language. Menus, tooltips and dialogs keep their own size.</value>
+    <comment>Options card text.</comment>
+  </data>
+  <data name="Options_InterfaceScaleValueFormat" xml:space="preserve">
+    <value>{0}%</value>
+    <comment>The size as a percentage, beside the slider. {0} is a whole number such as 125.</comment>
+  </data>
+  <data name="Options_InterfaceScaleReset" xml:space="preserve">
+    <value>Reset</value>
+    <comment>Button: back to 100%.</comment>
+  </data>
+  <data name="Downloads_SpaceTitle" xml:space="preserve">
+    <value>Not enough free space for these downloads</value>
+    <comment>Title of the question when the queue would fill the drive.</comment>
+  </data>
+  <data name="Downloads_SpaceBodyFormat" xml:space="preserve">
+    <value>The downloads still queued are {0}, which unpacked and installed take about {1} with some to spare. {2} has {3} free. Downloads are paused so nothing stops halfway: free some space, then Resume on the Downloads page.</value>
+    <comment>Body of that question. {0} and {1} are sizes, {2} a drive such as G:\, {3} its free space.</comment>
+  </data>
+  <data name="Downloads_SpaceKeepPaused" xml:space="preserve">
+    <value>Keep paused</value>
+    <comment>Button in that question.</comment>
+  </data>
+  <data name="Downloads_SpaceDownloadAnyway" xml:space="preserve">
+    <value>Download anyway</value>
+    <comment>Button in that question.</comment>
+  </data>
+  <data name="Downloads_FinishedTitle" xml:space="preserve">
+    <value>Downloads finished</value>
+    <comment>Windows notification title, shown when the queue empties while SSPTMM is in the tray.</comment>
+  </data>
+  <data name="Downloads_FinishedBodyFormat" xml:space="preserve">
+    <value>Done: {0}. Failed or cancelled: {1}.</value>
+    <comment>Windows notification text. {0} and {1} are counts.</comment>
+  </data>
+  <data name="Help_Start_Keys_Title" xml:space="preserve">
+    <value>Keyboard shortcuts</value>
+    <comment>Help topic title.</comment>
+  </data>
+  <data name="Help_Start_Keys_Step1" xml:space="preserve">
+    <value>Moving around: Alt+Left and Alt+Right, or the mouse's back and forward buttons, go back and forward. Alt+Home goes to your home page. Esc closes a mod, collection or author page, and F1 opens Help about the page you are on.</value>
+    <comment>Help step. The key names stay as they are.</comment>
+  </data>
+  <data name="Help_Start_Keys_Step2" xml:space="preserve">
+    <value>On a page: Ctrl+F goes to its search box. F5 does what its Rescan or Refresh button does, where it has one. On {0}, Ctrl+A picks every mod and Esc picks none.</value>
+    <comment>Help step. The key names stay as they are. {0} is the Subscribed items page.</comment>
+  </data>
+  <data name="Help_Start_Keys_Step3" xml:space="preserve">
+    <value>Anywhere: with a mod's sp-mod.com link copied, Ctrl+V outside a text box opens that mod here - so does dropping the link on the window. Ctrl+= and Ctrl+- make everything larger and smaller, and Ctrl+0 puts it back ({0} &gt; {1}). F11 is full screen.</value>
+    <comment>Help step. {0} and {1} are the Options page and its card.</comment>
+  </data>
+  <data name="Help_Start_Keys_Keywords" xml:space="preserve">
+    <value>keyboard shortcuts keys hotkeys ctrl f5 search refresh paste link zoom size scale</value>
+    <comment>Search words for the topic, any order.</comment>
+  </data>
 </root>

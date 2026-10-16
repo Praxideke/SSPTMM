@@ -55,6 +55,13 @@ internal static class HelpCatalog
                 Step(() => Strings.Help_Start_Version_Step3, () => Strings.Common_Save))
                 .WithKeywords(() => Strings.Help_Start_Version_Keywords)
                 .WithPage(typeof(OptionsPage)),
+
+            // Fork (1.4.2): every key the window answers to, in one place.
+            Topic("start.keys", () => Strings.Help_Start_Keys_Title,
+                Step(() => Strings.Help_Start_Keys_Step1),
+                Step(() => Strings.Help_Start_Keys_Step2, () => Strings.Nav_Installed),
+                Step(() => Strings.Help_Start_Keys_Step3, () => Strings.Nav_Options, () => Strings.Options_InterfaceScaleHeader))
+                .WithKeywords(() => Strings.Help_Start_Keys_Keywords),
         ]),
 
         new("play", () => Strings.Nav_Play, SymbolRegular.Play24, typeof(PlayPage),

@@ -26,6 +26,14 @@ public partial class MainWindow : FluentWindow
     //
     private void Window_DragOver(object sender, DragEventArgs e)
     {
+        // Fork (1.4.2): a link to a mod, dragged from a browser, opens its page here.
+        if (DroppedModLink(e.Data) is not null)
+        {
+            e.Effects = DragDropEffects.Link;
+            e.Handled = true;
+            return;
+        }
+
         if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
 
         e.Effects = e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any(InstalledViewModel.IsModArchive)
@@ -36,6 +44,13 @@ public partial class MainWindow : FluentWindow
 
     private async void Window_Drop(object sender, DragEventArgs e)
     {
+        if (DroppedModLink(e.Data) is { } link)
+        {
+            e.Handled = true;
+            MarkupActions.OpenLink(link);
+            return;
+        }
+
         if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
 
         e.Handled = true;
@@ -50,9 +65,93 @@ public partial class MainWindow : FluentWindow
         await InstalledViewModel.ForActions.InstallArchivesAsync(kept);
     }
 
+    // A browser's link drag carries the address as text; a file drag never is one.
+    private static string? DroppedModLink(IDataObject data)
+    {
+        if (data.GetDataPresent(DataFormats.FileDrop)) return null;
+
+        try
+        {
+            return MarkupActions.ModLinkIn(data.GetData(DataFormats.UnicodeText) as string);
+        }
+        catch (System.Runtime.InteropServices.COMException)
+        {
+            return null;
+        }
+    }
+
+    // Fork (1.4.2): Ctrl+V outside a text box, with a mod's sp-mod.com link copied.
+    private static string? ModLinkOnClipboard()
+    {
+        try
+        {
+            return Clipboard.ContainsText() ? MarkupActions.ModLinkIn(Clipboard.GetText()) : null;
+        }
+        catch (System.Runtime.InteropServices.COMException)
+        {
+            return null; // the clipboard is held by another program just now
+        }
+    }
+
+    //
+    // Fork (1.4.2): Ctrl+F to the page's search box, F5 its Rescan or Refresh, Ctrl+V a mod's link,
+    // and the interface size (Help > Keyboard shortcuts). True when it was one of them.
+    //
+    private bool ShortcutKey(KeyEventArgs e)
+    {
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
+        var ctrl = Keyboard.Modifiers == ModifierKeys.Control;
+        var scope = (DependencyObject?)TopPage ?? RootNavigationView;
+
+        if (ctrl && key == Key.F && Behaviors.Shortcuts.SearchBoxIn(scope) is { } box)
+        {
+            box.Focus();
+            box.SelectAll();
+        }
+        else if (key == Key.F5 && Keyboard.Modifiers == ModifierKeys.None
+                 && Behaviors.Shortcuts.RefreshIn(scope) is { } refresh && refresh.CanExecute(null))
+        {
+            refresh.Execute(null);
+        }
+        else if (ctrl && key == Key.V
+                 && Keyboard.FocusedElement is not (System.Windows.Controls.Primitives.TextBoxBase or System.Windows.Controls.PasswordBox)
+                 && ModLinkOnClipboard() is { } link)
+        {
+            MarkupActions.OpenLink(link);
+        }
+        else if (ctrl && key is Key.OemPlus or Key.Add) Behaviors.InterfaceScale.Step(+1);
+        else if (ctrl && key is Key.OemMinus or Key.Subtract) Behaviors.InterfaceScale.Step(-1);
+        else if (ctrl && key is Key.D0 or Key.NumPad0) Behaviors.InterfaceScale.Set(1.0);
+        else return false;
+
+        e.Handled = true;
+        return true;
+    }
+
+    //
+    // Fork (1.4.2): a queue that finishes while the window is out of sight says so - a Windows
+    // notification from the tray, the taskbar button flashing when minimised or behind others.
+    //
+    private void OnQueueFinished(object? sender, DownloadQueueFinished done)
+    {
+        if (!IsVisible)
+        {
+            UpdateToasts.ShowMessage("downloads", Strings.Downloads_FinishedTitle,
+                LocalizationService.Text(Strings.Downloads_FinishedBodyFormat, done.Completed, done.Failed));
+        }
+        else if (WindowState == WindowState.Minimized || !IsActive)
+        {
+            WindowActivation.Flash(this);
+        }
+    }
+
     public MainWindow()
     {
         InitializeComponent();
+
+        // Fork (1.4.2): Options > Look > Interface size, as saved.
+        Behaviors.InterfaceScale.Attach(RootLayout);
+        AppServices.DownloadQueue.QueueFinished += OnQueueFinished;
 
         // Fork (1.4.2): Options > Animations off - pages change without sliding in.
         PageTransition = RootNavigationView.Transition;
@@ -110,6 +209,7 @@ public partial class MainWindow : FluentWindow
         PreviewKeyDown += (_, e) =>
         {
             if (BackForwardKey(e)) return;
+            if (ShortcutKey(e)) return;
             if (e.Key != Key.F1 || Keyboard.Modifiers != ModifierKeys.None) return;
 
             ShowHelp();

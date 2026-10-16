@@ -626,6 +626,40 @@
                                     </ui:CardControl.Header>
                                     <ui:ToggleSwitch Style="{StaticResource RowSwitch}" IsChecked="{Binding Animations}" />
                                 </ui:CardControl>
+
+                                <!-- Fork (1.4.2): everything in the window larger or smaller (Behaviors/InterfaceScale). -->
+                                <ui:CardControl
+                                    Style="{StaticResource SettingRow}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource SettingTitle}" Text="{loc:Str Options_InterfaceScaleHeader}" />
+                                            <TextBlock Style="{StaticResource SettingHint}"><Run Text="{loc:Str Options_InterfaceScaleSummary}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Options_InterfaceScaleDescription}" /></InlineUIContainer></TextBlock>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            MinWidth="44"
+                                            VerticalAlignment="Center"
+                                            TextAlignment="Right"
+                                            Text="{Binding InterfaceScaleLabel}" />
+                                        <Slider
+                                            Width="220"
+                                            Margin="10,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Minimum="0.8"
+                                            Maximum="2"
+                                            Ticks="0.8,0.9,1,1.1,1.25,1.5,1.75,2"
+                                            IsSnapToTickEnabled="True"
+                                            TickPlacement="BottomRight"
+                                            AutomationProperties.Name="{loc:Str Options_InterfaceScaleHeader}"
+                                            Value="{Binding InterfaceScale, Delay=250}" />
+                                        <Button
+                                            Margin="10,0,0,0"
+                                            Style="{StaticResource SteamButton}"
+                                            Command="{Binding ResetInterfaceScaleCommand}"
+                                            Content="{loc:Str Options_InterfaceScaleReset}" />
+                                    </StackPanel>
+                                </ui:CardControl>
                             </StackPanel>
                         </Border>
                     </StackPanel>

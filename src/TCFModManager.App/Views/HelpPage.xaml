@@ -54,6 +54,7 @@
             Margin="0,0,0,12"
             PlaceholderText="{loc:Str Help_SearchPlaceholder}"
             Icon="{ui:SymbolIcon Search24}"
+            behaviors:Shortcuts.Search="True"
             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock

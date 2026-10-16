@@ -23,6 +23,7 @@
     xmlns:views="clr-namespace:TCFModManager.App.Views"
     xmlns:converters="clr-namespace:TCFModManager.App.Converters"
     xmlns:behaviors="clr-namespace:TCFModManager.App.Behaviors"
+    behaviors:Shortcuts.Refresh="{Binding RefreshCommand}"
     xmlns:loc="clr-namespace:TCFModManager.App.Localization"
     ScrollViewer.CanContentScroll="False"
     Title="{loc:Str Collections_Title}"
@@ -252,6 +253,7 @@
                         <TextBox
                             Style="{StaticResource SteamSearchField}"
                             Tag="{loc:Str Collections_SearchPlaceholder}"
+                            behaviors:Shortcuts.Search="True"
                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                     </Border>
                     <Button

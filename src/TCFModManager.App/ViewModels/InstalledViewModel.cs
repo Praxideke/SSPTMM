@@ -1050,6 +1050,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             ApplyListMembership(cards);
             ApplyPins(cards);
             ModNicknames.Apply(cards); // Fork (1.4.2)
+            ModNotes.Apply(cards); // Fork (1.4.2)
             ApplyReuploads(cards, installRecords); // Fork
             ApplyPendingDownloads(cards, downloads);
             ApplyLeftovers(cards);
@@ -2959,7 +2960,8 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
                 || (SelectedGroupFilter.GroupId is { } groupId ? m.GroupId == groupId : !m.IsGrouped))
             .Where(m => authorQuery is not null
                 ? MatchesAuthor(m, authorQuery)
-                : query.Length == 0 || Matches(m.DisplayTitle, query) || Matches(m.Name, query))
+                : query.Length == 0 || Matches(m.DisplayTitle, query) || Matches(m.Name, query)
+                    || (m.Note is { } note && Matches(note, query))) // Fork (1.4.2): your notes too
             .Where(m => SelectedCategory.Title is not { } category
                 || string.Equals(m.CategoryTag, category, StringComparison.OrdinalIgnoreCase))
             .Where(m => !IsOn(ModAttributeFilter.FikaCompatible) || m.IsFikaCompatible)

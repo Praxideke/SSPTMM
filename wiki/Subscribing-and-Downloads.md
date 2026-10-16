@@ -25,6 +25,13 @@
 - **Up to three downloads at once**; installs happen one at a time, in the order you queued them.
   **Pause** on the Downloads page stops new downloads from starting until **Resume**; one under way
   finishes.
+- Before a big queue starts, the **free space** on the SPT drive is checked against what the
+  downloads take unpacked and installed, with some to spare. When it is short, the queue is
+  paused and says how much is needed; **Download anyway** goes on regardless.
+- When the queue finishes while SSPTMM is in the tray, a **Windows notification** says how many
+  were done and failed; while it is minimised or behind other windows, its taskbar button flashes.
+- A mod's sp-mod.com link copied: **Ctrl+V** outside a text box opens its page here, and so does
+  dropping the link from a browser on the window.
 - A download that fails for a passing reason is retried, and a broken-off one carries on from where
   it stopped when the server allows it. One that fails for good has **Retry** and **Copy error** -
   the reason with the versions of SSPTMM, SPT and Windows, for a bug report.

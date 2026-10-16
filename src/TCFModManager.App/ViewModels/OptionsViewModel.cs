@@ -268,6 +268,24 @@ public partial class OptionsViewModel : LocalizedViewModel
     [ObservableProperty]
     private bool _animations;
 
+    // Fork (1.4.2): Options > Look > Interface size - see Behaviors/InterfaceScale, which Ctrl+= and
+    // Ctrl+- change too; this follows them.
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(InterfaceScaleLabel))]
+    private double _interfaceScale = Behaviors.InterfaceScale.Current;
+
+    public string InterfaceScaleLabel => Text(Strings.Options_InterfaceScaleValueFormat, (int)Math.Round(InterfaceScale * 100));
+
+    partial void OnInterfaceScaleChanged(double value)
+    {
+        if (Math.Abs(value - Behaviors.InterfaceScale.Current) > 0.001) Behaviors.InterfaceScale.Set(value);
+    }
+
+    [RelayCommand]
+    private void ResetInterfaceScale() => Behaviors.InterfaceScale.Set(1.0);
+
+    private void FollowInterfaceScale(object? sender, EventArgs e) => InterfaceScale = Behaviors.InterfaceScale.Current;
+
     partial void OnAnimationsChanged(bool value)
     {
         if (!_loaded) return;
@@ -606,6 +624,7 @@ public partial class OptionsViewModel : LocalizedViewModel
         _keepDownloads = settings.KeepDownloads;
         _allowChangesWhileRunning = settings.AllowChangesWhileRunning;
         _animations = settings.Animations;
+        Behaviors.InterfaceScale.Changed += FollowInterfaceScale;
         _catalogSiteInput = settings.CatalogSite ?? string.Empty;
         _showSubscribedItemsTab = settings.ShowSubscribedItemsTab;
         _showCollectionsTab = settings.ShowCollectionsTab;

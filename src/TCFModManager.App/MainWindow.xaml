@@ -37,8 +37,9 @@
     </Window.Resources>
     <!-- The whole window sits on the Workshop browse page's background - #262B34 under Steam's two
          faint grids - so every page reads as part of one Steam site. The item page draws the
-         legacy blue over it, as Steam's own item pages do. -->
-    <Grid>
+         legacy blue over it, as Steam's own item pages do.
+         Fork (1.4.2): RootLayout is what Options > Interface size scales (Behaviors/InterfaceScale). -->
+    <Grid x:Name="RootLayout">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

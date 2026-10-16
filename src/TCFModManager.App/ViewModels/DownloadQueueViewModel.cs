@@ -246,7 +246,86 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         Items.Add(item);
         _channel.Writer.TryWrite(item);
         UpdateSummary();
+        CheckFreeSpace(installPath);
         return item;
+    }
+
+    //
+    // Fork (1.4.2): raised once a queue has emptied - MainWindow says so when it is out of sight.
+    // Counts only what finished since the last time.
+    //
+    public event EventHandler<DownloadQueueFinished>? QueueFinished;
+
+    private readonly HashSet<DownloadQueueItemViewModel> _reported = [];
+
+    private void Finished()
+    {
+        var fresh = Items.Where(i => i.IsFinished && _reported.Add(i)).ToList();
+        _spaceWarned = false;
+        if (fresh.Count == 0) return;
+
+        var completed = fresh.Count(i => i.Status == DownloadQueueItemStatus.Completed);
+        QueueFinished?.Invoke(this, new DownloadQueueFinished(completed, fresh.Count - completed));
+    }
+
+    //
+    // Fork (1.4.2): before a queue runs out of room halfway. What is still to download, times what
+    // it takes once unpacked, against the free space on the install's drive; short of that, the
+    // queue pauses and says so - once, until it has emptied.
+    //
+    // HUNCH: two and a half times the archives (the archive in the work folder while it is
+    // unpacked, then the files, which mod archives are commonly about half the size of), plus 1 GB
+    // left over for SPT, the game and Windows. Neither was measured.
+    //
+    private const double SpacePerArchiveByte = 2.5;
+    private const long SpaceToSpare = 1L << 30;
+    private bool _spaceWarned;
+
+    private void CheckFreeSpace(string installPath)
+    {
+        if (_spaceWarned || IsPaused) return;
+
+        var queued = Items.Where(i => !i.IsFinished).Sum(i => i.RemainingBytes ?? 0);
+        var need = (long)(queued * SpacePerArchiveByte);
+        if (need == 0) return;
+
+        long free;
+        string drive;
+        try
+        {
+            var info = new System.IO.DriveInfo(System.IO.Path.GetPathRoot(System.IO.Path.GetFullPath(installPath))!);
+            free = info.AvailableFreeSpace;
+            drive = info.Name;
+        }
+        catch (Exception ex) when (ex is System.IO.IOException or UnauthorizedAccessException or ArgumentException)
+        {
+            return; // a network share, or a drive that has gone: nothing to measure
+        }
+
+        if (need + SpaceToSpare <= free) return;
+
+        _spaceWarned = true;
+        IsPaused = true;
+        AppLog.Warn("Downloads", $"paused: the queue needs about {need:N0} bytes on {drive}, which has {free:N0} free");
+
+        System.Windows.Application.Current?.Dispatcher.BeginInvoke(() =>
+        {
+            var body = new System.Windows.Controls.TextBlock
+            {
+                MaxWidth = 560,
+                TextWrapping = System.Windows.TextWrapping.Wrap,
+                Text = Text(Strings.Downloads_SpaceBodyFormat,
+                    DownloadQueueItemViewModel.SizeLabel(queued), DownloadQueueItemViewModel.SizeLabel(need + SpaceToSpare),
+                    drive, DownloadQueueItemViewModel.SizeLabel(free)),
+            };
+
+            var answer = Views.SteamDialog.Show(
+                Strings.Downloads_SpaceTitle,
+                body,
+                new Views.SteamDialogChoice(Strings.Downloads_SpaceKeepPaused, Views.SteamDialogButton.Blue, IsDefault: true),
+                new Views.SteamDialogChoice(Strings.Downloads_SpaceDownloadAnyway, Views.SteamDialogButton.Grey));
+            if (answer == 1) IsPaused = false;
+        });
     }
 
     private void OnItemChanged(object? sender, PropertyChangedEventArgs e)
@@ -257,6 +336,10 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         {
             UpdateSummary();
         }
+
+        // Fork (1.4.2): most sizes are only known once a version is picked, just before it downloads.
+        if (e.PropertyName == nameof(DownloadQueueItemViewModel.TotalBytes) && sender is DownloadQueueItemViewModel { IsFinished: false } item)
+            CheckFreeSpace(item.InstallPath);
     }
 
     //
@@ -269,6 +352,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     {
         if (unfinished.Count == 0)
         {
+            if (BarActive) Finished();
             BarActive = false;
             BarTitle = Strings.Downloads_BarIdle;
             BarDetail = Strings.Downloads_BarManage;
@@ -1306,3 +1390,6 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         }
     }
 }
+
+// Fork (1.4.2): what a queue that has just emptied did - DownloadQueueViewModel.QueueFinished.
+public sealed record DownloadQueueFinished(int Completed, int Failed);

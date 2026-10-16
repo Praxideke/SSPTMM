@@ -9449,4 +9449,94 @@
   <data name="Menu_OpenServerFolder" xml:space="preserve">
     <value>Открыть папку сервера</value>
   </data>
+  <data name="Menu_Note" xml:space="preserve">
+    <value>Заметка...</value>
+  </data>
+  <data name="Menu_NoteTitleFormat" xml:space="preserve">
+    <value>Ваша заметка о {0}</value>
+  </data>
+  <data name="Menu_NoteHint" xml:space="preserve">
+    <value>Нужно поменять конфиг, конфликтует с другим модом... (пусто - без заметки)</value>
+  </data>
+  <data name="Menu_SkipUpdateFormat" xml:space="preserve">
+    <value>Пропустить это обновление ({0})</value>
+  </data>
+  <data name="Menu_StopSkippingFormat" xml:space="preserve">
+    <value>Больше не пропускать {0}</value>
+  </data>
+  <data name="Menu_GoBackFormat" xml:space="preserve">
+    <value>Вернуться к {0}</value>
+  </data>
+  <data name="Installed_SkippedUpdateFormat" xml:space="preserve">
+    <value>Обновление {0} пропущено. Более новая версия будет предложена как обычно; щёлкните правой кнопкой, чтобы больше не пропускать это.</value>
+  </data>
+  <data name="Installed_SkippingFormat" xml:space="preserve">
+    <value>{1} для {0} пропускается: это не считается обновлением, пока не выйдет более новая версия.</value>
+  </data>
+  <data name="Installed_StoppedSkippingFormat" xml:space="preserve">
+    <value>{0}: обновление снова предлагается.</value>
+  </data>
+  <data name="Installed_GoBackTitleFormat" xml:space="preserve">
+    <value>Вернуться к {0}?</value>
+  </data>
+  <data name="Installed_GoBackBodyFormat" xml:space="preserve">
+    <value>{0} {1} возвращается из копии, сохранённой при обновлении до {2}, поэтому это работает и без интернета, и после того как автор убрал {1}. Его файлы конфигурации вернутся к тогдашнему состоянию. {2} сохраняется так же, так что к ней можно вернуться из этого меню.</value>
+  </data>
+  <data name="Installed_GoBack" xml:space="preserve">
+    <value>Вернуться</value>
+  </data>
+  <data name="Installed_WentBackFormat" xml:space="preserve">
+    <value>{0}: снова версия {1}.</value>
+  </data>
+  <data name="Installed_WentBackBlockedFormat" xml:space="preserve">
+    <value>{0}: снова версия {1}, но место некоторых его файлов с тех пор заняло что-то другое. Ничего не перезаписано; они остаются в {2}.</value>
+  </data>
+  <data name="Options_InterfaceScaleHeader" xml:space="preserve">
+    <value>Размер интерфейса</value>
+  </data>
+  <data name="Options_InterfaceScaleSummary" xml:space="preserve">
+    <value>Всё в окне крупнее или мельче - также Ctrl+= и Ctrl+-, Ctrl+0 для 100 %</value>
+  </data>
+  <data name="Options_InterfaceScaleDescription" xml:space="preserve">
+    <value>Для маленького или очень чёткого экрана либо длинных надписей на вашем языке. Меню, подсказки и диалоги сохраняют свой размер.</value>
+  </data>
+  <data name="Options_InterfaceScaleValueFormat" xml:space="preserve">
+    <value>{0} %</value>
+  </data>
+  <data name="Options_InterfaceScaleReset" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="Downloads_SpaceTitle" xml:space="preserve">
+    <value>Недостаточно свободного места для этих загрузок</value>
+  </data>
+  <data name="Downloads_SpaceBodyFormat" xml:space="preserve">
+    <value>Оставшиеся в очереди загрузки занимают {0}, а распакованные и установленные - около {1} с небольшим запасом. На {2} свободно {3}. Загрузки приостановлены, чтобы ничего не оборвалось на полпути: освободите место, затем нажмите «Продолжить» на странице «Загрузки».</value>
+  </data>
+  <data name="Downloads_SpaceKeepPaused" xml:space="preserve">
+    <value>Оставить на паузе</value>
+  </data>
+  <data name="Downloads_SpaceDownloadAnyway" xml:space="preserve">
+    <value>Всё равно загрузить</value>
+  </data>
+  <data name="Downloads_FinishedTitle" xml:space="preserve">
+    <value>Загрузки завершены</value>
+  </data>
+  <data name="Downloads_FinishedBodyFormat" xml:space="preserve">
+    <value>Готово: {0}. Не удалось или отменено: {1}.</value>
+  </data>
+  <data name="Help_Start_Keys_Title" xml:space="preserve">
+    <value>Сочетания клавиш</value>
+  </data>
+  <data name="Help_Start_Keys_Step1" xml:space="preserve">
+    <value>Перемещение: Alt+Влево и Alt+Вправо или кнопки мыши «Назад» и «Вперёд» переходят назад и вперёд. Alt+Home открывает вашу домашнюю страницу. Esc закрывает страницу мода, коллекции или автора, а F1 открывает справку по текущей странице.</value>
+  </data>
+  <data name="Help_Start_Keys_Step2" xml:space="preserve">
+    <value>На странице: Ctrl+F переходит в её поле поиска. F5 делает то же, что её кнопка пересканирования или обновления, если она есть. На странице «{0}» Ctrl+A выделяет все моды, а Esc снимает выделение.</value>
+  </data>
+  <data name="Help_Start_Keys_Step3" xml:space="preserve">
+    <value>Везде: если скопирована ссылка на мод с sp-mod.com, Ctrl+V вне текстового поля открывает этот мод здесь - так же, если перетащить ссылку на окно. Ctrl+= и Ctrl+- делают всё крупнее и мельче, а Ctrl+0 возвращает как было ({0} &gt; {1}). F11 - полноэкранный режим.</value>
+  </data>
+  <data name="Help_Start_Keys_Keywords" xml:space="preserve">
+    <value>сочетания клавиш горячие клавиши ctrl f5 поиск обновить вставить ссылка масштаб размер</value>
+  </data>
 </root>

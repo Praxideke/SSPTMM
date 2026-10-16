@@ -194,6 +194,18 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     // unparsable version, or no installed SPT version detected).
     public bool? UpdateAvailable { get; init; }
 
+    // Fork (1.4.2): the update you chose to skip (SkippedUpdates) - UpdateAvailable is false for it.
+    // Null when none is skipped, or a newer one than it has come out.
+    public string? SkippedUpdateVersion { get; init; }
+
+    public string? SkippedUpdateNote => SkippedUpdateVersion is { } skipped && !IsDisabled
+        ? Text(Strings.Installed_SkippedUpdateFormat, skipped)
+        : null;
+
+    // Fork (1.4.2): your note on this mod (ModNotes); null for none.
+    [ObservableProperty]
+    private string? _note;
+
     // Client half's folder (or, for a loose top-level DLL, the DLL itself). Null when there's no client half.
     public string? ClientFolderPath { get; init; }
 
@@ -739,6 +751,15 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             detail = (nameof(Strings.Installed_DetailFilesReportFormat), [fileVersion]);
         }
 
+        // Fork (1.4.2): an update you skipped is not one, until a newer version than it comes out.
+        var addonUpdate = ModVersionComparer.IsUpdateAvailable(installedVersion, latest?.Version);
+        string? addonSkipped = null;
+        if (addonUpdate == true && SkippedUpdates.Skips(record.ModId, isAddon: true, latest?.Version))
+        {
+            addonSkipped = latest?.Version;
+            addonUpdate = false;
+        }
+
         return new InstalledModCardViewModel
         {
             Name = client?.Name ?? server!.Name,
@@ -758,7 +779,8 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             Author = addon?.Owner?.Name,
             ContainsAds = addon?.ContainsAds == true,
             ContainsAiContent = addon?.ContainsAiContent == true,
-            UpdateAvailable = ModVersionComparer.IsUpdateAvailable(installedVersion, latest?.Version),
+            UpdateAvailable = addonUpdate,
+            SkippedUpdateVersion = addonSkipped,
             ClientFolderPath = client?.FolderPath,
             ServerFolderPath = server?.FolderPath,
             ClientFolderName = client?.Name,
@@ -1524,6 +1546,14 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             ? SptVersionMatcher.IsSatisfiedBy(updateTarget?.SptVersionConstraint, installedSptVersion)
             : isNewer;
 
+        // Fork (1.4.2): an update you skipped is not one, until a newer version than it comes out.
+        string? skipped = null;
+        if (updateAvailable == true && match is not null && SkippedUpdates.Skips(match.Id, isAddon: false, updateTarget?.Version))
+        {
+            skipped = updateTarget?.Version;
+            updateAvailable = false;
+        }
+
         return new InstalledModCardViewModel
         {
             // Client's folder/package name wins when client and server disagree.
@@ -1549,6 +1579,7 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             ContainsAds = match?.ContainsAds == true,
             ContainsAiContent = match?.ContainsAiContent == true,
             UpdateAvailable = updateAvailable,
+            SkippedUpdateVersion = skipped,
             ClientFolderPath = client?.FolderPath,
             ServerFolderPath = server?.FolderPath,
             ClientFolderName = client?.Name,

@@ -302,6 +302,7 @@
                         <TextBox
                             Style="{StaticResource SteamSearchField}"
                             Tag="{loc:Str Common_SearchPlaceholder}"
+                            behaviors:Shortcuts.Search="True"
                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                     </Border>
 

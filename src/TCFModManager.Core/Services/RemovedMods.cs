@@ -213,6 +213,29 @@ public sealed class RemovedMods(Func<RemovedModsRetention>? retention = null)
     public static (string Folder, RemovalLog Log)? LatestUndoable(string installPath) =>
         Undoable(installPath) is [var latest, ..] ? latest : null;
 
+    //
+    // Fork (1.4.2): the newest update of this mod in this install whose replaced version is still held,
+    // not yet gone back to, and not the version now installed - for Subscribed items' "Go back to"
+    // (ModInstallService.RevertUpdate).
+    //
+    public static (string Folder, RemovalLog Log)? LatestReplaced(string installPath, int modId, bool isAddon, string currentVersion)
+    {
+        var stamp = InstallStamp.Of(installPath);
+
+        foreach (var held in List(installPath))
+        {
+            if (held.Log is { Kind: RemovalKind.ReplacedByUpdate, Undone: false, Record: { } record }
+                && record.ModId == modId && record.IsAddon == isAddon
+                && !string.Equals(record.Version, currentVersion, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(StampOrNull(held.Log.InstallPath), stamp, StringComparison.OrdinalIgnoreCase))
+            {
+                return held;
+            }
+        }
+
+        return null;
+    }
+
     private static string? StampOrNull(string path)
     {
         try { return InstallStamp.Of(path); }

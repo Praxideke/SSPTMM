@@ -2506,6 +2506,39 @@ From another mod manager (trappuss: "research it and see if there's anything cou
 - **The downloads bar** set its idle words when its view model was made, before the language was
   applied, so it read "DOWNLOADS - Manage" in every language until a download started.
   `AppLanguage.ApplyStored` now raises Changed when it changes the language, and the bar listens.
+- **Shortcuts.** `Behaviors/Shortcuts`: `Search` marks a page's search box and `Refresh` its
+  Rescan or Refresh command; MainWindow's `ShortcutKey` finds them in the visible page's tree for
+  Ctrl+F and F5. F5 is not on Browse, Workshop home or the item page: a refresh there fetches the
+  catalogue again, which is too heavy for a key pressed by habit. Ctrl+V and a dropped link go
+  through `MarkupActions.ModLinkIn` (the same pattern as links in descriptions); a drag carrying
+  files is left to the archive drop.
+- **Interface size.** `Behaviors/InterfaceScale`: a LayoutTransform on the window's root grid, so
+  pages measure again at the new size instead of being stretched. Popups (menus, tooltips) and
+  dialogs are windows of their own and are not scaled. Seen at 125% on a hidden desktop (Options,
+  Workshop); not at 80% or 200%.
+- **Skip this update.** `SkippedUpdates` keeps `id:<id>` / `addon:<id>` -> the skipped version in
+  settings; a card whose latest is that version builds as up to date, so Update all and the
+  notifications leave it out without their own check. A newer version is offered as usual.
+- **Going back on an update.** `ModInstallService.RevertUpdate` takes the newest
+  ReplacedByUpdate removal of the same mod (`RemovedMods.LatestReplaced`, stamp checked), removes
+  the current files as a ReplacedByUpdate removal of their own - so the step back can itself be
+  taken back - then puts the held files back as Undo does (`PutBackMoved`, never over a path taken
+  since) and restores the old record. A profile backup is taken first. Covered by three tests;
+  the menu item and the dialog were not clicked through.
+- **Notes.** `ModNotes`, keyed as nicknames are; an italic line under the facts in all three
+  views, and matched by the search. Not shared in presets: presets hold switch states only, and
+  mod lists are sp-mod.com's format.
+- **Several picked mods.** The right-click menu offers the page's own Enable / Disable / Update /
+  Unsubscribe selected commands when the mod is one of several picked.
+- **Free space.** `DownloadQueueViewModel.CheckFreeSpace`: what is still queued x 2.5 plus 1 GiB,
+  against the free space of the SPT drive, when a download is queued and when a size becomes known.
+  Short, it pauses the queue and asks once per queue.
+- **Queue finished.** `QueueFinished` when the queue empties, counting each item once; a toast
+  when the window is hidden in the tray, FlashWindowEx (tray, until it comes to the front) when it
+  is minimised or inactive. Neither the toast, the flash, the free-space dialog, the paste and
+  drop nor the keys were tried on the hidden desktop: its posted clicks reach no control (the
+  previous commit's build behaves the same), so they were not exercised. Notes, the Options card
+  and the Help topic were seen.
 - **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
   build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
   the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if
@@ -2520,7 +2553,8 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   page that can be read), the Add to group submenu's offset, leaving clothing out of the
   profile-cleaning offer, fifteen places in an arrow's list, a hundred item pages' places kept,
   two minutes for a yes to changes while SPT runs, and 2,500 characters of a report in an issue's
-  address.
+  address. The interface size steps (80% to 200%), 2.5 times the download plus 1 GiB as the room a
+  queue needs, and 300 characters for a note.
 
 - Round 52: the addon rows' layout and sizes (Steam has no addons; its palette, this app's
   arrangement), and seven as the number of addons from which a search box is worth its room.

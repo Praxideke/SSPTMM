@@ -8600,4 +8600,94 @@
   <data name="Menu_OpenServerFolder" xml:space="preserve">
     <value>打开服务端文件夹</value>
   </data>
+  <data name="Menu_Note" xml:space="preserve">
+    <value>备注...</value>
+  </data>
+  <data name="Menu_NoteTitleFormat" xml:space="preserve">
+    <value>你对 {0} 的备注</value>
+  </data>
+  <data name="Menu_NoteHint" xml:space="preserve">
+    <value>需要改配置、与另一个模组冲突……（留空则不加备注）</value>
+  </data>
+  <data name="Menu_SkipUpdateFormat" xml:space="preserve">
+    <value>跳过此更新（{0}）</value>
+  </data>
+  <data name="Menu_StopSkippingFormat" xml:space="preserve">
+    <value>不再跳过 {0}</value>
+  </data>
+  <data name="Menu_GoBackFormat" xml:space="preserve">
+    <value>退回到 {0}</value>
+  </data>
+  <data name="Installed_SkippedUpdateFormat" xml:space="preserve">
+    <value>已跳过更新 {0}。更新的版本仍会照常提供；右键单击可不再跳过此版本。</value>
+  </data>
+  <data name="Installed_SkippingFormat" xml:space="preserve">
+    <value>正在跳过 {0} 的 {1}：在更新的版本发布之前，它不算作更新。</value>
+  </data>
+  <data name="Installed_StoppedSkippingFormat" xml:space="preserve">
+    <value>{0}：其更新再次提供。</value>
+  </data>
+  <data name="Installed_GoBackTitleFormat" xml:space="preserve">
+    <value>退回到 {0}？</value>
+  </data>
+  <data name="Installed_GoBackBodyFormat" xml:space="preserve">
+    <value>{0} {1} 会从更新到 {2} 时保留的副本中恢复，因此离线时、或作者已撤下 {1} 后也能使用。它的配置文件会回到当时的状态。{2} 也会以同样方式保留，所以你可以从此菜单再回到它。</value>
+  </data>
+  <data name="Installed_GoBack" xml:space="preserve">
+    <value>退回</value>
+  </data>
+  <data name="Installed_WentBackFormat" xml:space="preserve">
+    <value>{0} 已退回到 {1}。</value>
+  </data>
+  <data name="Installed_WentBackBlockedFormat" xml:space="preserve">
+    <value>{0} 已退回到 {1}，但此后它的部分文件位置已被其他内容占用。没有覆盖任何内容；这些文件留在 {2}。</value>
+  </data>
+  <data name="Options_InterfaceScaleHeader" xml:space="preserve">
+    <value>界面大小</value>
+  </data>
+  <data name="Options_InterfaceScaleSummary" xml:space="preserve">
+    <value>放大或缩小窗口中的所有内容——也可用 Ctrl+= 和 Ctrl+-，Ctrl+0 恢复 100%</value>
+  </data>
+  <data name="Options_InterfaceScaleDescription" xml:space="preserve">
+    <value>适用于小屏幕或高分辨率屏幕，或你的语言中较长的标签。菜单、提示和对话框保持各自的大小。</value>
+  </data>
+  <data name="Options_InterfaceScaleValueFormat" xml:space="preserve">
+    <value>{0}%</value>
+  </data>
+  <data name="Options_InterfaceScaleReset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Downloads_SpaceTitle" xml:space="preserve">
+    <value>可用空间不足，无法完成这些下载</value>
+  </data>
+  <data name="Downloads_SpaceBodyFormat" xml:space="preserve">
+    <value>队列中剩余的下载共 {0}，解压并安装后约需 {1}（含少量余量）。{2} 剩余 {3}。下载已暂停，以免中途失败：请释放一些空间，然后在“下载”页点“继续”。</value>
+  </data>
+  <data name="Downloads_SpaceKeepPaused" xml:space="preserve">
+    <value>保持暂停</value>
+  </data>
+  <data name="Downloads_SpaceDownloadAnyway" xml:space="preserve">
+    <value>仍然下载</value>
+  </data>
+  <data name="Downloads_FinishedTitle" xml:space="preserve">
+    <value>下载已完成</value>
+  </data>
+  <data name="Downloads_FinishedBodyFormat" xml:space="preserve">
+    <value>完成：{0}。失败或已取消：{1}。</value>
+  </data>
+  <data name="Help_Start_Keys_Title" xml:space="preserve">
+    <value>键盘快捷键</value>
+  </data>
+  <data name="Help_Start_Keys_Step1" xml:space="preserve">
+    <value>导航：Alt+左方向键和 Alt+右方向键，或鼠标的后退和前进键，可后退和前进。Alt+Home 转到你的主页。Esc 关闭模组、合集或作者页面，F1 打开当前页面的帮助。</value>
+  </data>
+  <data name="Help_Start_Keys_Step2" xml:space="preserve">
+    <value>在页面上：Ctrl+F 转到其搜索框。F5 执行该页“重新扫描”或“刷新”按钮的操作（如有）。在“{0}”中，Ctrl+A 选择所有模组，Esc 取消选择。</value>
+  </data>
+  <data name="Help_Start_Keys_Step3" xml:space="preserve">
+    <value>任何位置：复制了某个模组的 sp-mod.com 链接后，在文本框外按 Ctrl+V 会在这里打开该模组——把链接拖到窗口上也一样。Ctrl+= 和 Ctrl+- 放大和缩小所有内容，Ctrl+0 恢复原样（{0} &gt; {1}）。F11 为全屏。</value>
+  </data>
+  <data name="Help_Start_Keys_Keywords" xml:space="preserve">
+    <value>键盘 快捷键 热键 ctrl f5 搜索 刷新 粘贴 链接 缩放 大小 比例</value>
+  </data>
 </root>

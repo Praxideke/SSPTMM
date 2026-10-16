@@ -9029,4 +9029,94 @@ Non garde ce groupe sous son ancien nom.</value>
   <data name="Menu_OpenServerFolder" xml:space="preserve">
     <value>Ouvrir le dossier serveur</value>
   </data>
+  <data name="Menu_Note" xml:space="preserve">
+    <value>Note...</value>
+  </data>
+  <data name="Menu_NoteTitleFormat" xml:space="preserve">
+    <value>Votre note sur {0}</value>
+  </data>
+  <data name="Menu_NoteHint" xml:space="preserve">
+    <value>Demande un réglage de config, incompatible avec un autre mod... (vide pour aucune)</value>
+  </data>
+  <data name="Menu_SkipUpdateFormat" xml:space="preserve">
+    <value>Ignorer cette mise à jour ({0})</value>
+  </data>
+  <data name="Menu_StopSkippingFormat" xml:space="preserve">
+    <value>Ne plus ignorer {0}</value>
+  </data>
+  <data name="Menu_GoBackFormat" xml:space="preserve">
+    <value>Revenir à {0}</value>
+  </data>
+  <data name="Installed_SkippedUpdateFormat" xml:space="preserve">
+    <value>Mise à jour {0} ignorée. Une version plus récente sera proposée comme d'habitude ; clic droit pour ne plus ignorer celle-ci.</value>
+  </data>
+  <data name="Installed_SkippingFormat" xml:space="preserve">
+    <value>{1} de {0} est ignorée : elle ne compte pas comme une mise à jour tant qu'une version plus récente n'est pas sortie.</value>
+  </data>
+  <data name="Installed_StoppedSkippingFormat" xml:space="preserve">
+    <value>{0} : sa mise à jour est de nouveau proposée.</value>
+  </data>
+  <data name="Installed_GoBackTitleFormat" xml:space="preserve">
+    <value>Revenir à {0} ?</value>
+  </data>
+  <data name="Installed_GoBackBodyFormat" xml:space="preserve">
+    <value>{0} {1} est remis à partir de la copie gardée lors de la mise à jour vers {2} : cela marche donc hors ligne et même si l'auteur a retiré {1}. Ses fichiers de config reviennent à leur état d'alors. {2} est gardée de la même façon, vous pourrez donc y revenir depuis ce menu.</value>
+  </data>
+  <data name="Installed_GoBack" xml:space="preserve">
+    <value>Revenir</value>
+  </data>
+  <data name="Installed_WentBackFormat" xml:space="preserve">
+    <value>{0} est revenu à {1}.</value>
+  </data>
+  <data name="Installed_WentBackBlockedFormat" xml:space="preserve">
+    <value>{0} est revenu à {1}, mais quelque chose a pris la place de certains de ses fichiers depuis. Rien n'a été écrasé ; ils restent dans {2}.</value>
+  </data>
+  <data name="Options_InterfaceScaleHeader" xml:space="preserve">
+    <value>Taille de l'interface</value>
+  </data>
+  <data name="Options_InterfaceScaleSummary" xml:space="preserve">
+    <value>Tout le contenu de la fenêtre en plus grand ou plus petit - aussi avec Ctrl+= et Ctrl+-, Ctrl+0 pour 100 %</value>
+  </data>
+  <data name="Options_InterfaceScaleDescription" xml:space="preserve">
+    <value>Pour un petit écran ou un écran très net, ou les libellés longs de votre langue. Les menus, info-bulles et boîtes de dialogue gardent leur propre taille.</value>
+  </data>
+  <data name="Options_InterfaceScaleValueFormat" xml:space="preserve">
+    <value>{0} %</value>
+  </data>
+  <data name="Options_InterfaceScaleReset" xml:space="preserve">
+    <value>Réinitialiser</value>
+  </data>
+  <data name="Downloads_SpaceTitle" xml:space="preserve">
+    <value>Pas assez d'espace libre pour ces téléchargements</value>
+  </data>
+  <data name="Downloads_SpaceBodyFormat" xml:space="preserve">
+    <value>Les téléchargements encore en attente font {0} et, décompressés et installés, prennent environ {1} avec un peu de marge. {2} a {3} de libre. Les téléchargements sont en pause pour que rien ne s'arrête à mi-chemin : libérez de la place, puis choisissez Reprendre sur la page Téléchargements.</value>
+  </data>
+  <data name="Downloads_SpaceKeepPaused" xml:space="preserve">
+    <value>Rester en pause</value>
+  </data>
+  <data name="Downloads_SpaceDownloadAnyway" xml:space="preserve">
+    <value>Télécharger quand même</value>
+  </data>
+  <data name="Downloads_FinishedTitle" xml:space="preserve">
+    <value>Téléchargements terminés</value>
+  </data>
+  <data name="Downloads_FinishedBodyFormat" xml:space="preserve">
+    <value>Terminés : {0}. Échoués ou annulés : {1}.</value>
+  </data>
+  <data name="Help_Start_Keys_Title" xml:space="preserve">
+    <value>Raccourcis clavier</value>
+  </data>
+  <data name="Help_Start_Keys_Step1" xml:space="preserve">
+    <value>Se déplacer : Alt+Gauche et Alt+Droite, ou les boutons Précédent et Suivant de la souris, reviennent en arrière et avancent. Alt+Origine va à votre page d'accueil. Échap ferme une page de mod, de collection ou d'auteur, et F1 ouvre l'aide sur la page où vous êtes.</value>
+  </data>
+  <data name="Help_Start_Keys_Step2" xml:space="preserve">
+    <value>Sur une page : Ctrl+F va dans sa zone de recherche. F5 fait ce que fait son bouton Réanalyser ou Actualiser, quand elle en a un. Dans {0}, Ctrl+A sélectionne tous les mods et Échap aucun.</value>
+  </data>
+  <data name="Help_Start_Keys_Step3" xml:space="preserve">
+    <value>Partout : avec le lien sp-mod.com d'un mod copié, Ctrl+V hors d'une zone de texte ouvre ce mod ici - de même si vous déposez le lien sur la fenêtre. Ctrl+= et Ctrl+- agrandissent et réduisent tout, et Ctrl+0 remet à la normale ({0} &gt; {1}). F11 passe en plein écran.</value>
+  </data>
+  <data name="Help_Start_Keys_Keywords" xml:space="preserve">
+    <value>raccourcis clavier touches ctrl f5 recherche actualiser coller lien zoom taille échelle</value>
+  </data>
 </root>

@@ -21,6 +21,7 @@
     xmlns:viewmodels="clr-namespace:TCFModManager.App.ViewModels"
     xmlns:loc="clr-namespace:TCFModManager.App.Localization"
     xmlns:behaviors="clr-namespace:TCFModManager.App.Behaviors"
+    behaviors:Shortcuts.Refresh="{Binding ScanCommand}"
     Title="{loc:Str Nav_Installed}"
     AllowDrop="True"
     Loaded="InstalledPage_Loaded"
@@ -184,6 +185,13 @@
                         TextWrapping="Wrap"
                         Text="{Binding ReuploadNote}"
                         Visibility="{Binding ReuploadNote, Converter={StaticResource NullToCollapsed}}" />
+
+                    <!-- Fork (1.4.2): the update you chose to skip, until a newer one comes. -->
+                    <TextBlock
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        TextWrapping="Wrap"
+                        Text="{Binding SkippedUpdateNote}"
+                        Visibility="{Binding SkippedUpdateNote, Converter={StaticResource NullToCollapsed}}" />
 
                     <!-- What a removal left behind because it holds files the mod didn't install. -->
                     <TextBlock
@@ -680,6 +688,15 @@
         </Style>
         <!-- The line under a mod's name: version, which halves it installs, who wrote it. 12px in
              Steam's body grey (#ACB2B8) - it was 11px in the dimmer #8F98A0. -->
+        <!-- Fork (1.4.2): a note of your own under the facts line (ModNotes). -->
+        <Style x:Key="SubscribedNoteLine" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0,1,0,0" />
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="Foreground" Value="{StaticResource SteamTextDim}" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+
         <Style x:Key="SubscribedFactsLine" TargetType="TextBlock">
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Margin" Value="0,1,0,0" />
@@ -838,6 +855,8 @@
                                 <Run Text=" • " />
                                 <Run Text="{Binding Author, TargetNullValue='unknown author', Mode=OneWay}" />
                             </TextBlock>
+                            <!-- Fork (1.4.2): your note on the mod (right-click > Note...). -->
+                            <TextBlock Style="{StaticResource SubscribedNoteLine}" Text="{Binding Note}" ToolTip="{Binding Note}" Visibility="{Binding Note, Converter={StaticResource NullToCollapsed}}" />
 
                             <!-- Says what an addon is attached to; an addon's own name
                                  rarely does, and it decides which versions can be
@@ -983,6 +1002,8 @@
                                     <Run Text=" • " />
                                     <Run Text="{Binding Author, TargetNullValue='unknown author', Mode=OneWay}" />
                                 </TextBlock>
+                                <!-- Fork (1.4.2): your note on the mod (right-click > Note...). -->
+                                <TextBlock Style="{StaticResource SubscribedNoteLine}" Text="{Binding Note}" ToolTip="{Binding Note}" Visibility="{Binding Note, Converter={StaticResource NullToCollapsed}}" />
 
                                 <TextBlock
                                     FontSize="11"
@@ -1206,6 +1227,7 @@
                 Width="320"
                 VerticalAlignment="Center"
                 PlaceholderText="{loc:Str Common_SearchPlaceholder}"
+                behaviors:Shortcuts.Search="True"
                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
             <ComboBox
@@ -1638,6 +1660,8 @@
                                                                     <Run Text=" • " />
                                                                     <Run Text="{Binding Author, TargetNullValue='unknown author', Mode=OneWay}" />
                                                                 </TextBlock>
+                                                                <!-- Fork (1.4.2): your note on the mod (right-click > Note...). -->
+                                                                <TextBlock Style="{StaticResource SubscribedNoteLine}" Text="{Binding Note}" ToolTip="{Binding Note}" Visibility="{Binding Note, Converter={StaticResource NullToCollapsed}}" />
 
                                                                 <TextBlock
                                                                     FontSize="11"

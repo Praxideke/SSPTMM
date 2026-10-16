@@ -35,6 +35,16 @@ public sealed class AppSettings
     // keyed "id:<sp-mod.com id>" or "name:<folder name>" - see App/Services/ModNicknames.
     public Dictionary<string, string> ModNames { get; set; } = [];
 
+    // Fork (1.4.2): your notes on installed mods (right-click > Note...), keyed as ModNames.
+    public Dictionary<string, string> ModNotes { get; set; } = [];
+
+    // Fork (1.4.2): updates you chose to skip, "id:<mod id>" or "addon:<addon id>" to the version
+    // skipped. A newer version than that one is offered as usual.
+    public Dictionary<string, string> SkippedUpdates { get; set; } = [];
+
+    // Fork (1.4.2): Options > Look > Interface size, and Ctrl+= / Ctrl+- / Ctrl+0. 1 is 100%.
+    public double InterfaceScale { get; set; } = 1.0;
+
     // Fork (SSPTMM): close the game when the SPT server stops - by Stop server, from its own window,
     // or a crash (the App's GameCloser). Off unless ticked on the Play page.
     public bool CloseGameWithServer { get; set; }

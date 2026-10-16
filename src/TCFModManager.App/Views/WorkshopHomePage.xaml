@@ -302,6 +302,7 @@
                                 x:Name="SearchBox"
                                 Style="{StaticResource SteamSearchField}"
                                 Tag="{loc:Str Common_SearchPlaceholder}"
+                                behaviors:Shortcuts.Search="True"
                                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding SearchCommand}" />

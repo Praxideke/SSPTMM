@@ -76,6 +76,16 @@ public static class ModContextMenu
         }
 
         menu.Items.Clear();
+
+        // Fork (1.4.2): one of several picked mods - what can be done to all of them, as Steam's
+        // library offers for a selection, and nothing that is about one mod only.
+        if (page is not null && card is not null && page.ModsFor(card).Count > 1)
+        {
+            FillPicked(menu, page, card);
+            menu.PlacementTarget = element;
+            return;
+        }
+
         if (mod is not null) Fill(menu, mod, element);
 
         if (page is not null && card is not null)
@@ -83,6 +93,18 @@ public static class ModContextMenu
             if (mod is not null) menu.Items.Add(Rule());
             menu.Items.Add(GroupMenu(page, card));
             menu.Items.Add(Item(Strings.Menu_Rename, () => page.RenameMod(card))); // Fork (1.4.2)
+            menu.Items.Add(Item(Strings.Menu_Note, () => page.EditNote(card))); // Fork (1.4.2)
+
+            // Fork (1.4.2): skip this update, or stop skipping one; go back to what an update replaced.
+            var skippable = ViewModels.InstalledViewModel.SkippableUpdate(card);
+            var goBack = ViewModels.InstalledViewModel.GoBackVersion(card);
+            if (skippable is not null || card.SkippedUpdateVersion is not null || goBack is not null) menu.Items.Add(Rule());
+            if (skippable is not null)
+                menu.Items.Add(Item(LocalizationService.Text(Strings.Menu_SkipUpdateFormat, skippable), () => page.SkipUpdateAsync(card, skippable)));
+            if (card.SkippedUpdateVersion is { } skipped)
+                menu.Items.Add(Item(LocalizationService.Text(Strings.Menu_StopSkippingFormat, skipped), () => page.SkipUpdateAsync(card, null)));
+            if (goBack is not null)
+                menu.Items.Add(Item(LocalizationService.Text(Strings.Menu_GoBackFormat, goBack), () => page.GoBackAsync(card)));
 
             // Fork (1.4.2): the card's own folder buttons, on the menu too.
             if (card.ClientFolderLink is not null || card.ServerFolderLink is not null) menu.Items.Add(Rule());
@@ -93,6 +115,28 @@ public static class ModContextMenu
         }
 
         menu.PlacementTarget = element;
+    }
+
+    // Fork (1.4.2): the toolbar's own commands for the picked mods, then Add to group.
+    private static void FillPicked(ContextMenu menu, ViewModels.InstalledViewModel page, ViewModels.InstalledModCardViewModel card)
+    {
+        menu.Items.Add(Command(Strings.Installed_EnableSelected, page.EnableSelectedCommand));
+        menu.Items.Add(Command(Strings.Installed_DisableSelected, page.DisableSelectedCommand));
+        menu.Items.Add(Command(Strings.Installed_UpdateSelected, page.UpdateSelectedCommand));
+        menu.Items.Add(Rule());
+        menu.Items.Add(GroupMenu(page, card));
+        menu.Items.Add(Rule());
+        menu.Items.Add(Command(Strings.Installed_UnsubscribeSelected, page.UnsubscribeSelectedCommand));
+    }
+
+    private static MenuItem Command(string header, System.Windows.Input.ICommand command)
+    {
+        var item = new MenuItem { Header = header, Style = ItemStyle(), IsEnabled = command.CanExecute(null) };
+        item.Click += (_, _) =>
+        {
+            if (command.CanExecute(null)) command.Execute(null);
+        };
+        return item;
     }
 
     //
