@@ -48,6 +48,30 @@ public sealed class ArchivePlacementTests : IDisposable
     }
 
     [Fact]
+    public void OneFolder_KeepsItsNameWhenTheInstallHasGoneInsideIt()
+    {
+        Write(Path.Combine("SAIN", "SAIN.dll"));
+        Write(Path.Combine("SAIN", "Presets", "default.json"));
+
+        var contentRoot = ArchiveLayout.FindContentRoot(_work);
+        var root = ArchiveLayout.PlaceAs(contentRoot, _work, ArchivePlacement.ClientPlugin, "Solarint's AI Modifications");
+
+        Assert.True(File.Exists(Path.Combine(root, "BepInEx", "plugins", "SAIN", "Presets", "default.json")));
+    }
+
+    [Fact]
+    public void OneFolder_NamedWithAVersion_GoesInAFolderNamedForTheMod()
+    {
+        Write(Path.Combine("Thing-1.2.0", "Thing.dll"));
+        Write(Path.Combine("Thing-1.2.0", "readme.txt"));
+
+        var contentRoot = ArchiveLayout.FindContentRoot(_work);
+        var root = ArchiveLayout.PlaceAs(contentRoot, _work, ArchivePlacement.ClientPlugin, "Thing");
+
+        Assert.True(File.Exists(Path.Combine(root, "BepInEx", "plugins", "Thing", "Thing.dll")));
+    }
+
+    [Fact]
     public void Describe_ADllAloneIsLikelyAClientMod()
     {
         Write("Thing.dll");

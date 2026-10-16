@@ -57,7 +57,10 @@ public static class ArchiveLayout
 
     //
     // Moves the content under BepInEx\plugins\ or user\mods\ and returns the new content root. A
-    // single folder is the mod's own folder; anything else goes into one named for the mod.
+    // single folder is the mod's own folder - also when FindContentRoot has already gone inside it,
+    // so its name is kept (a plugin may look for its files there), unless the name carries a version
+    // ("Thing-1.2.0"), which would move the mod to a new folder on every update. Anything else goes
+    // into one named for the mod.
     //
     public static string PlaceAs(string contentRoot, string workDir, ArchivePlacement placement, string modName)
     {
@@ -77,7 +80,10 @@ public static class ArchiveLayout
             return placed;
         }
 
-        var folder = Path.Combine(parent, FolderNameFor(modName));
+        var own = Path.GetFileName(Path.GetFullPath(contentRoot).TrimEnd(Path.DirectorySeparatorChar));
+        var inside = !string.Equals(Path.GetFullPath(contentRoot).TrimEnd(Path.DirectorySeparatorChar),
+            Path.GetFullPath(workDir).TrimEnd(Path.DirectorySeparatorChar), StringComparison.OrdinalIgnoreCase);
+        var folder = Path.Combine(parent, inside && !VersionInName.IsMatch(own) ? own : FolderNameFor(modName));
         Directory.CreateDirectory(folder);
         foreach (var entry in entries)
         {
@@ -88,6 +94,8 @@ public static class ArchiveLayout
 
         return placed;
     }
+
+    private static readonly System.Text.RegularExpressions.Regex VersionInName = new(@"\d+\.\d+");
 
     // A mod's name as a folder name: what Windows won't take in one becomes "_".
     public static string FolderNameFor(string modName)

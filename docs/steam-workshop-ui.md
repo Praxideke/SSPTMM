@@ -2523,7 +2523,7 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   ReplacedByUpdate removal of the same mod (`RemovedMods.LatestReplaced`, stamp checked), removes
   the current files as a ReplacedByUpdate removal of their own - so the step back can itself be
   taken back - then puts the held files back as Undo does (`PutBackMoved`, never over a path taken
-  since) and restores the old record. A profile backup is taken first. Covered by three tests;
+  since) and restores the old record. A profile backup is taken first. Covered by five tests;
   the menu item and the dialog were not clicked through.
 - **Notes.** `ModNotes`, keyed as nicknames are; an italic line under the facts in all three
   views, and matched by the search. Not shared in presets: presets hold switch states only, and
@@ -2539,6 +2539,35 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   drop nor the keys were tried on the hidden desktop: its posted clicks reach no control (the
   previous commit's build behaves the same), so they were not exercised. Notes, the Options card
   and the Help topic were seen.
+- **Audit of 1.4.2.** Found and fixed before release:
+  - the queue's finished count kept items after Retry and Clear finished (`_reported` pruned);
+  - the free-space check counted download-only items and queues on other drives;
+  - an addon and a mod with the same id shared a rename and a note (`addon:` keys);
+  - Skip this update didn't reach Browse until a restart (`ModsMoved` after the skip);
+  - Ctrl+F, F5, Ctrl+V and drops reached the page behind the update dialog;
+  - a pasted paragraph holding a mod link opened it (`ModLinkIn` takes a bare link only);
+  - a dropped link on Subscribed items went to its archive drop and did nothing;
+  - `RevertUpdate` took back settings tuned since the update, left other mods' files the update
+    had replaced in its backups, and saved the record after moving files back - now tuned
+    configs stay, originals go back where the path is free, and the record is saved first;
+    going back on a switched-off mod or while installing is refused in the App;
+  - `ArchiveLayout.PlaceAs` named the folder for the mod even when the archive's one folder had
+    been gone into by `FindContentRoot`; its own name is kept unless it has a version in it
+    (`\d+\.\d+`). Empty folders in such an archive are still not created
+    (`CreateEmptyFolders` works from the content root, which placement moves);
+  - a preset entry for a folder no longer shared took the first of its mods' entries; now only
+    when they agree;
+  - `NavigationHistory.DropCurrent` stood on the place before the one shown; replaced by
+    `ReplaceCurrent`, which stands on the page shown and folds it into an equal neighbour;
+  - shared-folder notes used the other mods' own names; now `DisplayTitle`, renames included;
+  - a switched-off mod's update switched on folders from when it was queued; folders switched
+    on since are left alone.
+  `RemovedMods.LatestReplaced` (each right-click) now remembers a few facts per held removal while
+  its log's write time and size are unchanged, and reads one whole log. Left: a file both mods of
+  a shared folder recorded (Install Anyway) moves with either when it is switched off; groups and
+  the expanded state go by folder name, so two mods in one folder share them. Neither the go-back
+  dialog, the link drop nor the overlay keys were clicked through: posted clicks still reach no
+  control on the hidden desktop.
 - **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
   build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
   the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if

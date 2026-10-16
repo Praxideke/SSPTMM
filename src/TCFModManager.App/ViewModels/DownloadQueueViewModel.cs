@@ -252,7 +252,8 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
 
     //
     // Fork (1.4.2): raised once a queue has emptied - MainWindow says so when it is out of sight.
-    // Counts only what finished since the last time.
+    // Counts only what finished since the last time; an item that goes round again (Retry) leaves
+    // the count and is counted when it finishes the second time.
     //
     public event EventHandler<DownloadQueueFinished>? QueueFinished;
 
@@ -281,11 +282,22 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     private const long SpaceToSpare = 1L << 30;
     private bool _spaceWarned;
 
+    private static string? DriveRoot(string path)
+    {
+        try { return System.IO.Path.GetPathRoot(System.IO.Path.GetFullPath(path)); }
+        catch (Exception ex) when (ex is ArgumentException or NotSupportedException or System.IO.PathTooLongException) { return null; }
+    }
+
     private void CheckFreeSpace(string installPath)
     {
         if (_spaceWarned || IsPaused) return;
 
-        var queued = Items.Where(i => !i.IsFinished).Sum(i => i.RemainingBytes ?? 0);
+        // Only what will be unpacked onto this drive: a download-only item goes to the Downloads
+        // folder as it is, and another install may be on another drive.
+        var root = DriveRoot(installPath);
+        var queued = Items
+            .Where(i => !i.IsFinished && !i.DownloadOnly && string.Equals(DriveRoot(i.InstallPath), root, StringComparison.OrdinalIgnoreCase))
+            .Sum(i => i.RemainingBytes ?? 0);
         var need = (long)(queued * SpacePerArchiveByte);
         if (need == 0) return;
 
@@ -340,6 +352,9 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         // Fork (1.4.2): most sizes are only known once a version is picked, just before it downloads.
         if (e.PropertyName == nameof(DownloadQueueItemViewModel.TotalBytes) && sender is DownloadQueueItemViewModel { IsFinished: false } item)
             CheckFreeSpace(item.InstallPath);
+
+        if (e.PropertyName == nameof(DownloadQueueItemViewModel.Status) && sender is DownloadQueueItemViewModel { IsFinished: false } retried)
+            _reported.Remove(retried);
     }
 
     //
@@ -440,6 +455,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
             if (!Items[i].IsFinished) continue;
 
             Items[i].PropertyChanged -= OnItemChanged;
+            _reported.Remove(Items[i]);
             Items.RemoveAt(i);
         }
 
@@ -809,11 +825,16 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     // Fork (1.4.2): updating a disabled mod. Its folders go back where its record says they are, so
     // the install takes the old version out and puts the new one in its place, as for any update;
     // SwitchBackOff then moves what is at those places to ".disabled" again. One that couldn't be
-    // switched on stops the update with everything put back.
+    // switched on stops the update with everything put back. A folder switched on since the update
+    // was queued is updated where it is and left on.
     //
     private static IReadOnlyList<ModMove>? SwitchOnForUpdate(DownloadQueueItemViewModel item)
     {
-        if (item.KeepDisabled is not { Count: > 0 } off) return null;
+        if (item.KeepDisabled?.Where(e => e.IsDisabled && (Directory.Exists(e.FolderPath) || File.Exists(e.FolderPath))).ToList()
+            is not { Count: > 0 } off)
+        {
+            return null;
+        }
 
         var on = ModDisableService.Apply(off, disable: false, item.InstallPath);
         if (on.Failed.Count == 0) return on.Moved;

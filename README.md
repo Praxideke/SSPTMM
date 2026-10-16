@@ -22,9 +22,10 @@ Player Tarkov) mods, laid out and styled like Steam's Workshop. Mods and collect
   removes it, with Undo for a while afterwards. Download only, and Install from file for an archive
   you already have.
 - **Subscribed items** - everything in your SPT install as cards, a list or your own groups: update
-  all, enable and disable, presets of which mods are on and off (and Disable all for
-  troubleshooting), pin, spot re-uploads, and a warning before removing a mod that changes your
-  profile.
+  all (libraries first), enable and disable, presets of which mods are on and off (and Disable all
+  for troubleshooting), pin, spot re-uploads, and a warning before removing a mod that changes your
+  profile. Right-click a mod to rename it, add a note, skip an update, or go back to the version an
+  update replaced; with several picked, the menu acts on them all.
 - **Collections** - public collections from sp-mod.com, your own collections, and sharing them with
   friends by code or shared folder.
 - **Play** - start the server and the game, read the server log, close the game, and open the tools
@@ -46,6 +47,87 @@ Player Tarkov) mods, laid out and styled like Steam's Workshop. Mods and collect
 | ![Your collections](docs/images/08-your-collections.png) | ![Diagnose logs](docs/images/11-diagnose.png) |
 
 More screenshots of every page are in the [wiki](https://github.com/trappuss/SSPTMM/wiki).
+
+## Should you use a mod manager?
+
+SPT mods are folders and files: you can install every one of them by hand, and plenty of people
+do. A manager is worth it when you run more than a handful of mods, update them often, or play with
+friends who need the same set. Here is the honest version of both sides.
+
+### Why use one
+
+- **Removing a mod cleanly.** One mod can put files in `BepInEx\plugins`, `BepInEx\patchers`,
+  `BepInEx\config`, `user\mods`, `user\patchers` and the game folder itself. By hand you have to
+  remember all of them; SSPTMM records every file it places and removes exactly those.
+- **Updating without losing your settings.** Extracting a new version over the old one replaces the
+  config files you tuned. SSPTMM keeps your changes (see below).
+- **Dependencies and versions.** Many mods need a library or another mod at a certain version, and
+  not every version runs on your SPT. SSPTMM installs what a mod needs, updates libraries before the
+  mods that use them, and warns before you launch when something is missing or switched off.
+- **Troubleshooting.** Switching a mod off (or all of them, with Disable all) and back on is one
+  click, instead of moving folders around and remembering where they came from.
+- **Playing together.** With Fika, everyone needs the same mods. A shared collection keeps a group
+  in step, and says exactly what changed when someone adds or removes one.
+- **Your profile.** Some mods write into your profile and can leave it unloadable when removed.
+  SSPTMM backs your profiles up before every change and warns before removing one of those mods.
+
+### Why not, or what to keep in mind
+
+- **It is one more program between you and your files.** When something breaks, whoever helps you
+  will still want your logs and what is in `BepInEx\plugins` and `user\mods`. It pays to know where
+  your mods actually are; Diagnose logs and Copy a report for help make that part easier, not
+  unnecessary.
+- **It only knows what the archive and sp-mod.com tell it.** Authors pack mods in different ways,
+  the SPT versions on sp-mod.com are set by hand and are sometimes wrong, and some mods need a step
+  no manager can take for you: a config edit to make two mods agree, a file the read-me says to
+  delete. Read a mod's page before you subscribe.
+- **There is no virtual file system.** Unlike Mod Organizer 2, SSPTMM installs into your real SPT
+  folder. That is why everything keeps working without it, but it also means two mods that ship the
+  same file really do collide: SSPTMM stops and asks (Install Anyway) rather than picking one.
+- **Browsing, subscribing and update checks need sp-mod.com.** Offline, your installed mods still
+  list and switch on and off, but there is nothing new to fetch. Options > Advanced can point
+  SSPTMM at a mirror when the site is down.
+- **For three mods updated twice a year, you may not need any of this.**
+- Windows 10 and 11 only.
+
+### How SSPTMM handles the awkward cases
+
+- **Mods you installed by hand carry over.** There is no import step. Subscribed items reads every
+  mod in the folder - client mods from the plugin their DLL declares, SPT 4 server mods from the
+  details in their DLL (`package.json` on SPT 3.x) - and matches them to sp-mod.com. They get update
+  checks, dependency warnings, switching on and off, groups and presets like anything SSPTMM
+  installed. The first time one is updated, the config files it already has are copied aside
+  before the new version goes in, even though SSPTMM never recorded them.
+- **Nothing locks you in.** Mods go into the same folders SPT always loads from, and SSPTMM's own
+  records stay in its `Data` folder. Stop using it and your game runs as it did. A switched-off mod
+  is only moved to the folder's `.disabled` twin (`user\mods.disabled`, `BepInEx\plugins.disabled`),
+  so it can be moved back by hand too.
+- **SVM (Server Value Modifier) works out of the box.** SVM puts its editor, Greed, in the SPT
+  folder, keeps the presets Greed writes in its `Presets` folder, and remembers the one in use in
+  `Loader\loader.json`. SSPTMM knows all three:
+  - the Play page lists **Greed** with an Open button, and says to use it with the server stopped;
+  - updates never touch your presets, and removing SVM keeps them;
+  - the preset you picked survives an update, instead of quietly going back to the default as it
+    does when you extract a new version over the old one;
+  - the empty `Presets` folder in SVM's archive is created, so Greed finds it the first time.
+
+  Any other mod that keeps its files somewhere unusual can be set up the same way in Tools >
+  Configs (**Files I authored...**, **Settings kept elsewhere...**).
+- **Config changes carry into updates.** A server mod's JSON is merged by default - your changes
+  stay, settings the new version adds come in - or, per mod, kept as it is or replaced. A BepInEx
+  `.cfg` you have changed is never overwritten, and every config is backed up before the editor in
+  Tools > Configs saves it.
+- **Mods that change your profile** (SVM, Skills Extended and others sp-mod.com marks): a profile
+  backup before every change, the warning before removal asked even with Don't ask again ticked, and
+  Skills Extended's server prepatch left in place when the mod is switched off, so the profile still
+  loads. If one won't load anyway, Diagnose logs says so and can let SPT clean it.
+- **Archives with an unusual layout** - a DLL and a read-me, a server mod's folder on its own - are
+  shown to you with the question "client mod or server mod?", instead of being refused or guessed.
+- **Two mods in one folder** (Realism's Stance Overhaul and Common Lib share one) get a card each.
+- **Changes while SPT is running** are refused by default, since the game holds files open; an
+  option asks instead, as Mod Organizer 2 does.
+- **Second thoughts.** Unsubscribed mods are kept for a while for **Undo**, and an update can be
+  gone back on from the mod's right-click menu.
 
 ## What SSPTMM adds over TCF Mod Manager
 

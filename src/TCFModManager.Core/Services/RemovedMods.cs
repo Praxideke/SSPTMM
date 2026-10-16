@@ -218,22 +218,54 @@ public sealed class RemovedMods(Func<RemovedModsRetention>? retention = null)
     // not yet gone back to, and not the version now installed - for Subscribed items' "Go back to"
     // (ModInstallService.RevertUpdate).
     //
+    //
+    // Asked each time a mod's right-click menu opens, so it goes by a few facts per held removal,
+    // remembered while its log is unchanged (Brief), and reads the whole log only for the match.
+    //
     public static (string Folder, RemovalLog Log)? LatestReplaced(string installPath, int modId, bool isAddon, string currentVersion)
     {
+        var root = Root(installPath);
+        if (!Directory.Exists(root)) return null;
         var stamp = InstallStamp.Of(installPath);
 
-        foreach (var held in List(installPath))
-        {
-            if (held.Log is { Kind: RemovalKind.ReplacedByUpdate, Undone: false, Record: { } record }
-                && record.ModId == modId && record.IsAddon == isAddon
-                && !string.Equals(record.Version, currentVersion, StringComparison.OrdinalIgnoreCase)
-                && string.Equals(StampOrNull(held.Log.InstallPath), stamp, StringComparison.OrdinalIgnoreCase))
-            {
-                return held;
-            }
-        }
+        var match = Directory.EnumerateDirectories(root)
+            .Select(folder => (Folder: folder, Brief: BriefOf(folder)))
+            .Where(h => h.Brief is { Kind: RemovalKind.ReplacedByUpdate, Undone: false, ModId: { } id } b
+                && id == modId && b.IsAddon == isAddon
+                && !string.Equals(b.Version, currentVersion, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(b.Stamp, stamp, StringComparison.OrdinalIgnoreCase))
+            .OrderByDescending(h => h.Brief!.RemovedAt)
+            .FirstOrDefault();
 
-        return null;
+        return match.Folder is not null && ReadLog(match.Folder) is { } log ? (match.Folder, log) : null;
+    }
+
+    private sealed record Brief(RemovalKind Kind, bool Undone, int? ModId, bool IsAddon, string? Version, string? Stamp, DateTimeOffset RemovedAt);
+
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, (DateTime Written, long Length, Brief? Brief)> Briefs =
+        new(StringComparer.OrdinalIgnoreCase);
+
+    private static Brief? BriefOf(string folder)
+    {
+        var path = Path.Combine(folder, LogName);
+        try
+        {
+            var info = new FileInfo(path);
+            if (!info.Exists) return null;
+            if (Briefs.TryGetValue(path, out var known) && known.Written == info.LastWriteTimeUtc && known.Length == info.Length)
+                return known.Brief;
+
+            var brief = ReadLog(folder) is { } log
+                ? new Brief(log.Kind, log.Undone, log.Record?.ModId, log.Record?.IsAddon ?? false, log.Record?.Version,
+                    StampOrNull(log.InstallPath), log.RemovedAt)
+                : null;
+            Briefs[path] = (info.LastWriteTimeUtc, info.Length, brief);
+            return brief;
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            return null;
+        }
     }
 
     private static string? StampOrNull(string path)

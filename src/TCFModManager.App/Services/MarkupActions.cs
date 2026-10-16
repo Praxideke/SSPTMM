@@ -26,7 +26,8 @@ public static class MarkupActions
     public static string? ModLinkIn(string? text)
     {
         var link = text?.Trim();
-        return link is not null && ModLink.IsMatch(link) ? link : null;
+        // The whole text, not a link with a paragraph after it - that would go to the browser whole.
+        return link is not null && !link.Any(char.IsWhiteSpace) && ModLink.IsMatch(link) ? link : null;
     }
 
     public static void OpenLink(string url)

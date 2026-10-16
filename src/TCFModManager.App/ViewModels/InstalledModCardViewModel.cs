@@ -260,10 +260,24 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     public bool IsFolderCompanion { get; private set; }
 
     // On every card over such a folder: which other mods are in it, and what switching it does.
-    public string? SharedFolderNote { get; private set; }
+    public string? SharedFolderNote => SharedFolderWith is { } names
+        ? Text(SharedFolderParts is null ? Strings.Installed_SharedFolderByHandFormat : Strings.Installed_SharedFolderFormat, names)
+        : null;
 
-    // The other mods' names in it.
-    public string? SharedFolderWith { get; private set; }
+    // The other mods' names in it, as they are shown - renames included.
+    public string? SharedFolderWith => _folderMates is { } mates ? TextLists.Join([.. mates.Select(c => c.DisplayTitle)]) : null;
+
+    private IReadOnlyList<InstalledModCardViewModel>? _folderMates;
+
+    partial void OnCustomNameChanged(string? value)
+    {
+        foreach (var mate in _folderMates ?? [])
+        {
+            mate.OnPropertyChanged(nameof(SharedFolderWith));
+            mate.OnPropertyChanged(nameof(SharedFolderNote));
+            mate.OnPropertyChanged(nameof(StatusTooltip));
+        }
+    }
 
     // The files this card's mod has in a folder it shares, per entry (the folder, or its copy under
     // ".disabled"), relative to it - what switching it moves. Null when they can't be told apart.
@@ -897,14 +911,7 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             }
 
             var everyone = companions.Prepend(owner).ToList();
-            foreach (var card in everyone)
-            {
-                var names = TextLists.Join([.. everyone.Where(c => c != card).Select(c => c.DisplayTitle)]);
-                card.SharedFolderWith = names;
-                card.SharedFolderNote = Text(
-                    card.SharedFolderParts is null ? Strings.Installed_SharedFolderByHandFormat : Strings.Installed_SharedFolderFormat,
-                    names);
-            }
+            foreach (var card in everyone) card._folderMates = [.. everyone.Where(c => c != card)];
 
             foreach (var card in companions) card.IsFolderCompanion = true;
             cards.AddRange(companions);

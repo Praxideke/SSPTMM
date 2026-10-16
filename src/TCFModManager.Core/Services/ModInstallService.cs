@@ -1453,28 +1453,53 @@ public sealed class ModInstallService(
 
         profileBackups?.BackupIfChanged(installPath, ProfileBackups.BeforeInstall);
 
-        // What is about to come back is "incoming", as an update's new files are: the current copies
-        // at those paths move out even if changed since install, and stay recoverable.
-        var incoming = log.Entries
-            .Where(e => e.Outcome == RemovalOutcome.Moved)
-            .Select(e => e.Path)
+        //
+        // Settings changed since the update - a BepInEx .cfg tuned in game, a server mod's JSON - stay
+        // as they are: an update never puts an archive's copy over those, and going back doesn't put
+        // the older copy over them either. Everything else about to come back is "incoming", as an
+        // update's new files are: the current copies move out even if changed, and stay recoverable.
+        //
+        var options = _options.Effective();
+        var moved = log.Entries.Where(e => e.Outcome == RemovalOutcome.Moved).Select(e => e.Path).ToList();
+        var tuned = moved
+            .Where(p => ModConfigFiles.IsBepInExConfig(p) || ModConfigFiles.IsServerModConfig(p, ModConfigFiles.OptionsFor(p, options)))
+            .Where(p =>
+            {
+                var full = Path.Combine(installPath, p.Replace('/', Path.DirectorySeparatorChar));
+                return File.Exists(full) && current.FingerprintFor(p) is { } print && !print.Matches(full);
+            })
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var incoming = moved.Where(p => !tuned.Contains(p)).ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-        RemoveRecordedFiles(installPath, current, ConfigAction.Preserve, null, incoming, RemovalKind.ReplacedByUpdate, CancellationToken.None);
+        RemoveRecordedFiles(installPath, current, ConfigAction.Preserve, tuned, incoming, RemovalKind.ReplacedByUpdate, CancellationToken.None);
 
-        var blocked = new List<string>();
-        var back = PutBackMoved(installPath, folder, log, blocked);
-
+        //
+        // What the newer version replaced: its entry wins over the older record's for the same path
+        // (the newer is the backup still in Data), and a file only the newer version replaced - one the
+        // older never touched - goes back now, since nothing of the older version stands in its place.
+        //
+        var oldPaths = old.Files.Concat(old.Overwrote.Select(o => o.Path)).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var merged = new List<OverwrittenFile>();
         foreach (var original in current.Overwrote)
         {
-            if (!old.Overwrote.Any(o => string.Equals(o.Path, original.Path, StringComparison.OrdinalIgnoreCase)))
-                old.Overwrote.Add(original);
+            if (!original.SameMod && !oldPaths.Contains(original.Path) && PutOriginalBack(installPath, original))
+                continue;
+            merged.Add(original);
         }
+        merged.AddRange(old.Overwrote.Where(o => !current.Overwrote.Any(c => string.Equals(c.Path, o.Path, StringComparison.OrdinalIgnoreCase))));
+        old.Overwrote.Clear();
+        old.Overwrote.AddRange(merged);
 
+        // The older record goes in before its files come back, so a crash part-way leaves a mod on
+        // record with files missing - which its card says - rather than files nothing owns.
         var manifest = manifestService.Load();
         manifest.Mods.RemoveAll(m => m.ModId == old.ModId && m.IsAddon == old.IsAddon);
         manifest.Mods.Add(old);
         manifestService.Save(manifest);
+
+        var blocked = new List<string>();
+        var back = PutBackMoved(installPath, folder, log, blocked);
+        blocked.RemoveAll(tuned.Contains); // kept on purpose, not in the way
 
         log.Undone = true;
         SafeFile.WriteText(Path.Combine(folder, RemovedMods.LogName), System.Text.Json.JsonSerializer.Serialize(log));
@@ -1484,6 +1509,31 @@ public sealed class ModInstallService(
         if (blocked.Count == 0) RemovedMods.DeleteHeld(installPath, folder);
 
         return new UndoResult(true, back, blocked);
+    }
+
+    // A file one version replaced, copied back from Data when its path is free and passes the guard.
+    // The kept copy stays where it is: going forward again needs it.
+    private static bool PutOriginalBack(string installPath, OverwrittenFile original)
+    {
+        var backup = Path.Combine(AppPaths.DataDirectory, original.BackupPath.Replace('/', Path.DirectorySeparatorChar));
+        if (!File.Exists(backup)
+            || InstallPathGuard.CheckRecordedPath(installPath, original.Path, out var target) is not null
+            || File.Exists(target) || Directory.Exists(target))
+        {
+            return false;
+        }
+
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(target)!);
+            File.Copy(backup, target, overwrite: false);
+            return true;
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            AppLog.Warn("Undo", $"couldn't put back the original {original.Path}: {ex.Message}");
+            return false;
+        }
     }
 
     // Moves each file of a held folder back to its place under an existing folder, only where that

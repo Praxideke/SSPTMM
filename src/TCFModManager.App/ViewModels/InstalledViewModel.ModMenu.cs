@@ -29,6 +29,7 @@ public partial class InstalledViewModel
         SkippedUpdates.Set(id, card.IsAddon, version);
 
         await ScanAsync();
+        ModsMoved?.Invoke(this, EventArgs.Empty); // Browse and the item pages offer Update by the same rule
 
         StatusMessage = version is null
             ? Text(Strings.Installed_StoppedSkippingFormat, title)
@@ -40,7 +41,8 @@ public partial class InstalledViewModel
     {
         var installPath = AppServices.SptEnvironment.InstallPath;
         if (string.IsNullOrWhiteSpace(installPath)
-            || card is not { IsAppManaged: true, ModId: { } id, InstalledVersion: { } current })
+            || card is not { IsAppManaged: true, ModId: { } id, InstalledVersion: { } current }
+            || card.Entries.Any(e => e.IsDisabled)) // its files aren't where the record says; switch it on first
         {
             return null;
         }
@@ -73,6 +75,13 @@ public partial class InstalledViewModel
             new SteamDialogChoice(Strings.Installed_GoBack, SteamDialogButton.Green, IsDefault: true),
             new SteamDialogChoice(Strings.Common_Cancel, SteamDialogButton.Grey));
         if (answer != 0) return;
+
+        // The queue moves the same files and writes the same records.
+        if (InstallingNow() is { } busy)
+        {
+            StatusMessage = Text(Strings.Installed_WaitForInstallFormat, busy);
+            return;
+        }
 
         string message;
         IsBusy = true;

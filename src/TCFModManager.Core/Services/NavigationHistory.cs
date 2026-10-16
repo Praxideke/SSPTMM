@@ -66,15 +66,23 @@ public sealed class NavigationHistory<T>(int capacity = 50, IEqualityComparer<T>
     /// <summary>The place after, now current; default when there is none.</summary>
     public T? Forward() => Move(1);
 
-    /// <summary>Drops the current place - one that could not be shown again - and stands on the
-    /// one before it.</summary>
-    public void DropCurrent()
+    /// <summary>Puts what is shown in place of the current place - one that could not be shown
+    /// again - and folds it into a neighbour that is the same place.</summary>
+    public void ReplaceCurrent(T place)
     {
         if (_index < 0) return;
 
-        _entries.RemoveAt(_index);
-        _index = Math.Min(_index, _entries.Count) - 1;
-        if (_index < 0 && _entries.Count > 0) _index = 0;
+        _entries[_index] = place;
+        if (_index > 0 && _comparer.Equals(_entries[_index - 1], place))
+        {
+            _entries.RemoveAt(_index);
+            _index--;
+        }
+        else if (_index < _entries.Count - 1 && _comparer.Equals(_entries[_index + 1], place))
+        {
+            _entries.RemoveAt(_index);
+        }
+
         Changed?.Invoke(this, EventArgs.Empty);
     }
 

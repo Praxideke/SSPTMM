@@ -26,6 +26,14 @@ public partial class MainWindow : FluentWindow
     //
     private void Window_DragOver(object sender, DragEventArgs e)
     {
+        // Nothing lands behind the update dialog.
+        if (Blocked)
+        {
+            e.Effects = DragDropEffects.None;
+            e.Handled = true;
+            return;
+        }
+
         // Fork (1.4.2): a link to a mod, dragged from a browser, opens its page here.
         if (DroppedModLink(e.Data) is not null)
         {
@@ -34,9 +42,9 @@ public partial class MainWindow : FluentWindow
             return;
         }
 
-        if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
-
-        e.Effects = e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any(InstalledViewModel.IsModArchive)
+        // Anything else no page took (text, a card dragged out of its list) has nowhere to go.
+        e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop)
+                    && e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any(InstalledViewModel.IsModArchive)
             ? DragDropEffects.Copy
             : DragDropEffects.None;
         e.Handled = true;
@@ -44,6 +52,12 @@ public partial class MainWindow : FluentWindow
 
     private async void Window_Drop(object sender, DragEventArgs e)
     {
+        if (Blocked)
+        {
+            e.Handled = true;
+            return;
+        }
+
         if (DroppedModLink(e.Data) is { } link)
         {
             e.Handled = true;
@@ -66,7 +80,7 @@ public partial class MainWindow : FluentWindow
     }
 
     // A browser's link drag carries the address as text; a file drag never is one.
-    private static string? DroppedModLink(IDataObject data)
+    internal static string? DroppedModLink(IDataObject data)
     {
         if (data.GetDataPresent(DataFormats.FileDrop)) return null;
 
@@ -102,18 +116,19 @@ public partial class MainWindow : FluentWindow
         var key = e.Key == Key.System ? e.SystemKey : e.Key;
         var ctrl = Keyboard.Modifiers == ModifierKeys.Control;
         var scope = (DependencyObject?)TopPage ?? RootNavigationView;
+        var page = !Blocked; // with the update dialog open, the page behind it is left alone
 
-        if (ctrl && key == Key.F && Behaviors.Shortcuts.SearchBoxIn(scope) is { } box)
+        if (page && ctrl && key == Key.F && Behaviors.Shortcuts.SearchBoxIn(scope) is { } box)
         {
             box.Focus();
             box.SelectAll();
         }
-        else if (key == Key.F5 && Keyboard.Modifiers == ModifierKeys.None
+        else if (page && key == Key.F5 && Keyboard.Modifiers == ModifierKeys.None
                  && Behaviors.Shortcuts.RefreshIn(scope) is { } refresh && refresh.CanExecute(null))
         {
             refresh.Execute(null);
         }
-        else if (ctrl && key == Key.V
+        else if (page && ctrl && key == Key.V
                  && Keyboard.FocusedElement is not (System.Windows.Controls.Primitives.TextBoxBase or System.Windows.Controls.PasswordBox)
                  && ModLinkOnClipboard() is { } link)
         {
@@ -607,8 +622,9 @@ public partial class MainWindow : FluentWindow
                     break;
             }
 
-            // What it showed can't be shown again (a collection deleted since): that place is gone.
-            if (!opened) _history.DropCurrent();
+            // What it showed can't be shown again (a collection deleted since): the history stands on
+            // the page that is shown instead.
+            if (!opened) _history.ReplaceCurrent(new Place(place.Page, null));
         }
         finally
         {

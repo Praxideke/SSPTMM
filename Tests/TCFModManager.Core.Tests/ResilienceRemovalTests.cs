@@ -396,6 +396,46 @@ public class ResilienceRemovalTests : IDisposable
         Assert.Equal("only in v1", File.ReadAllText(Held(held, "BepInEx/plugins/Mod/old.dll")));
     }
 
+    [Fact]
+    public async Task RevertUpdate_LeavesSettingsTunedSinceTheUpdate()
+    {
+        var target = NewTarget();
+        await Install(target, "1.0.0",
+            ("BepInEx/plugins/Mod/mod.dll", "v1"),
+            ("BepInEx/config/com.test.mod.cfg", "v1 defaults"));
+        await Install(target, "2.0.0",
+            ("BepInEx/plugins/Mod/mod.dll", "v2"),
+            ("BepInEx/config/com.test.mod.cfg", "v2 defaults"));
+        Write("BepInEx/config/com.test.mod.cfg", "tuned in game");
+        var held = RemovedMods.LatestReplaced(_install, target.Id, false, "2.0.0")!.Value.Folder;
+
+        var back = Service().RevertUpdate(_install, RecordOf(target), held);
+
+        Assert.True(back.Ran);
+        Assert.Empty(back.Blocked);
+        Assert.Equal("v1", File.ReadAllText(Full("BepInEx/plugins/Mod/mod.dll")));
+        Assert.Equal("tuned in game", File.ReadAllText(Full("BepInEx/config/com.test.mod.cfg")));
+    }
+
+    [Fact]
+    public async Task RevertUpdate_PutsBackAFileOnlyTheNewerVersionReplaced()
+    {
+        var target = NewTarget();
+        await Install(target, "1.0.0", ("BepInEx/plugins/Mod/mod.dll", "v1"));
+        Write("BepInEx/plugins/Shared/lib.dll", "someone else's library");
+        await Install(target, "2.0.0",
+            ("BepInEx/plugins/Mod/mod.dll", "v2"),
+            ("BepInEx/plugins/Shared/lib.dll", "v2's copy"));
+        var held = RemovedMods.LatestReplaced(_install, target.Id, false, "2.0.0")!.Value.Folder;
+
+        var back = Service().RevertUpdate(_install, RecordOf(target), held);
+
+        Assert.True(back.Ran);
+        Assert.Equal("v1", File.ReadAllText(Full("BepInEx/plugins/Mod/mod.dll")));
+        Assert.Equal("someone else's library", File.ReadAllText(Full("BepInEx/plugins/Shared/lib.dll")));
+        Assert.Empty(RecordOf(target).Overwrote); // v1 never replaced it
+    }
+
     // --- Chris's 2026-10-01 Windows test: a file the user added, several removals -----------------
 
     [Fact]

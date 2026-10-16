@@ -84,13 +84,26 @@ public class NavigationHistoryTests
     }
 
     [Fact]
-    public void Dropping_a_place_stands_on_the_one_before()
+    public void Replacing_a_place_stands_on_what_is_shown_instead()
+    {
+        var history = Visited("Home", "Gone", "Author");
+        history.Back();
+
+        history.ReplaceCurrent("Browse");
+
+        Assert.Equal("Browse", history.Current);
+        Assert.Equal(["Home", "Browse", "Author"], history.Entries);
+    }
+
+    [Fact]
+    public void Replacing_a_place_with_its_neighbour_folds_them_together()
     {
         var history = Visited("Home", "Browse", "Gone");
 
-        history.DropCurrent();
+        history.ReplaceCurrent("Browse");
 
         Assert.Equal("Browse", history.Current);
+        Assert.Equal(["Home", "Browse"], history.Entries);
         Assert.False(history.CanGoForward);
     }
 

@@ -6,12 +6,12 @@ namespace TCFModManager.App.Services;
 //
 // Fork (1.4.2): names you gave installed mods, in AppSettings.ModNames. A mod sp-mod.com lists is
 // kept by its id, so the name follows it through updates that rename its folder; any other by its
-// folder's name.
+// folder's name. Addons are numbered apart from mods, so theirs is "addon:".
 //
 public static class ModNicknames
 {
     public static string KeyFor(InstalledModCardViewModel card) =>
-        card.ModId is > 0 and var id ? "id:" + id : "name:" + card.Name.ToLowerInvariant();
+        card.ModId is > 0 and var id ? (card.IsAddon ? "addon:" : "id:") + id : "name:" + card.Name.ToLowerInvariant();
 
     public static void Apply(IEnumerable<InstalledModCardViewModel> cards)
     {

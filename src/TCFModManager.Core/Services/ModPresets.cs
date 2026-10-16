@@ -182,9 +182,12 @@ public static class ModPresets
 
         foreach (var (key, copies) in byKey)
         {
-            // A folder saved while it was shared, and now one mod's alone: its mod's entry.
+            // A folder saved while it was shared, and now one mod's alone: its mods' entries, when they
+            // agree - which of them is left can't be told from the folder, so a split is not guessed.
+            var perMod = wantedMods.Values.Where(e => string.Equals(e.Path, key, StringComparison.OrdinalIgnoreCase)).ToList();
             var entry = wanted.GetValueOrDefault(key)
-                ?? wantedMods.Values.FirstOrDefault(e => string.Equals(e.Path, key, StringComparison.OrdinalIgnoreCase));
+                ?? (perMod.Count > 0 && perMod.All(e => e.Enabled == perMod[0].Enabled) ? perMod[0] : null);
+            foreach (var other in perMod) used.Add(EntryKey(other.Path, other.ModId));
             if (entry is null)
             {
                 notInPreset.AddRange(copies);

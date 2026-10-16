@@ -79,6 +79,29 @@ public sealed class ForkModPresetsTests : IDisposable
     }
 
     [Fact]
+    public void Plan_AFolderSavedWhileShared_IsLeftWhenItsModsWereSetDifferently()
+    {
+        var alone = Mod("BepInEx/plugins/Shared", "Second");
+
+        var split = ModPresets.Plan(_install,
+        [
+            new ModPresetEntry { Path = "BepInEx/plugins/Shared", Enabled = true, ModId = 1 },
+            new ModPresetEntry { Path = "BepInEx/plugins/Shared", Enabled = false, ModId = 2 },
+        ], [alone]);
+        Assert.True(split.ChangesNothing);
+        Assert.Equal([alone], split.NotInPreset);
+        Assert.Empty(split.NotInstalled);
+
+        var agreed = ModPresets.Plan(_install,
+        [
+            new ModPresetEntry { Path = "BepInEx/plugins/Shared", Enabled = false, ModId = 1 },
+            new ModPresetEntry { Path = "BepInEx/plugins/Shared", Enabled = false, ModId = 2 },
+        ], [alone]);
+        Assert.Equal([alone], agreed.ToDisable);
+        Assert.Empty(agreed.NotInstalled);
+    }
+
+    [Fact]
     public void Plan_LeavesAModThatIsInTheInstallTwice()
     {
         var live = Mod("BepInEx/plugins/A", "A");

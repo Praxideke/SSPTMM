@@ -7,6 +7,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using TCFModManager.App.Localization;
+using TCFModManager.App.Services;
 using TCFModManager.App.ViewModels;
 
 namespace TCFModManager.App.Views;
@@ -93,6 +94,14 @@ public partial class InstalledPage : Page
             return;
         }
 
+        // A mod's link from a browser opens its page, here as anywhere on the window.
+        if (MainWindow.DroppedModLink(e.Data) is not null)
+        {
+            e.Effects = DragDropEffects.Link;
+            e.Handled = true;
+            return;
+        }
+
         if (!OverGroupList(e))
         {
             e.Effects = DragDropEffects.None;
@@ -104,7 +113,12 @@ public partial class InstalledPage : Page
     {
         if (!e.Data.GetDataPresent(DataFormats.FileDrop))
         {
-            if (!OverGroupList(e)) e.Handled = true;
+            if (MainWindow.DroppedModLink(e.Data) is { } link)
+            {
+                e.Handled = true;
+                MarkupActions.OpenLink(link);
+            }
+            else if (!OverGroupList(e)) e.Handled = true;
             return;
         }
 
