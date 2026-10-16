@@ -20,8 +20,10 @@ public static class AppLook
     // resource is a Color rather than a brush.
     private static readonly Dictionary<string, (uint Written, bool IsColor)> Registered = [];
 
-    // SteamTheme.xaml's own colours that can change, by name, as written there.
+    // SteamTheme.xaml's own colours that can change, by name, as written there; and its brushes
+    // drawn in one of them, by name: the colour's name and the brush's opacity.
     private static Dictionary<string, uint>? _themeColors;
+    private static Dictionary<string, (string Color, double Opacity)>? _themeBrushes;
 
     public static uint? Accent { get; private set; }
 
@@ -45,11 +47,20 @@ public static class AppLook
 
         foreach (var (key, (written, isColor)) in Registered) app.Resources[key] = Make(written, isColor);
 
-        foreach (var (key, written) in ThemeColors(app))
+        // Always set, even as written: the theme's brushes read these as DynamicResource, and
+        // WPF-UI merges its own theme, with colours of the same names, after SteamTheme.xaml at
+        // run time - only the application's own resources come before both.
+        ReadTheme();
+        foreach (var (key, written) in _themeColors!) app.Resources[key] = ToColor(Drawn(written));
+
+        // And the brushes made from them, as brushes of their own: a brush in a merged dictionary
+        // keeps the colour its DynamicResource found when it was first made, and does not follow
+        // the application's resources after that.
+        foreach (var (key, (color, opacity)) in _themeBrushes!)
         {
-            var drawn = Drawn(written);
-            if (drawn == written) app.Resources.Remove(key);
-            else app.Resources[key] = ToColor(drawn);
+            var brush = new SolidColorBrush(ToColor(Drawn(_themeColors[color]))) { Opacity = opacity };
+            brush.Freeze();
+            app.Resources[key] = brush;
         }
 
         // WPF-UI's own accent resources, for its controls; the shades as SteamTheme.xaml gives them.
@@ -100,15 +111,30 @@ public static class AppLook
 
     private static Color ToColor(uint argb) => Color.FromArgb((byte)(argb >> 24), (byte)(argb >> 16), (byte)(argb >> 8), (byte)argb);
 
-    // Read once from the merged SteamTheme.xaml, before anything here has overridden a name.
-    private static Dictionary<string, uint> ThemeColors(Application app)
+    //
+    // Read once, from a copy of SteamTheme.xaml of its own: reading every value of the merged one
+    // would make all its brushes there and then, before the accent is set, and they would keep the
+    // colour they found - Windows' own accent, as WPF-UI sets it at startup.
+    //
+    private static void ReadTheme()
     {
-        if (_themeColors is not null) return _themeColors;
+        if (_themeColors is not null) return;
 
         _themeColors = [];
-        var theme = app.Resources.MergedDictionaries.FirstOrDefault(d =>
-            d.Source?.OriginalString.EndsWith("SteamTheme.xaml", StringComparison.OrdinalIgnoreCase) == true);
-        if (theme is null) return _themeColors;
+        _themeBrushes = [];
+        ResourceDictionary theme;
+        try
+        {
+            theme = new ResourceDictionary
+            {
+                Source = new Uri($"pack://application:,,,/{typeof(AppLook).Assembly.GetName().Name};component/Themes/SteamTheme.xaml"),
+            };
+        }
+        catch (Exception ex)
+        {
+            AppLog.Warn("Look", $"couldn't read the theme's colours: {ex.Message}");
+            return;
+        }
 
         foreach (var key in theme.Keys.OfType<string>())
         {
@@ -117,8 +143,19 @@ public static class AppLook
             if (LookColors.RoleOf(argb) != LookColors.Role.None) _themeColors[key] = argb;
         }
 
-        return _themeColors;
+        foreach (var key in theme.Keys.OfType<string>())
+        {
+            if (theme[key] is SolidColorBrush brush && ColorKeyOf(brush) is { } color && _themeColors.ContainsKey(color))
+                _themeBrushes[key] = (color, brush.Opacity);
+        }
     }
+
+    // The colour a brush reads by DynamicResource: the expression WPF keeps for it is not public,
+    // but its ResourceKey is.
+    private static string? ColorKeyOf(SolidColorBrush brush) =>
+        brush.ReadLocalValue(SolidColorBrush.ColorProperty) is { } value && value.GetType().Name == "ResourceReferenceExpression"
+            ? value.GetType().GetProperty("ResourceKey")?.GetValue(value) as string
+            : null;
 }
 
 //

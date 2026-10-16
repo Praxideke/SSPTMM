@@ -77,7 +77,7 @@
     <SolidColorBrush x:Key="SteamPreviewBackground" Color="{look:Color #070707}" />
     <SolidColorBrush x:Key="SteamPopupBackground" Color="{look:Color #344352}" />
     <SolidColorBrush x:Key="SteamChipFill" Color="#17FFFFFF" />
-    <SolidColorBrush x:Key="SteamLabelBlue" Color="#5C8699" />
+    <SolidColorBrush x:Key="SteamLabelBlue" Color="{look:Color #5C8699}" />
     <SolidColorBrush x:Key="SteamValueText" Color="#EBEBEB" />
     <SolidColorBrush x:Key="SteamStatNumber" Color="{look:Color #6088BB}" />
     <SolidColorBrush x:Key="SteamStatLabel" Color="#939393" />
@@ -161,7 +161,7 @@
 
     <!--  Browse card: radial-gradient(62% 99% at 17% 35%, #3C4149, #1B1D21).  -->
     <RadialGradientBrush x:Key="SteamCardBackground" Center="0.17,0.35" GradientOrigin="0.17,0.35" RadiusX="0.62" RadiusY="0.99">
-        <GradientStop Offset="0" Color="#3C4149" />
+        <GradientStop Offset="0" Color="{look:Color #3C4149}" />
         <GradientStop Offset="1" Color="{look:Color #1B1D21}" />
     </RadialGradientBrush>
 
@@ -687,7 +687,7 @@
         <Setter Property="Background">
             <Setter.Value>
                 <RadialGradientBrush Center="0.3428,1" GradientOrigin="0.3428,1" RadiusX="0.859" RadiusY="0.8418">
-                    <GradientStop Offset="0.275" Color="#E03F536D" />
+                    <GradientStop Offset="0.275" Color="{look:Color #E03F536D}" />
                     <GradientStop Offset="0.6794" Color="{look:Color #EB192330}" />
                 </RadialGradientBrush>
             </Setter.Value>
@@ -1242,7 +1242,7 @@
                         <DataTrigger Binding="{Binding IsFollowing}" Value="True">
                             <Setter TargetName="Outer" Property="Background" Value="White" />
                             <Setter TargetName="Inner" Property="Background" Value="{StaticResource SteamActiveInner}" />
-                            <Setter Property="Foreground" Value="#323B49" />
+                            <Setter Property="Foreground" Value="{look:Brush #323B49}" />
                             <Setter TargetName="Add" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="Following" Property="Visibility" Value="Visible" />
                         </DataTrigger>

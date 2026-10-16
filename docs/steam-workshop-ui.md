@@ -2584,6 +2584,17 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   OLED black (Subscribed items), orange with OLED black (Workshop home), purple (Subscribed
   items), and purple picked on Options > Look changing the window at once. Not seen: the other
   pages in these colours, the custom hex box typed into, a dialog or the mod page's WebView2.
+  Widened after a first look, as the accent changed too little of the window: a third kind,
+  `Tint` - any colour of that hue with saturation 0.15 or more that is neither - and the surfaces
+  of that hue too take the accent's hue and scaled saturation, keeping their lightness, so the
+  navies go plum or green with it; a surface is now every channel 0x49 or under (the Workshop
+  cards' #3C4149). The theme's colours are set in the application's own resources always, even
+  as written: WPF-UI merges its theme, with colours of the same names, after SteamTheme.xaml.
+  Its brushes are read from a copy of SteamTheme.xaml and set there as brushes too: reading
+  every value of the merged dictionary made its brushes before the accent was set, and they
+  kept Windows' own accent, whatever colour that is - the Options switches and
+  sliders and the selected view button were red in every look until this. Seen: Steam blue
+  and purple on Options, purple picked there, purple on Subscribed items.
 - **Card size.** `CardSizes`: thumbnails 40/56/72, gaps 6/10/14, padding 8/12/16 as resources
   the Subscribed items templates read; columns from 320px (at most 5) for Compact, the old steps
   for Normal, from 460px (at most 3) for Roomy. Seen: Compact at 1720px; Roomy not.
@@ -2684,7 +2695,7 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   whole. Only a plain local folder was tested here. A file caught mid-sync reads as damaged and
   is ignored until the next check, but that was not seen happen.
 - Options > Look (1.4.2): where a colour stops being the accent or a surface (the hue,
-  saturation and lightness lines in `LookColors.RoleOf`), the 45% of light a surface keeps under
+  saturation and lightness lines in `LookColors.RoleOf`, and `TintedFrom`, 0.15), the 45% of light a surface keeps under
   OLED black, the three card sizes and their column widths, and the blur's 20px top - all set by
   eye from the screenshots, not measured.
 - Critical/error red (`#E05A5A`): no error state on the pages measured.

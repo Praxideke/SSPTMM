@@ -21,6 +21,9 @@ public static class LookColors
 
         // A page, bar, card or dialog surface.
         Dark,
+
+        // A quieter blue that is neither: a lighter navy, a muted text or line.
+        Tint,
     }
 
     //
@@ -39,19 +42,53 @@ public static class LookColors
         var blue = h is >= 190 and <= 225;
         if (blue && s >= 0.4 && l is >= 0.12 and <= 0.92) return Role.Accent;
         if ((argb >> 24) == 0 || (argb & 0xFFFFFF) == 0) return Role.None;
-        if (Math.Max(r, Math.Max(g, b)) <= 0x45) return Role.Dark;
+        if (Math.Max(r, Math.Max(g, b)) <= 0x49) return Role.Dark; // to the Workshop cards' #3C4149
         if (blue && s >= 0.2 && l <= 0.3) return Role.Dark;
+        if (blue && s >= TintedFrom) return Role.Tint;
         return Role.None;
     }
 
+    //
+    // The saturation from which a colour of Steam's blue hue counts as tinted blue, and so takes
+    // the accent's hue too: Steam's navies (#1B2838, #273B52), its popups and muted blue text.
+    // HUNCH: under it are the greys with a trace of blue (#262B34 is just over, #3D4450 under).
+    //
+    public const double TintedFrom = 0.15;
+
     /// <summary>The colour as drawn with this accent (null for Steam blue) and, when black is on,
     /// OLED black.</summary>
-    public static uint Transform(uint argb, uint? accent, bool black) => RoleOf(argb) switch
+    public static uint Transform(uint argb, uint? accent, bool black)
     {
-        Role.Accent when accent is { } a && (a | 0xFF000000) != SteamBlue => ShiftAccent(argb, a),
-        Role.Dark when black => Blacken(argb),
-        _ => argb,
-    };
+        var role = RoleOf(argb);
+        if (role == Role.None) return argb;
+
+        var drawn = argb;
+        if (accent is { } a && (a | 0xFF000000) != SteamBlue)
+            drawn = role == Role.Accent ? ShiftAccent(argb, a) : IsTinted(argb) ? Tint(argb, a) : argb;
+
+        return black && role == Role.Dark ? Blacken(argb, drawn) : drawn;
+    }
+
+    private static bool IsTinted(uint argb)
+    {
+        var (h, s, _) = ToHsl(Channels(argb));
+        return h is >= 190 and <= 225 && s >= TintedFrom;
+    }
+
+    //
+    // A navy or muted blue in the accent's hue: turned as the accent is turned from Steam blue,
+    // its saturation scaled as the accent's is, its lightness kept - so a purple accent gives
+    // plum surfaces as dark as the navy ones were.
+    //
+    public static uint Tint(uint argb, uint accent)
+    {
+        var (h0, s0, _) = ToHsl(Channels(SteamBlue));
+        var (ha, sa, _) = ToHsl(Channels(accent));
+        var (h, s, l) = ToHsl(Channels(argb));
+
+        var (r, g, b) = FromHsl((h + (ha - h0) + 360) % 360, Math.Clamp(s * sa / s0, 0, 1), l);
+        return (argb & 0xFF000000) | ((uint)r << 16) | ((uint)g << 8) | b;
+    }
 
     //
     // Moves one of Steam's blues to where the accent sits: the hue turned by as much as the accent
@@ -87,13 +124,17 @@ public static class LookColors
 
     public const double SurfaceLight = 0.45;
 
-    public static uint Blacken(uint argb)
-    {
-        if (PageBackgrounds.Contains(argb | 0xFF000000)) return argb & 0xFF000000;
+    public static uint Blacken(uint argb) => Blacken(argb, argb);
 
-        var (r, g, b) = Channels(argb);
+    // written is the colour as the XAML has it, which says whether it is a page; drawn is the
+    // colour after the accent's tint, which is what is dimmed.
+    private static uint Blacken(uint written, uint drawn)
+    {
+        if (PageBackgrounds.Contains(written | 0xFF000000)) return written & 0xFF000000;
+
+        var (r, g, b) = Channels(drawn);
         byte Dim(byte c) => (byte)Math.Round(c * SurfaceLight);
-        return (argb & 0xFF000000) | ((uint)Dim(r) << 16) | ((uint)Dim(g) << 8) | Dim(b);
+        return (drawn & 0xFF000000) | ((uint)Dim(r) << 16) | ((uint)Dim(g) << 8) | Dim(b);
     }
 
     /// <summary>#RGB is not taken: XAML and the settings both write six or eight digits.</summary>

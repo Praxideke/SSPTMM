@@ -115,7 +115,7 @@
                                 <ui:SymbolIcon FontSize="16" Foreground="#D2E885" Symbol="Add16" />
                             </Border>
                             <!-- Subscribed: an outline and a tick... -->
-                            <Border x:Name="Tick" BorderBrush="#567397" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
+                            <Border x:Name="Tick" BorderBrush="{look:Brush #567397}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
                                 <ui:SymbolIcon FontSize="16" Foreground="{look:Brush #66C0F4}" Symbol="Checkmark16" />
                             </Border>
                             <!-- ...that turns into Unsubscribe's grey x under the pointer. -->
@@ -445,7 +445,7 @@
                         <TextBlock
                             Margin="0,12,0,0"
                             FontSize="14"
-                            Foreground="#C6D4DF"
+                            Foreground="{look:Brush #C6D4DF}"
                             TextWrapping="Wrap"
                             Text="{Binding Summary}"
                             Visibility="{Binding Summary, Converter={StaticResource NullToCollapsed}}" />
@@ -520,7 +520,7 @@
                                                                 <TextBlock
                                                                     Margin="0,10,0,0"
                                                                     FontSize="12"
-                                                                    Foreground="#C6D4DF"
+                                                                    Foreground="{look:Brush #C6D4DF}"
                                                                     TextWrapping="Wrap"
                                                                     Text="{Binding Teaser}"
                                                                     Visibility="{Binding Teaser, Converter={StaticResource NullToCollapsed}}" />
@@ -598,7 +598,7 @@
                                                     Margin="0,6,0,0"
                                                     FontSize="13"
                                                     FontStyle="Italic"
-                                                    Foreground="#C6D4DF"
+                                                    Foreground="{look:Brush #C6D4DF}"
                                                     TextWrapping="Wrap"
                                                     Text="{Binding AuthorNote}"
                                                     Visibility="{Binding AuthorNote, Converter={StaticResource NullToCollapsed}}" />

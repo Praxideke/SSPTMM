@@ -28,7 +28,7 @@
         <converters:NullToVisibilityConverter x:Key="NullToCollapsed" />
 
         <RadialGradientBrush x:Key="CardFace" Center="0.17,0.35" GradientOrigin="0.17,0.35" RadiusX="0.62" RadiusY="0.99">
-            <GradientStop Offset="0" Color="#3C4149" />
+            <GradientStop Offset="0" Color="{look:Color #3C4149}" />
             <GradientStop Offset="1" Color="{look:Color #1B1D21}" />
         </RadialGradientBrush>
 

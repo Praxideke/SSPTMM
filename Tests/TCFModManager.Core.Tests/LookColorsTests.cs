@@ -14,6 +14,8 @@ public sealed class LookColorsTests
     [InlineData(0xFF262B34, LookColors.Role.Dark)]
     [InlineData(0xFF273B52, LookColors.Role.Dark)]   // the cards' navy
     [InlineData(0xFF3D4450, LookColors.Role.None)]   // the buttons' grey
+    [InlineData(0xFF5C8699, LookColors.Role.Tint)]   // a muted blue text
+    [InlineData(0xFF344352, LookColors.Role.Dark)]   // the popups' navy
     [InlineData(0xFFACB2B8, LookColors.Role.None)]   // text grey
     [InlineData(0xFFA4D007, LookColors.Role.None)]   // Steam green
     [InlineData(0x66000000, LookColors.Role.None)]   // a black shade stays as it is
@@ -45,6 +47,27 @@ public sealed class LookColorsTests
     {
         Assert.Equal(0x5Cu, LookColors.Transform(0x5C1A9FFF, 0xFF5BA32B, black: false) >> 24);
         Assert.Equal(0xFFACB2B8u, LookColors.Transform(0xFFACB2B8, 0xFF5BA32B, black: true));
+    }
+
+    [Fact]
+    public void Steam_navies_take_the_accent_hue_and_keep_their_lightness()
+    {
+        var purple = 0xFF8E63E0u;
+        var card = LookColors.Transform(0xFF273B52, purple, black: false);
+        Assert.NotEqual(0xFF273B52u, card);
+        Assert.True(((card >> 16) & 0xFF) > (card & 0xFF) - 0x30, "the card should lean to purple, red near blue");
+        var sum = ((card >> 16) & 0xFF) + ((card >> 8) & 0xFF) + (card & 0xFF);
+        Assert.InRange((int)sum, 0x27 + 0x3B + 0x52 - 40, 0x27 + 0x3B + 0x52 + 40);
+
+        Assert.Equal(0xFF3D4450u, LookColors.Transform(0xFF3D4450, purple, black: false)); // a grey is left
+    }
+
+    [Fact]
+    public void Black_with_an_accent_still_takes_the_pages_to_black()
+    {
+        Assert.Equal(0xFF000000u, LookColors.Transform(0xFF1B2838, 0xFF5BA32B, black: true));
+        var card = LookColors.Transform(0xFF273B52, 0xFF5BA32B, black: true);
+        Assert.True(((card >> 8) & 0xFF) >= (card & 0xFF), "a dimmed card in the accent's green");
     }
 
     [Fact]

@@ -847,7 +847,7 @@
                                                             Margin="8,0,0,0"
                                                             VerticalAlignment="Center"
                                                             FontSize="16"
-                                                            Foreground="#C6D4DF"
+                                                            Foreground="{look:Brush #C6D4DF}"
                                                             Symbol="PlugDisconnected24"
                                                             ToolTip="{loc:Str Item_RequiredDisabled}"
                                                             Visibility="{Binding IsDisabled, Converter={StaticResource TrueToVisible}}" />
@@ -1148,7 +1148,7 @@
                                             Background="Transparent"
                                             BorderThickness="0"
                                             FontSize="14"
-                                            Foreground="#CFD8E1"
+                                            Foreground="{look:Brush #CFD8E1}"
                                             Focusable="False"
                                             HorizontalScrollBarVisibility="Disabled"
                                             IsDocumentEnabled="True"

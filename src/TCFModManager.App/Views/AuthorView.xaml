@@ -164,7 +164,7 @@
                         behaviors:ThumbnailLoader.Source="{Binding Cover}" />
                     <!-- Their picture darkened, so the name over it reads on a light one too. -->
                     <Rectangle Fill="#73000000" Visibility="{Binding Cover, Converter={StaticResource NullToCollapsed}}" />
-                    <Border x:Name="HeaderBar" Padding="14,14,14,14" Background="#803A3E47">
+                    <Border x:Name="HeaderBar" Padding="14,14,14,14" Background="{look:Brush #803A3E47}">
                         <DockPanel>
                             <!-- The avatar in Steam's frame: a 1px gradient edge. -->
                             <Border Width="72" Height="72" Padding="2" DockPanel.Dock="Left">
