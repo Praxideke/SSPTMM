@@ -42,7 +42,8 @@ the same details; click a card or row to open it.
   that would break another installed mod is held back and says so: Update all leaves it out, and
   update notifications don't announce it. Update all goes in dependency order - a library before
   the mods that use it. A disabled mod is updated too and stays disabled.
-- Right-click a mod for **Open client folder** and **Open server folder**, beside the group items.
+- Right-click a mod for **Rename...** (a name of your own; empty gives it back its own), **Open
+  client folder** and **Open server folder**, beside the group items.
 - Flags when the installed version doesn't run on your SPT, or when it needs a mod that is missing
   or disabled - read from the mod's own files, so it works offline and for hand-installed mods.
 - **PINNED** - see below. **RE-UPLOADED** - see below. **DISABLED**.

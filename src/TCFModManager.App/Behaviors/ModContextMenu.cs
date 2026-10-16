@@ -82,6 +82,7 @@ public static class ModContextMenu
         {
             if (mod is not null) menu.Items.Add(Rule());
             menu.Items.Add(GroupMenu(page, card));
+            menu.Items.Add(Item(Strings.Menu_Rename, () => page.RenameMod(card))); // Fork (1.4.2)
 
             // Fork (1.4.2): the card's own folder buttons, on the menu too.
             if (card.ClientFolderLink is not null || card.ServerFolderLink is not null) menu.Items.Add(Rule());

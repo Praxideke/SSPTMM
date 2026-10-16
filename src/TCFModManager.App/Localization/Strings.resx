@@ -3326,6 +3326,22 @@ Whichever you pick, the version currently on disk is copied into {1} first.</val
     <value>Settings you changed will be carried into the new version's config files, and your current copies kept in Data\LegacyConfigs.</value>
     <comment>Shown before an update, when this mod's config policy is ConfigPolicy_Merge. Data\LegacyConfigs is a folder path and stays as it is.</comment>
   </data>
+  <data name="Downloads_Pause" xml:space="preserve">
+    <value>Pause</value>
+    <comment>Downloads page button: stop starting downloads.</comment>
+  </data>
+  <data name="Downloads_Resume" xml:space="preserve">
+    <value>Resume</value>
+    <comment>Downloads page button, in Pause's place while paused.</comment>
+  </data>
+  <data name="Downloads_PauseToolTip" xml:space="preserve">
+    <value>While paused, no download starts. One already under way finishes, and so do installs.</value>
+    <comment>Tooltip on Pause and Resume.</comment>
+  </data>
+  <data name="Downloads_PausedWaiting" xml:space="preserve">
+    <value>Paused - waits for Resume</value>
+    <comment>A queued download's status while the queue is paused. Resume is the button's name.</comment>
+  </data>
   <data name="Downloads_CouldNotSwitchOnFormat" xml:space="preserve">
     <value>{0} is disabled and couldn't be switched on for the update, so nothing changed: {1}</value>
     <comment>{0} is a mod name. {1} is why, as the program gives it.</comment>
@@ -5808,6 +5824,78 @@ This was written to:
     <value>Unsubscribing</value>
     <comment>Options card heading.</comment>
   </data>
+  <data name="Install_LayoutTitleFormat" xml:space="preserve">
+    <value>Where does {0} go?</value>
+    <comment>{0} is a mod name. Title of the question asked for an archive whose folders SSPTMM doesn't recognise.</comment>
+  </data>
+  <data name="Install_LayoutBodyFormat" xml:space="preserve">
+    <value>The archive for {0} {1} has none of the folders a mod's archive usually has (BepInEx, user). It holds:</value>
+    <comment>{0} is a mod name, {1} its version. The archive's files are listed under it.</comment>
+  </data>
+  <data name="Install_LayoutMoreFormat" xml:space="preserve">
+    <value>...and {0} more</value>
+    <comment>Under the list of files. {0} is how many are not listed.</comment>
+  </data>
+  <data name="Install_LayoutAdvice" xml:space="preserve">
+    <value>A client mod (DLLs the game loads) goes in BepInEx\plugins; a server mod (a folder with package.json) goes in user\mods. Check the mod's page if you're not sure.</value>
+    <comment>Under the list of files in the layout question. The folder names stay as they are.</comment>
+  </data>
+  <data name="Install_LayoutClient" xml:space="preserve">
+    <value>Client mod - BepInEx\plugins</value>
+    <comment>Button. The folder name stays as it is.</comment>
+  </data>
+  <data name="Install_LayoutServer" xml:space="preserve">
+    <value>Server mod - user\mods</value>
+    <comment>Button. The folder name stays as it is.</comment>
+  </data>
+  <data name="Options_AnimationsHeader" xml:space="preserve">
+    <value>Animations</value>
+    <comment>Options card title.</comment>
+  </data>
+  <data name="Options_AnimationsSummary" xml:space="preserve">
+    <value>Cards rise under the pointer and pages slide in</value>
+    <comment>Options card text.</comment>
+  </data>
+  <data name="Options_AnimationsDescription" xml:space="preserve">
+    <value>Off, Workshop cards stay still under the pointer and pages change at once. Pages already open keep the old way until SSPTMM is restarted. Smooth scrolling has its own switch above.</value>
+    <comment>Options card text.</comment>
+  </data>
+  <data name="Options_CatalogHeader" xml:space="preserve">
+    <value>Catalogue address</value>
+    <comment>Options card title: the website the list of mods is read from.</comment>
+  </data>
+  <data name="Options_CatalogHint" xml:space="preserve">
+    <value>Where mods are listed from: sp-mod.com, or a mirror of it when it is down</value>
+    <comment>Options card text.</comment>
+  </data>
+  <data name="Options_CatalogDescription" xml:space="preserve">
+    <value>A mirror has to answer sp-mod.com's API (/api/v0) with the same mods and ids - it is checked before it is kept. Comments, mod lists and links to sp-mod.com stay sp-mod.com's. Used from SSPTMM's next start. Leave it empty for sp-mod.com.</value>
+    <comment>Options card text.</comment>
+  </data>
+  <data name="Options_CatalogUse" xml:space="preserve">
+    <value>Check and use</value>
+    <comment>Button: test the typed address and keep it.</comment>
+  </data>
+  <data name="Options_CatalogReset" xml:space="preserve">
+    <value>Use sp-mod.com</value>
+    <comment>Button: go back to sp-mod.com. A site name - leave it as it is.</comment>
+  </data>
+  <data name="Options_CatalogNotAnAddress" xml:space="preserve">
+    <value>That isn't an https web address.</value>
+    <comment>Said under the catalogue address box.</comment>
+  </data>
+  <data name="Options_CatalogChecking" xml:space="preserve">
+    <value>Checking...</value>
+    <comment>Said under the catalogue address box while the address is tried.</comment>
+  </data>
+  <data name="Options_CatalogNoAnswerFormat" xml:space="preserve">
+    <value>{0} didn't answer as sp-mod.com's catalogue does, so it wasn't kept.</value>
+    <comment>{0} is the address typed.</comment>
+  </data>
+  <data name="Options_CatalogNextStart" xml:space="preserve">
+    <value>Kept. SSPTMM uses it from its next start.</value>
+    <comment>Said under the catalogue address box once it is saved.</comment>
+  </data>
   <data name="Options_WhileRunningHeader" xml:space="preserve">
     <value>Allow changes while SPT is running</value>
     <comment>Options card title.</comment>
@@ -6603,10 +6691,6 @@ Install it anyway?</value>
   <data name="Installed_LocalUnreadableFormat" xml:space="preserve">
     <value>{0} could not be read as an archive: {1}</value>
     <comment>{0} file name, {1} the reason.</comment>
-  </data>
-  <data name="Installed_LocalNotRecognisedFormat" xml:space="preserve">
-    <value>Nothing in {0} says where its files go in SPT (no BepInEx or user folder, no plugins folder), so it was not installed.</value>
-    <comment>{0} file name.</comment>
   </data>
   <data name="Installed_LocalConfirmMatchedFormat" xml:space="preserve">
     <value>{0} holds {1} {2} (matched to its sp-mod.com page by the mod ID inside it).
@@ -11141,6 +11225,18 @@ No keeps this group under its old name.</value>
   <data name="Options_HomeLastPage" xml:space="preserve">
     <value>Where I left off</value>
     <comment>Home page choice: the page that was on screen when SSPTMM was last closed.</comment>
+  </data>
+  <data name="Menu_Rename" xml:space="preserve">
+    <value>Rename...</value>
+    <comment>Right-click menu on an installed mod: give it a name of your own.</comment>
+  </data>
+  <data name="Menu_RenameTitle" xml:space="preserve">
+    <value>A name of your own for this mod (empty for its own)</value>
+    <comment>Title of the rename question.</comment>
+  </data>
+  <data name="Menu_RenameSave" xml:space="preserve">
+    <value>Rename</value>
+    <comment>Button in the rename question.</comment>
   </data>
   <data name="Menu_OpenClientFolder" xml:space="preserve">
     <value>Open client folder</value>

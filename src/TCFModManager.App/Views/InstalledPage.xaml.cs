@@ -124,7 +124,7 @@ public partial class InstalledPage : Page
         await ViewModel.InstallArchivesAsync(kept);
     }
 
-    private static string[] KeepDroppedTempFiles(string[] files)
+    internal static string[] KeepDroppedTempFiles(string[] files)
     {
         var temp = System.IO.Path.GetFullPath(System.IO.Path.GetTempPath());
         var kept = System.IO.Path.Combine(temp, "SSPTMM-dropped");

@@ -136,13 +136,20 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     public string? DeclaredName { get; init; }
 
     // The title the card leads with: the real sp-mod.com display name when there is one, then the
-    // name the mod declares for itself, otherwise the folder/package Name.
-    public string DisplayTitle => MatchedModName ?? DeclaredName ?? Name;
+    // name the mod declares for itself, otherwise the folder/package Name. Fork (1.4.2): a name the
+    // user gave it comes before all of them.
+    public string DisplayTitle => CustomName ?? MatchedModName ?? DeclaredName ?? Name;
+
+    // Fork (1.4.2): the name given with Rename... (ModNicknames); null for the mod's own.
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(DisplayTitle))]
+    [NotifyPropertyChangedFor(nameof(FolderNameIfDifferent))]
+    private string? _customName;
 
     // The raw installed folder/package name, shown as a secondary line under DisplayTitle only
     // when the title came from somewhere else and differs from the folder name.
     public string? FolderNameIfDifferent =>
-        (MatchedModName ?? DeclaredName) is { } title && !string.Equals(title, Name, StringComparison.OrdinalIgnoreCase)
+        (CustomName ?? MatchedModName ?? DeclaredName) is { } title && !string.Equals(title, Name, StringComparison.OrdinalIgnoreCase)
             ? Name
             : null;
 

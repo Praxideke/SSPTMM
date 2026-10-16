@@ -2464,6 +2464,31 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   disabled card sharing its folder is still refused: the new version's files aren't known to be
   its own. Not checked on a real disabled mod.
 - **The right-click menu's folder items** run the card's own Open client/server folder.
+- **An archive of no known layout** (`ModInstallService.ChooseLayout`, App:
+  `ArchiveLayoutQuestion`): its files are listed (thirty, then a count), the likelier place first
+  (server when a package.json is in it, else client), Cancel the default. `ArchiveLayout.PlaceAs`
+  moves the content into `~placed\BepInEx\plugins\` or `~placed\user\mods\` inside the
+  extraction folder - one folder as the mod's own, else into one named for the mod - and the
+  install reads that as any archive. Install from file no longer stops on it first. The empty
+  folders such an archive ships are not made. Tested in Core (three cases); the dialog was not
+  seen.
+- **The Forge Alt mirror** named in the other manager was gone when tried (no DNS record for
+  forge-alt.katrinfoxvr.com on 2026-10-16), so it is not built in. Instead Options > Advanced takes
+  any catalogue address: `SpModApiOptions.CatalogSite`, set at start from `AppSettings.CatalogSite`,
+  checked first with `/api/v0/ping`. sp-mod.com's mod lists (`SpModListsClient`) and the header's
+  sp-mod.com button stay sp-mod.com's.
+- **Rename** (`ModNicknames`, `AppSettings.ModNames`): keyed by the sp-mod.com id when listed, else
+  the folder name; `CustomName` leads `DisplayTitle`, and the folder name then shows under it.
+- **Drops anywhere**: the window takes file drops that reach it (Subscribed items settles its own
+  first), opens Subscribed items and installs through the same path.
+- **Pause** holds `WaitForSlotAsync` before a download slot; a slot taken as Pause was pressed is
+  given back. Not a pause of a transfer under way, and no reordering: installs go in the order
+  queued, which Update all now sets by dependencies. Checked on a hidden desktop: Pause turns to
+  Resume.
+- **Animations** (`Behaviors/Motion`): the cards' lift offset and time are App resources read as
+  StaticResource, 0 when off; the NavigationView's transition goes to None. Checked on a hidden
+  desktop that Browse still builds its cards; the look with it off was not seen.
+- The Options gear had no UI Automation name; it has Options' now.
 - **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
   build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
   the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if

@@ -31,6 +31,10 @@ public sealed class AppSettings
     // outlasts Clear filters and a restart. 0 is Infinite.
     public Dictionary<string, int> PageSizes { get; set; } = [];
 
+    // Fork (1.4.2): names you gave installed mods (Subscribed items > right-click > Rename...),
+    // keyed "id:<sp-mod.com id>" or "name:<folder name>" - see App/Services/ModNicknames.
+    public Dictionary<string, string> ModNames { get; set; } = [];
+
     // Fork (SSPTMM): close the game when the SPT server stops - by Stop server, from its own window,
     // or a crash (the App's GameCloser). Off unless ticked on the Play page.
     public bool CloseGameWithServer { get; set; }
@@ -129,6 +133,11 @@ public sealed class AppSettings
     public bool SmoothScrolling { get; set; } = true;
 
     //
+    // Fork (1.4.2): the cards rising under the pointer and pages sliding in. On by default.
+    //
+    public bool Animations { get; set; } = true;
+
+    //
     // Fork (round 47): Subscribed items draws each mod's own picture, blurred, behind its card and
     // List row, as Steam's rows have it (CardBackdrop). On by default; off for a PC that scrolls
     // the page slowly with it.
@@ -149,6 +158,13 @@ public sealed class AppSettings
     // either way - the server writes them back.
     //
     public bool AllowChangesWhileRunning { get; set; }
+
+    //
+    // Fork (1.4.2): where the mod catalogue is read from - a mirror of sp-mod.com that answers the
+    // same /api/v0, for when sp-mod.com is down. Null is sp-mod.com. Checked before it is kept;
+    // used from the next start.
+    //
+    public string? CatalogSite { get; set; }
 
     //
     // Whether downloaded archives are kept (Data\Downloads, within ModArchiveCache's budget) so a

@@ -48,6 +48,37 @@ public partial class InstalledViewModel
         MoveModsToGroup(mods, group.Id);
     }
 
+    // Fork (1.4.2): a name of your own for a mod, shown wherever its title is. Empty gives it back
+    // its own.
+    public void RenameMod(InstalledModCardViewModel card)
+    {
+        var own = card.MatchedModName ?? card.DeclaredName ?? card.Name;
+        var box = new TextBox
+        {
+            Style = (Style)Application.Current.FindResource("SteamSearchField"),
+            Tag = own,
+            Text = card.CustomName ?? string.Empty,
+            Height = 34,
+            MinWidth = 420,
+        };
+        box.Loaded += (_, _) =>
+        {
+            box.Focus();
+            box.SelectAll();
+        };
+
+        var answer = SteamDialog.Show(
+            Strings.Menu_RenameTitle,
+            box,
+            new SteamDialogChoice(Strings.Menu_RenameSave, SteamDialogButton.Green, IsDefault: true),
+            new SteamDialogChoice(Strings.Common_Cancel, SteamDialogButton.Grey));
+        if (answer != 0) return;
+
+        var name = box.Text.Trim();
+        ModNicknames.Set(card, name.Length == 0 || name == own ? null : name);
+        ApplyFilter();
+    }
+
     // Null when cancelled or left blank.
     private static string? AskGroupName()
     {

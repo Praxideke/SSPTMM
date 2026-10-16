@@ -15,6 +15,9 @@
     WindowStartupLocation="CenterScreen"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="None"
+    AllowDrop="True"
+    DragOver="Window_DragOver"
+    Drop="Window_Drop"
     TextOptions.TextFormattingMode="Display"
     TextOptions.TextRenderingMode="ClearType">
     <!-- Small UI text, drawn on whole pixels. WPF's default TextFormattingMode is Ideal, which

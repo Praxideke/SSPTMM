@@ -49,6 +49,52 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     private const int MaxDownloads = 3;
     private readonly SemaphoreSlim _downloadSlots = new(MaxDownloads);
 
+    //
+    // Fork (1.4.2): Pause. No download starts while paused; one already under way finishes, and so
+    // do installs. Not a reorder: installs go in the order queued, which is the order their
+    // dependencies need.
+    //
+    private TaskCompletionSource _resumed = Resumed();
+
+    private static TaskCompletionSource Resumed()
+    {
+        var done = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        done.SetResult();
+        return done;
+    }
+
+    [CommunityToolkit.Mvvm.ComponentModel.ObservableProperty]
+    [CommunityToolkit.Mvvm.ComponentModel.NotifyPropertyChangedFor(nameof(PauseLabel))]
+    private bool _isPaused;
+
+    public string PauseLabel => IsPaused ? Strings.Downloads_Resume : Strings.Downloads_Pause;
+
+    partial void OnIsPausedChanged(bool value)
+    {
+        if (value) _resumed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        else _resumed.TrySetResult();
+
+        AppLog.Info("Downloads", value ? "paused" : "resumed");
+    }
+
+    public void TogglePause() => IsPaused = !IsPaused;
+
+    // A download slot, once not paused - given back and waited for again if paused meanwhile.
+    private async Task WaitForSlotAsync(DownloadQueueItemViewModel item, CancellationToken token)
+    {
+        while (true)
+        {
+            if (IsPaused) item.StatusMessage = Strings.Downloads_PausedWaiting;
+            await _resumed.Task.WaitAsync(token);
+
+            item.StatusMessage = Strings.Downloads_WaitingToDownload;
+            await _downloadSlots.WaitAsync(token);
+            if (!IsPaused) return;
+
+            _downloadSlots.Release();
+        }
+    }
+
     // Archives downloaded before, and the ones in use now (being written, or waiting to install),
     // which tidying never deletes. Touched on the UI thread only.
     private readonly ModArchiveCache _archives = new(ModArchiveCache.DefaultDirectory, ModArchiveCache.DefaultBudget);
@@ -483,8 +529,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         {
             Use(path);
 
-            item.StatusMessage = Strings.Downloads_WaitingToDownload;
-            await _downloadSlots.WaitAsync(token);
+            await WaitForSlotAsync(item, token);
             slot = true;
 
             var progress = new Progress<double>(p => item.Progress = p);
@@ -792,8 +837,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         var slot = false;
         try
         {
-            item.StatusMessage = Strings.Downloads_WaitingToDownload;
-            await _downloadSlots.WaitAsync(token);
+            await WaitForSlotAsync(item, token);
             slot = true;
 
             if (token != item.Token) return;

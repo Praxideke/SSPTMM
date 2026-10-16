@@ -27,6 +27,7 @@ The gear at the top right. Each setting has a one-line explanation and a **?** w
 | Tabs and background | Hide the Subscribed items or Collections tab (both stay under Workshop > Your Items), or put a picture of your own behind the window. |
 | Picture behind each subscribed mod | On by default. On Subscribed items, each mod's own picture, out of focus, sits behind its card or row, as Steam draws its rows. Off: plain cards - worth trying if the page is slow to scroll. Takes hold the next time the page is opened. |
 | Scrolling | Smooth scrolling, as a web browser does, or jump at once. |
+| Animations | Workshop cards rising under the pointer and pages sliding in. Pages already open keep the old way until a restart. |
 
 ## Pages
 
@@ -68,5 +69,6 @@ The gear at the top right. Each setting has a one-line explanation and a **?** w
 
 | Setting | What it does |
 |---|---|
+| Catalogue address | Where mods are listed from: sp-mod.com, or a mirror that answers its API (`/api/v0`) with the same mods and ids, for when sp-mod.com is down. Checked before it is kept; used from the next start. Comments, mod lists and links stay sp-mod.com's. |
 | Data files | View or hand-edit the JSON files under `Data\`, including `installed-mods.json`. |
 | SPT profile backups | Copies of your profiles, with Put back. See [Safety and backups](Safety-and-Backups). |

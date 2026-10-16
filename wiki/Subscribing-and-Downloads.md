@@ -23,6 +23,8 @@
 - The **downloads bar** along the bottom always shows what is downloading or installing. Click it
   for the Downloads page.
 - **Up to three downloads at once**; installs happen one at a time, in the order you queued them.
+  **Pause** on the Downloads page stops new downloads from starting until **Resume**; one under way
+  finishes.
 - A download that fails for a passing reason is retried, and a broken-off one carries on from where
   it stopped when the server allows it. One that fails for good has **Retry** and **Copy error** -
   the reason with the versions of SSPTMM, SPT and Windows, for a bug report.
@@ -42,8 +44,13 @@ update checks stay right.
 ## Install from file
 
 Subscribed items' **⋯** menu > **Install from file** installs an archive you already have (.zip,
-.7z, .rar, .tar, .tar.gz). You can also drop archives onto Subscribed items. Your file is copied,
+.7z, .rar, .tar, .tar.gz). You can also drop archives anywhere on the window. Your file is copied,
 never moved.
+
+An archive without the usual `BepInEx` or `user` folders - a DLL and a read-me, say - shows what it
+holds and asks whether it is a client mod (into `BepInEx\plugins`) or a server mod (into
+`user\mods`). A single folder is kept as the mod's folder; loose files go into a folder named for
+the mod. Check the mod's page if you're not sure; Cancel installs nothing.
 
 ## Unsubscribe
 

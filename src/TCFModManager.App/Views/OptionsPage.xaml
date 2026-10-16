@@ -614,6 +614,18 @@
                                     </ui:CardControl.Header>
                                     <ui:ToggleSwitch Style="{StaticResource RowSwitch}" IsChecked="{Binding SmoothScrolling}" />
                                 </ui:CardControl>
+
+                                <!-- Fork (1.4.2): the cards' lift and the pages' slide (Behaviors/Motion). -->
+                                <ui:CardControl
+                                    Style="{StaticResource SettingRow}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource SettingTitle}" Text="{loc:Str Options_AnimationsHeader}" />
+                                            <TextBlock Style="{StaticResource SettingHint}"><Run Text="{loc:Str Options_AnimationsSummary}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Options_AnimationsDescription}" /></InlineUIContainer></TextBlock>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <ui:ToggleSwitch Style="{StaticResource RowSwitch}" IsChecked="{Binding Animations}" />
+                                </ui:CardControl>
                             </StackPanel>
                         </Border>
                     </StackPanel>
@@ -1268,6 +1280,43 @@
                         <TextBlock Style="{StaticResource SectionHeader}" Text="{loc:Str Options_SectionAdvanced}" />
                         <Border Style="{StaticResource SectionPanel}">
                             <StackPanel>
+
+                                <!-- Fork (1.4.2): a mirror of sp-mod.com's catalogue, for when it is down. -->
+                                <ui:CardControl
+                                    Style="{StaticResource SettingRow}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource SettingTitle}" Text="{loc:Str Options_CatalogHeader}" />
+                                            <TextBlock Style="{StaticResource SettingHint}"><Run Text="{loc:Str Options_CatalogHint}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Options_CatalogDescription}" /></InlineUIContainer></TextBlock>
+                                            <Grid Margin="0,8,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <ui:TextBox
+                                                    Grid.Column="0"
+                                                    PlaceholderText="{Binding CatalogSitePlaceholder}"
+                                                    Text="{Binding CatalogSiteInput, UpdateSourceTrigger=PropertyChanged}" />
+                                                <ui:Button
+                                                    Grid.Column="1"
+                                                    Margin="8,0,0,0"
+                                                    Content="{loc:Str Options_CatalogUse}"
+                                                    Command="{Binding UseCatalogSiteCommand}" />
+                                                <ui:Button
+                                                    Grid.Column="2"
+                                                    Margin="8,0,0,0"
+                                                    Appearance="Transparent"
+                                                    Content="{loc:Str Options_CatalogReset}"
+                                                    Command="{Binding ResetCatalogSiteCommand}" />
+                                            </Grid>
+                                            <TextBlock
+                                                Style="{StaticResource SettingNote}"
+                                                Margin="0,6,0,0"
+                                                Text="{Binding CatalogStatus}" />
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                </ui:CardControl>
 
                                 <!-- Fork: copies of the SPT profiles, taken before the app changes the install (ProfileBackups). -->
                                 <ui:CardExpander

@@ -39,6 +39,14 @@
                 Content="{loc:Str Downloads_ClearFinished}"
                 Click="ClearFinishedButton_Click" />
 
+            <!-- Fork (1.4.2): no download starts while paused; those under way finish. -->
+            <ui:Button
+                DockPanel.Dock="Right"
+                Margin="0,0,8,0"
+                Content="{Binding PauseLabel}"
+                ToolTip="{loc:Str Downloads_PauseToolTip}"
+                Click="PauseButton_Click" />
+
             <!-- Only there when something failed. A mod list apply queues dozens at once, so one
                  bad spell on The Forge leaves a run of them to put back. -->
             <ui:Button

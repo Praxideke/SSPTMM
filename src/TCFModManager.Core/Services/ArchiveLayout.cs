@@ -13,10 +13,89 @@ namespace TCFModManager.Core.Services;
 // two have to agree exactly: the list a download records is what a later scan compares against the
 // disk, so a rule that differed here would report a correct hand install as the wrong version.
 //
+/// <summary>Fork (1.4.2): where the user said an archive of no known layout goes.</summary>
+public enum ArchivePlacement
+{
+    // BepInEx\plugins\<folder>
+    ClientPlugin,
+
+    // user\mods\<folder>
+    ServerMod,
+}
+
+/// <summary>Fork (1.4.2): an archive of no known layout - what it holds, and the likelier place.</summary>
+public sealed record UnrecognisedArchive(string ModName, string? Version, IReadOnlyList<string> Files, int FileCount, ArchivePlacement Likely);
+
 public static class ArchiveLayout
 {
     public static readonly IReadOnlySet<string> KnownRootFolders =
         new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "BepInEx", "user", "SPT", "SPT_Runtime" };
+
+    // ------------------------------------------------------------------ fork (1.4.2): asked where it goes
+    //
+    // An archive with none of the folders above - a DLL and a read-me, or a server mod's folder on
+    // its own - was refused. Now the user is shown what it holds and says whether it is a client or
+    // a server mod; PlaceAs then builds the layout an install reads, beside the extracted files.
+    //
+
+    // The folder PlaceAs builds in, inside the extraction folder.
+    private const string PlacedFolderName = "~placed";
+
+    // The archive's files, relative and with forward slashes, the first <paramref name="max"/>.
+    public static UnrecognisedArchive Describe(string contentRoot, string modName, string? version, int max = 30)
+    {
+        var files = Directory.GetFiles(contentRoot, "*", SearchOption.AllDirectories)
+            .Select(f => Path.GetRelativePath(contentRoot, f).Replace('\\', '/'))
+            .Order(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+        var likely = files.Any(f => Path.GetFileName(f).Equals("package.json", StringComparison.OrdinalIgnoreCase))
+            ? ArchivePlacement.ServerMod
+            : ArchivePlacement.ClientPlugin;
+
+        return new UnrecognisedArchive(modName, version, [.. files.Take(max)], files.Count, likely);
+    }
+
+    //
+    // Moves the content under BepInEx\plugins\ or user\mods\ and returns the new content root. A
+    // single folder is the mod's own folder; anything else goes into one named for the mod.
+    //
+    public static string PlaceAs(string contentRoot, string workDir, ArchivePlacement placement, string modName)
+    {
+        var placed = Path.Combine(workDir, PlacedFolderName);
+        var entries = Directory.GetFileSystemEntries(contentRoot)
+            .Where(e => !string.Equals(Path.GetFullPath(e), Path.GetFullPath(placed), StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        var parent = placement == ArchivePlacement.ServerMod
+            ? Path.Combine(placed, "user", "mods")
+            : Path.Combine(placed, "BepInEx", "plugins");
+        Directory.CreateDirectory(parent);
+
+        if (entries.Count == 1 && Directory.Exists(entries[0]))
+        {
+            Directory.Move(entries[0], Path.Combine(parent, Path.GetFileName(entries[0])));
+            return placed;
+        }
+
+        var folder = Path.Combine(parent, FolderNameFor(modName));
+        Directory.CreateDirectory(folder);
+        foreach (var entry in entries)
+        {
+            var destination = Path.Combine(folder, Path.GetFileName(entry));
+            if (Directory.Exists(entry)) Directory.Move(entry, destination);
+            else File.Move(entry, destination);
+        }
+
+        return placed;
+    }
+
+    // A mod's name as a folder name: what Windows won't take in one becomes "_".
+    public static string FolderNameFor(string modName)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        var name = string.Concat(modName.Select(c => invalid.Contains(c) ? '_' : c)).Trim().TrimEnd('.');
+        return name.Length > 0 ? name : "Mod";
+    }
 
     // How many single-folder wrapper levels are looked through before giving up.
     private const int MaxWrapperDepth = 4;

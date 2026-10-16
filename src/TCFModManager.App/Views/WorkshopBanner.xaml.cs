@@ -15,5 +15,5 @@ public partial class WorkshopBanner : UserControl
 
     // Steam's "Learn More" explains the Workshop; the catalog site is what explains this one.
     private void LearnMore_Click(object sender, RoutedEventArgs e) =>
-        Process.Start(new ProcessStartInfo(new SpModApiOptions().BaseUrl) { UseShellExecute = true });
+        Process.Start(new ProcessStartInfo(SpModApiOptions.OfficialSite) { UseShellExecute = true });
 }

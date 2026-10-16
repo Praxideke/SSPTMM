@@ -1049,6 +1049,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
             ApplyListMembership(cards);
             ApplyPins(cards);
+            ModNicknames.Apply(cards); // Fork (1.4.2)
             ApplyReuploads(cards, installRecords); // Fork
             ApplyPendingDownloads(cards, downloads);
             ApplyLeftovers(cards);
@@ -1357,11 +1358,8 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             return;
         }
 
-        if (!contents.Recognised)
-        {
-            StatusMessage = Text(Strings.Installed_LocalNotRecognisedFormat, Path.GetFileName(file));
-            return;
-        }
+        // Fork (1.4.2): an archive of no known layout goes on: the install shows what it holds and
+        // asks where it goes (ArchiveLayoutQuestion).
 
         var catalogKnown = true;
         try
@@ -1373,7 +1371,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             catalogKnown = false;
         }
 
-        var match = catalogKnown ? LocalArchive.MatchIn(contents, AppServices.ModCache.AllMods) : null;
+        var match = catalogKnown && contents.Recognised ? LocalArchive.MatchIn(contents, AppServices.ModCache.AllMods) : null;
         var listings = catalogKnown ? LocalArchive.ListingsIn(contents, AppServices.ModCache.AllMods) : [];
         var version = LocalArchive.VersionOf(contents, match) ?? stem;
         var name = match?.Name ?? stem;

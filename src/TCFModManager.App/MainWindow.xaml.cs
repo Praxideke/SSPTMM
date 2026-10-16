@@ -16,9 +16,47 @@ namespace TCFModManager.App;
 
 public partial class MainWindow : FluentWindow
 {
+    // Fork (1.4.2): how pages change with Animations on (Behaviors/Motion).
+    internal Wpf.Ui.Animations.Transition PageTransition { get; private set; }
+
+    //
+    // Fork (1.4.2): an archive dropped from Explorer anywhere on the window installs as one dropped
+    // on Subscribed items does - which is opened, for its questions and what it says. Subscribed
+    // items settles its own drops first; anything that isn't a file is left to the page under it.
+    //
+    private void Window_DragOver(object sender, DragEventArgs e)
+    {
+        if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+
+        e.Effects = e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any(InstalledViewModel.IsModArchive)
+            ? DragDropEffects.Copy
+            : DragDropEffects.None;
+        e.Handled = true;
+    }
+
+    private async void Window_Drop(object sender, DragEventArgs e)
+    {
+        if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+
+        e.Handled = true;
+        if (e.Data.GetData(DataFormats.FileDrop) is not string[] files || !files.Any(InstalledViewModel.IsModArchive)) return;
+
+        e.Effects = DragDropEffects.Copy;
+        var kept = InstalledPage.KeepDroppedTempFiles(files);
+
+        // Not while OLE is still waiting for the drop to finish (as InstalledPage).
+        await System.Windows.Threading.Dispatcher.Yield(System.Windows.Threading.DispatcherPriority.Background);
+        AppNavigation.Navigate(typeof(InstalledPage));
+        await InstalledViewModel.ForActions.InstallArchivesAsync(kept);
+    }
+
     public MainWindow()
     {
         InitializeComponent();
+
+        // Fork (1.4.2): Options > Animations off - pages change without sliding in.
+        PageTransition = RootNavigationView.Transition;
+        if (!Behaviors.Motion.Enabled) RootNavigationView.Transition = Wpf.Ui.Animations.Transition.None;
 
         // Before the window is shown, not on Loaded: WindowStartupLocation reads Width/Height while
         // it decides where to put the window, and by Loaded it has already decided. This also wires
@@ -627,7 +665,7 @@ public partial class MainWindow : FluentWindow
 
     // Steam's "Store Page" button, pointed at the catalog this app browses.
     private void ModSite_Click(object sender, RoutedEventArgs e) =>
-        Process.Start(new ProcessStartInfo(new SpModApiOptions().BaseUrl) { UseShellExecute = true });
+        Process.Start(new ProcessStartInfo(SpModApiOptions.OfficialSite) { UseShellExecute = true });
 
     private void RootTitleBar_HelpClicked(TitleBar sender, RoutedEventArgs e) => ShowHelp();
 

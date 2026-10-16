@@ -932,6 +932,10 @@ internal static class Strings
     internal static string ModUpdate_ConfigKeepMine => LocalizationService.Get("ModUpdate_ConfigKeepMine");
     internal static string ModUpdate_ConfigTakeNew => LocalizationService.Get("ModUpdate_ConfigTakeNew");
     internal static string ModUpdate_ConfigMerge => LocalizationService.Get("ModUpdate_ConfigMerge");
+    internal static string Downloads_Pause => LocalizationService.Get("Downloads_Pause");
+    internal static string Downloads_Resume => LocalizationService.Get("Downloads_Resume");
+    internal static string Downloads_PauseToolTip => LocalizationService.Get("Downloads_PauseToolTip");
+    internal static string Downloads_PausedWaiting => LocalizationService.Get("Downloads_PausedWaiting");
     internal static string Downloads_CouldNotSwitchOnFormat => LocalizationService.Get("Downloads_CouldNotSwitchOnFormat");
     internal static string Downloads_LeftSwitchedOnFormat => LocalizationService.Get("Downloads_LeftSwitchedOnFormat");
     internal static string ModUpdate_StaysDisabledFormat => LocalizationService.Get("ModUpdate_StaysDisabledFormat");
@@ -1559,6 +1563,24 @@ internal static class Strings
     internal static string Installed_UnsubscribeDontAsk => LocalizationService.Get("Installed_UnsubscribeDontAsk");
     internal static string Installed_UnsubscribeDontAskNote => LocalizationService.Get("Installed_UnsubscribeDontAskNote");
     internal static string Options_UnsubscribeHeader => LocalizationService.Get("Options_UnsubscribeHeader");
+    internal static string Install_LayoutTitleFormat => LocalizationService.Get("Install_LayoutTitleFormat");
+    internal static string Install_LayoutBodyFormat => LocalizationService.Get("Install_LayoutBodyFormat");
+    internal static string Install_LayoutMoreFormat => LocalizationService.Get("Install_LayoutMoreFormat");
+    internal static string Install_LayoutAdvice => LocalizationService.Get("Install_LayoutAdvice");
+    internal static string Install_LayoutClient => LocalizationService.Get("Install_LayoutClient");
+    internal static string Install_LayoutServer => LocalizationService.Get("Install_LayoutServer");
+    internal static string Options_AnimationsHeader => LocalizationService.Get("Options_AnimationsHeader");
+    internal static string Options_AnimationsSummary => LocalizationService.Get("Options_AnimationsSummary");
+    internal static string Options_AnimationsDescription => LocalizationService.Get("Options_AnimationsDescription");
+    internal static string Options_CatalogHeader => LocalizationService.Get("Options_CatalogHeader");
+    internal static string Options_CatalogHint => LocalizationService.Get("Options_CatalogHint");
+    internal static string Options_CatalogDescription => LocalizationService.Get("Options_CatalogDescription");
+    internal static string Options_CatalogUse => LocalizationService.Get("Options_CatalogUse");
+    internal static string Options_CatalogReset => LocalizationService.Get("Options_CatalogReset");
+    internal static string Options_CatalogNotAnAddress => LocalizationService.Get("Options_CatalogNotAnAddress");
+    internal static string Options_CatalogChecking => LocalizationService.Get("Options_CatalogChecking");
+    internal static string Options_CatalogNoAnswerFormat => LocalizationService.Get("Options_CatalogNoAnswerFormat");
+    internal static string Options_CatalogNextStart => LocalizationService.Get("Options_CatalogNextStart");
     internal static string Options_WhileRunningHeader => LocalizationService.Get("Options_WhileRunningHeader");
     internal static string Options_WhileRunningSummary => LocalizationService.Get("Options_WhileRunningSummary");
     internal static string Options_WhileRunningDescription => LocalizationService.Get("Options_WhileRunningDescription");
@@ -1755,7 +1777,6 @@ internal static class Strings
     internal static string Installed_InstallFromFileFilter => LocalizationService.Get("Installed_InstallFromFileFilter");
     internal static string Installed_LocalReadingFormat => LocalizationService.Get("Installed_LocalReadingFormat");
     internal static string Installed_LocalUnreadableFormat => LocalizationService.Get("Installed_LocalUnreadableFormat");
-    internal static string Installed_LocalNotRecognisedFormat => LocalizationService.Get("Installed_LocalNotRecognisedFormat");
     internal static string Installed_LocalConfirmMatchedFormat => LocalizationService.Get("Installed_LocalConfirmMatchedFormat");
     internal static string Installed_LocalConfirmUnmatchedFormat => LocalizationService.Get("Installed_LocalConfirmUnmatchedFormat");
     internal static string Installed_LocalQueuedFormat => LocalizationService.Get("Installed_LocalQueuedFormat");
@@ -2932,6 +2953,9 @@ internal static class Strings
     internal static string Installed_GroupMergeTitle => LocalizationService.Get("Installed_GroupMergeTitle");
     internal static string Installed_GroupMergeFormat => LocalizationService.Get("Installed_GroupMergeFormat");
     internal static string Options_HomeLastPage => LocalizationService.Get("Options_HomeLastPage");
+    internal static string Menu_Rename => LocalizationService.Get("Menu_Rename");
+    internal static string Menu_RenameTitle => LocalizationService.Get("Menu_RenameTitle");
+    internal static string Menu_RenameSave => LocalizationService.Get("Menu_RenameSave");
     internal static string Menu_OpenClientFolder => LocalizationService.Get("Menu_OpenClientFolder");
     internal static string Menu_OpenServerFolder => LocalizationService.Get("Menu_OpenServerFolder");
 }

@@ -49,6 +49,10 @@ public partial class App : Application
             return;
         }
 
+        // Fork (1.4.2): the catalogue's site, before anything builds the API client.
+        if (new SettingsService().Load().CatalogSite is { Length: > 0 } catalog)
+            Core.SpModApi.SpModApiOptions.CatalogSite = catalog;
+
         AppLog.Start($"{AppVersion.Current}, SPT install: {AppServices.SptEnvironment.InstallPath ?? "(not set)"}");
 
         // Fork: the per-install record lists the Steam Workshop fork kept before 1.19, moved into
@@ -94,9 +98,15 @@ public partial class App : Application
         Behaviors.SmoothScrolling.Enabled = new Core.Services.SettingsService().Load().SmoothScrolling;
         Behaviors.SmoothScrolling.Register();
 
+        // Fork (1.4.2): before any page is made - the cards read it as they are.
+        Behaviors.Motion.Apply(new Core.Services.SettingsService().Load().Animations);
+
         // Fork (1.4.2): changes while SPT runs, asked rather than refused when Options says so.
         Services.RunningInstallGate.Enabled = new Core.Services.SettingsService().Load().AllowChangesWhileRunning;
         Services.RunningInstallGate.Register();
+
+        // Fork (1.4.2): an archive of no known layout is shown, and the user says where it goes.
+        Core.Services.ModInstallService.ChooseLayout = Services.ArchiveLayoutQuestion.Ask;
 
         // Fork: each subscribed mod's picture behind its card, unless switched off in Options.
         Behaviors.CardBackdrop.Enabled = new Core.Services.SettingsService().Load().CardPictures;

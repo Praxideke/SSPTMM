@@ -150,6 +150,10 @@ public sealed class ModInstallService(
     //
     public static Func<ModInstallAction, IReadOnlyList<string>, bool>? ConfirmInUse { get; set; }
 
+    // Fork (1.4.2): asked where an archive of no known layout goes - null (or no answer) refuses it,
+    // as before. Set by the App; called off the UI thread.
+    public static Func<UnrecognisedArchive, ArchivePlacement?>? ChooseLayout { get; set; }
+
     // What stands in the way of <paramref name="action"/>: what RunningBlockers finds, unless the
     // user said to go ahead anyway.
     public static IReadOnlyList<string> Blockers(ModInstallAction action, string? installPath = null)
@@ -281,11 +285,18 @@ public sealed class ModInstallService(
                     $"{target.Name} {version.Version} archive has no known root folder; top level: " +
                     string.Join(", ", Directory.GetFileSystemEntries(contentRoot).Select(Path.GetFileName)));
 
-                throw new ModInstallException(ModInstallFailure.UnrecognisedArchive)
+                // Fork (1.4.2): asked where it goes (ChooseLayout), and refused only when not said.
+                if (ChooseLayout?.Invoke(ArchiveLayout.Describe(contentRoot, target.Name, version.Version)) is not { } placement)
                 {
-                    ModName = target.Name,
-                    Version = version.Version,
-                };
+                    throw new ModInstallException(ModInstallFailure.UnrecognisedArchive)
+                    {
+                        ModName = target.Name,
+                        Version = version.Version,
+                    };
+                }
+
+                AppLog.Info("Install", $"{target.Name} {version.Version} placed as {placement}, as the user said");
+                contentRoot = ArchiveLayout.PlaceAs(contentRoot, extractDir, placement, target.Name);
             }
 
             // Archives package server-side content as "user/..."; remap it to wherever this install

@@ -38,10 +38,10 @@
         <!-- Steam's card hover: up 5px in 0.15s, and back. Begun by each card template's trigger,
              on its own element named CardRoot. -->
         <Storyboard x:Key="CardLift">
-            <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="-5" Duration="0:0:0.15" />
+            <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="{StaticResource CardLiftOffset}" Duration="{StaticResource CardLiftDuration}" />
         </Storyboard>
         <Storyboard x:Key="CardDrop">
-            <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="0:0:0.15" />
+            <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="{StaticResource CardLiftDuration}" />
         </Storyboard>
         <converters:EqualityConverter x:Key="IsSame" />
 

@@ -264,6 +264,25 @@ public partial class OptionsViewModel : LocalizedViewModel
     [ObservableProperty]
     private bool _smoothScrolling;
 
+    // Fork (1.4.2): see Behaviors/Motion.
+    [ObservableProperty]
+    private bool _animations;
+
+    partial void OnAnimationsChanged(bool value)
+    {
+        if (!_loaded) return;
+
+        Behaviors.Motion.Apply(value);
+        if (Application.Current?.MainWindow is MainWindow window)
+            window.RootNavigationView.Transition = value ? window.PageTransition : Wpf.Ui.Animations.Transition.None;
+
+        var settings = _settings.Load();
+        settings.Animations = value;
+        _settings.Save(settings);
+
+        AppLog.Info("Options", value ? "animations on" : "animations off");
+    }
+
     partial void OnSmoothScrollingChanged(bool value)
     {
         if (!_loaded) return;
@@ -321,6 +340,75 @@ public partial class OptionsViewModel : LocalizedViewModel
     {
         SetProperty(ref _confirmUnsubscribe, _settings.Load().ConfirmUnsubscribe, nameof(ConfirmUnsubscribe));
         RefreshKeptDownloads();
+    }
+
+    // Fork (1.4.2): the catalogue's address - see AppSettings.CatalogSite. Kept only once it has
+    // answered a ping as sp-mod.com's API does; used from the next start.
+    [ObservableProperty]
+    private string _catalogSiteInput = string.Empty;
+
+    [ObservableProperty]
+    private string? _catalogStatus;
+
+    public string CatalogSitePlaceholder => Core.SpModApi.SpModApiOptions.OfficialSite;
+
+    [RelayCommand]
+    private async Task UseCatalogSiteAsync()
+    {
+        var typed = CatalogSiteInput.Trim();
+        if (typed.Length == 0)
+        {
+            SaveCatalogSite(null);
+            return;
+        }
+
+        if (!typed.Contains("://", StringComparison.Ordinal)) typed = "https://" + typed;
+        if (!Uri.TryCreate(typed, UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps)
+        {
+            CatalogStatus = Strings.Options_CatalogNotAnAddress;
+            return;
+        }
+
+        var site = uri.GetLeftPart(UriPartial.Authority);
+        CatalogStatus = Strings.Options_CatalogChecking;
+
+        bool answers;
+        try
+        {
+            using var client = new Core.SpModApi.SpModApiClient(
+                options: new Core.SpModApi.SpModApiOptions { BaseUrl = site, Timeout = TimeSpan.FromSeconds(15) });
+            answers = await client.PingAsync();
+        }
+        catch (Exception ex)
+        {
+            AppLog.Info("Options", $"catalogue {site} didn't answer: {ex.GetType().Name}: {ex.Message}");
+            answers = false;
+        }
+
+        if (!answers)
+        {
+            CatalogStatus = LocalizationService.Text(Strings.Options_CatalogNoAnswerFormat, site);
+            return;
+        }
+
+        SaveCatalogSite(site);
+    }
+
+    [RelayCommand]
+    private void ResetCatalogSite() => SaveCatalogSite(null);
+
+    private void SaveCatalogSite(string? site)
+    {
+        var settings = _settings.Load();
+        settings.CatalogSite =
+            site is null || string.Equals(site, Core.SpModApi.SpModApiOptions.OfficialSite, StringComparison.OrdinalIgnoreCase)
+                ? null
+                : site;
+        _settings.Save(settings);
+
+        CatalogSiteInput = settings.CatalogSite ?? string.Empty;
+        CatalogStatus = Strings.Options_CatalogNextStart;
+        AppLog.Info("Options", "catalogue: " + (settings.CatalogSite ?? Core.SpModApi.SpModApiOptions.OfficialSite));
     }
 
     // Changes while SPT runs ask instead of refusing - see AppSettings.AllowChangesWhileRunning.
@@ -517,6 +605,8 @@ public partial class OptionsViewModel : LocalizedViewModel
         _confirmUnsubscribe = settings.ConfirmUnsubscribe;
         _keepDownloads = settings.KeepDownloads;
         _allowChangesWhileRunning = settings.AllowChangesWhileRunning;
+        _animations = settings.Animations;
+        _catalogSiteInput = settings.CatalogSite ?? string.Empty;
         _showSubscribedItemsTab = settings.ShowSubscribedItemsTab;
         _showCollectionsTab = settings.ShowCollectionsTab;
         _backgroundDarkness = Math.Clamp(settings.BackgroundDarkness, 0, 0.9);
