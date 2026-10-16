@@ -32,6 +32,7 @@ The gear at the top right. Each setting has a one-line explanation and a **?** w
 | Scrolling | Smooth scrolling, as a web browser does, or jump at once. |
 | Animations | Workshop cards rising under the pointer and pages sliding in. Pages already open keep the old way until a restart. |
 | Interface size | Everything in the window larger or smaller, 80% to 200%; Ctrl+=, Ctrl+- and Ctrl+0 (100%) do the same anywhere. Menus, tooltips and dialogs keep their own size. |
+| Look file | **Save look...** writes the accent, OLED black, card size, the background picture (up to 16 MB) with its darkness and blur, and the colours of your groups and mods into one `.ssptmm-look` file. **Load look...** puts all of it in place of what you have; a group takes the colour of the group with the same name in the file. |
 
 ## Pages
 

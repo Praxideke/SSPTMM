@@ -11501,4 +11501,43 @@ No keeps this group under its old name.</value>
   <data name="Installed_ColorFilterToolTip" xml:space="preserve">
     <value>Only the mods drawn in one colour - their own, or their group's. Typing color:red in the search box does the same.</value>
   </data>
+  <data name="Options_LookFileHeader" xml:space="preserve">
+    <value>Look file</value>
+  </data>
+  <data name="Options_LookFileSummary" xml:space="preserve">
+    <value>Save this look to a file, or load one</value>
+  </data>
+  <data name="Options_LookFileDescription" xml:space="preserve">
+    <value>The accent colour, OLED black, card size, the background picture with its darkness and blur, and the colours of your groups and mods, in one file - to take to another PC or to share. Loading one puts all of that in place of what you have; groups take the colours of groups with the same name.</value>
+  </data>
+  <data name="Options_LookSave" xml:space="preserve">
+    <value>Save look...</value>
+  </data>
+  <data name="Options_LookLoad" xml:space="preserve">
+    <value>Load look...</value>
+  </data>
+  <data name="Options_LookSaveTitle" xml:space="preserve">
+    <value>Save the look</value>
+  </data>
+  <data name="Options_LookLoadTitle" xml:space="preserve">
+    <value>Load a look</value>
+  </data>
+  <data name="Options_LookFileType" xml:space="preserve">
+    <value>SSPTMM look</value>
+  </data>
+  <data name="Options_LookSavedFormat" xml:space="preserve">
+    <value>Saved to {0}.</value>
+  </data>
+  <data name="Options_LookSavedNoPictureFormat" xml:space="preserve">
+    <value>Saved to {0}, without the background picture: it is larger than {1}.</value>
+  </data>
+  <data name="Options_LookSaveFailedFormat" xml:space="preserve">
+    <value>Could not be saved: {0}</value>
+  </data>
+  <data name="Options_LookLoadedFormat" xml:space="preserve">
+    <value>Loaded {0}.</value>
+  </data>
+  <data name="Options_LookLoadFailed" xml:space="preserve">
+    <value>That is not a look file, or it is damaged.</value>
+  </data>
 </root>

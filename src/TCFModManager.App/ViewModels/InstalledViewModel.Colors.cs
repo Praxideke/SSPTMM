@@ -42,6 +42,13 @@ public partial class InstalledViewModel
         GroupsChanged();
     }
 
+    /// <summary>A look file was loaded: the mods' own colours and the groups' are read again.</summary>
+    public void LookChanged()
+    {
+        ModOwnColors.Apply(_all);
+        GroupsChanged();
+    }
+
     // The colours in use, the palette's first in its order and then any of your own, after Any
     // colour and No colour. A colour picked that is no longer in use goes back to Any colour.
     private void RefreshColorFilter()

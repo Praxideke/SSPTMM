@@ -783,6 +783,34 @@
                                             Content="{loc:Str Options_InterfaceScaleReset}" />
                                     </StackPanel>
                                 </ui:CardControl>
+
+                                <!-- Fork (1.4.2): this look to a file and back (Core/LookFile). -->
+                                <ui:CardControl
+                                    Style="{StaticResource SettingRow}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource SettingTitle}" Text="{loc:Str Options_LookFileHeader}" />
+                                            <TextBlock Style="{StaticResource SettingHint}"><Run Text="{loc:Str Options_LookFileSummary}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Options_LookFileDescription}" /></InlineUIContainer></TextBlock>
+                                            <TextBlock
+                                                Margin="0,4,0,0"
+                                                Style="{StaticResource SettingHint}"
+                                                TextWrapping="Wrap"
+                                                Text="{Binding LookFileStatus}"
+                                                Visibility="{Binding LookFileStatus, Converter={StaticResource NullToCollapsed}}" />
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                            Style="{StaticResource SteamButton}"
+                                            Command="{Binding SaveLookFileCommand}"
+                                            Content="{loc:Str Options_LookSave}" />
+                                        <Button
+                                            Margin="10,0,0,0"
+                                            Style="{StaticResource SteamButton}"
+                                            Command="{Binding LoadLookFileCommand}"
+                                            Content="{loc:Str Options_LookLoad}" />
+                                    </StackPanel>
+                                </ui:CardControl>
                             </StackPanel>
                         </Border>
                     </StackPanel>

@@ -2612,6 +2612,14 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   custom ones. Seen on a hidden desktop: the strips on Cards, a mod's own orange over its group's
   teal, the header dots. Not seen: the menus open, the custom-colour dialog, the filter and the
   search, the List and Groups views.
+- **Look files.** `LookFile` (Core): JSON with a version, the accent, OLED black, card size,
+  the background picture's bytes and extension, its darkness and blur, group colours by group
+  name (an id is only this PC's) and the mods' own colours under their settings keys. A picture
+  over 16 MB (HUNCH) is left out and the save says so; a file holding one is refused. Loading
+  writes the picture into Data\Background under a new name as Choose picture does, clamps the
+  numbers, drops colours that are not six hex digits, and redraws: the accent, card size,
+  background, this page's controls and Subscribed items' strips. Seen: the row on Options > Look
+  on a hidden desktop; the round trip in tests. Not seen: the file dialogs, a load in the window.
 - **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
   build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
   the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if
@@ -2708,8 +2716,9 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   is ignored until the next check, but that was not seen happen.
 - Options > Look (1.4.2): where a colour stops being the accent or a surface (the hue,
   saturation and lightness lines in `LookColors.RoleOf`, and `TintedFrom`, 0.15), the 45% of light a surface keeps under
-  OLED black, the three card sizes and their column widths, the blur's 20px top, and the ten
-  colours for groups and mods (`ModColors.Palette`) - all set by eye from the screenshots, not
+  OLED black, the three card sizes and their column widths, the blur's 20px top, the ten
+  colours for groups and mods (`ModColors.Palette`) and a look file's 16 MB for its picture
+  (`LookFile.MaximumPictureBytes`) - all set by eye from the screenshots, not
   measured.
 - Critical/error red (`#E05A5A`): no error state on the pages measured.
 - Outlined "View All" hover fill.

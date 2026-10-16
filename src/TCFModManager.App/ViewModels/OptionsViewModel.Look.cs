@@ -100,6 +100,116 @@ public partial class OptionsViewModel
         AppLook.Apply(LookColors.TryParse(settings.AccentColor, out var accent) ? accent : null, settings.OledBlack);
     }
 
+    //
+    // The look to a file and back (Core/LookFile): the accent, OLED black, card size, the
+    // background picture itself with its darkness and blur, and the groups' and mods' colours.
+    //
+    [ObservableProperty]
+    private string? _lookFileStatus;
+
+    private static string LookFileFilter => $"{Strings.Options_LookFileType}|*{LookFile.Extension}|{Strings.ModListFile_AllFiles}|*.*";
+
+    [RelayCommand]
+    private void SaveLookFile()
+    {
+        var dialog = new Microsoft.Win32.SaveFileDialog
+        {
+            Title = Strings.Options_LookSaveTitle,
+            Filter = LookFileFilter,
+            FileName = "SSPTMM" + LookFile.Extension,
+            AddExtension = true,
+            DefaultExt = LookFile.Extension,
+        };
+        if (dialog.ShowDialog() != true) return;
+
+        try
+        {
+            var settings = _settings.Load();
+            LookFile.Capture(settings, AppServices.ModGroups.Load()).Write(dialog.FileName);
+            var name = System.IO.Path.GetFileName(dialog.FileName);
+            LookFileStatus = LookFile.PictureTooLarge(settings)
+                ? LocalizationService.Text(Strings.Options_LookSavedNoPictureFormat, name, DownloadQueueItemViewModel.SizeLabel(LookFile.MaximumPictureBytes))
+                : LocalizationService.Text(Strings.Options_LookSavedFormat, name);
+            AppLog.Info("Look", $"saved to {dialog.FileName}");
+        }
+        catch (Exception ex) when (ex is System.IO.IOException or UnauthorizedAccessException)
+        {
+            AppLog.Warn("Look", $"look file not saved: {ex.Message}");
+            LookFileStatus = LocalizationService.Text(Strings.Options_LookSaveFailedFormat, ex.Message);
+        }
+    }
+
+    [RelayCommand]
+    private void LoadLookFile()
+    {
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Title = Strings.Options_LookLoadTitle,
+            Filter = LookFileFilter,
+            CheckFileExists = true,
+        };
+        if (dialog.ShowDialog() != true) return;
+
+        LookFile look;
+        try
+        {
+            look = LookFile.Read(dialog.FileName);
+        }
+        catch (Exception ex) when (ex is System.IO.InvalidDataException or System.IO.IOException or UnauthorizedAccessException)
+        {
+            AppLog.Warn("Look", $"{dialog.FileName} not read: {ex.Message}");
+            LookFileStatus = Strings.Options_LookLoadFailed;
+            return;
+        }
+
+        try
+        {
+            // The picture into Data\Background under a new name, as Choose picture does.
+            string? picture = null;
+            if (look.Background is { } bytes)
+            {
+                var folder = AppearanceViewModel.BackgroundDirectory;
+                System.IO.Directory.CreateDirectory(folder);
+                picture = System.IO.Path.Combine(folder, $"background-{DateTime.UtcNow:yyyyMMddHHmmss}{look.PictureExtension}");
+                System.IO.File.WriteAllBytes(picture, bytes);
+            }
+
+            var settings = _settings.Load();
+            var groups = AppServices.ModGroups.Load();
+            look.ApplyTo(settings, groups, picture);
+            _settings.Save(settings);
+            AppServices.ModGroups.Save(groups);
+
+            AppServices.Appearance.Refresh();
+            var pictureUnreadable = picture is not null && !AppServices.Appearance.HasBackgroundImage;
+            if (pictureUnreadable)
+            {
+                settings.BackgroundImage = picture = null;
+                _settings.Save(settings);
+                AppServices.Appearance.Refresh();
+            }
+
+            DeleteOldBackgrounds(keep: picture);
+            AppLook.Apply(LookColors.TryParse(settings.AccentColor, out var accent) ? accent : null, settings.OledBlack);
+            CardSizes.Apply(settings.CardSize);
+
+            // This page's own controls; each saves back what is already there.
+            LoadLook(settings);
+            BackgroundDarkness = settings.BackgroundDarkness;
+            BackgroundFileName = picture is null ? null : System.IO.Path.GetFileName(picture);
+            BackgroundStatus = pictureUnreadable ? Strings.Options_BackgroundUnreadable : null;
+            InstalledViewModel.Current?.LookChanged();
+
+            LookFileStatus = LocalizationService.Text(Strings.Options_LookLoadedFormat, System.IO.Path.GetFileName(dialog.FileName));
+            AppLog.Info("Look", $"loaded {dialog.FileName}");
+        }
+        catch (Exception ex) when (ex is System.IO.IOException or UnauthorizedAccessException)
+        {
+            AppLog.Warn("Look", $"look file not applied: {ex.Message}");
+            LookFileStatus = LocalizationService.Text(Strings.Options_LookSaveFailedFormat, ex.Message);
+        }
+    }
+
     private void MarkSwatch(uint accent)
     {
         foreach (var swatch in AccentSwatches) swatch.IsSelected = swatch.Value == accent;

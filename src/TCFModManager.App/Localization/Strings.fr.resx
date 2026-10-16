@@ -9254,4 +9254,43 @@ Non garde ce groupe sous son ancien nom.</value>
   <data name="Installed_ColorFilterToolTip" xml:space="preserve">
     <value>Seulement les mods d'une couleur - la leur ou celle de leur groupe. Taper couleur:rouge dans la recherche fait de même.</value>
   </data>
+  <data name="Options_LookFileHeader" xml:space="preserve">
+    <value>Fichier d'apparence</value>
+  </data>
+  <data name="Options_LookFileSummary" xml:space="preserve">
+    <value>Enregistrer cette apparence dans un fichier, ou en charger une</value>
+  </data>
+  <data name="Options_LookFileDescription" xml:space="preserve">
+    <value>La couleur d'accent, le noir OLED, la taille des cartes, l'image de fond avec son assombrissement et son flou, et les couleurs de vos groupes et mods, dans un seul fichier - pour un autre PC ou pour la partager. En charger une remplace tout cela ; les groupes prennent les couleurs des groupes de même nom.</value>
+  </data>
+  <data name="Options_LookSave" xml:space="preserve">
+    <value>Enregistrer l'apparence...</value>
+  </data>
+  <data name="Options_LookLoad" xml:space="preserve">
+    <value>Charger une apparence...</value>
+  </data>
+  <data name="Options_LookSaveTitle" xml:space="preserve">
+    <value>Enregistrer l'apparence</value>
+  </data>
+  <data name="Options_LookLoadTitle" xml:space="preserve">
+    <value>Charger une apparence</value>
+  </data>
+  <data name="Options_LookFileType" xml:space="preserve">
+    <value>Apparence SSPTMM</value>
+  </data>
+  <data name="Options_LookSavedFormat" xml:space="preserve">
+    <value>Enregistrée dans {0}.</value>
+  </data>
+  <data name="Options_LookSavedNoPictureFormat" xml:space="preserve">
+    <value>Enregistrée dans {0}, sans l'image de fond : elle dépasse {1}.</value>
+  </data>
+  <data name="Options_LookSaveFailedFormat" xml:space="preserve">
+    <value>N'a pas pu être enregistrée : {0}</value>
+  </data>
+  <data name="Options_LookLoadedFormat" xml:space="preserve">
+    <value>{0} chargée.</value>
+  </data>
+  <data name="Options_LookLoadFailed" xml:space="preserve">
+    <value>Ce n'est pas un fichier d'apparence, ou il est endommagé.</value>
+  </data>
 </root>

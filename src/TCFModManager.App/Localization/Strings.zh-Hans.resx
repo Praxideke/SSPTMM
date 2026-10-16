@@ -8825,4 +8825,43 @@
   <data name="Installed_ColorFilterToolTip" xml:space="preserve">
     <value>只显示某一颜色的模组（其自身的或其分组的）。在搜索框输入 颜色:红色 效果相同。</value>
   </data>
+  <data name="Options_LookFileHeader" xml:space="preserve">
+    <value>外观文件</value>
+  </data>
+  <data name="Options_LookFileSummary" xml:space="preserve">
+    <value>将此外观保存为文件，或加载一个</value>
+  </data>
+  <data name="Options_LookFileDescription" xml:space="preserve">
+    <value>强调色、OLED 纯黑、卡片大小、背景图片及其暗化和模糊，以及你的分组和模组的颜色，都保存在一个文件中——可带到另一台电脑或分享。加载后会替换以上所有设置；分组会采用同名分组的颜色。</value>
+  </data>
+  <data name="Options_LookSave" xml:space="preserve">
+    <value>保存外观...</value>
+  </data>
+  <data name="Options_LookLoad" xml:space="preserve">
+    <value>加载外观...</value>
+  </data>
+  <data name="Options_LookSaveTitle" xml:space="preserve">
+    <value>保存外观</value>
+  </data>
+  <data name="Options_LookLoadTitle" xml:space="preserve">
+    <value>加载外观</value>
+  </data>
+  <data name="Options_LookFileType" xml:space="preserve">
+    <value>SSPTMM 外观</value>
+  </data>
+  <data name="Options_LookSavedFormat" xml:space="preserve">
+    <value>已保存到 {0}。</value>
+  </data>
+  <data name="Options_LookSavedNoPictureFormat" xml:space="preserve">
+    <value>已保存到 {0}，但不含背景图片：它大于 {1}。</value>
+  </data>
+  <data name="Options_LookSaveFailedFormat" xml:space="preserve">
+    <value>无法保存：{0}</value>
+  </data>
+  <data name="Options_LookLoadedFormat" xml:space="preserve">
+    <value>已加载 {0}。</value>
+  </data>
+  <data name="Options_LookLoadFailed" xml:space="preserve">
+    <value>这不是外观文件，或文件已损坏。</value>
+  </data>
 </root>

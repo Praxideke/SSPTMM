@@ -3033,4 +3033,17 @@ internal static class Strings
     internal static string Installed_GroupColorFormat => LocalizationService.Get("Installed_GroupColorFormat");
     internal static string Installed_GroupColorNone => LocalizationService.Get("Installed_GroupColorNone");
     internal static string Installed_ColorFilterToolTip => LocalizationService.Get("Installed_ColorFilterToolTip");
+    internal static string Options_LookFileHeader => LocalizationService.Get("Options_LookFileHeader");
+    internal static string Options_LookFileSummary => LocalizationService.Get("Options_LookFileSummary");
+    internal static string Options_LookFileDescription => LocalizationService.Get("Options_LookFileDescription");
+    internal static string Options_LookSave => LocalizationService.Get("Options_LookSave");
+    internal static string Options_LookLoad => LocalizationService.Get("Options_LookLoad");
+    internal static string Options_LookSaveTitle => LocalizationService.Get("Options_LookSaveTitle");
+    internal static string Options_LookLoadTitle => LocalizationService.Get("Options_LookLoadTitle");
+    internal static string Options_LookFileType => LocalizationService.Get("Options_LookFileType");
+    internal static string Options_LookSavedFormat => LocalizationService.Get("Options_LookSavedFormat");
+    internal static string Options_LookSavedNoPictureFormat => LocalizationService.Get("Options_LookSavedNoPictureFormat");
+    internal static string Options_LookSaveFailedFormat => LocalizationService.Get("Options_LookSaveFailedFormat");
+    internal static string Options_LookLoadedFormat => LocalizationService.Get("Options_LookLoadedFormat");
+    internal static string Options_LookLoadFailed => LocalizationService.Get("Options_LookLoadFailed");
 }
