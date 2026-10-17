@@ -154,6 +154,9 @@ public sealed partial class WorkshopCollectionItem : ObservableObject
 
     private InstalledModCardViewModel? _installed;
 
+    /// <summary>The installed version, for the list of waiting updates.</summary>
+    public string? InstalledVersion => _installedVersion;
+
     //
     // What Update all would update this item to, when it would update it at all.
     //
@@ -723,10 +726,14 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
 
     public string UpdateAllLabel => Strings.Installed_UpdateAll(UpdatableCount);
 
+    // Update all stays while its list is open, though the last update has just finished.
+    public bool ShowsUpdateAll => HasUpdates || (_updateList?.IsOpen ?? false);
+
     private void AnnounceUpdates()
     {
         OnPropertyChanged(nameof(UpdatableCount));
         OnPropertyChanged(nameof(HasUpdates));
+        OnPropertyChanged(nameof(ShowsUpdateAll));
         OnPropertyChanged(nameof(UpdateAllLabel));
     }
 
@@ -735,9 +742,10 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
     // version, asked and queued exactly as there - see ModUpdates.
     //
     [RelayCommand]
-    private void UpdateAll()
+    private void UpdateAll() => QueueUpdates(Items.Select(i => i.PendingUpdate()).OfType<UpdateTarget>().ToList());
+
+    private void QueueUpdates(IReadOnlyList<UpdateTarget> targets)
     {
-        var targets = Items.Select(i => i.PendingUpdate()).OfType<UpdateTarget>().ToList();
         if (targets.Count == 0) return;
 
         var (said, queued) = ModUpdates.Queue(targets);
@@ -745,10 +753,44 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
         if (queued) AppLog.Info("Collections", $"queued {targets.Count} update(s) from collection {Name}");
     }
 
+    //
+    // Fork (1.4.2): Subscribed items' list of waiting updates (UpdateList), over this collection's
+    // items - each updated as Update all would. No Skip: a public collection's item updates to the
+    // version this page names, which a skipped update in Subscribed items doesn't change.
+    //
+    private UpdateList? _updateList;
+
+    public UpdateList UpdateList => _updateList ??= CreateUpdateList();
+
+    private UpdateList CreateUpdateList()
+    {
+        var list = new UpdateList(rows =>
+        {
+            var ids = rows.Select(r => r.ModId).ToHashSet();
+            QueueUpdates(Items.Select(i => i.PendingUpdate()).OfType<UpdateTarget>().Where(t => ids.Contains(t.Mod.Id)).ToList());
+        });
+        list.Changed += (_, _) => OnPropertyChanged(nameof(ShowsUpdateAll));
+        return list;
+    }
+
+    public void OpenUpdateList() =>
+        UpdateList.Open([.. Items
+            .Select(i => (Item: i, Target: i.PendingUpdate()))
+            .Where(p => p.Target is not null)
+            .Select(p => new UpdateListEntry(
+                p.Target!.Value.Mod.Id,
+                p.Target.Value.Title,
+                p.Item.Thumbnail,
+                p.Item.InstalledVersion,
+                p.Target.Value.Version,
+                IsHandInstalled: !p.Target.Value.IsAppManaged,
+                IsDisabled: false))]);
+
     /// <summary>Stops listening once the page is closed or replaced.</summary>
     public void Detach()
     {
         AppServices.Browse.InstalledIndexChanged -= OnInstalledIndexChanged;
+        _updateList?.Detach();
         _closing.Cancel();
     }
 

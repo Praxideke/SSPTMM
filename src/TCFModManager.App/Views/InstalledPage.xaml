@@ -22,6 +22,7 @@
     xmlns:viewmodels="clr-namespace:TCFModManager.App.ViewModels"
     xmlns:loc="clr-namespace:TCFModManager.App.Localization"
     xmlns:behaviors="clr-namespace:TCFModManager.App.Behaviors"
+    xmlns:local="clr-namespace:TCFModManager.App.Views"
     behaviors:Shortcuts.Refresh="{Binding ScanCommand}"
     Title="{loc:Str Nav_Installed}"
     AllowDrop="True"
@@ -1183,8 +1184,7 @@
              under it, and every waiting update in one go when there is any. -->
         <DockPanel Grid.Row="0" Margin="0,0,0,12">
             <!-- Fork (1.4.2): Update all, and beside it (or a right-click on it) the list of waiting
-                 updates, to update some and not others. The list's 460px width, 420px before it
-                 scrolls and the spinner's 1.2s turn are HUNCH, set by eye. -->
+                 updates (UpdateListButton), to update some and not others. -->
             <StackPanel
                 DockPanel.Dock="Right"
                 VerticalAlignment="Top"
@@ -1202,189 +1202,12 @@
                         <TextBlock Text="{Binding UpdateAllLabel}" />
                     </StackPanel>
                 </Button>
-                <Button
+                <local:UpdateListButton
                     x:Name="UpdateListButton"
                     Margin="1,0,0,0"
-                    Padding="10,0"
-                    Style="{StaticResource SteamBlueButton}"
-                    ToolTip="{loc:Str Installed_UpdateListToolTip}"
-                    AutomationProperties.Name="{loc:Str Installed_UpdateListToolTip}"
-                    Click="UpdateList_Click">
-                    <ui:SymbolIcon FontSize="14" Symbol="ChevronDown16" />
-                </Button>
-                <Popup
-                    x:Name="UpdateListPopup"
-                    AllowsTransparency="True"
-                    Placement="Bottom"
-                    PlacementTarget="{Binding ElementName=UpdateListButton}"
-                    StaysOpen="False"
-                    Closed="UpdateListPopup_Closed">
-                    <Border x:Name="UpdateListPanel" Width="460" Margin="0,4,12,12" Padding="0" Style="{StaticResource SteamMenuPanel}">
-                        <DockPanel>
-                            <TextBlock
-                                Margin="16,14,16,8"
-                                DockPanel.Dock="Top"
-                                Style="{StaticResource SteamMenuHeader}"
-                                Text="{loc:Str Installed_UpdateListHeader}" />
-
-                            <!-- Its own Update all, for what is left, and the queue. -->
-                            <DockPanel Margin="16,8,16,14" DockPanel.Dock="Bottom" LastChildFill="False">
-                                <Button
-                                    DockPanel.Dock="Right"
-                                    Style="{StaticResource SteamBlueButton}"
-                                    Command="{Binding UpdateListAllCommand}"
-                                    IsEnabled="{Binding HasUpdateListReady}">
-                                    <TextBlock Text="{Binding UpdateListAllLabel}" />
-                                </Button>
-                                <Button
-                                    DockPanel.Dock="Left"
-                                    Style="{StaticResource SteamButton}"
-                                    Content="{loc:Str Installed_UpdateListOpenDownloads}"
-                                    Click="UpdateListDownloads_Click" />
-                            </DockPanel>
-
-                            <ScrollViewer MaxHeight="420" VerticalScrollBarVisibility="Auto">
-                                <ItemsControl Focusable="False" ItemsSource="{Binding UpdateRows}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type viewmodels:UpdateListRow}">
-                                            <Border x:Name="Row" Padding="16,6" Background="Transparent">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="40" />
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <Border Width="40" Height="40" Background="{StaticResource SteamChipFill}" CornerRadius="2" ClipToBounds="True">
-                                                        <Image Stretch="UniformToFill" behaviors:ThumbnailLoader.Source="{Binding Thumbnail}" />
-                                                    </Border>
-
-                                                    <StackPanel Grid.Column="1" Margin="10,0,8,0" VerticalAlignment="Center">
-                                                        <TextBlock
-                                                            FontSize="13"
-                                                            Foreground="{StaticResource SteamTextBright}"
-                                                            Text="{Binding Title}"
-                                                            TextTrimming="CharacterEllipsis"
-                                                            ToolTip="{Binding Title}" />
-                                                        <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
-                                                            <TextBlock FontSize="12" Foreground="{StaticResource SteamTextDim}" Text="{Binding Versions}" />
-                                                            <TextBlock
-                                                                Margin="8,0,0,0"
-                                                                FontSize="12"
-                                                                Foreground="{StaticResource SteamTagExclude}"
-                                                                Text="{loc:Str Installed_UpdateListHandInstalled}"
-                                                                ToolTip="{loc:Str Installed_UpdateListHandInstalledToolTip}"
-                                                                Visibility="{Binding IsHandInstalled, Converter={StaticResource BoolToVis}}" />
-                                                            <TextBlock
-                                                                Margin="8,0,0,0"
-                                                                FontSize="12"
-                                                                Foreground="{StaticResource SteamTextMinor}"
-                                                                Text="{loc:Str Installed_UpdateListSwitchedOff}"
-                                                                Visibility="{Binding IsDisabled, Converter={StaticResource BoolToVis}}" />
-                                                        </StackPanel>
-                                                    </StackPanel>
-
-                                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal">
-                                                        <!-- Ready: skip it, or update it. -->
-                                                        <Button
-                                                            Margin="0,0,6,0"
-                                                            Style="{StaticResource SteamGeneralButton}"
-                                                            Content="{loc:Str Installed_UpdateListSkip}"
-                                                            ToolTip="{loc:Str Installed_UpdateListSkipToolTip}"
-                                                            Command="{Binding DataContext.UpdateListSkipCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                            CommandParameter="{Binding}"
-                                                            Visibility="{Binding IsReady, Converter={StaticResource BoolToVis}}" />
-
-                                                        <!-- Working: the queue's stage, the download's percentage. -->
-                                                        <TextBlock
-                                                            MinWidth="64"
-                                                            Margin="0,0,8,0"
-                                                            VerticalAlignment="Center"
-                                                            FontSize="12"
-                                                            TextAlignment="Right"
-                                                            Foreground="{StaticResource SteamText}"
-                                                            Text="{Binding StateLabel}"
-                                                            Visibility="{Binding HasStateLabel, Converter={StaticResource BoolToVis}}" />
-
-                                                        <Grid Width="32" Height="32">
-                                                            <Button
-                                                                Padding="0"
-                                                                MinHeight="32"
-                                                                Style="{StaticResource SteamBlueButton}"
-                                                                ToolTip="{Binding UpdateToolTip}"
-                                                                AutomationProperties.Name="{Binding UpdateToolTip}"
-                                                                Command="{Binding DataContext.UpdateListOneCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                                CommandParameter="{Binding}"
-                                                                Visibility="{Binding IsReady, Converter={StaticResource BoolToVis}}">
-                                                                <ui:SymbolIcon FontSize="16" Symbol="ArrowDownload16" />
-                                                            </Button>
-                                                            <Button
-                                                                Padding="0"
-                                                                MinHeight="32"
-                                                                Style="{StaticResource SteamButton}"
-                                                                ToolTip="{loc:Str Installed_UpdateListRetry}"
-                                                                AutomationProperties.Name="{loc:Str Installed_UpdateListRetry}"
-                                                                Command="{Binding DataContext.UpdateListOneCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                                CommandParameter="{Binding}"
-                                                                Visibility="{Binding IsFailed, Converter={StaticResource BoolToVis}}">
-                                                                <ui:SymbolIcon FontSize="16" Foreground="#E05A5A" Symbol="ArrowClockwise16" />
-                                                            </Button>
-                                                            <ui:SymbolIcon
-                                                                x:Name="Spinner"
-                                                                FontSize="18"
-                                                                Foreground="{StaticResource SteamBlue}"
-                                                                RenderTransformOrigin="0.5,0.5"
-                                                                Symbol="ArrowSync16"
-                                                                Visibility="{Binding IsWorking, Converter={StaticResource BoolToVis}}">
-                                                                <ui:SymbolIcon.RenderTransform>
-                                                                    <RotateTransform />
-                                                                </ui:SymbolIcon.RenderTransform>
-                                                            </ui:SymbolIcon>
-                                                            <ui:SymbolIcon
-                                                                FontSize="20"
-                                                                Foreground="#75B022"
-                                                                Symbol="CheckmarkCircle16"
-                                                                Filled="True"
-                                                                ToolTip="{loc:Str Installed_UpdateListDone}"
-                                                                Visibility="{Binding IsDone, Converter={StaticResource BoolToVis}}" />
-                                                        </Grid>
-                                                    </StackPanel>
-                                                </Grid>
-                                            </Border>
-                                            <DataTemplate.Triggers>
-                                                <Trigger SourceName="Row" Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="Row" Property="Background" Value="{StaticResource SteamChipFill}" />
-                                                </Trigger>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding IsWorking}" Value="True" />
-                                                        <Condition Binding="{Binding Source={x:Static behaviors:Motion.Enabled}}" Value="True" />
-                                                    </MultiDataTrigger.Conditions>
-                                                    <MultiDataTrigger.EnterActions>
-                                                        <BeginStoryboard x:Name="Spin">
-                                                            <Storyboard>
-                                                                <DoubleAnimation
-                                                                    RepeatBehavior="Forever"
-                                                                    Storyboard.TargetName="Spinner"
-                                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
-                                                                    From="0"
-                                                                    To="360"
-                                                                    Duration="0:0:1.2" />
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </MultiDataTrigger.EnterActions>
-                                                    <MultiDataTrigger.ExitActions>
-                                                        <StopStoryboard BeginStoryboardName="Spin" />
-                                                    </MultiDataTrigger.ExitActions>
-                                                </MultiDataTrigger>
-                                            </DataTemplate.Triggers>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </DockPanel>
-                    </Border>
-                </Popup>
+                    DataContext="{Binding UpdateList}"
+                    ArrowStyle="{StaticResource SteamBlueButton}"
+                    Opening="UpdateListButton_Opening" />
             </StackPanel>
             <StackPanel>
                 <TextBlock FontSize="18" Foreground="{StaticResource SteamTextBright}" Text="{loc:Str Workshop_SubscribedItems}" />

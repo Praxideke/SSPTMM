@@ -144,6 +144,16 @@ public partial class WorkshopCollectionView : UserControl
     // The first two breadcrumbs lead back to the page this was opened over.
     private void Close_Click(object sender, RoutedEventArgs e) => Close();
 
+    // Fork (1.4.2): the list of waiting updates (UpdateListButton), from the arrow beside Update all
+    // or a right-click on it.
+    private void UpdateAll_RightClick(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
+        UpdateListButton.Open();
+    }
+
+    private void UpdateListButton_Opening(object? sender, EventArgs e) => _viewModel?.OpenUpdateList();
+
     private void OpenComments_Click(object sender, RoutedEventArgs e)
     {
         if (_viewModel?.CommentsUrl is { } url) MarkupActions.OpenInBrowser(url);

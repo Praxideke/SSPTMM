@@ -2624,6 +2624,13 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   mods it is the Yes/No it was. Seen on a hidden desktop: the split button, the list with eleven
   updates and a hand-installed tag, the three-answer warning. Not seen: a row while it
   downloads, installs, finishes or fails - nothing was downloaded here - and Skip from the list.
+  Later in 1.4.2 the list moved out of InstalledPage: `UpdateList` (rows, queue following, the
+  list's Update all, Skip) and `UpdateListButton` (the arrow and popup, DataContext the page's
+  UpdateList, filled on `Opening`). Subscribed items and a collection page each own one; the
+  collection's updates rows through the same `ModUpdates.Queue` as its Update all and offers no
+  Skip (a public collection's item goes to the version its page names, which Subscribed items'
+  skip doesn't change). Seen on a hidden desktop: both lists opening, the collection's above its
+  bar with seven rows and no Skip.
 - **Look files.** `LookFile` (Core): JSON with a version, the accent, OLED black, card size,
   the background picture's bytes and extension, its darkness and blur, group colours by group
   name (an id is only this PC's) and the mods' own colours under their settings keys. A picture

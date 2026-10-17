@@ -36,6 +36,7 @@
     xmlns:converters="clr-namespace:TCFModManager.App.Converters"
     xmlns:behaviors="clr-namespace:TCFModManager.App.Behaviors"
     xmlns:loc="clr-namespace:TCFModManager.App.Localization"
+    xmlns:local="clr-namespace:TCFModManager.App.Views"
     Focusable="True"
     FocusVisualStyle="{x:Null}"
     KeyDown="View_KeyDown">
@@ -465,13 +466,28 @@
                                     </StackPanel>
                                 </Button>
                                 <!-- Not Steam's (Steam updates by itself): Subscribed items' Update all, over this
-                                     collection's items. Only while there is something to update. -->
-                                <Button Style="{StaticResource CollectionBarButton}" Command="{Binding UpdateAllCommand}" ToolTip="{loc:Str Collection_UpdateAllToolTip}" Visibility="{Binding HasUpdates, Converter={StaticResource TrueToVisible}}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <ui:SymbolIcon Margin="0,0,6,0" FontSize="14" Symbol="ArrowSync16" />
-                                        <TextBlock Text="{Binding UpdateAllLabel}" />
-                                    </StackPanel>
-                                </Button>
+                                     collection's items, and its list of waiting updates beside it (or a
+                                     right-click on it). Only while there is something to update. -->
+                                <StackPanel Orientation="Horizontal" Visibility="{Binding ShowsUpdateAll, Converter={StaticResource TrueToVisible}}">
+                                    <Button
+                                        Margin="0"
+                                        Style="{StaticResource CollectionBarButton}"
+                                        Command="{Binding UpdateAllCommand}"
+                                        ToolTip="{loc:Str Collection_UpdateAllToolTip}"
+                                        AutomationProperties.Name="{Binding UpdateAllLabel}"
+                                        PreviewMouseRightButtonUp="UpdateAll_RightClick">
+                                        <StackPanel Orientation="Horizontal">
+                                            <ui:SymbolIcon Margin="0,0,6,0" FontSize="14" Symbol="ArrowSync16" />
+                                            <TextBlock Text="{Binding UpdateAllLabel}" />
+                                        </StackPanel>
+                                    </Button>
+                                    <local:UpdateListButton
+                                        x:Name="UpdateListButton"
+                                        Margin="1,0,0,0"
+                                        DataContext="{Binding UpdateList}"
+                                        ArrowStyle="{StaticResource CollectionBarButton}"
+                                        Opening="UpdateListButton_Opening" />
+                                </StackPanel>
                                 <Button Style="{StaticResource CollectionBarButton}" Command="{Binding SaveToCollectionCommand}">
                                     <StackPanel Orientation="Horizontal">
                                         <ui:SymbolIcon Margin="0,0,6,0" FontSize="14" Symbol="Copy16" />
