@@ -871,13 +871,19 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
-            var others = new List<(InstalledModRecord Record, List<string> Files)>();
+            var others = new List<(InstalledModRecord Record, List<string> Files, List<(InstalledMod Entry, IReadOnlyList<string> Files)> Parts)>();
             foreach (var record in modRecords)
             {
                 if (!record.IsAppManaged || shown.Contains(record.ModId)) continue;
 
+                // Only when its files are found inside the folders here: a loose DLL counts as
+                // present but has no folder to look in, and a file can go between the two looks
+                // (an install running) - either way there would be nothing to build its card from.
                 var files = PlacedHere(record);
-                if (files.Count > 0 && PlacedFilesStillPresent(entries, files)) others.Add((record, files));
+                if (files.Count == 0 || !PlacedFilesStillPresent(entries, files)) continue;
+
+                var parts = PartsOf(entries, files);
+                if (parts.Count > 0) others.Add((record, files, parts));
             }
 
             var byHand = cardRecords[i] is null
@@ -895,14 +901,13 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             var owner = cards[i];
             var companions = new List<InstalledModCardViewModel>();
 
-            foreach (var (record, files) in others)
+            foreach (var (record, _, parts) in others)
             {
                 var mod = LocalArchive.IsLocalId(record.ModId)
                     ? new Mod { Id = record.ModId, Name = record.Name, Guid = record.Guid }
                     : index.ById.GetValueOrDefault(record.ModId)
                         ?? new Mod { Id = record.ModId, Name = record.Name, Guid = record.Guid };
 
-                var parts = PartsOf(entries, files);
                 var card = BuildCard([.. parts.Select(p => p.Entry)], mod, installedSptVersion, record, addonsByParent);
                 card.SharedFolderParts = parts;
                 companions.Add(card);
