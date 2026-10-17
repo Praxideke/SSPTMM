@@ -58,7 +58,7 @@ public sealed partial class DownloadQueueItemViewModel : LocalizedViewModel
     // A mod list's name, for a list apply's downloads to go into their own subfolder (§9).
     public string? DownloadSubfolder { get; }
 
-    // Fork (1.4.2): the update of a disabled mod - its switched-off folders, switched on for the
+    // Fork (1.4.3): the update of a disabled mod - its switched-off folders, switched on for the
     // install and off again after it.
     public IReadOnlyList<InstalledMod>? KeepDisabled { get; init; }
 
@@ -331,7 +331,7 @@ public sealed partial class DownloadQueueItemViewModel : LocalizedViewModel
     // version before placing files, and a retry goes through the same path, so the second attempt
     // tidies up after the first.
     //
-    // Fork (1.4.2): a failed card's reason, with the versions behind it, to paste into a report.
+    // Fork (1.4.3): a failed card's reason, with the versions behind it, to paste into a report.
     public bool IsFailed => Status == DownloadQueueItemStatus.Failed;
 
     [RelayCommand]

@@ -144,13 +144,13 @@ public sealed class ModInstallService(
     }
 
     //
-    // Fork (1.4.2): Options > Allow changes while SPT runs. Set by the App: asked, instead of
+    // Fork (1.4.3): Options > Allow changes while SPT runs. Set by the App: asked, instead of
     // refusing, when something is running; true goes ahead. Null refuses as before (tests, and the
     // option off).
     //
     public static Func<ModInstallAction, IReadOnlyList<string>, bool>? ConfirmInUse { get; set; }
 
-    // Fork (1.4.2): asked where an archive of no known layout goes - null (or no answer) refuses it,
+    // Fork (1.4.3): asked where an archive of no known layout goes - null (or no answer) refuses it,
     // as before. Set by the App; called off the UI thread.
     public static Func<UnrecognisedArchive, ArchivePlacement?>? ChooseLayout { get; set; }
 
@@ -285,7 +285,7 @@ public sealed class ModInstallService(
                     $"{target.Name} {version.Version} archive has no known root folder; top level: " +
                     string.Join(", ", Directory.GetFileSystemEntries(contentRoot).Select(Path.GetFileName)));
 
-                // Fork (1.4.2): asked where it goes (ChooseLayout), and refused only when not said.
+                // Fork (1.4.3): asked where it goes (ChooseLayout), and refused only when not said.
                 if (ChooseLayout?.Invoke(ArchiveLayout.Describe(contentRoot, target.Name, version.Version)) is not { } placement)
                 {
                     throw new ModInstallException(ModInstallFailure.UnrecognisedArchive)
@@ -1431,7 +1431,7 @@ public sealed class ModInstallService(
     }
 
     //
-    // Fork (1.4.2): goes back to the version an update replaced, from the files the update's removal
+    // Fork (1.4.3): goes back to the version an update replaced, from the files the update's removal
     // half held (RemovedMods.LatestReplaced) - offline, and after the author has taken that file down.
     // The current version leaves the way an update's old one does, held as ReplacedByUpdate, so going
     // back can itself be gone back on. The record that returns keeps the current one's list of the

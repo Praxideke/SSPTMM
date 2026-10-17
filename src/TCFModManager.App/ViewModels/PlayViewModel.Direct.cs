@@ -107,7 +107,7 @@ public partial class PlayViewModel
 
     public string LauncherCardSummary => IsDirectLaunchOn ? Strings.Play_DirectSummary : Strings.Play_LauncherSummary;
 
-    // Fork (1.4.2): another PC's server is not started from here.
+    // Fork (1.4.3): another PC's server is not started from here.
     public string DirectSummary => IsRemoteServer ? Strings.Play_DirectSummaryRemote : Strings.Play_DirectSummary;
 
     public bool CanPlay => IsDirectLaunchOn && !IsPlaying && SelectedProfile is not null && !IsGameRunning && Server?.Exists == true;
@@ -161,7 +161,7 @@ public partial class PlayViewModel
             ? Text(Strings.Play_DirectUntestedFormat, AppServices.SptEnvironment.InstalledVersion, SptDirectLaunch.TestedUpTo)
             : null;
 
-        // Fork (1.4.2): this PC's server or another PC's (PlayViewModel.Servers), and Fika's notes.
+        // Fork (1.4.3): this PC's server or another PC's (PlayViewModel.Servers), and Fika's notes.
         RefreshFika(installPath, settings);
         RefreshServers(settings, ServerRootOf(installPath));
         RefreshFikaNotes(installPath);

@@ -56,7 +56,7 @@ internal static class HelpCatalog
                 .WithKeywords(() => Strings.Help_Start_Version_Keywords)
                 .WithPage(typeof(OptionsPage)),
 
-            // Fork (1.4.2): every key the window answers to, in one place.
+            // Fork (1.4.3): every key the window answers to, in one place.
             Topic("start.keys", () => Strings.Help_Start_Keys_Title,
                 Step(() => Strings.Help_Start_Keys_Step1),
                 Step(() => Strings.Help_Start_Keys_Step2, () => Strings.Nav_Installed),

@@ -48,7 +48,7 @@ public partial class InstalledViewModel
         MoveModsToGroup(mods, group.Id);
     }
 
-    // Fork (1.4.2): a name of your own for a mod, shown wherever its title is. Empty gives it back
+    // Fork (1.4.3): a name of your own for a mod, shown wherever its title is. Empty gives it back
     // its own.
     public void RenameMod(InstalledModCardViewModel card)
     {

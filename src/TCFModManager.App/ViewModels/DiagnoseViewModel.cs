@@ -291,7 +291,7 @@ public sealed partial class DiagnoseViewModel : LocalizedViewModel
         }
     }
 
-    // Fork (1.4.2): the same report, in a new GitHub issue (and on the clipboard).
+    // Fork (1.4.3): the same report, in a new GitHub issue (and on the clipboard).
     [RelayCommand]
     private void ReportIssue()
     {

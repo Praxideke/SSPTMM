@@ -3,7 +3,7 @@ using Xunit;
 
 namespace TCFModManager.Core.Tests;
 
-// Fork (1.4.2): Options > Look's accent colour and OLED black.
+// Fork (1.4.3): Options > Look's accent colour and OLED black.
 public sealed class LookColorsTests
 {
     [Theory]

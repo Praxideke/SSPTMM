@@ -188,7 +188,7 @@
                         Text="{Binding ReuploadNote}"
                         Visibility="{Binding ReuploadNote, Converter={StaticResource NullToCollapsed}}" />
 
-                    <!-- Fork (1.4.2): the update you chose to skip, until a newer one comes. -->
+                    <!-- Fork (1.4.3): the update you chose to skip, until a newer one comes. -->
                     <TextBlock
                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                         TextWrapping="Wrap"
@@ -380,7 +380,7 @@
         <!-- A section's header - a group, Ungrouped or a category: fold, name (or the rename box),
              count and state, and for a group enable/disable/invert, move, rename and delete. Shared
              by the Groups view and Cards' and List's sections. -->
-        <!-- Fork (1.4.2): a group's colour before its name - a ring while it has none. A click
+        <!-- Fork (1.4.3): a group's colour before its name - a ring while it has none. A click
              offers the colours (InstalledPage.GroupColor_Click). -->
         <Style x:Key="GroupColorDot" TargetType="Button">
             <Setter Property="Width" Value="12" />
@@ -729,7 +729,7 @@
         </Style>
         <!-- The line under a mod's name: version, which halves it installs, who wrote it. 12px in
              Steam's body grey (#ACB2B8) - it was 11px in the dimmer #8F98A0. -->
-        <!-- Fork (1.4.2): a note of your own under the facts line (ModNotes). -->
+        <!-- Fork (1.4.3): a note of your own under the facts line (ModNotes). -->
         <Style x:Key="SubscribedNoteLine" TargetType="TextBlock">
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Margin" Value="0,1,0,0" />
@@ -896,7 +896,7 @@
                                 <Run Text=" • " />
                                 <Run Text="{Binding Author, TargetNullValue='unknown author', Mode=OneWay}" />
                             </TextBlock>
-                            <!-- Fork (1.4.2): your note on the mod (right-click > Note...). -->
+                            <!-- Fork (1.4.3): your note on the mod (right-click > Note...). -->
                             <TextBlock Style="{StaticResource SubscribedNoteLine}" Text="{Binding Note}" ToolTip="{Binding Note}" Visibility="{Binding Note, Converter={StaticResource NullToCollapsed}}" />
 
                             <!-- Says what an addon is attached to; an addon's own name
@@ -973,7 +973,7 @@
                     ContentTemplate="{StaticResource ModDetailBody}"
                     Content="{Binding}" />
             </ui:CardExpander>
-            <!-- Fork (1.4.2): the mod's colour, or its group's, down the left edge (ModOwnColors). -->
+            <!-- Fork (1.4.3): the mod's colour, or its group's, down the left edge (ModOwnColors). -->
             <Border
                 Width="3"
                 HorizontalAlignment="Left"
@@ -1050,7 +1050,7 @@
                                     <Run Text=" • " />
                                     <Run Text="{Binding Author, TargetNullValue='unknown author', Mode=OneWay}" />
                                 </TextBlock>
-                                <!-- Fork (1.4.2): your note on the mod (right-click > Note...). -->
+                                <!-- Fork (1.4.3): your note on the mod (right-click > Note...). -->
                                 <TextBlock Style="{StaticResource SubscribedNoteLine}" Text="{Binding Note}" ToolTip="{Binding Note}" Visibility="{Binding Note, Converter={StaticResource NullToCollapsed}}" />
 
                                 <TextBlock
@@ -1136,7 +1136,7 @@
                     ContentTemplate="{StaticResource ModDetailBody}"
                     Content="{Binding}" />
             </ui:CardExpander>
-            <!-- Fork (1.4.2): the mod's colour, or its group's, down the left edge (ModOwnColors). -->
+            <!-- Fork (1.4.3): the mod's colour, or its group's, down the left edge (ModOwnColors). -->
             <Border
                 Width="3"
                 HorizontalAlignment="Left"
@@ -1183,7 +1183,7 @@
         <!-- The page's title on a line of its own, as a Steam page has it, with what the scan found
              under it, and every waiting update in one go when there is any. -->
         <DockPanel Grid.Row="0" Margin="0,0,0,12">
-            <!-- Fork (1.4.2): Update all, and beside it (or a right-click on it) the list of waiting
+            <!-- Fork (1.4.3): Update all, and beside it (or a right-click on it) the list of waiting
                  updates (UpdateListButton), to update some and not others. -->
             <StackPanel
                 DockPanel.Dock="Right"
@@ -1381,7 +1381,7 @@
                             ToolTip="{loc:Str Installed_GroupFilterToolTip}"
                             ItemsSource="{Binding GroupFilterOptions}"
                             SelectedItem="{Binding SelectedGroupFilter}" />
-                        <!-- Fork (1.4.2): the colours given to mods and groups that are in use. -->
+                        <!-- Fork (1.4.3): the colours given to mods and groups that are in use. -->
                         <ComboBox
                             Margin="0,0,0,6"
                             HorizontalAlignment="Stretch"
@@ -1701,7 +1701,7 @@
                                                         IsHitTestVisible="False"
                                                         Template="{StaticResource SubscribedBackdrop}"
                                                         Tag="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" />
-                                                    <!-- Fork (1.4.2): the mod's colour, as on a card. -->
+                                                    <!-- Fork (1.4.3): the mod's colour, as on a card. -->
                                                     <Border
                                                         Width="3"
                                                         Margin="-8,-6,0,-6"
@@ -1761,7 +1761,7 @@
                                                                     <Run Text=" • " />
                                                                     <Run Text="{Binding Author, TargetNullValue='unknown author', Mode=OneWay}" />
                                                                 </TextBlock>
-                                                                <!-- Fork (1.4.2): your note on the mod (right-click > Note...). -->
+                                                                <!-- Fork (1.4.3): your note on the mod (right-click > Note...). -->
                                                                 <TextBlock Style="{StaticResource SubscribedNoteLine}" Text="{Binding Note}" ToolTip="{Binding Note}" Visibility="{Binding Note, Converter={StaticResource NullToCollapsed}}" />
 
                                                                 <TextBlock

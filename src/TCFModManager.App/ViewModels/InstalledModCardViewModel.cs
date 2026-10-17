@@ -136,11 +136,11 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     public string? DeclaredName { get; init; }
 
     // The title the card leads with: the real sp-mod.com display name when there is one, then the
-    // name the mod declares for itself, otherwise the folder/package Name. Fork (1.4.2): a name the
+    // name the mod declares for itself, otherwise the folder/package Name. Fork (1.4.3): a name the
     // user gave it comes before all of them.
     public string DisplayTitle => CustomName ?? MatchedModName ?? DeclaredName ?? Name;
 
-    // Fork (1.4.2): the name given with Rename... (ModNicknames); null for the mod's own.
+    // Fork (1.4.3): the name given with Rename... (ModNicknames); null for the mod's own.
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(DisplayTitle))]
     [NotifyPropertyChangedFor(nameof(FolderNameIfDifferent))]
@@ -194,7 +194,7 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     // unparsable version, or no installed SPT version detected).
     public bool? UpdateAvailable { get; init; }
 
-    // Fork (1.4.2): the update you chose to skip (SkippedUpdates) - UpdateAvailable is false for it.
+    // Fork (1.4.3): the update you chose to skip (SkippedUpdates) - UpdateAvailable is false for it.
     // Null when none is skipped, or a newer one than it has come out.
     public string? SkippedUpdateVersion { get; init; }
 
@@ -202,11 +202,11 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
         ? Text(Strings.Installed_SkippedUpdateFormat, skipped)
         : null;
 
-    // Fork (1.4.2): your note on this mod (ModNotes); null for none.
+    // Fork (1.4.3): your note on this mod (ModNotes); null for none.
     [ObservableProperty]
     private string? _note;
 
-    // Fork (1.4.2): the colour given to this mod (ModOwnColors) and to its group, "#RRGGBB" or null.
+    // Fork (1.4.3): the colour given to this mod (ModOwnColors) and to its group, "#RRGGBB" or null.
     // Its own is drawn in place of its group's.
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Color), nameof(ColorBrush), nameof(HasColor), nameof(ColorToolTip))]
@@ -788,7 +788,7 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             detail = (nameof(Strings.Installed_DetailFilesReportFormat), [fileVersion]);
         }
 
-        // Fork (1.4.2): an update you skipped is not one, until a newer version than it comes out.
+        // Fork (1.4.3): an update you skipped is not one, until a newer version than it comes out.
         var addonUpdate = ModVersionComparer.IsUpdateAvailable(installedVersion, latest?.Version);
         string? addonSkipped = null;
         if (addonUpdate == true && SkippedUpdates.Skips(record.ModId, isAddon: true, latest?.Version))
@@ -1581,7 +1581,7 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             ? SptVersionMatcher.IsSatisfiedBy(updateTarget?.SptVersionConstraint, installedSptVersion)
             : isNewer;
 
-        // Fork (1.4.2): an update you skipped is not one, until a newer version than it comes out.
+        // Fork (1.4.3): an update you skipped is not one, until a newer version than it comes out.
         string? skipped = null;
         if (updateAvailable == true && match is not null && SkippedUpdates.Skips(match.Id, isAddon: false, updateTarget?.Version))
         {

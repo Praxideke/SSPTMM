@@ -7,7 +7,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.Services;
 
 //
-// Fork (1.4.2): what a failure is copied or reported as - the app's, SPT's and Windows' versions,
+// Fork (1.4.3): what a failure is copied or reported as - the app's, SPT's and Windows' versions,
 // what went wrong, and the error behind it - with the user's name and profile folder taken out
 // (LogRedactor), as the Diagnose report is. A GitHub issue opens with it filled in; nothing is sent
 // until the user presses Submit there.

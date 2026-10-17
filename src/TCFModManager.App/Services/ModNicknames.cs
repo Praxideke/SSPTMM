@@ -4,7 +4,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.Services;
 
 //
-// Fork (1.4.2): names you gave installed mods, in AppSettings.ModNames. A mod sp-mod.com lists is
+// Fork (1.4.3): names you gave installed mods, in AppSettings.ModNames. A mod sp-mod.com lists is
 // kept by its id, so the name follows it through updates that rename its folder; any other by its
 // folder's name. Addons are numbered apart from mods, so theirs is "addon:".
 //

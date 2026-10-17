@@ -5,7 +5,7 @@ using System.Net.Sockets;
 namespace TCFModManager.Core.Services;
 
 //
-// Fork (1.4.2): this PC's addresses that another PC could reach it at - for the Play card's note to
+// Fork (1.4.3): this PC's addresses that another PC could reach it at - for the Play card's note to
 // a Fika host about what to give friends. IPv4 only, from network adapters that are up: home
 // networks first, then Tailscale's, then any other; never loopback or link-local.
 //

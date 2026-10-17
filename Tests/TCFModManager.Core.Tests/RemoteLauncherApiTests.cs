@@ -11,7 +11,7 @@ using Xunit;
 namespace TCFModManager.Core.Tests;
 
 //
-// Fork (1.4.2): Play against another PC's SPT server (a Fika host). Its certificate is self-signed,
+// Fork (1.4.3): Play against another PC's SPT server (a Fika host). Its certificate is self-signed,
 // so it is trusted on first use and pinned; a different one after that is refused. Run against a
 // TLS server on loopback that answers the launcher's ping as SPT does.
 //

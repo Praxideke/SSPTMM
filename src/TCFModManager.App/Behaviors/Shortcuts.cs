@@ -6,7 +6,7 @@ using System.Windows.Media;
 namespace TCFModManager.App.Behaviors;
 
 //
-// Fork (1.4.2): where the window's keys go on a page (Help > Keyboard shortcuts). Ctrl+F goes to
+// Fork (1.4.3): where the window's keys go on a page (Help > Keyboard shortcuts). Ctrl+F goes to
 // the box marked Shortcuts.Search="True"; F5 runs Shortcuts.Refresh, the command behind the page's
 // own Rescan or Refresh button. MainWindow looks only at what is on screen: the mod, collection or
 // author page over the others when one is open, else the page under them.

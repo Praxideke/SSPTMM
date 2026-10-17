@@ -40,7 +40,7 @@ internal static class WindowActivation
         window.Focus();
     }
 
-    // Fork (1.4.2): the taskbar button flashes until the window is brought forward - for a download
+    // Fork (1.4.3): the taskbar button flashes until the window is brought forward - for a download
     // queue that finished while it was minimised or behind other windows.
     public static void Flash(Window window)
     {

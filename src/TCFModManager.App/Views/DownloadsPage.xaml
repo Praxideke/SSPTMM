@@ -39,7 +39,7 @@
                 Content="{loc:Str Downloads_ClearFinished}"
                 Click="ClearFinishedButton_Click" />
 
-            <!-- Fork (1.4.2): no download starts while paused; those under way finish. -->
+            <!-- Fork (1.4.3): no download starts while paused; those under way finish. -->
             <ui:Button
                 DockPanel.Dock="Right"
                 Margin="0,0,8,0"
@@ -297,7 +297,7 @@
                                         Command="{Binding RetryCommand}"
                                         Visibility="{Binding CanRetry, Converter={StaticResource BoolToVisibility}}" />
 
-                                    <!-- Fork (1.4.2): the reason, with the app's, SPT's and Windows' versions, for a report. -->
+                                    <!-- Fork (1.4.3): the reason, with the app's, SPT's and Windows' versions, for a report. -->
                                     <ui:Button
                                         Margin="0,6,0,0"
                                         Padding="10,4"

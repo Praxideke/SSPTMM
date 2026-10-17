@@ -5,7 +5,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.Behaviors;
 
 //
-// Fork (1.4.2): Options > Look > Interface size, and Ctrl+= / Ctrl+- / Ctrl+0 - everything in the
+// Fork (1.4.3): Options > Look > Interface size, and Ctrl+= / Ctrl+- / Ctrl+0 - everything in the
 // window drawn larger or smaller, as Steam's own setting does. A LayoutTransform on the window's
 // content, so pages lay themselves out again at the new size rather than being stretched. Menus,
 // tooltips and dialogs are windows of their own and keep their size.

@@ -17,7 +17,7 @@ public sealed class FikaModeItem(string key, bool? value) : LocalizedViewModel
 }
 
 //
-// Fork (1.4.2, experimental): Options' "Play with Fika" row - what the Play card offers for other
+// Fork (1.4.3, experimental): Options' "Play with Fika" row - what the Play card offers for other
 // PCs' servers and a Fika host (PlayViewModel.Fika). Automatic follows whether Fika is installed.
 //
 public partial class OptionsViewModel

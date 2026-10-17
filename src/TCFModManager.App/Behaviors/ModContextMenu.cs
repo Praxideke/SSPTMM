@@ -77,7 +77,7 @@ public static class ModContextMenu
 
         menu.Items.Clear();
 
-        // Fork (1.4.2): one of several picked mods - what can be done to all of them, as Steam's
+        // Fork (1.4.3): one of several picked mods - what can be done to all of them, as Steam's
         // library offers for a selection, and nothing that is about one mod only.
         if (page is not null && card is not null && page.ModsFor(card).Count > 1)
         {
@@ -92,11 +92,11 @@ public static class ModContextMenu
         {
             if (mod is not null) menu.Items.Add(Rule());
             menu.Items.Add(GroupMenu(page, card));
-            menu.Items.Add(ModColorMenu(page, card)); // Fork (1.4.2)
-            menu.Items.Add(Item(Strings.Menu_Rename, () => page.RenameMod(card))); // Fork (1.4.2)
-            menu.Items.Add(Item(Strings.Menu_Note, () => page.EditNote(card))); // Fork (1.4.2)
+            menu.Items.Add(ModColorMenu(page, card)); // Fork (1.4.3)
+            menu.Items.Add(Item(Strings.Menu_Rename, () => page.RenameMod(card))); // Fork (1.4.3)
+            menu.Items.Add(Item(Strings.Menu_Note, () => page.EditNote(card))); // Fork (1.4.3)
 
-            // Fork (1.4.2): skip this update, or stop skipping one; go back to what an update replaced.
+            // Fork (1.4.3): skip this update, or stop skipping one; go back to what an update replaced.
             var skippable = ViewModels.InstalledViewModel.SkippableUpdate(card);
             var goBack = ViewModels.InstalledViewModel.GoBackVersion(card);
             if (skippable is not null || card.SkippedUpdateVersion is not null || goBack is not null) menu.Items.Add(Rule());
@@ -107,7 +107,7 @@ public static class ModContextMenu
             if (goBack is not null)
                 menu.Items.Add(Item(LocalizationService.Text(Strings.Menu_GoBackFormat, goBack), () => page.GoBackAsync(card)));
 
-            // Fork (1.4.2): the card's own folder buttons, on the menu too.
+            // Fork (1.4.3): the card's own folder buttons, on the menu too.
             if (card.ClientFolderLink is not null || card.ServerFolderLink is not null) menu.Items.Add(Rule());
             if (card.ClientFolderLink is { } client)
                 menu.Items.Add(Item(Strings.Menu_OpenClientFolder, () => page.OpenModFolderCommand.Execute(client)));
@@ -118,7 +118,7 @@ public static class ModContextMenu
         menu.PlacementTarget = element;
     }
 
-    // Fork (1.4.2): the toolbar's own commands for the picked mods, then Add to group.
+    // Fork (1.4.3): the toolbar's own commands for the picked mods, then Add to group.
     private static void FillPicked(ContextMenu menu, ViewModels.InstalledViewModel page, ViewModels.InstalledModCardViewModel card)
     {
         menu.Items.Add(Command(Strings.Installed_EnableSelected, page.EnableSelectedCommand));
@@ -126,7 +126,7 @@ public static class ModContextMenu
         menu.Items.Add(Command(Strings.Installed_UpdateSelected, page.UpdateSelectedCommand));
         menu.Items.Add(Rule());
         menu.Items.Add(GroupMenu(page, card));
-        menu.Items.Add(ModColorMenu(page, card)); // Fork (1.4.2)
+        menu.Items.Add(ModColorMenu(page, card)); // Fork (1.4.3)
         menu.Items.Add(Rule());
         menu.Items.Add(Command(Strings.Installed_UnsubscribeSelected, page.UnsubscribeSelectedCommand));
     }
@@ -174,7 +174,7 @@ public static class ModContextMenu
         return menu;
     }
 
-    // Fork (1.4.2): Colour for this mod, or for every picked one when it is among two or more.
+    // Fork (1.4.3): Colour for this mod, or for every picked one when it is among two or more.
     private static MenuItem ModColorMenu(ViewModels.InstalledViewModel page, ViewModels.InstalledModCardViewModel card)
     {
         var mods = page.ModsFor(card);
@@ -184,7 +184,7 @@ public static class ModContextMenu
     }
 
     //
-    // Fork (1.4.2): a colour menu - the palette's ten, each with its swatch, then Custom colour...
+    // Fork (1.4.3): a colour menu - the palette's ten, each with its swatch, then Custom colour...
     // and, when there is one to take away, No colour. The colour already given is ticked.
     //
     public static MenuItem ColorMenu(string header, string? current, bool canClear, Action<string?> set)

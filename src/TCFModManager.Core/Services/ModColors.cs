@@ -1,7 +1,7 @@
 namespace TCFModManager.Core.Services;
 
 //
-// Fork (1.4.2): the colours a mod or a group can be given on Subscribed items (right-click >
+// Fork (1.4.3): the colours a mod or a group can be given on Subscribed items (right-click >
 // Colour): ten of a palette, or any colour as six hex digits. Stored as "#RRGGBB".
 //
 // HUNCH: the ten, chosen by eye against Steam's navy (#1B2838) and the Workshop grey (#262B34),

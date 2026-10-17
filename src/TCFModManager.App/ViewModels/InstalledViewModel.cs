@@ -834,7 +834,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             SelectedEnabledFilter = DefaultEnabledFilter();
             SelectedGroupFilter = GroupFilterOptions.FirstOrDefault(o => o.SameAs(DefaultGroupFilter()))
                 ?? GroupFilterOptions[0];
-            SelectedColorFilter = ColorFilterItem.Any; // Fork (1.4.2)
+            SelectedColorFilter = ColorFilterItem.Any; // Fork (1.4.3)
             SelectedSortOption = DefaultSortOption();
             SelectedGroupSortOption = DefaultGroupSortOption();
             SelectedGrouping = DefaultGrouping();
@@ -923,7 +923,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         //
         if (availableWidth <= 0) return;
 
-        // Fork (1.4.2): how many fit follows Options > Look > Card size (Look.CardSizes). The page
+        // Fork (1.4.3): how many fit follows Options > Look > Card size (Look.CardSizes). The page
         // is made afresh each visit, so a size changed in Options is taken up on the way back here.
         Columns = Look.CardSizes.ColumnsFor(availableWidth);
 
@@ -1045,9 +1045,9 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
             ApplyListMembership(cards);
             ApplyPins(cards);
-            ModNicknames.Apply(cards); // Fork (1.4.2)
-            ModNotes.Apply(cards); // Fork (1.4.2)
-            ModOwnColors.Apply(cards); // Fork (1.4.2)
+            ModNicknames.Apply(cards); // Fork (1.4.3)
+            ModNotes.Apply(cards); // Fork (1.4.3)
+            ModOwnColors.Apply(cards); // Fork (1.4.3)
             ApplyReuploads(cards, installRecords); // Fork
             ApplyPendingDownloads(cards, downloads);
             ApplyLeftovers(cards);
@@ -1356,7 +1356,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             return;
         }
 
-        // Fork (1.4.2): an archive of no known layout goes on: the install shows what it holds and
+        // Fork (1.4.3): an archive of no known layout goes on: the install shows what it holds and
         // asks where it goes (ArchiveLayoutQuestion).
 
         var catalogKnown = true;
@@ -2035,7 +2035,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             .Select(m => ModGroupStore.KeyFor(m.Name))
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-    // Fork (1.4.2): a disabled mod too - it is switched on for the update and off again after. Not
+    // Fork (1.4.3): a disabled mod too - it is switched on for the update and off again after. Not
     // one sharing its folder with another: its files can't be told from the new version's.
     // Also one of your own collections' rule (WorkshopCollectionItem.PendingUpdate).
     internal static bool IsUpdatable(InstalledModCardViewModel card) =>
@@ -2164,7 +2164,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         }
 
         // Asked and queued the way every Update all is - see ModUpdates.
-        // Fork (1.4.2): in dependency order, so a library installs before the mods that use it.
+        // Fork (1.4.3): in dependency order, so a library installs before the mods that use it.
         resolved = [.. _dependencies.DependencyOrder(resolved, r => r.Card.Entries)];
 
         var (said, queued) = ModUpdates.Queue(resolved
@@ -2410,7 +2410,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     {
         var roots = targets.SelectMany(c => c.Entries).Distinct().ToList();
 
-        // Fork (1.4.2): a mod switched off in a folder it shares only takes its own files: what the
+        // Fork (1.4.3): a mod switched off in a folder it shares only takes its own files: what the
         // mods staying on there provide (their GUIDs) is still provided, and is not what is lost.
         var kept = _all
             .Where(c => c.SharedFolderParts is not null && !c.IsDisabled && !targets.Contains(c) && c.Entries.Any(roots.Contains))
@@ -2942,7 +2942,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         // author instead of name - e.g. "@Acidphantasm".
         var authorQuery = query.StartsWith('@') ? query[1..].Trim() : null;
 
-        // Fork (1.4.2): "color:red" (or a colour's name in the app's language, or its hex) finds
+        // Fork (1.4.3): "color:red" (or a colour's name in the app's language, or its hex) finds
         // the mods drawn in that colour, "color:none" those in none.
         var colorQuery = ColorQuery(query);
 
@@ -2965,13 +2965,13 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             })
             .Where(m => SelectedGroupFilter.AllGroups
                 || (SelectedGroupFilter.GroupId is { } groupId ? m.GroupId == groupId : !m.IsGrouped))
-            .Where(m => SelectedColorFilter.Matches(m.Color)) // Fork (1.4.2)
+            .Where(m => SelectedColorFilter.Matches(m.Color)) // Fork (1.4.3)
             .Where(m => colorQuery is not null
                 ? ModColors.Matches(m.Color, colorQuery, ModOwnColors.NameOf)
                 : authorQuery is not null
                 ? MatchesAuthor(m, authorQuery)
                 : query.Length == 0 || Matches(m.DisplayTitle, query) || Matches(m.Name, query)
-                    || (m.Note is { } note && Matches(note, query))) // Fork (1.4.2): your notes too
+                    || (m.Note is { } note && Matches(note, query))) // Fork (1.4.3): your notes too
             .Where(m => SelectedCategory.Title is not { } category
                 || string.Equals(m.CategoryTag, category, StringComparison.OrdinalIgnoreCase))
             .Where(m => !IsOn(ModAttributeFilter.FikaCompatible) || m.IsFikaCompatible)
@@ -3078,7 +3078,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     {
         var data = AppServices.ModGroups.Load();
         var namesById = data.Groups.ToDictionary(g => g.Id, g => g.Name);
-        var colorsById = data.Groups.ToDictionary(g => g.Id, g => g.Color); // Fork (1.4.2)
+        var colorsById = data.Groups.ToDictionary(g => g.Id, g => g.Color); // Fork (1.4.3)
 
         foreach (var card in _all)
         {
@@ -3116,7 +3116,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             _suppressAutoApplyFilter = false;
         }
 
-        RefreshColorFilter(); // Fork (1.4.2): a group's colour is a card's colour too
+        RefreshColorFilter(); // Fork (1.4.3): a group's colour is a card's colour too
 
         RememberIfPending(); // Fork
     }
@@ -3212,7 +3212,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
                 // From the store every time: a rename that was cancelled or left blank goes back to
                 // the saved name this way, as a fresh section used to.
                 section.Name = group.Name;
-                section.Color = group.Color; // Fork (1.4.2)
+                section.Color = group.Color; // Fork (1.4.3)
                 section.IsEditing = false;
                 section.IsCollapsed = group.IsCollapsed;
                 section.CanReorder = order == GroupSortOption.Manual;
@@ -3292,7 +3292,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             return;
         }
 
-        // Fork (1.4.2): a name another group already has - fold this one into it, or keep the old name.
+        // Fork (1.4.3): a name another group already has - fold this one into it, or keep the old name.
         if (AppServices.ModGroups.NamedLike(name, section.GroupId!.Value) is { } taken)
         {
             if (TCFModManager.App.Views.SteamMessageBox.Show(

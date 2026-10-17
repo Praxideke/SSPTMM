@@ -451,7 +451,7 @@ public class ForkDirectLaunchTests : IDisposable
         Assert.Equal("6abee519842869498c34024b", settings.PreferredProfileId);
     }
 
-    // Fork (1.4.2): the servers added in SPT's launcher, for Play on another PC's server.
+    // Fork (1.4.3): the servers added in SPT's launcher, for Play on another PC's server.
     [Fact]
     public void The_launchers_added_servers_are_read_without_this_pcs_own()
     {

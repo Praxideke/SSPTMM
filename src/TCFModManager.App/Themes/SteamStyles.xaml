@@ -32,7 +32,7 @@
     -->
     <!--  Segoe UI after it, so a character Noto Sans does not have (an emoji in a mod description,
           CJK in a mod name) falls back to what Windows always has rather than to nothing. Fork
-          (1.4.2): then Microsoft YaHei UI, which every Windows since 8 has, for Chinese - the app's
+          (1.4.3): then Microsoft YaHei UI, which every Windows since 8 has, for Chinese - the app's
           own text in the zh-Hans translation as well as a mod's name - rather than whichever face
           WPF's last-resort fallback picks.  -->
     <FontFamily x:Key="SteamFont">pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI, Microsoft YaHei UI</FontFamily>

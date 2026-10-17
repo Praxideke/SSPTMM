@@ -61,7 +61,7 @@ public sealed class SptLauncherApi : IDisposable
     }
 
     //
-    // Fork (1.4.2): a server on another PC - a Fika host, or anyone's SPT server you play on. Its
+    // Fork (1.4.3): a server on another PC - a Fika host, or anyone's SPT server you play on. Its
     // certificate is self-signed for localhost, so it fails the usual checks at any other address;
     // it is accepted when it is the one pinned for this address, or when none is pinned yet (the
     // first connection, which the caller then pins - PresentedThumbprint). A different one is
@@ -110,7 +110,7 @@ public sealed class SptLauncherApi : IDisposable
     }
 
     //
-    // Fork (1.4.2): an address as somebody types it or SPT's launcher keeps it, as "host:port" -
+    // Fork (1.4.3): an address as somebody types it or SPT's launcher keeps it, as "host:port" -
     // "https://" and a trailing "/" taken off, SPT's 6969 when no port is given, an IPv6 address
     // bracketed. False when there is no host or the port is not one.
     //
@@ -158,7 +158,7 @@ public sealed class SptLauncherApi : IDisposable
     }
 
     /// <summary>
-    /// Fork (1.4.2): whether the address is this PC's - localhost, a loopback address or one of its
+    /// Fork (1.4.3): whether the address is this PC's - localhost, a loopback address or one of its
     /// own. A name other than localhost is not looked up here, and so counts as another PC's.
     /// </summary>
     public static bool IsLocalAddress(string address)

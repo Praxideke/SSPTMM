@@ -34,7 +34,7 @@ public sealed partial class SpModListsClient : IDisposable
 
     public SpModListsClient(HttpMessageHandler? handler = null, SpModApiOptions? options = null)
     {
-        // Fork (1.4.2): sp-mod.com's own, whichever site the catalogue is read from.
+        // Fork (1.4.3): sp-mod.com's own, whichever site the catalogue is read from.
         options ??= new SpModApiOptions { BaseUrl = SpModApiOptions.OfficialSite };
         _site = options.BaseUrl.TrimEnd('/');
 

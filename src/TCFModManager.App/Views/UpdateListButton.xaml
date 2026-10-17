@@ -1,5 +1,5 @@
 <!--
-    Fork (1.4.2): the arrow beside an Update all - Subscribed items' and a collection page's - and
+    Fork (1.4.3): the arrow beside an Update all - Subscribed items' and a collection page's - and
     the list of waiting updates it opens, each mod with its own update button. DataContext is the
     page's UpdateList; the page fills it in Opening. The list's 460px width, 420px before it
     scrolls and the spinner's 1.2s turn are HUNCH, set by eye.

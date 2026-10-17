@@ -144,7 +144,7 @@ public partial class WorkshopCollectionView : UserControl
     // The first two breadcrumbs lead back to the page this was opened over.
     private void Close_Click(object sender, RoutedEventArgs e) => Close();
 
-    // Fork (1.4.2): the list of waiting updates (UpdateListButton), from the arrow beside Update all
+    // Fork (1.4.3): the list of waiting updates (UpdateListButton), from the arrow beside Update all
     // or a right-click on it.
     private void UpdateAll_RightClick(object sender, MouseButtonEventArgs e)
     {

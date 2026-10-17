@@ -31,22 +31,22 @@ public sealed class AppSettings
     // outlasts Clear filters and a restart. 0 is Infinite.
     public Dictionary<string, int> PageSizes { get; set; } = [];
 
-    // Fork (1.4.2): names you gave installed mods (Subscribed items > right-click > Rename...),
+    // Fork (1.4.3): names you gave installed mods (Subscribed items > right-click > Rename...),
     // keyed "id:<sp-mod.com id>" or "name:<folder name>" - see App/Services/ModNicknames.
     public Dictionary<string, string> ModNames { get; set; } = [];
 
-    // Fork (1.4.2): your notes on installed mods (right-click > Note...), keyed as ModNames.
+    // Fork (1.4.3): your notes on installed mods (right-click > Note...), keyed as ModNames.
     public Dictionary<string, string> ModNotes { get; set; } = [];
 
-    // Fork (1.4.2): a colour of your own for an installed mod (right-click > Colour), "#RRGGBB",
+    // Fork (1.4.3): a colour of your own for an installed mod (right-click > Colour), "#RRGGBB",
     // keyed as ModNames. It is drawn in place of its group's colour.
     public Dictionary<string, string> ModColors { get; set; } = [];
 
-    // Fork (1.4.2): updates you chose to skip, "id:<mod id>" or "addon:<addon id>" to the version
+    // Fork (1.4.3): updates you chose to skip, "id:<mod id>" or "addon:<addon id>" to the version
     // skipped. A newer version than that one is offered as usual.
     public Dictionary<string, string> SkippedUpdates { get; set; } = [];
 
-    // Fork (1.4.2): Options > Look > Interface size, and Ctrl+= / Ctrl+- / Ctrl+0. 1 is 100%.
+    // Fork (1.4.3): Options > Look > Interface size, and Ctrl+= / Ctrl+- / Ctrl+0. 1 is 100%.
     public double InterfaceScale { get; set; } = 1.0;
 
     // Fork (SSPTMM): close the game when the SPT server stops - by Stop server, from its own window,
@@ -138,7 +138,7 @@ public sealed class AppSettings
     public string? DirectLaunchProfileId { get; set; }
 
     //
-    // Fork (1.4.2): the server Play starts the game against, as "host:port" - a Fika host or anyone's
+    // Fork (1.4.3): the server Play starts the game against, as "host:port" - a Fika host or anyone's
     // SPT server on another PC. Null: this PC's own, started first when it is not running.
     //
     public string? PlayServerAddress { get; set; }
@@ -155,7 +155,7 @@ public sealed class AppSettings
     public Dictionary<string, string> PlayServerPins { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
     //
-    // Fork (1.4.2, experimental): Options > Play with Fika - the Play card's options for other PCs'
+    // Fork (1.4.3, experimental): Options > Play with Fika - the Play card's options for other PCs'
     // servers and a Fika host's notes. Null: Automatic, on when Fika is found in the install.
     //
     public bool? FikaOptions { get; set; }
@@ -170,7 +170,7 @@ public sealed class AppSettings
     public bool SmoothScrolling { get; set; } = true;
 
     //
-    // Fork (1.4.2): the cards rising under the pointer and pages sliding in. On by default.
+    // Fork (1.4.3): the cards rising under the pointer and pages sliding in. On by default.
     //
     public bool Animations { get; set; } = true;
 
@@ -189,7 +189,7 @@ public sealed class AppSettings
     public bool ConfirmUnsubscribe { get; set; } = true;
 
     //
-    // Fork (1.4.2): with the SPT server or the game running, installing, removing, switching on or
+    // Fork (1.4.3): with the SPT server or the game running, installing, removing, switching on or
     // off, undoing and applying a list ask "are you sure?" instead of refusing, as Mod Organizer 2
     // does. Off by default: files the game has open may not move. Restoring profiles is refused
     // either way - the server writes them back.
@@ -197,7 +197,7 @@ public sealed class AppSettings
     public bool AllowChangesWhileRunning { get; set; }
 
     //
-    // Fork (1.4.2): where the mod catalogue is read from - a mirror of sp-mod.com that answers the
+    // Fork (1.4.3): where the mod catalogue is read from - a mirror of sp-mod.com that answers the
     // same /api/v0, for when sp-mod.com is down. Null is sp-mod.com. Checked before it is kept;
     // used from the next start.
     //
@@ -336,16 +336,16 @@ public sealed class AppSettings
 
     public double BackgroundDarkness { get; set; } = 0.55;
 
-    // Fork (1.4.2): the picture blurred by this many pixels, 0 to 20 (Options > Look).
+    // Fork (1.4.3): the picture blurred by this many pixels, 0 to 20 (Options > Look).
     public double BackgroundBlur { get; set; }
 
-    // Fork (1.4.2): Options > Look. The accent as #RRGGBB; null for Steam blue.
+    // Fork (1.4.3): Options > Look. The accent as #RRGGBB; null for Steam blue.
     public string? AccentColor { get; set; }
 
-    // Fork (1.4.2): OLED black - the pages black and their surfaces darker, in place of Steam's navy.
+    // Fork (1.4.3): OLED black - the pages black and their surfaces darker, in place of Steam's navy.
     public bool OledBlack { get; set; }
 
-    // Fork (1.4.2): how much room the cards and rows on Subscribed items take.
+    // Fork (1.4.3): how much room the cards and rows on Subscribed items take.
     [JsonConverter(typeof(JsonStringEnumConverter<CardSize>))]
     public CardSize CardSize { get; set; } = CardSize.Normal;
 
@@ -488,7 +488,7 @@ public sealed class ServerMapSettings
     public ServerMapEndpoint ToEndpoint() => new(Host ?? string.Empty, Port, PinnedThumbprint, SharedKey);
 }
 
-// Fork (1.4.2): a server added on the Play card - see AppSettings.PlayServers.
+// Fork (1.4.3): a server added on the Play card - see AppSettings.PlayServers.
 public sealed class PlayServerEntry
 {
     public string Name { get; set; } = string.Empty;

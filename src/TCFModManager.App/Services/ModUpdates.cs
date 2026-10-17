@@ -36,7 +36,7 @@ public static class ModUpdates
         // single-mod path warns at all: there is no record of which files the current version
         // placed, so the new one goes on top of it.
         //
-        // Fork (1.4.2): with other mods in the batch too, Leave them out updates those and not the
+        // Fork (1.4.3): with other mods in the batch too, Leave them out updates those and not the
         // hand-installed ones. No used to cancel the lot, so one mod of your own held back every
         // other update.
         //

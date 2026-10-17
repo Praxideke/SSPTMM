@@ -92,7 +92,7 @@ public sealed class GroupFilterItem(string label, Guid? groupId, bool allGroups)
 }
 
 //
-// Fork (1.4.2): one entry in Subscribed items' Colour filter - any colour, no colour, or one colour
+// Fork (1.4.3): one entry in Subscribed items' Colour filter - any colour, no colour, or one colour
 // given to a mod or a group (ModOwnColors). The list holds the colours in use, rebuilt as they change.
 //
 public sealed class ColorFilterItem : LocalizedViewModel

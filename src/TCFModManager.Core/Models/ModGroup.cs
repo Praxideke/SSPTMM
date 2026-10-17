@@ -9,7 +9,7 @@ public sealed class ModGroup
     public int SortOrder { get; set; }
     public bool IsCollapsed { get; set; }
 
-    // Fork (1.4.2): "#RRGGBB", drawn down the edge of every card of the group's mods that has no
+    // Fork (1.4.3): "#RRGGBB", drawn down the edge of every card of the group's mods that has no
     // colour of its own (ModColors); null for none.
     public string? Color { get; set; }
 }

@@ -316,7 +316,7 @@ public class ResilienceRemovalTests : IDisposable
         Assert.False(Service().UndoRemoval(_install, removal.HoldingFolder!).Ran);
     }
 
-    // --- Fork (1.4.2): going back on an update -------------------------------------------------
+    // --- Fork (1.4.3): going back on an update -------------------------------------------------
 
     [Fact]
     public async Task RevertUpdate_PutsTheReplacedVersionBack_AndCanItselfBeGoneBackOn()

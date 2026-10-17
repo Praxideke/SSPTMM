@@ -7,7 +7,7 @@ using Wpf.Ui.Appearance;
 namespace TCFModManager.App.Look;
 
 //
-// Fork (1.4.2): Options > Look's accent colour and OLED black. Every colour of the Steam look that
+// Fork (1.4.3): Options > Look's accent colour and OLED black. Every colour of the Steam look that
 // either can change is written in XAML as {look:Brush #66C0F4} or {look:Color #1A9FFF} in place of
 // the literal: each is an application resource named after the colour, which Apply sets to the
 // colour as drawn now (LookColors.Transform). The theme's own colour resources (SteamTheme.xaml)
@@ -163,7 +163,7 @@ public static class AppLook
 }
 
 //
-// Fork (1.4.2): Options > Look > Card size. Subscribed items' thumbnails, gaps and card padding as
+// Fork (1.4.3): Options > Look > Card size. Subscribed items' thumbnails, gaps and card padding as
 // resources the templates read, and how wide a column of cards should be (InstalledViewModel).
 // HUNCH: the three sizes, set by eye from Normal, which is the size the cards have always had.
 //

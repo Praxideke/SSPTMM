@@ -84,7 +84,7 @@ public partial class PlayPage : Page
             IsEnabled = vm.SelectedProfile is not null && !vm.IsPlaying && !vm.IsGameRunning,
         });
 
-        // Fork (1.4.2): another PC's server - a Fika host, or a friend's. Only with Options > Play
+        // Fork (1.4.3): another PC's server - a Fika host, or a friend's. Only with Options > Play
         // with Fika on, or on Automatic with Fika installed.
         if (vm.OtherServersOn)
         {

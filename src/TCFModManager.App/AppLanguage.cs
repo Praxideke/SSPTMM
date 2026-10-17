@@ -66,7 +66,7 @@ public static class AppLanguage
     // Applies the stored preference. Called from App.OnStartup before anything is loaded, so the
     // first frame is drawn in the right language rather than being re-read a moment later.
     //
-    // Fork (1.4.2): and says so, for whatever was made before it - the downloads bar's view model
+    // Fork (1.4.3): and says so, for whatever was made before it - the downloads bar's view model
     // is, and kept "DOWNLOADS / Manage" in English in every language until a download started.
     //
     public static void ApplyStored()

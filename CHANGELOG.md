@@ -1,16 +1,14 @@
-# SSPTMM 1.4.2
+# SSPTMM 1.4.3
 
 ## Updating
 
-From 1.3.0 or later: Help > About > **Install update**. From an older version: close SSPTMM, download `SSPTMM-1.4.2-win-x64.zip` and copy the contents of its `SSPTMM` folder over your SSPTMM folder. Your settings in `Data` stay as they are.
+From 1.3.0 or later: Help > About > **Install update**. From an older version: close SSPTMM, download `SSPTMM-1.4.3-win-x64.zip` and copy the contents of its `SSPTMM` folder over your SSPTMM folder. Your settings in `Data` stay as they are.
 
 ## New
 
-- **Back, Forward and Home, as in Steam.** Arrows at the top left, beside the title, go back and forward through the pages you've been on, with the mod, collection and author pages you opened along the way - and so do the mouse's back and forward buttons and Alt+Left / Alt+Right. Home (Alt+Home) goes to your home page, which is also where SSPTMM opens: Options > General > **Home page** - Workshop home (as before), Browse, Subscribed items, Collections or Play, or **Where I left off**. Right-click an arrow for a list of the places that way, to jump straight to one. A mod page you go back to opens at the tab and the place you were reading, not at its top.
+- **Back and Forward list the places that way.** Right-click an arrow to jump straight to one. Options > General > **Home page** can be **Where I left off**, and a mod page you go back to opens at the tab and the place you were reading, not at its top.
 - **Workshop cards open from the keyboard.** Tab to a mod or collection card and press Enter or Space; screen readers see each card as a button with the mod's name.
 - **Renaming a group to a name another group has offers to merge them** - its mods go into the other group - instead of leaving two groups of one name.
-- **Put several mods in a group at once.** On Subscribed items, drag one of several picked mods (Ctrl+click, Shift+click) and they all go to the group it is dropped on; before, only the one under the pointer went. *Found by FoxHead.*
-- **Add to group on the right-click menu.** Right-click a mod: **Add to group** lists your groups, **New group...** asks for a name and makes it, and **Remove from group** puts the mod back in Ungrouped - on every picked mod when it is one of them. Mods sp-mod.com has no listing for get the menu too. *Suggested by FoxHead.*
 - **Change mods while SPT is running, if you say so.** Options > Installing mods > **Allow changes while SPT is running**: installing, removing, switching mods on or off, Undo and applying a list then ask "SPT is still running - change the mods anyway?" instead of refusing, as Mod Organizer 2 does. Off by default: files the game has open may not move, and SPT and the game only see a change after a restart. One yes covers a batch. Profiles are never put back while SPT runs.
 - **Pick which mods to update.** The arrow beside Update all, or a right-click on it, lists every update waiting - each mod's picture, name and versions (`2.0.0 → 2.1.0`), marked when it was installed by hand or is switched off. Each row has its own update button, which turns into a spinner with the download's percentage, then Installing, then a green tick; a failed one shows a retry button. **Skip** on a row skips that update, as the right-click menu's Skip this update does. The list's own Update all does the rest. A collection page's Update all has the same arrow, listing that collection's waiting updates - without Skip there, since a public collection's item updates to the version its page names.
 - **A hand-installed mod no longer holds back every other update.** When Update all includes mods you installed yourself, the warning about them now offers **Update all**, **Only the others** - which updates the rest and leaves those as they are - or Cancel. Before, No cancelled the whole batch. The same on a collection page's Update all.
@@ -24,7 +22,6 @@ From 1.3.0 or later: Help > About > **Install update**. From an older version: c
 - **Pause downloads.** The Downloads page's **Pause** stops new downloads from starting until **Resume**; one already under way finishes.
 - **Animations** can be turned off: Options > Look. The Workshop cards stop rising under the pointer and pages change without sliding in.
 - **Catalogue address**, Options > Advanced: a mirror of sp-mod.com that answers the same API, for when sp-mod.com is down. It is checked before it is kept and used from the next start; comments, mod lists and links stay sp-mod.com's.
-- **Diagnose logs can let SPT clean a profile it won't load.** When a profile is refused for holding items or a trader from a mod that is gone, **Turn them on** sets SPT's own `removeModItemsFromProfile` and `removeInvalidTradersFromProfile` to true in `core.json` - after asking, and keeping the file as it was beside it - so the server removes what's missing when it next starts. When they are already on, the card says so. Play offers the same button when it stops on "SPT won't load this profile".
 - **Keyboard shortcuts.** Ctrl+F goes to the page's search box and F5 does what its Rescan or Refresh button does, where it has one. Help > Getting started > **Keyboard shortcuts** lists them all.
 - **Paste or drop a mod's link.** With a sp-mod.com mod link copied, Ctrl+V outside a text box opens that mod's page in SSPTMM; dragging the link from a browser onto the window does the same, Subscribed items included.
 - **Interface size**, Options > Look: everything in the window from 80% to 200%, and Ctrl+= / Ctrl+- / Ctrl+0 at any time. Pages lay themselves out again at the new size; menus, tooltips and dialogs keep theirs.
@@ -51,11 +48,9 @@ From 1.3.0 or later: Help > About > **Install update**. From an older version: c
 ## Fixed
 
 - **The downloads bar spoke English in every language** ("DOWNLOADS - Manage") until a download started.
-- **Two mods installed into one folder both count as installed.** SPT Stance Overhaul and SPT Realism Common Lib both put their files in `BepInEx\plugins\Realism`. SSPTMM installed both, then saw one folder and gave it one card - so Stance Overhaul looked as if it had never installed: Subscribe never stuck, and installing anything that needed it queued it again. Each now has its own card, and switching one on or off, updating it or unsubscribing it touches only its own files. Mods put into one folder by hand get a card each too, matched by what their DLLs declare; SSPTMM can't tell their files apart, so switching one switches both, the cards say so, and removing one of them is refused. *Found by FoxHead.*
 - **Presets tell apart two mods in one folder.** A preset kept such a folder as one entry, so it couldn't keep one of its mods on and the other off, and when one was off it left the folder alone as "in two places". Each now has its own entry and is switched by its own files, as its card is. Presets saved before this go by the folder's entry for both.
 - **Switching off one of two mods in one folder no longer warns about the other.** The warning listed mods that need the mod staying on, and could name the folder's other mod as the one being switched off.
 - The Options gear at the top right now has a name for screen readers.
-- **New group... with a name already taken uses that group** instead of making a second one of the same name, from the menu and from the Groups bar.
 - A mod sharing its folder with another named the other by its own name on its card, not the name you gave it with Rename.
 - **Presets** saved while two mods shared a folder, applied after one of them left it, no longer guess which mod's on or off to use when the two differed: the folder is left as it is and listed as not in the preset.
 - Going **Back** to a collection deleted since no longer left the back and forward history one step out from the page shown.
@@ -64,6 +59,24 @@ From 1.3.0 or later: Help > About > **Install update**. From an older version: c
 - **Files and network** in the wiki said Start the game from SSPTMM is off by default; it has been on by default since 1.4.0.
 - The Play card said "the server starts by itself if it isn't running" with another PC's server picked. It now says the game connects to that server.
 - The Play card's **...** button has a name for screen readers.
+
+# SSPTMM 1.4.2
+
+## Updating
+
+From 1.3.0 or later: Help > About > **Install update**. From an older version: close SSPTMM, download `SSPTMM-1.4.2-win-x64.zip` and copy the contents of its `SSPTMM` folder over your SSPTMM folder. Your settings in `Data` stay as they are.
+
+## New
+
+- **Back, Forward and Home, as in Steam.** Arrows at the top left, beside the title, go back and forward through the pages you've been on, with the mod, collection and author pages you opened along the way - and so do the mouse's back and forward buttons and Alt+Left / Alt+Right. Home (Alt+Home) goes to your home page, which is also where SSPTMM opens: Options > General > **Home page** - Workshop home (as before), Browse, Subscribed items, Collections or Play.
+- **Put several mods in a group at once.** On Subscribed items, drag one of several picked mods (Ctrl+click, Shift+click) and they all go to the group it is dropped on; before, only the one under the pointer went. *Found by FoxHead.*
+- **Add to group on the right-click menu.** Right-click a mod: **Add to group** lists your groups, **New group...** asks for a name and makes it, and **Remove from group** puts the mod back in Ungrouped - on every picked mod when it is one of them. Mods sp-mod.com has no listing for get the menu too. *Suggested by FoxHead.*
+- **Diagnose logs can let SPT clean a profile it won't load.** When a profile is refused for holding items or a trader from a mod that is gone, **Turn them on** sets SPT's own `removeModItemsFromProfile` and `removeInvalidTradersFromProfile` to true in `core.json` - after asking, and keeping the file as it was beside it - so the server removes what's missing when it next starts. When they are already on, the card says so. Play offers the same button when it stops on "SPT won't load this profile".
+
+## Fixed
+
+- **Two mods installed into one folder both count as installed.** SPT Stance Overhaul and SPT Realism Common Lib both put their files in `BepInEx\plugins\Realism`. SSPTMM installed both, then saw one folder and gave it one card - so Stance Overhaul looked as if it had never installed: Subscribe never stuck, and installing anything that needed it queued it again. Each now has its own card, and switching one on or off, updating it or unsubscribing it touches only its own files. Mods put into one folder by hand get a card each too, matched by what their DLLs declare; SSPTMM can't tell their files apart, so switching one switches both, the cards say so, and removing one of them is refused. *Found by FoxHead.*
+- **New group... with a name already taken uses that group** instead of making a second one of the same name, from the menu and from the Groups bar.
 - The profile messages named `SPT\SPT_Data\configs\core.json`; on SPT 4.1 it is under `SPT_Runtime`. They now say `SPT_Data\configs` in the server's folder.
 
 # SSPTMM 1.4.1

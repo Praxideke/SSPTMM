@@ -4,7 +4,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.Services;
 
 //
-// Fork (1.4.2): a note of your own on an installed mod - "needs config X", "broke with Realism" -
+// Fork (1.4.3): a note of your own on an installed mod - "needs config X", "broke with Realism" -
 // shown on its card and found by the search box. Kept in AppSettings.ModNotes under the same key
 // as a name you gave it (ModNicknames), so it follows a listed mod through updates.
 //

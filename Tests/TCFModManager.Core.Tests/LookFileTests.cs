@@ -4,7 +4,7 @@ using Xunit;
 
 namespace TCFModManager.Core.Tests;
 
-// Fork (1.4.2): Options > Look saved to a file and read back.
+// Fork (1.4.3): Options > Look saved to a file and read back.
 public sealed class LookFileTests : IDisposable
 {
     private readonly string _folder = Path.Combine(Path.GetTempPath(), "ssptmm-look-" + Guid.NewGuid().ToString("N"));

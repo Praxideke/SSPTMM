@@ -83,7 +83,7 @@ public sealed class ModGroupStore
         Load().Groups.FirstOrDefault(g => g.Id != except
             && string.Equals(g.Name.Trim(), name.Trim(), StringComparison.OrdinalIgnoreCase));
 
-    // Fork (1.4.2): one group folded into another - its mods move over and it goes. Renaming a
+    // Fork (1.4.3): one group folded into another - its mods move over and it goes. Renaming a
     // group to a name another already has offers this, rather than leaving two of one name.
     public void MergeGroup(Guid fromId, Guid intoId)
     {
@@ -107,7 +107,7 @@ public sealed class ModGroupStore
         Save(data);
     }
 
-    // Fork (1.4.2): the group's colour, "#RRGGBB" or null for none (see ModColors).
+    // Fork (1.4.3): the group's colour, "#RRGGBB" or null for none (see ModColors).
     public void SetColor(Guid groupId, string? color)
     {
         var data = Load();

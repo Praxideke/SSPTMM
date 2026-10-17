@@ -202,7 +202,7 @@ public sealed class ForkModPresetsTests : IDisposable
         Assert.Equal("Fika", Assert.Single(store.For(_install).Presets).Name);
     }
 
-    // Fork (1.4.2): two mods in one folder, each switched by its own files.
+    // Fork (1.4.3): two mods in one folder, each switched by its own files.
     [Fact]
     public void ASharedFolder_KeepsEachOfItsModsByItself()
     {

@@ -12,7 +12,7 @@ public readonly record struct UpdateListEntry(
     int ModId, string Title, string? Thumbnail, string? FromVersion, string? ToVersion, bool IsHandInstalled, bool IsDisabled);
 
 //
-// Fork (1.4.2): the list of waiting updates, from the arrow beside Update all or a right-click on
+// Fork (1.4.3): the list of waiting updates, from the arrow beside Update all or a right-click on
 // it - each mod with its own update button, for updating some and not others. Subscribed items'
 // and a collection page's each own one (UpdateListPanel shows it); the page says what is waiting
 // and how to update and skip. A row follows its download queue card while the list is open,

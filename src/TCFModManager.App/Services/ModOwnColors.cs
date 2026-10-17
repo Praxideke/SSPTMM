@@ -6,7 +6,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.Services;
 
 //
-// Fork (1.4.2): a colour of your own for an installed mod (right-click > Colour), drawn down its
+// Fork (1.4.3): a colour of your own for an installed mod (right-click > Colour), drawn down its
 // card's edge in place of its group's. Kept in AppSettings.ModColors under the same key as a name
 // you gave it (ModNicknames), so it follows a listed mod through updates.
 //

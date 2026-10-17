@@ -3,7 +3,7 @@ using Xunit;
 
 namespace TCFModManager.Core.Tests;
 
-// Fork (1.4.2): colours for mods and groups on Subscribed items.
+// Fork (1.4.3): colours for mods and groups on Subscribed items.
 public sealed class ModColorsTests
 {
     [Fact]

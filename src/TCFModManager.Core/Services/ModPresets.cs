@@ -17,7 +17,7 @@ namespace TCFModManager.Core.Services;
 // with only its client half turned off is kept exactly that way. Mods installed after a preset was
 // saved aren't in it, and applying it leaves them as they are.
 //
-// Fork (1.4.2): two mods in one folder, told apart by their files (Subscribed items' shared-folder
+// Fork (1.4.3): two mods in one folder, told apart by their files (Subscribed items' shared-folder
 // cards), each have an entry of their own - the folder's path and the mod's id - and are switched
 // by their files, as the cards switch them. A preset saved before then has the folder's entry,
 // which goes for every mod in it.
@@ -36,13 +36,13 @@ public sealed record ModPresetEntry
     /// <summary>What the mod was called when the preset was saved - for showing a missing mod.</summary>
     public string? Name { get; init; }
 
-    /// <summary>Fork (1.4.2): one of the mods sharing the folder at Path, by its sp-mod.com id (0 for
+    /// <summary>Fork (1.4.3): one of the mods sharing the folder at Path, by its sp-mod.com id (0 for
     /// the folder's own mod when it has none); null for the whole folder.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? ModId { get; init; }
 }
 
-/// <summary>Fork (1.4.2): one of the mods sharing a folder: which mod, and its own files in each
+/// <summary>Fork (1.4.3): one of the mods sharing a folder: which mod, and its own files in each
 /// copy of the folder (enabled and ".disabled") - switched by those files alone.</summary>
 public sealed record ModPresetSharedMod(int ModId, string? Name, IReadOnlyList<(InstalledMod Entry, IReadOnlyList<string> Files)> Parts)
 {

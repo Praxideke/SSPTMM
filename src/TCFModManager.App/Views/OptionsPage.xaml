@@ -688,7 +688,7 @@
                                     </StackPanel>
                                 </ui:CardControl>
 
-                                <!-- Fork (1.4.2): the pages black in place of Steam's navy (Look/AppLook). -->
+                                <!-- Fork (1.4.3): the pages black in place of Steam's navy (Look/AppLook). -->
                                 <ui:CardControl
                                     Style="{StaticResource SettingRow}">
                                     <ui:CardControl.Header>
@@ -700,7 +700,7 @@
                                     <ui:ToggleSwitch Style="{StaticResource RowSwitch}" IsChecked="{Binding OledBlack}" />
                                 </ui:CardControl>
 
-                                <!-- Fork (1.4.2): Subscribed items' cards smaller or larger (Look/CardSizes). -->
+                                <!-- Fork (1.4.3): Subscribed items' cards smaller or larger (Look/CardSizes). -->
                                 <ui:CardControl
                                     Style="{StaticResource SettingRow}">
                                     <ui:CardControl.Header>
@@ -739,7 +739,7 @@
                                     <ui:ToggleSwitch Style="{StaticResource RowSwitch}" IsChecked="{Binding SmoothScrolling}" />
                                 </ui:CardControl>
 
-                                <!-- Fork (1.4.2): the cards' lift and the pages' slide (Behaviors/Motion). -->
+                                <!-- Fork (1.4.3): the cards' lift and the pages' slide (Behaviors/Motion). -->
                                 <ui:CardControl
                                     Style="{StaticResource SettingRow}">
                                     <ui:CardControl.Header>
@@ -751,7 +751,7 @@
                                     <ui:ToggleSwitch Style="{StaticResource RowSwitch}" IsChecked="{Binding Animations}" />
                                 </ui:CardControl>
 
-                                <!-- Fork (1.4.2): everything in the window larger or smaller (Behaviors/InterfaceScale). -->
+                                <!-- Fork (1.4.3): everything in the window larger or smaller (Behaviors/InterfaceScale). -->
                                 <ui:CardControl
                                     Style="{StaticResource SettingRow}">
                                     <ui:CardControl.Header>
@@ -785,7 +785,7 @@
                                     </StackPanel>
                                 </ui:CardControl>
 
-                                <!-- Fork (1.4.2): this look to a file and back (Core/LookFile). -->
+                                <!-- Fork (1.4.3): this look to a file and back (Core/LookFile). -->
                                 <ui:CardControl
                                     Style="{StaticResource SettingRow}">
                                     <ui:CardControl.Header>
@@ -1055,7 +1055,7 @@
                                     <ui:ToggleSwitch Style="{StaticResource RowSwitch}" IsChecked="{Binding ConfirmUnsubscribe}" />
                                 </ui:CardControl>
 
-                                <!-- Fork (1.4.2): changes while SPT or the game runs ask instead of refusing, as in Mod Organizer 2. -->
+                                <!-- Fork (1.4.3): changes while SPT or the game runs ask instead of refusing, as in Mod Organizer 2. -->
                                 <ui:CardControl
                                     Style="{StaticResource SettingRow}">
                                     <ui:CardControl.Header>

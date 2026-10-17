@@ -6,7 +6,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.Services;
 
 //
-// Fork (1.4.2): Options > Allow changes while SPT is running. With it on, a change the running SPT
+// Fork (1.4.3): Options > Allow changes while SPT is running. With it on, a change the running SPT
 // server or game would have refused asks first, as Mod Organizer 2 does, and goes ahead on a yes.
 // Restoring profiles is still refused: the server writes the profiles back on its way out.
 //

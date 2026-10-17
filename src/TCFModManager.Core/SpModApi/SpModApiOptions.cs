@@ -6,7 +6,7 @@ public sealed class SpModApiOptions
 {
     public const string OfficialSite = "https://sp-mod.com";
 
-    // Fork (1.4.2): the site whose /api/v0 the catalogue is read from - sp-mod.com, or a mirror
+    // Fork (1.4.3): the site whose /api/v0 the catalogue is read from - sp-mod.com, or a mirror
     // that answers the same API with the same ids (AppSettings.CatalogSite). Set by the App at start,
     // before its client is built. Comments, mod lists and the site's own pages stay sp-mod.com's.
     public static string CatalogSite { get; set; } = OfficialSite;

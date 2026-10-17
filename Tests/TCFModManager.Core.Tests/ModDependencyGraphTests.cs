@@ -237,7 +237,7 @@ public class ModDependencyGraphTests
         Assert.Equal(["com.tyfon.uifixes"], graph.UnresolvedOf(clientConsumer));
     }
 
-    // Fork (1.4.2): a folder two mods share - switching one off leaves the other's GUID provided.
+    // Fork (1.4.3): a folder two mods share - switching one off leaves the other's GUID provided.
     [Fact]
     public void DisableImpact_LeavesOutTheLinksTheCallerSaysDontBreak()
     {
@@ -260,7 +260,7 @@ public class ModDependencyGraphTests
         Assert.Equal(2, graph.DisableImpact([pack]).Count);
     }
 
-    // Fork (1.4.2): Update all installs a library before the mods that use it.
+    // Fork (1.4.3): Update all installs a library before the mods that use it.
     [Fact]
     public void DependencyOrder_PutsWhatEachNeedsFirst_OtherwiseAsGiven()
     {

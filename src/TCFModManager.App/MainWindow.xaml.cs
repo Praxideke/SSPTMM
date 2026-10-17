@@ -16,11 +16,11 @@ namespace TCFModManager.App;
 
 public partial class MainWindow : FluentWindow
 {
-    // Fork (1.4.2): how pages change with Animations on (Behaviors/Motion).
+    // Fork (1.4.3): how pages change with Animations on (Behaviors/Motion).
     internal Wpf.Ui.Animations.Transition PageTransition { get; private set; }
 
     //
-    // Fork (1.4.2): an archive dropped from Explorer anywhere on the window installs as one dropped
+    // Fork (1.4.3): an archive dropped from Explorer anywhere on the window installs as one dropped
     // on Subscribed items does - which is opened, for its questions and what it says. Subscribed
     // items settles its own drops first; anything that isn't a file is left to the page under it.
     //
@@ -34,7 +34,7 @@ public partial class MainWindow : FluentWindow
             return;
         }
 
-        // Fork (1.4.2): a link to a mod, dragged from a browser, opens its page here.
+        // Fork (1.4.3): a link to a mod, dragged from a browser, opens its page here.
         if (DroppedModLink(e.Data) is not null)
         {
             e.Effects = DragDropEffects.Link;
@@ -94,7 +94,7 @@ public partial class MainWindow : FluentWindow
         }
     }
 
-    // Fork (1.4.2): Ctrl+V outside a text box, with a mod's sp-mod.com link copied.
+    // Fork (1.4.3): Ctrl+V outside a text box, with a mod's sp-mod.com link copied.
     private static string? ModLinkOnClipboard()
     {
         try
@@ -108,7 +108,7 @@ public partial class MainWindow : FluentWindow
     }
 
     //
-    // Fork (1.4.2): Ctrl+F to the page's search box, F5 its Rescan or Refresh, Ctrl+V a mod's link,
+    // Fork (1.4.3): Ctrl+F to the page's search box, F5 its Rescan or Refresh, Ctrl+V a mod's link,
     // and the interface size (Help > Keyboard shortcuts). True when it was one of them.
     //
     private bool ShortcutKey(KeyEventArgs e)
@@ -144,7 +144,7 @@ public partial class MainWindow : FluentWindow
     }
 
     //
-    // Fork (1.4.2): a queue that finishes while the window is out of sight says so - a Windows
+    // Fork (1.4.3): a queue that finishes while the window is out of sight says so - a Windows
     // notification from the tray, the taskbar button flashing when minimised or behind others.
     //
     private void OnQueueFinished(object? sender, DownloadQueueFinished done)
@@ -164,11 +164,11 @@ public partial class MainWindow : FluentWindow
     {
         InitializeComponent();
 
-        // Fork (1.4.2): Options > Look > Interface size, as saved.
+        // Fork (1.4.3): Options > Look > Interface size, as saved.
         Behaviors.InterfaceScale.Attach(RootLayout);
         AppServices.DownloadQueue.QueueFinished += OnQueueFinished;
 
-        // Fork (1.4.2): Options > Animations off - pages change without sliding in.
+        // Fork (1.4.3): Options > Animations off - pages change without sliding in.
         PageTransition = RootNavigationView.Transition;
         if (!Behaviors.Motion.Enabled) RootNavigationView.Transition = Wpf.Ui.Animations.Transition.None;
 

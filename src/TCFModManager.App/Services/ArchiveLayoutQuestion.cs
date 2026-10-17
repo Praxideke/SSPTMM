@@ -7,7 +7,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.Services;
 
 //
-// Fork (1.4.2): an archive with none of the folders a mod's archive has. Its files are shown and the
+// Fork (1.4.3): an archive with none of the folders a mod's archive has. Its files are shown and the
 // user says whether it is a client or a server mod - the likelier one first - or cancels, which
 // refuses it as before. Cancel is the default: a wrong guess puts files where nothing loads them.
 //

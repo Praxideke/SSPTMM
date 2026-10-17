@@ -15,7 +15,7 @@ public enum UpdateListRowState
 }
 
 //
-// Fork (1.4.2): one mod in a list of waiting updates (UpdateList, the arrow beside Update all).
+// Fork (1.4.3): one mod in a list of waiting updates (UpdateList, the arrow beside Update all).
 // Its button updates that mod alone and then follows the download queue's card for it: waiting,
 // the download's percentage, installing, a tick, or a cross to try again.
 //

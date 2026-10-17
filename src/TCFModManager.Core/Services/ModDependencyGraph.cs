@@ -109,7 +109,7 @@ public sealed class ModDependencyGraph
         _dependencies.TryGetValue(mod, out var links) ? links : [];
 
     //
-    // Fork (1.4.2): <paramref name="items"/> put so each comes after what it needs among them, hard
+    // Fork (1.4.3): <paramref name="items"/> put so each comes after what it needs among them, hard
     // or soft - the order a batch of updates installs in, so a library is updated before the mods
     // that use it. Otherwise they stay in the order given; a cycle is broken where it closes.
     //
@@ -155,7 +155,7 @@ public sealed class ModDependencyGraph
     // disabled, following the chain outward - a mod broken by a root, then whatever that mod
     // breaks in turn. The roots themselves are never included.
     //
-    // Fork (1.4.2): <paramref name="follow"/> leaves out links that don't break - a folder two mods
+    // Fork (1.4.3): <paramref name="follow"/> leaves out links that don't break - a folder two mods
     // share, one switched off, still provides what the other declares.
     //
     public IReadOnlyList<ModDependencyLink> DisableImpact(

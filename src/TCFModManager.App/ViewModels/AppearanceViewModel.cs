@@ -34,7 +34,7 @@ public sealed partial class AppearanceViewModel : ObservableObject
     [ObservableProperty]
     private double _backgroundDarkness = 0.55;
 
-    // Fork (1.4.2): how far the picture is blurred, in pixels; 0 leaves it sharp.
+    // Fork (1.4.3): how far the picture is blurred, in pixels; 0 leaves it sharp.
     [ObservableProperty]
     private double _backgroundBlur;
 

@@ -9,7 +9,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.ViewModels;
 
 //
-// Fork (1.4.2): Options > Look's accent colour, OLED black, card size and the background
+// Fork (1.4.3): Options > Look's accent colour, OLED black, card size and the background
 // picture's blur. Each takes effect at once (Look/AppLook, Look/CardSizes, AppearanceViewModel).
 //
 public partial class OptionsViewModel

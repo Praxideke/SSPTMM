@@ -3,7 +3,7 @@ using System.Windows;
 namespace TCFModManager.App.Behaviors;
 
 //
-// Fork (1.4.2): Options > Look > Animations. Off, a Workshop card no longer rises under the pointer
+// Fork (1.4.3): Options > Look > Animations. Off, a Workshop card no longer rises under the pointer
 // and pages change without sliding in. Smooth scrolling has its own switch. The cards read the two
 // resources as they are made, so pages already open keep the old way until SSPTMM is restarted.
 //

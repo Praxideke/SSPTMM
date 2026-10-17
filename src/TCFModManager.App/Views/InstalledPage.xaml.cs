@@ -402,7 +402,7 @@ public partial class InstalledPage : Page
         menu.IsOpen = true;
     }
 
-    // Fork (1.4.2): the list of waiting updates (UpdateListButton), from the arrow beside Update all
+    // Fork (1.4.3): the list of waiting updates (UpdateListButton), from the arrow beside Update all
     // or a right-click on it.
     private void UpdateAll_RightClick(object sender, MouseButtonEventArgs e)
     {
@@ -854,7 +854,7 @@ public partial class InstalledPage : Page
         }, DispatcherPriority.Input);
     }
 
-    // Fork (1.4.2): a group's colour - the dot before its name, or a right-click on its header,
+    // Fork (1.4.3): a group's colour - the dot before its name, or a right-click on its header,
     // offers the palette (ModContextMenu.FillColors).
     private void GroupColor_Click(object sender, RoutedEventArgs e)
     {

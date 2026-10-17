@@ -5,7 +5,7 @@ using TCFModManager.Core.Models;
 namespace TCFModManager.Core.Services;
 
 //
-// Fork (1.4.2): Options > Look saved to a file and read back - on another PC, or after trying
+// Fork (1.4.3): Options > Look saved to a file and read back - on another PC, or after trying
 // something else. The accent, OLED black, card size, the background picture itself (so the file
 // is all that has to be moved) with its darkness and blur, the groups' colours by the groups'
 // names, and the mods' own colours. Nothing else of the settings is in it.

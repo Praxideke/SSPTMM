@@ -274,7 +274,7 @@
 
                 <!-- Fork: Play - the profile, PLAY, Close game, and the rest behind "...". -->
                 <StackPanel Visibility="{Binding IsDirectLaunchOn, Converter={StaticResource BoolToVisibility}}">
-                    <!-- Fork (1.4.2): the server - this PC's, or another PC's (a Fika host). -->
+                    <!-- Fork (1.4.3): the server - this PC's, or another PC's (a Fika host). -->
                     <ComboBox
                         MinWidth="340"
                         Margin="0,0,0,8"
@@ -300,7 +300,7 @@
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Text="{Binding RemoteServerNote}"
                         Visibility="{Binding RemoteServerNote, Converter={StaticResource NullToCollapsed}}" />
-                    <!-- Fork (1.4.2, experimental): Fika's notes - PlayViewModel.Fika. -->
+                    <!-- Fork (1.4.3, experimental): Fika's notes - PlayViewModel.Fika. -->
                     <TextBlock
                         MaxWidth="640"
                         Margin="0,0,0,8"

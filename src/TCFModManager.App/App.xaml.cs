@@ -49,7 +49,7 @@ public partial class App : Application
             return;
         }
 
-        // Fork (1.4.2): the catalogue's site, before anything builds the API client.
+        // Fork (1.4.3): the catalogue's site, before anything builds the API client.
         if (new SettingsService().Load().CatalogSite is { Length: > 0 } catalog)
             Core.SpModApi.SpModApiOptions.CatalogSite = catalog;
 
@@ -98,14 +98,14 @@ public partial class App : Application
         Behaviors.SmoothScrolling.Enabled = new Core.Services.SettingsService().Load().SmoothScrolling;
         Behaviors.SmoothScrolling.Register();
 
-        // Fork (1.4.2): before any page is made - the cards read it as they are.
+        // Fork (1.4.3): before any page is made - the cards read it as they are.
         Behaviors.Motion.Apply(new Core.Services.SettingsService().Load().Animations);
 
-        // Fork (1.4.2): changes while SPT runs, asked rather than refused when Options says so.
+        // Fork (1.4.3): changes while SPT runs, asked rather than refused when Options says so.
         Services.RunningInstallGate.Enabled = new Core.Services.SettingsService().Load().AllowChangesWhileRunning;
         Services.RunningInstallGate.Register();
 
-        // Fork (1.4.2): an archive of no known layout is shown, and the user says where it goes.
+        // Fork (1.4.3): an archive of no known layout is shown, and the user says where it goes.
         Core.Services.ModInstallService.ChooseLayout = Services.ArchiveLayoutQuestion.Ask;
 
         // Fork: each subscribed mod's picture behind its card, unless switched off in Options.
@@ -316,7 +316,7 @@ public partial class App : Application
         // Keyed like everything else, and safe to be: Get falls back to the key itself rather than
         // throwing, so even a failure inside the language stack leaves a readable dialog.
         //
-        // Fork (1.4.2): Steam's dialog, with the error to copy or report on GitHub - the plain
+        // Fork (1.4.3): Steam's dialog, with the error to copy or report on GitHub - the plain
         // message box when the dialog itself can't be shown.
         var body = LocalizationService.Text(Strings.App_CrashBodyFormat, e.Exception.Message, AppLog.CurrentFile);
         try

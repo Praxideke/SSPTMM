@@ -50,7 +50,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     private readonly SemaphoreSlim _downloadSlots = new(MaxDownloads);
 
     //
-    // Fork (1.4.2): Pause. No download starts while paused; one already under way finishes, and so
+    // Fork (1.4.3): Pause. No download starts while paused; one already under way finishes, and so
     // do installs. Not a reorder: installs go in the order queued, which is the order their
     // dependencies need.
     //
@@ -185,7 +185,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         _ = PrepareLoopAsync();
         _ = InstallLoopAsync();
 
-        // Fork (1.4.2): the idle bar's words are set rather than bound, so they follow a language
+        // Fork (1.4.3): the idle bar's words are set rather than bound, so they follow a language
         // change here; a busy bar is rewritten with each progress tick anyway.
         AppLanguage.Changed += (_, _) =>
         {
@@ -251,7 +251,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     }
 
     //
-    // Fork (1.4.2): raised once a queue has emptied - MainWindow says so when it is out of sight.
+    // Fork (1.4.3): raised once a queue has emptied - MainWindow says so when it is out of sight.
     // Counts only what finished since the last time; an item that goes round again (Retry) leaves
     // the count and is counted when it finishes the second time.
     //
@@ -270,7 +270,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     }
 
     //
-    // Fork (1.4.2): before a queue runs out of room halfway. What is still to download, times what
+    // Fork (1.4.3): before a queue runs out of room halfway. What is still to download, times what
     // it takes once unpacked, against the free space on the install's drive; short of that, the
     // queue pauses and says so - once, until it has emptied.
     //
@@ -349,7 +349,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
             UpdateSummary();
         }
 
-        // Fork (1.4.2): most sizes are only known once a version is picked, just before it downloads.
+        // Fork (1.4.3): most sizes are only known once a version is picked, just before it downloads.
         if (e.PropertyName == nameof(DownloadQueueItemViewModel.TotalBytes) && sender is DownloadQueueItemViewModel { IsFinished: false } item)
             CheckFreeSpace(item.InstallPath);
 
@@ -749,7 +749,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
 
             item.Status = DownloadQueueItemStatus.Installing;
 
-            // Fork (1.4.2): a disabled mod is switched on so the update finds the files its record
+            // Fork (1.4.3): a disabled mod is switched on so the update finds the files its record
             // names, and switched off again below whether the install worked or not.
             switchedOn = SwitchOnForUpdate(item);
 
@@ -822,7 +822,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     }
 
     //
-    // Fork (1.4.2): updating a disabled mod. Its folders go back where its record says they are, so
+    // Fork (1.4.3): updating a disabled mod. Its folders go back where its record says they are, so
     // the install takes the old version out and puts the new one in its place, as for any update;
     // SwitchBackOff then moves what is at those places to ".disabled" again. One that couldn't be
     // switched on stops the update with everything put back. A folder switched on since the update
@@ -1390,5 +1390,5 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     }
 }
 
-// Fork (1.4.2): what a queue that has just emptied did - DownloadQueueViewModel.QueueFinished.
+// Fork (1.4.3): what a queue that has just emptied did - DownloadQueueViewModel.QueueFinished.
 public sealed record DownloadQueueFinished(int Completed, int Failed);

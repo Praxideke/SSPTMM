@@ -3,7 +3,7 @@ using Xunit;
 
 namespace TCFModManager.Core.Tests;
 
-// Fork (1.4.2): an archive of no known layout, placed where the user said it goes.
+// Fork (1.4.3): an archive of no known layout, placed where the user said it goes.
 public sealed class ArchivePlacementTests : IDisposable
 {
     private readonly string _work = Path.Combine(Path.GetTempPath(), "placement-" + Guid.NewGuid().ToString("N"));

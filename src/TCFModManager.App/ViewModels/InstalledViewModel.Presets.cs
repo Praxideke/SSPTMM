@@ -22,7 +22,7 @@ namespace TCFModManager.App.ViewModels;
 // - how the mods were kept as "Put back", which outlives Undo (a restart);
 // - refused while SPT runs or a mod is being installed, as every disable is.
 //
-// Fork (1.4.2): two mods sharing a folder, each with a card of its own, are kept and switched each
+// Fork (1.4.3): two mods sharing a folder, each with a card of its own, are kept and switched each
 // by its own files, as their cards switch them (ModPresetSharedMod).
 //
 // The Presets menu itself is built in InstalledPage.xaml.cs.

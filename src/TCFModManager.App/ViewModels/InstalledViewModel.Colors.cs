@@ -10,7 +10,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.ViewModels;
 
 //
-// Fork (SSPTMM 1.4.2): colours for mods and groups on Subscribed items. A group's colour runs
+// Fork (SSPTMM 1.4.3): colours for mods and groups on Subscribed items. A group's colour runs
 // down the edge of each of its mods' cards and rows, and a mod given one of its own shows that
 // instead. The Colour filter and "color:red" in the search box find them again.
 //

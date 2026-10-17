@@ -214,7 +214,7 @@ public sealed class RemovedMods(Func<RemovedModsRetention>? retention = null)
         Undoable(installPath) is [var latest, ..] ? latest : null;
 
     //
-    // Fork (1.4.2): the newest update of this mod in this install whose replaced version is still held,
+    // Fork (1.4.3): the newest update of this mod in this install whose replaced version is still held,
     // not yet gone back to, and not the version now installed - for Subscribed items' "Go back to"
     // (ModInstallService.RevertUpdate).
     //

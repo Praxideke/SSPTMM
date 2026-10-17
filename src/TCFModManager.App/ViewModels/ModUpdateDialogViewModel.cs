@@ -66,7 +66,7 @@ public partial class ModUpdateDialogViewModel : LocalizedViewModel
     public string? ModPageUrl => _mod.IsAddon ? _catalogAddon?.DetailUrl : _catalogMod?.DetailUrl;
 
     //
-    // A disabled mod's install record points at folders it no longer occupies. Fork (1.4.2): so the
+    // A disabled mod's install record points at folders it no longer occupies. Fork (1.4.3): so the
     // queue switches it on for the update and off again after (KeepDisabled), and it stays disabled.
     // Not a mod sharing its folder with another: which files are its own isn't known for the new
     // version, so both buttons are hidden until it's enabled again.

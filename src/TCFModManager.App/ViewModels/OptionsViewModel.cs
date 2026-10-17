@@ -264,11 +264,11 @@ public partial class OptionsViewModel : LocalizedViewModel
     [ObservableProperty]
     private bool _smoothScrolling;
 
-    // Fork (1.4.2): see Behaviors/Motion.
+    // Fork (1.4.3): see Behaviors/Motion.
     [ObservableProperty]
     private bool _animations;
 
-    // Fork (1.4.2): Options > Look > Interface size - see Behaviors/InterfaceScale, which Ctrl+= and
+    // Fork (1.4.3): Options > Look > Interface size - see Behaviors/InterfaceScale, which Ctrl+= and
     // Ctrl+- change too; this follows them.
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(InterfaceScaleLabel))]
@@ -360,7 +360,7 @@ public partial class OptionsViewModel : LocalizedViewModel
         RefreshKeptDownloads();
     }
 
-    // Fork (1.4.2): the catalogue's address - see AppSettings.CatalogSite. Kept only once it has
+    // Fork (1.4.3): the catalogue's address - see AppSettings.CatalogSite. Kept only once it has
     // answered a ping as sp-mod.com's API does; used from the next start.
     [ObservableProperty]
     private string _catalogSiteInput = string.Empty;
@@ -659,8 +659,8 @@ public partial class OptionsViewModel : LocalizedViewModel
         RefreshInstallRole(settings);
 
         HookDirectLaunch(); // Fork
-        LoadFika(settings); // Fork (1.4.2): OptionsViewModel.Fika.cs
-        LoadLook(settings); // Fork (1.4.2): OptionsViewModel.Look.cs
+        LoadFika(settings); // Fork (1.4.3): OptionsViewModel.Fika.cs
+        LoadLook(settings); // Fork (1.4.3): OptionsViewModel.Look.cs
         _loaded = true;
     }
 

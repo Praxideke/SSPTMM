@@ -3,7 +3,7 @@ using System.Globalization;
 namespace TCFModManager.Core.Services;
 
 //
-// Fork (1.4.2): the colour arithmetic behind Options > Look's accent colour and OLED black. Every
+// Fork (1.4.3): the colour arithmetic behind Options > Look's accent colour and OLED black. Every
 // colour the Steam look is drawn with goes through Transform: Steam's blues follow the accent,
 // the dark greys and navies of the pages go to black. Colours are 0xAARRGGBB.
 //

@@ -1,7 +1,7 @@
 namespace TCFModManager.App.ViewModels;
 
 //
-// Fork (1.4.2): Subscribed items' list of waiting updates (UpdateList), over every mod with one.
+// Fork (1.4.3): Subscribed items' list of waiting updates (UpdateList), over every mod with one.
 //
 public partial class InstalledViewModel
 {

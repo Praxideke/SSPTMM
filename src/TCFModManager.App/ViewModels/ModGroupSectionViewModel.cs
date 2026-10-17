@@ -38,7 +38,7 @@ public partial class ModGroupSectionViewModel : LocalizedViewModel
     [ObservableProperty]
     private string _name = string.Empty;
 
-    // Fork (1.4.2): a group's colour, "#RRGGBB" or null; the dot before its name.
+    // Fork (1.4.3): a group's colour, "#RRGGBB" or null; the dot before its name.
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ColorBrush), nameof(ColorToolTip))]
     private string? _color;

@@ -126,7 +126,7 @@ public sealed record SptLauncherSettings
 
     public IReadOnlyList<string> ExcludeFromCleanup { get; init; } = [];
 
-    // Fork (1.4.2): the servers added in SPT's launcher (its "Servers"; this PC's own is not
+    // Fork (1.4.3): the servers added in SPT's launcher (its "Servers"; this PC's own is not
     // listed there), as "host:port" - a Fika host, or a friend's SPT server.
     public IReadOnlyList<SptLauncherServer> Servers { get; init; } = [];
 
@@ -192,5 +192,5 @@ public sealed record SptLauncherSettings
     }
 }
 
-/// <summary>Fork (1.4.2): a server added in SPT's launcher - its name, "host:port", and its id there.</summary>
+/// <summary>Fork (1.4.3): a server added in SPT's launcher - its name, "host:port", and its id there.</summary>
 public sealed record SptLauncherServer(string Name, string Address, string? ServerId);

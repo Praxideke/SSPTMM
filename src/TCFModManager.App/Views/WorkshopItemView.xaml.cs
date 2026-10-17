@@ -15,7 +15,7 @@ namespace TCFModManager.App.Views;
 // item opened from it replaces it, and Esc walks back through those one at a time before closing.
 // The mouse's back button and Alt+Left are the window's (MainWindow's history), which does the same.
 //
-// Fork (1.4.2): each item left keeps its tab and how far down it was, and comes back to them when
+// Fork (1.4.3): each item left keeps its tab and how far down it was, and comes back to them when
 // it is returned to - by Esc, or the window's arrows - rather than at its top. Opened afresh from a
 // card or a link, it starts at the top, as on Steam.
 //

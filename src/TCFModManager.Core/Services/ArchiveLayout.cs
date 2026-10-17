@@ -13,7 +13,7 @@ namespace TCFModManager.Core.Services;
 // two have to agree exactly: the list a download records is what a later scan compares against the
 // disk, so a rule that differed here would report a correct hand install as the wrong version.
 //
-/// <summary>Fork (1.4.2): where the user said an archive of no known layout goes.</summary>
+/// <summary>Fork (1.4.3): where the user said an archive of no known layout goes.</summary>
 public enum ArchivePlacement
 {
     // BepInEx\plugins\<folder>
@@ -23,7 +23,7 @@ public enum ArchivePlacement
     ServerMod,
 }
 
-/// <summary>Fork (1.4.2): an archive of no known layout - what it holds, and the likelier place.</summary>
+/// <summary>Fork (1.4.3): an archive of no known layout - what it holds, and the likelier place.</summary>
 public sealed record UnrecognisedArchive(string ModName, string? Version, IReadOnlyList<string> Files, int FileCount, ArchivePlacement Likely);
 
 public static class ArchiveLayout
@@ -31,7 +31,7 @@ public static class ArchiveLayout
     public static readonly IReadOnlySet<string> KnownRootFolders =
         new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "BepInEx", "user", "SPT", "SPT_Runtime" };
 
-    // ------------------------------------------------------------------ fork (1.4.2): asked where it goes
+    // ------------------------------------------------------------------ fork (1.4.3): asked where it goes
     //
     // An archive with none of the folders above - a DLL and a read-me, or a server mod's folder on
     // its own - was refused. Now the user is shown what it holds and says whether it is a client or

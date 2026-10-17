@@ -49,7 +49,7 @@ public sealed class PlayServerItem(string? address, string name, PlayServerSourc
 }
 
 //
-// Fork (1.4.2): Play on another PC's server - a Fika host, or a friend's SPT server. The game,
+// Fork (1.4.3): Play on another PC's server - a Fika host, or a friend's SPT server. The game,
 // its patches, bundles and clean-up are this PC's as ever (SPT's launcher does the same for any
 // server it is pointed at); what changes is the server: it is not started from here, it is reached
 // through a pinned certificate (SptLauncherApi.ForRemote), and the profiles are the ones on it.

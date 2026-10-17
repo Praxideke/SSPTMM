@@ -2331,7 +2331,7 @@ itself (no button was pressed), an install going through, the rows changing as o
 under the subscribe box (below the fold in the pictures), the list inside the update dialog, which
 is narrower, and the pointer over any of it.
 
-## Round 53: 1.4.2 - back, forward and Home; groups from the menu, several at once; SPT's profile cleaning; shared folders in presets (2026-10-15)
+## Round 53: 1.4.2 - back, forward and Home; groups from the menu, several at once; SPT's profile cleaning (2026-10-15)
 
 Asked for (FoxHead, through trappuss): dragging several picked mods into a group moved only one; a
 right-click "Add to group" with a "New group" at the top, for several picked mods too; and the
@@ -2400,7 +2400,14 @@ core.json fix for an invalid profile offered from Diagnose.
   pointer, #4C5560 when there is nowhere to go - HUNCH, by eye, not measured from Steam's client.
   Checked on a hidden desktop: Browse, Back to Workshop home, Forward to Browse, Home, Back to
   Browse, the arrows lit and dimmed as the history allows; and, once cards took UI Automation's
-  Invoke (below), back and forward through an item page.
+  Invoke (Round 54), back and forward through an item page.
+- **New group... with a name already taken** returns that group (`ModGroupStore.AddGroup`, case and
+  surrounding spaces aside), for the menu and the Groups bar alike.
+- The profile messages pointed at `SPT\SPT_Data\configs\core.json`; SPT 4.1's server is
+  `SPT_Runtime`. They now name SPT_Data\configs in the server's folder.
+
+## Round 54: 1.4.3 - the history's list, Where I left off, updating some mods and not others, changes while SPT runs, every language complete, accent colours and look files, Play on another PC's server and with Fika (2026-10-15 to 2026-10-17)
+
 - **The history's list** (trappuss: "add all suggestions"): right-click an arrow, as in Steam and
   a browser - the places that way, nearest first, at most fifteen (HUNCH: about what a browser
   shows), each by the mod, collection or author over the page, else the page's own title.
@@ -2436,10 +2443,6 @@ core.json fix for an invalid profile offered from Diagnose.
   mods staying on there (`DisableImpact`'s follow), and names the mod switched off rather than the
   folder's card. Switching on still lists everything the folder declares: which DLL declared what
   isn't kept.
-- **New group... with a name already taken** returns that group (`ModGroupStore.AddGroup`, case and
-  surrounding spaces aside), for the menu and the Groups bar alike.
-- The profile messages pointed at `SPT\SPT_Data\configs\core.json`; SPT 4.1's server is
-  `SPT_Runtime`. They now name SPT_Data\configs in the server's folder.
 
 From another mod manager (trappuss: "research it and see if there's anything could learn", then
 "add all suggested"), and Mod Organizer 2's "are you sure?" while the game runs:
@@ -2539,7 +2542,7 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   drop nor the keys were tried on the hidden desktop: its posted clicks reach no control (the
   previous commit's build behaves the same), so they were not exercised. Notes, the Options card
   and the Help topic were seen.
-- **Audit of 1.4.2.** Found and fixed before release:
+- **Audit of 1.4.3.** Found and fixed before release:
   - the queue's finished count kept items after Retry and Clear finished (`_reported` pruned);
   - the free-space check counted download-only items and queues on other drives;
   - an addon and a mod with the same id shared a rename and a note (`addon:` keys);
@@ -2624,7 +2627,7 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   mods it is the Yes/No it was. Seen on a hidden desktop: the split button, the list with eleven
   updates and a hand-installed tag, the three-answer warning. Not seen: a row while it
   downloads, installs, finishes or fails - nothing was downloaded here - and Skip from the list.
-  Later in 1.4.2 the list moved out of InstalledPage: `UpdateList` (rows, queue following, the
+  Later in 1.4.3 the list moved out of InstalledPage: `UpdateList` (rows, queue following, the
   list's Update all, Skip) and `UpdateListButton` (the arrow and popup, DataContext the page's
   UpdateList, filled on `Opening`). Subscribed items and a collection page each own one; the
   collection's updates rows through the same `ModUpdates.Queue` as its Update all and offers no
@@ -2777,17 +2780,17 @@ From another mod manager (trappuss: "research it and see if there's anything cou
 - That cloud-sync folders (Dropbox, OneDrive, Google Drive) deliver the shared file promptly and
   whole. Only a plain local folder was tested here. A file caught mid-sync reads as damaged and
   is ignored until the next check, but that was not seen happen.
-- Options > Look (1.4.2): where a colour stops being the accent or a surface (the hue,
+- Options > Look (1.4.3): where a colour stops being the accent or a surface (the hue,
   saturation and lightness lines in `LookColors.RoleOf`, and `TintedFrom`, 0.15), the 45% of light a surface keeps under
   OLED black, the three card sizes and their column widths, the blur's 20px top, the ten
   colours for groups and mods (`ModColors.Palette`) and a look file's 16 MB for its picture
   (`LookFile.MaximumPictureBytes`) - all set by eye from the screenshots, not
   measured.
-- Play on another PC's server (1.4.2): three tries 1.5s apart, each ping given 3s, and an 8s
+- Play on another PC's server (1.4.3): three tries 1.5s apart, each ping given 3s, and an 8s
   connect timeout - chosen for a host across the internet, not tried against one.
-- Play with Fika (1.4.2): the host note's addresses and fika.jsonc read again every 15s rather
+- Play with Fika (1.4.3): the host note's addresses and fika.jsonc read again every 15s rather
   than every 2s poll - a changed fika.jsonc needs a server restart anyway.
-- The updates list (1.4.2): 460px wide, scrolling past 420px, the spinner's 1.2s turn and the
+- The updates list (1.4.3): 460px wide, scrolling past 420px, the spinner's 1.2s turn and the
   tick's green (#75B022, the Getting started tick's) - set by eye, not measured.
 - Critical/error red (`#E05A5A`): no error state on the pages measured.
 - Outlined "View All" hover fill.

@@ -3,7 +3,7 @@ using System.Text.Json;
 namespace TCFModManager.Core.Services;
 
 //
-// Fork (1.4.2): where a Fika host's server listens. Fika takes its address and port from its own
+// Fork (1.4.3): where a Fika host's server listens. Fika takes its address and port from its own
 // fika.jsonc ("server" > "SPT" > "http") and ignores http.json's, which it overrides at start; the
 // file is written the first time the server runs with Fika. Layout from Fika's wiki, "Server"
 // configuration page.

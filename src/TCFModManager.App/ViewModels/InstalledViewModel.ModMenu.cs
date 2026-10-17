@@ -9,7 +9,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.ViewModels;
 
 //
-// Fork (SSPTMM 1.4.2): what a mod's right-click menu on Subscribed items adds for that one mod -
+// Fork (SSPTMM 1.4.3): what a mod's right-click menu on Subscribed items adds for that one mod -
 // skipping an update, going back to the version an update replaced, and a note of your own.
 //
 public partial class InstalledViewModel

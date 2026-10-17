@@ -3,7 +3,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.Services;
 
 //
-// Fork (1.4.2): "Skip this update" on a mod's right-click menu. A skipped version is not an update
+// Fork (1.4.3): "Skip this update" on a mod's right-click menu. A skipped version is not an update
 // anywhere - the card, the Updates filter, Update all, the item page and the background check all
 // read InstalledModCardViewModel.UpdateAvailable, which BuildFrom sets false for it - until a
 // newer version than the one skipped comes out. Kept in AppSettings.SkippedUpdates.

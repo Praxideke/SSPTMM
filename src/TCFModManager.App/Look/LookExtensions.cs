@@ -4,7 +4,7 @@ using System.Windows.Markup;
 namespace TCFModManager.App.Look;
 
 //
-// Fork (1.4.2): {look:Brush #66C0F4} - a colour of the Steam look that follows Options > Look's
+// Fork (1.4.3): {look:Brush #66C0F4} - a colour of the Steam look that follows Options > Look's
 // accent colour and OLED black (AppLook). Written where the literal colour was, and drawn as it
 // until either is changed.
 //

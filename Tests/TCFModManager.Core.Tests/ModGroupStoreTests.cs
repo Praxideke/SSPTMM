@@ -186,7 +186,7 @@ public class ModGroupStoreTests : IDisposable
         Assert.False(new ModGroupStore(_file).Load().Groups.Single().IsCollapsed);
     }
 
-    // Fork (1.4.2): a group's colour, in capitals; anything that isn't one takes it away.
+    // Fork (1.4.3): a group's colour, in capitals; anything that isn't one takes it away.
     [Fact]
     public void SetColor_IsKept()
     {

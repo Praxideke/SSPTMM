@@ -777,7 +777,7 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
     }
 
     //
-    // Fork (1.4.2): Subscribed items' list of waiting updates (UpdateList), over this collection's
+    // Fork (1.4.3): Subscribed items' list of waiting updates (UpdateList), over this collection's
     // items - each updated as Update all would. No Skip: a public collection's item updates to the
     // version this page names, which a skipped update in Subscribed items doesn't change.
     //

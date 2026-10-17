@@ -7,7 +7,7 @@ using System.Windows.Input;
 namespace TCFModManager.App.Behaviors;
 
 //
-// Fork (1.4.2): a Workshop card - a mod's or a collection's - that opens from the keyboard as well
+// Fork (1.4.3): a Workshop card - a mod's or a collection's - that opens from the keyboard as well
 // as the mouse: Tab to it, then Enter or Space. It is also a button to UI Automation, so a screen
 // reader can name it and open it. Either way it raises the MouseLeftButtonUp a click would, so each
 // page keeps its one handler for opening a card.

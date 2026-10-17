@@ -5,7 +5,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.Services;
 
 //
-// Fork (1.4.2): whether an install runs Fika - any plugin of Project Fika's ("com.fika.*") loaded
+// Fork (1.4.3): whether an install runs Fika - any plugin of Project Fika's ("com.fika.*") loaded
 // from it, or an enabled server mod named for it ("fika-server", "Fika.Server"...) or carrying such
 // a ModGuid. Read at most every few minutes: a collection queues many mods at once, and the Play
 // page asks on every refresh.

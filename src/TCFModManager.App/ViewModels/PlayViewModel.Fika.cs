@@ -10,7 +10,7 @@ using TCFModManager.Core.Services;
 namespace TCFModManager.App.ViewModels;
 
 //
-// Fork (1.4.2, experimental): Options > Play with Fika. On - or Automatic, with Fika found in the
+// Fork (1.4.3, experimental): Options > Play with Fika. On - or Automatic, with Fika found in the
 // install (FikaInstall) - the Play card offers other PCs' servers (PlayViewModel.Servers), and:
 //   - a Fika host is told what to give friends: this PC's addresses with the port from fika.jsonc,
 //     which Fika listens on in place of http.json's, and the two ports Fika's wiki says to forward
