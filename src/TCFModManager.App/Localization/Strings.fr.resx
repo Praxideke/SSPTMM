@@ -9419,4 +9419,73 @@ Non garde ce groupe sous son ancien nom.</value>
   <data name="Installed_UpdateHandInstalledLeftOutFormat" xml:space="preserve">
     <value>Pas mis à jour, comme demandé : {0}.</value>
   </data>
+  <data name="Options_FikaHeader" xml:space="preserve">
+    <value>Jouer avec Fika</value>
+  </data>
+  <data name="Options_Experimental" xml:space="preserve">
+    <value>Expérimental</value>
+  </data>
+  <data name="Options_ExperimentalToolTip" xml:space="preserve">
+    <value>Nouveau, et pas encore essayé sur toutes les configurations : cela peut changer, ou ne pas marcher comme prévu.</value>
+  </data>
+  <data name="Options_FikaHint" xml:space="preserve">
+    <value>Les options de la carte Jouer pour jouer sur le serveur d'un autre PC.</value>
+  </data>
+  <data name="Options_FikaDescription" xml:space="preserve">
+    <value>Ajoute un choix de serveur à la carte Jouer, avec ... &gt; Ajouter un serveur, pour que le jeu puisse jouer sur un hôte Fika ou le serveur SPT d'un ami – les serveurs ajoutés dans le lanceur SPT y figurent aussi. Quand ce PC héberge Fika, la carte indique l'adresse à donner aux amis et les ports à rediriger ; quand vous jouez sur le serveur de quelqu'un d'autre, elle signale si le serveur de ce PC tourne aussi. Automatique active cela quand Fika est installé. Nécessite Démarrer le jeu depuis SSPTMM.</value>
+  </data>
+  <data name="Options_FikaAutomatic" xml:space="preserve">
+    <value>Automatique</value>
+  </data>
+  <data name="Options_FikaOn" xml:space="preserve">
+    <value>Activé</value>
+  </data>
+  <data name="Options_FikaOff" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="Options_FikaFoundBoth" xml:space="preserve">
+    <value>Fika trouvé dans cette installation : son plugin et son mod serveur.</value>
+  </data>
+  <data name="Options_FikaFoundClient" xml:space="preserve">
+    <value>Plugin de Fika trouvé dans cette installation.</value>
+  </data>
+  <data name="Options_FikaFoundServer" xml:space="preserve">
+    <value>Mod serveur de Fika trouvé dans cette installation.</value>
+  </data>
+  <data name="Options_FikaNotFound" xml:space="preserve">
+    <value>Fika introuvable dans cette installation.</value>
+  </data>
+  <data name="Options_FikaNoInstall" xml:space="preserve">
+    <value>Aucune installation SPT choisie pour l'instant.</value>
+  </data>
+  <data name="Play_DirectSummaryRemote" xml:space="preserve">
+    <value>Choisissez un profil et appuyez sur Jouer – le jeu se connecte au serveur choisi ci-dessous, qui tourne sur son propre PC.</value>
+  </data>
+  <data name="Play_FikaHostFormat" xml:space="preserve">
+    <value>Ce PC héberge Fika. Les amis sur votre réseau ajoutent un serveur à {0}. Depuis l'extérieur, ils utilisent votre adresse publique, et votre routeur redirige TCP {1} vers ce PC. Celui qui héberge un raid doit aussi rediriger UDP 25565 vers son propre PC – la valeur par défaut de Fika.</value>
+  </data>
+  <data name="Play_FikaHostNoAddressFormat" xml:space="preserve">
+    <value>Ce PC héberge Fika, mais aucune adresse réseau à donner aux amis n'a été trouvée ici. Il leur faut l'adresse de ce PC, avec le port {0}.</value>
+  </data>
+  <data name="Play_FikaHostNotWritten" xml:space="preserve">
+    <value>Ce PC a le mod serveur de Fika, mais son fichier de réglages n'existe pas encore : démarrez le serveur une fois et Fika l'écrit.</value>
+  </data>
+  <data name="Play_FikaHostOnlyThisPcFormat" xml:space="preserve">
+    <value>Le serveur de Fika n'écoute que sur ce PC ({0} dans fika.jsonc), donc les amis ne peuvent pas l'atteindre. Mettez son « ip » à 0.0.0.0 et redémarrez le serveur.</value>
+  </data>
+  <data name="Play_FikaHostCopy" xml:space="preserve">
+    <value>Copier l'adresse</value>
+  </data>
+  <data name="Play_FikaHostCopyToolTip" xml:space="preserve">
+    <value>Copie la première adresse, pour l'envoyer aux amis.</value>
+  </data>
+  <data name="Play_FikaHostCopiedFormat" xml:space="preserve">
+    <value>{0} copié.</value>
+  </data>
+  <data name="Play_FikaStrayServer" xml:space="preserve">
+    <value>Le serveur SPT de ce PC tourne. Avec Fika, seul l'hôte en fait tourner un, et un autre peut empêcher les amis de se voir – arrêtez-le si vous n'hébergez pas.</value>
+  </data>
+  <data name="Options_FikaNeedsDirectLaunch" xml:space="preserve">
+    <value>Nécessite Jouer &gt; Lancer le jeu depuis SSPTMM, qui est désactivé.</value>
+  </data>
 </root>

@@ -11666,4 +11666,73 @@ No keeps this group under its old name.</value>
   <data name="Installed_UpdateHandInstalledLeftOutFormat" xml:space="preserve">
     <value>Not updated, as you asked: {0}.</value>
   </data>
+  <data name="Options_FikaHeader" xml:space="preserve">
+    <value>Play with Fika</value>
+  </data>
+  <data name="Options_Experimental" xml:space="preserve">
+    <value>Experimental</value>
+  </data>
+  <data name="Options_ExperimentalToolTip" xml:space="preserve">
+    <value>New, and not tried on every setup yet: it may change, or not work as it should.</value>
+  </data>
+  <data name="Options_FikaHint" xml:space="preserve">
+    <value>The Play card's options for playing on another PC's server.</value>
+  </data>
+  <data name="Options_FikaDescription" xml:space="preserve">
+    <value>Adds a server picker to the Play card, with ... &gt; Add a server, so the game can play on a Fika host or a friend's SPT server - the servers added in SPT's launcher are listed too. When this PC hosts Fika, the card says which address to give friends and which ports to forward; when you play on someone else's server, it says if this PC's own server is running too. Automatic switches these on when Fika is installed. Needs Start the game from SSPTMM.</value>
+  </data>
+  <data name="Options_FikaAutomatic" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="Options_FikaOn" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="Options_FikaOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Options_FikaFoundBoth" xml:space="preserve">
+    <value>Fika found in this install: its plugin and its server mod.</value>
+  </data>
+  <data name="Options_FikaFoundClient" xml:space="preserve">
+    <value>Fika's plugin found in this install.</value>
+  </data>
+  <data name="Options_FikaFoundServer" xml:space="preserve">
+    <value>Fika's server mod found in this install.</value>
+  </data>
+  <data name="Options_FikaNotFound" xml:space="preserve">
+    <value>Fika not found in this install.</value>
+  </data>
+  <data name="Options_FikaNoInstall" xml:space="preserve">
+    <value>No SPT install chosen yet.</value>
+  </data>
+  <data name="Play_DirectSummaryRemote" xml:space="preserve">
+    <value>Pick a profile and press Play - the game connects to the server picked below, which runs on its own PC.</value>
+  </data>
+  <data name="Play_FikaHostFormat" xml:space="preserve">
+    <value>This PC hosts Fika. Friends on your network add a server at {0}. From outside it they use your public address, and your router forwards TCP {1} to this PC. Whoever hosts a raid also needs UDP 25565 forwarded to their own PC - Fika's default.</value>
+  </data>
+  <data name="Play_FikaHostNoAddressFormat" xml:space="preserve">
+    <value>This PC hosts Fika, but no network address was found here to give friends. They need this PC's address, with port {0}.</value>
+  </data>
+  <data name="Play_FikaHostNotWritten" xml:space="preserve">
+    <value>This PC has Fika's server mod, but its settings file isn't there yet: start the server once and Fika writes it.</value>
+  </data>
+  <data name="Play_FikaHostOnlyThisPcFormat" xml:space="preserve">
+    <value>Fika's server only listens on this PC ({0} in fika.jsonc), so friends can't reach it. Set its "ip" to 0.0.0.0 and restart the server.</value>
+  </data>
+  <data name="Play_FikaHostCopy" xml:space="preserve">
+    <value>Copy address</value>
+  </data>
+  <data name="Play_FikaHostCopyToolTip" xml:space="preserve">
+    <value>Copies the first address, to send to friends.</value>
+  </data>
+  <data name="Play_FikaHostCopiedFormat" xml:space="preserve">
+    <value>Copied {0}.</value>
+  </data>
+  <data name="Play_FikaStrayServer" xml:space="preserve">
+    <value>This PC's own SPT server is running. With Fika only the host runs one, and another can keep friends from seeing each other - stop it if you aren't hosting.</value>
+  </data>
+  <data name="Options_FikaNeedsDirectLaunch" xml:space="preserve">
+    <value>Needs Play &gt; Start the game from SSPTMM, which is off.</value>
+  </data>
 </root>

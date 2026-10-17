@@ -154,6 +154,12 @@ public sealed class AppSettings
     //
     public Dictionary<string, string> PlayServerPins { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
+    //
+    // Fork (1.4.2, experimental): Options > Play with Fika - the Play card's options for other PCs'
+    // servers and a Fika host's notes. Null: Automatic, on when Fika is found in the install.
+    //
+    public bool? FikaOptions { get; set; }
+
     // Minimise SSPTMM once the game has started from it, as SPT's launcher does by default.
     public bool MinimizeWhilePlaying { get; set; } = true;
 

@@ -2648,6 +2648,25 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   against an unreachable address. Tested: the pin on a loopback TLS server (first use, same
   certificate, another refused), the address parsing, the launcher's servers read. Not seen: a
   real Fika host end to end, the add-server dialog, the trust button after a change.
+  Later: the add-server dialog typed into and saved on a hidden desktop - the server listed and
+  picked, the card's text for a remote server, "didn't answer" against 203.0.113.7.
+- **Play with Fika (experimental).** `AppSettings.FikaOptions` (bool?, null = Automatic) gates
+  the server list, **Add a server...**/Remove/Reload on **...**, and the notes; Off lists This PC
+  only and leaves `PlayServerAddress` and `PlayServers` alone. `FikaInstall` (App) is the download
+  queue's old check moved out and split into plugin/server, cached 5 minutes; the Play card keeps
+  the last answer while it reads again, so a picked server doesn't drop out. From Fika's wiki
+  (FAQ, Server configuration, Host using port forwarding): addresses are set in
+  `user/mods/fika-server/assets/configs/fika.jsonc` > `server.SPT.http` {ip, port, backendIp,
+  backendPort}, `http.json` is overridden; forward TCP 6969 and UDP 25565 (the raid host's game
+  client, not the server); only the host runs SPT.Server, and a stray one intercepts connections.
+  `FikaServerConfig` (Core) reads that file; `LocalNetworkAddresses` (Core) lists this PC's IPv4
+  addresses, home ranges first, then Tailscale's 100.64/10. The host note's port is `fika.jsonc`'s
+  `port` (where it listens), not `backendPort`; http.json's only when fika.jsonc has none. The
+  Options row sits at the top of Fika and servers, its dropdown off while Start the game from
+  SSPTMM is. Seen on a hidden desktop with a sandbox `fika-server` folder: Automatic finding the
+  server mod, the host note with this PC's address and port, the 127.0.0.1 warning, Off taking
+  the notes and the server list away, the server items on **...**. Not seen: the stray-server
+  note (needs a running server), Copy address's clipboard, a real host.
 - **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
   build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
   the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if
@@ -2750,6 +2769,8 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   measured.
 - Play on another PC's server (1.4.2): three tries 1.5s apart, each ping given 3s, and an 8s
   connect timeout - chosen for a host across the internet, not tried against one.
+- Play with Fika (1.4.2): the host note's addresses and fika.jsonc read again every 15s rather
+  than every 2s poll - a changed fika.jsonc needs a server restart anyway.
 - The updates list (1.4.2): 460px wide, scrolling past 420px, the spinner's 1.2s turn and the
   tick's green (#75B022, the Getting started tick's) - set by eye, not measured.
 - Critical/error red (`#E05A5A`): no error state on the pages measured.

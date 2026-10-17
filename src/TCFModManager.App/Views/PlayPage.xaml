@@ -269,7 +269,7 @@
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                     Margin="0,0,0,10"
                     Visibility="{Binding IsDirectLaunchOn, Converter={StaticResource BoolToVisibility}}">
-                    <Run Text="{loc:Str Play_DirectSummary}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Play_DirectDescription}" /></InlineUIContainer>
+                    <Run Text="{Binding DirectSummary, Mode=OneWay}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Play_DirectDescription}" /></InlineUIContainer>
                 </TextBlock>
 
                 <!-- Fork: Play - the profile, PLAY, Close game, and the rest behind "...". -->
@@ -300,6 +300,47 @@
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Text="{Binding RemoteServerNote}"
                         Visibility="{Binding RemoteServerNote, Converter={StaticResource NullToCollapsed}}" />
+                    <!-- Fork (1.4.2, experimental): Fika's notes - PlayViewModel.Fika. -->
+                    <TextBlock
+                        MaxWidth="640"
+                        Margin="0,0,0,8"
+                        HorizontalAlignment="Left"
+                        TextWrapping="Wrap"
+                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                        Text="{Binding FikaStrayServerNote}"
+                        Visibility="{Binding FikaStrayServerNote, Converter={StaticResource NullToCollapsed}}" />
+                    <Grid
+                        MaxWidth="640"
+                        Margin="0,0,0,8"
+                        HorizontalAlignment="Left"
+                        Visibility="{Binding FikaHostNote, Converter={StaticResource NullToCollapsed}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            TextWrapping="Wrap"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{Binding FikaHostNote}" />
+                        <ui:Button
+                            Grid.Column="1"
+                            Margin="12,0,0,0"
+                            VerticalAlignment="Center"
+                            Content="{loc:Str Play_FikaHostCopy}"
+                            Icon="{ui:SymbolIcon Copy24}"
+                            ToolTip="{loc:Str Play_FikaHostCopyToolTip}"
+                            Command="{Binding CopyFikaAddressCommand}"
+                            Visibility="{Binding FikaHostAddress, Converter={StaticResource NullToCollapsed}}" />
+                    </Grid>
+                    <TextBlock
+                        MaxWidth="640"
+                        Margin="0,0,0,8"
+                        HorizontalAlignment="Left"
+                        TextWrapping="Wrap"
+                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                        Text="{Binding FikaHostWarning}"
+                        Visibility="{Binding FikaHostWarning, Converter={StaticResource NullToCollapsed}}" />
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <ComboBox
                             MinWidth="340"
@@ -347,6 +388,7 @@
                             VerticalAlignment="Stretch"
                             Icon="{ui:SymbolIcon MoreHorizontal24}"
                             ToolTip="{loc:Str Play_DirectMoreToolTip}"
+                            AutomationProperties.Name="{loc:Str Play_DirectMoreToolTip}"
                             Click="DirectMore_Click" />
                         <ui:Button
                             Margin="8,0,0,0"

@@ -3088,4 +3088,27 @@ internal static class Strings
     internal static string Installed_UpdateHandInstalledUpdate => LocalizationService.Get("Installed_UpdateHandInstalledUpdate");
     internal static string Installed_UpdateHandInstalledLeaveOut => LocalizationService.Get("Installed_UpdateHandInstalledLeaveOut");
     internal static string Installed_UpdateHandInstalledLeftOutFormat => LocalizationService.Get("Installed_UpdateHandInstalledLeftOutFormat");
+    internal static string Options_FikaHeader => LocalizationService.Get("Options_FikaHeader");
+    internal static string Options_Experimental => LocalizationService.Get("Options_Experimental");
+    internal static string Options_ExperimentalToolTip => LocalizationService.Get("Options_ExperimentalToolTip");
+    internal static string Options_FikaHint => LocalizationService.Get("Options_FikaHint");
+    internal static string Options_FikaDescription => LocalizationService.Get("Options_FikaDescription");
+    internal static string Options_FikaAutomatic => LocalizationService.Get("Options_FikaAutomatic");
+    internal static string Options_FikaOn => LocalizationService.Get("Options_FikaOn");
+    internal static string Options_FikaOff => LocalizationService.Get("Options_FikaOff");
+    internal static string Options_FikaFoundBoth => LocalizationService.Get("Options_FikaFoundBoth");
+    internal static string Options_FikaFoundClient => LocalizationService.Get("Options_FikaFoundClient");
+    internal static string Options_FikaFoundServer => LocalizationService.Get("Options_FikaFoundServer");
+    internal static string Options_FikaNotFound => LocalizationService.Get("Options_FikaNotFound");
+    internal static string Options_FikaNoInstall => LocalizationService.Get("Options_FikaNoInstall");
+    internal static string Play_DirectSummaryRemote => LocalizationService.Get("Play_DirectSummaryRemote");
+    internal static string Play_FikaHostFormat => LocalizationService.Get("Play_FikaHostFormat");
+    internal static string Play_FikaHostNoAddressFormat => LocalizationService.Get("Play_FikaHostNoAddressFormat");
+    internal static string Play_FikaHostNotWritten => LocalizationService.Get("Play_FikaHostNotWritten");
+    internal static string Play_FikaHostOnlyThisPcFormat => LocalizationService.Get("Play_FikaHostOnlyThisPcFormat");
+    internal static string Play_FikaHostCopy => LocalizationService.Get("Play_FikaHostCopy");
+    internal static string Play_FikaHostCopyToolTip => LocalizationService.Get("Play_FikaHostCopyToolTip");
+    internal static string Play_FikaHostCopiedFormat => LocalizationService.Get("Play_FikaHostCopiedFormat");
+    internal static string Play_FikaStrayServer => LocalizationService.Get("Play_FikaStrayServer");
+    internal static string Options_FikaNeedsDirectLaunch => LocalizationService.Get("Options_FikaNeedsDirectLaunch");
 }

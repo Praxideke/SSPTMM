@@ -9839,4 +9839,73 @@
   <data name="Installed_UpdateHandInstalledLeftOutFormat" xml:space="preserve">
     <value>Не обновлены, как вы просили: {0}.</value>
   </data>
+  <data name="Options_FikaHeader" xml:space="preserve">
+    <value>Игра с Fika</value>
+  </data>
+  <data name="Options_Experimental" xml:space="preserve">
+    <value>Экспериментально</value>
+  </data>
+  <data name="Options_ExperimentalToolTip" xml:space="preserve">
+    <value>Новое и проверено ещё не на всех конфигурациях: может измениться или работать не так, как должно.</value>
+  </data>
+  <data name="Options_FikaHint" xml:space="preserve">
+    <value>Параметры карточки «Играть» для игры на сервере другого ПК.</value>
+  </data>
+  <data name="Options_FikaDescription" xml:space="preserve">
+    <value>Добавляет на карточку «Играть» выбор сервера и ... &gt; «Добавить сервер», чтобы играть на хосте Fika или SPT-сервере друга — серверы, добавленные в лаунчере SPT, тоже в списке. Когда этот ПК хостит Fika, карточка подсказывает, какой адрес дать друзьям и какие порты пробросить; когда вы играете на чужом сервере, она скажет, если собственный сервер этого ПК тоже запущен. «Автоматически» включает это, когда установлена Fika. Нужен параметр «Запускать игру из SSPTMM».</value>
+  </data>
+  <data name="Options_FikaAutomatic" xml:space="preserve">
+    <value>Автоматически</value>
+  </data>
+  <data name="Options_FikaOn" xml:space="preserve">
+    <value>Вкл.</value>
+  </data>
+  <data name="Options_FikaOff" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="Options_FikaFoundBoth" xml:space="preserve">
+    <value>В этой установке найдена Fika: её плагин и серверный мод.</value>
+  </data>
+  <data name="Options_FikaFoundClient" xml:space="preserve">
+    <value>В этой установке найден плагин Fika.</value>
+  </data>
+  <data name="Options_FikaFoundServer" xml:space="preserve">
+    <value>В этой установке найден серверный мод Fika.</value>
+  </data>
+  <data name="Options_FikaNotFound" xml:space="preserve">
+    <value>В этой установке Fika не найдена.</value>
+  </data>
+  <data name="Options_FikaNoInstall" xml:space="preserve">
+    <value>Установка SPT ещё не выбрана.</value>
+  </data>
+  <data name="Play_DirectSummaryRemote" xml:space="preserve">
+    <value>Выберите профиль и нажмите «Играть» — игра подключится к серверу, выбранному ниже; он работает на своём ПК.</value>
+  </data>
+  <data name="Play_FikaHostFormat" xml:space="preserve">
+    <value>Этот ПК хостит Fika. Друзья в вашей сети добавляют сервер по адресу {0}. Извне они используют ваш публичный адрес, а роутер пробрасывает TCP {1} на этот ПК. Тому, кто хостит рейд, нужен ещё проброс UDP 25565 на свой ПК — по умолчанию в Fika.</value>
+  </data>
+  <data name="Play_FikaHostNoAddressFormat" xml:space="preserve">
+    <value>Этот ПК хостит Fika, но сетевой адрес для друзей здесь не найден. Им нужен адрес этого ПК с портом {0}.</value>
+  </data>
+  <data name="Play_FikaHostNotWritten" xml:space="preserve">
+    <value>На этом ПК есть серверный мод Fika, но его файла настроек ещё нет: запустите сервер один раз, и Fika его создаст.</value>
+  </data>
+  <data name="Play_FikaHostOnlyThisPcFormat" xml:space="preserve">
+    <value>Сервер Fika слушает только на этом ПК ({0} в fika.jsonc), поэтому друзья к нему не подключатся. Поставьте его «ip» в 0.0.0.0 и перезапустите сервер.</value>
+  </data>
+  <data name="Play_FikaHostCopy" xml:space="preserve">
+    <value>Копировать адрес</value>
+  </data>
+  <data name="Play_FikaHostCopyToolTip" xml:space="preserve">
+    <value>Копирует первый адрес, чтобы отправить друзьям.</value>
+  </data>
+  <data name="Play_FikaHostCopiedFormat" xml:space="preserve">
+    <value>Скопировано: {0}.</value>
+  </data>
+  <data name="Play_FikaStrayServer" xml:space="preserve">
+    <value>Собственный SPT-сервер этого ПК запущен. С Fika сервер запускает только хост, а лишний может мешать друзьям видеть друг друга — остановите его, если вы не хостите.</value>
+  </data>
+  <data name="Options_FikaNeedsDirectLaunch" xml:space="preserve">
+    <value>Нужен параметр «Игра» &gt; «Запускать игру из SSPTMM», а он выключен.</value>
+  </data>
 </root>

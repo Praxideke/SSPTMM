@@ -1100,30 +1100,8 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     private static bool StillStands((bool Install, DateTime At) answer, DateTime now) =>
         now - answer.At <= (answer.Install ? ProblemAnswerLifetime : ProblemRefusalLifetime);
 
-    // Whether Fika is installed (any plugin of Project Fika's, "com.fika.*", loaded from the
-    // install, or an enabled server mod named for it or carrying such a ModGuid), read at most
-    // every few minutes - a collection queues many mods at once.
-    private (string Path, bool Runs, DateTime At)? _fika;
-
-    private async Task<bool> RunsFikaAsync(string installPath)
-    {
-        if (_fika is { } known && known.Path == installPath && DateTime.UtcNow - known.At < TimeSpan.FromMinutes(5)) return known.Runs;
-
-        // Its client plugins, or - on a machine that only hosts - its server mod's folder.
-        var runs = await Task.Run(() =>
-            InstalledModScanner.LoadedPluginGuids(installPath).Any(g => g.StartsWith("com.fika.", StringComparison.OrdinalIgnoreCase))
-            || InstalledModScanner.Scan(installPath).Any(m => m is { Target: InstalledModTarget.Server, IsDisabled: false }
-                && (IsFikaServer(m.Name) || IsFikaServer(Path.GetFileName(m.FolderPath))
-                    || (m.Guid?.StartsWith("com.fika.", StringComparison.OrdinalIgnoreCase) ?? false))));
-        _fika = (installPath, runs, DateTime.UtcNow);
-        return runs;
-    }
-
-    // Fika's own server mod ("fika-server", "Fika.Server"...), not a mod that merely mentions Fika.
-    private static bool IsFikaServer(string? name) =>
-        name is not null
-        && name.StartsWith("fika", StringComparison.OrdinalIgnoreCase)
-        && name.Contains("server", StringComparison.OrdinalIgnoreCase);
+    // Whether Fika is installed - see FikaInstall, which reads it at most every few minutes.
+    private static async Task<bool> RunsFikaAsync(string installPath) => (await FikaInstall.ReadAsync(installPath)).Any;
 
     //
     // Fork (SSPTMM): the warning under a finished install's status line - files that didn't land as

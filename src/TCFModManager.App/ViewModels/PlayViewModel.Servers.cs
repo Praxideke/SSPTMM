@@ -67,6 +67,7 @@ public partial class PlayViewModel
     [NotifyPropertyChangedFor(nameof(IsLocalServer))]
     [NotifyPropertyChangedFor(nameof(RemoteServerNote))]
     [NotifyPropertyChangedFor(nameof(WipeWarning))]
+    [NotifyPropertyChangedFor(nameof(DirectSummary))]
     private PlayServerItem? _selectedPlayServer;
 
     public bool IsRemoteServer => SelectedPlayServer?.Address is not null;
@@ -97,20 +98,27 @@ public partial class PlayViewModel
         var found = new List<PlayServerItem> { new(null, string.Empty, PlayServerSource.ThisPc) };
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+        // Options > Play with Fika off (PlayViewModel.Fika): this PC's server only. The servers
+        // and the one picked stay in the settings for when it is on again.
+        var others = OtherServersOn;
+
         void Add(string name, string? text, PlayServerSource source)
         {
             if (!SptLauncherApi.TryNormalizeAddress(text, out var address) || SptLauncherApi.IsLocalAddress(address) || !seen.Add(address)) return;
             found.Add(new PlayServerItem(address, string.IsNullOrWhiteSpace(name) ? address : name.Trim(), source));
         }
 
-        if (serverRoot is not null)
+        if (others && serverRoot is not null)
         {
             foreach (var server in SptLauncherSettings.Read(serverRoot).Servers) Add(server.Name, server.Address, PlayServerSource.Launcher);
         }
 
-        foreach (var server in settings.PlayServers) Add(server.Name, server.Address, PlayServerSource.Added);
+        if (others)
+        {
+            foreach (var server in settings.PlayServers) Add(server.Name, server.Address, PlayServerSource.Added);
+        }
 
-        var wanted = settings.PlayServerAddress;
+        var wanted = others ? settings.PlayServerAddress : null;
         var before = SelectedPlayServer?.Address;
         if (found.Count == PlayServers.Count && found.Zip(PlayServers).All(pair => pair.First.SameAs(pair.Second))
             && SelectedPlayServer?.Address == wanted)

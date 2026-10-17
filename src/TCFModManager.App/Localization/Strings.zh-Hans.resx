@@ -8990,4 +8990,73 @@
   <data name="Installed_UpdateHandInstalledLeftOutFormat" xml:space="preserve">
     <value>已按你的要求未更新：{0}。</value>
   </data>
+  <data name="Options_FikaHeader" xml:space="preserve">
+    <value>用 Fika 联机</value>
+  </data>
+  <data name="Options_Experimental" xml:space="preserve">
+    <value>实验性</value>
+  </data>
+  <data name="Options_ExperimentalToolTip" xml:space="preserve">
+    <value>新功能，尚未在所有配置上试过：可能会变，也可能不按预期工作。</value>
+  </data>
+  <data name="Options_FikaHint" xml:space="preserve">
+    <value>“开始游戏”卡片上用于在其他电脑的服务器上游玩的选项。</value>
+  </data>
+  <data name="Options_FikaDescription" xml:space="preserve">
+    <value>在“开始游戏”卡片上加入服务器选择，以及 ... &gt; 添加服务器，让游戏可以在 Fika 主机或朋友的 SPT 服务器上运行——SPT 启动器里添加的服务器也会列出。这台电脑托管 Fika 时，卡片会说明要给朋友哪个地址、要转发哪些端口；在别人的服务器上游玩时，如果这台电脑自己的服务器也在运行，卡片会提示。“自动”会在安装了 Fika 时开启这些。需要“从 SSPTMM 启动游戏”。</value>
+  </data>
+  <data name="Options_FikaAutomatic" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="Options_FikaOn" xml:space="preserve">
+    <value>开</value>
+  </data>
+  <data name="Options_FikaOff" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="Options_FikaFoundBoth" xml:space="preserve">
+    <value>在此安装中找到了 Fika：它的插件和服务器模组。</value>
+  </data>
+  <data name="Options_FikaFoundClient" xml:space="preserve">
+    <value>在此安装中找到了 Fika 的插件。</value>
+  </data>
+  <data name="Options_FikaFoundServer" xml:space="preserve">
+    <value>在此安装中找到了 Fika 的服务器模组。</value>
+  </data>
+  <data name="Options_FikaNotFound" xml:space="preserve">
+    <value>此安装中没有找到 Fika。</value>
+  </data>
+  <data name="Options_FikaNoInstall" xml:space="preserve">
+    <value>尚未选择 SPT 安装。</value>
+  </data>
+  <data name="Play_DirectSummaryRemote" xml:space="preserve">
+    <value>选择一个存档并按“开始游戏”——游戏会连接到下方选择的服务器，它运行在自己的电脑上。</value>
+  </data>
+  <data name="Play_FikaHostFormat" xml:space="preserve">
+    <value>这台电脑托管 Fika。你网络里的朋友在 {0} 添加服务器。在网络外，他们使用你的公网地址，并由路由器把 TCP {1} 转发到这台电脑。主持战局的人还需要把 UDP 25565 转发到自己的电脑——这是 Fika 的默认值。</value>
+  </data>
+  <data name="Play_FikaHostNoAddressFormat" xml:space="preserve">
+    <value>这台电脑托管 Fika，但这里没有找到可以给朋友的网络地址。他们需要这台电脑的地址和端口 {0}。</value>
+  </data>
+  <data name="Play_FikaHostNotWritten" xml:space="preserve">
+    <value>这台电脑有 Fika 的服务器模组，但它的设置文件还不存在：启动一次服务器，Fika 就会写出它。</value>
+  </data>
+  <data name="Play_FikaHostOnlyThisPcFormat" xml:space="preserve">
+    <value>Fika 的服务器只在这台电脑上监听（fika.jsonc 中为 {0}），朋友无法连接。把它的 "ip" 设为 0.0.0.0 并重启服务器。</value>
+  </data>
+  <data name="Play_FikaHostCopy" xml:space="preserve">
+    <value>复制地址</value>
+  </data>
+  <data name="Play_FikaHostCopyToolTip" xml:space="preserve">
+    <value>复制第一个地址，发给朋友。</value>
+  </data>
+  <data name="Play_FikaHostCopiedFormat" xml:space="preserve">
+    <value>已复制 {0}。</value>
+  </data>
+  <data name="Play_FikaStrayServer" xml:space="preserve">
+    <value>这台电脑自己的 SPT 服务器正在运行。用 Fika 时只有主机运行服务器，多出的一个可能让朋友互相看不到——如果你不是主机，请停止它。</value>
+  </data>
+  <data name="Options_FikaNeedsDirectLaunch" xml:space="preserve">
+    <value>需要“开始游戏”&gt;“从 SSPTMM 启动游戏”，而它已关闭。</value>
+  </data>
 </root>

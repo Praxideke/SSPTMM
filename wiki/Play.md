@@ -83,6 +83,10 @@ launcher:
 
 ### Another PC's server (Fika)
 
+These options are there with [Options](Options) > **Fika and servers** > **Play with Fika** on - or
+on **Automatic**, its default, when Fika is installed. It is marked experimental: it has not been
+tried against every kind of setup yet.
+
 To play on a Fika host or a friend's SPT server, pick it in the server list above the profiles.
 The list shows when there is more than **This PC** on it: the servers added in SPT's launcher are
 there, and **...** > **Add a server...** adds one - a name of your own and its address
@@ -106,6 +110,24 @@ With another PC's server picked:
 - **Close the game when the server stops** is hidden: it watches this PC's server only.
 
 Pick **This PC** to go back to your own server.
+
+If this PC's own SPT server is running while another PC's is picked, the card says so: with Fika,
+only the host runs a server, and a stray one can keep friends from seeing each other.
+
+### Hosting Fika on this PC
+
+With Fika's server mod installed and **This PC** picked, the card tells you what to give friends:
+
+- this PC's addresses on your network (and on Tailscale, if you use it), with the port from Fika's
+  `fika.jsonc` - Fika ignores `http.json`'s address and port. **Copy address** copies the first.
+- From outside your network, friends use your public address instead, and your router forwards
+  **TCP** on that port to this PC. Whoever hosts a raid also needs **UDP 25565** (Fika's default)
+  forwarded to their own PC - the raid runs in the host's game, not in the server.
+- If `fika.jsonc` only listens on `127.0.0.1`, nobody else can reach the server: the card says to
+  set its `"ip"` to `0.0.0.0` and restart the server.
+- If there is no `fika.jsonc` yet, start the server once: Fika writes it then.
+
+Fika's own guides cover VPNs, headless clients and the rest: [wiki.project-fika.com](https://wiki.project-fika.com/).
 
 ## Mod tools
 

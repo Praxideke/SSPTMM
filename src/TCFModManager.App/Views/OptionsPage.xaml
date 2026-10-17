@@ -505,6 +505,7 @@
                                             OffContent="{loc:Str Options_MinimizeWhilePlayingOff}" />
                                     </StackPanel>
                                 </ui:CardExpander>
+
                             </StackPanel>
                         </Border>
                     </StackPanel>
@@ -1162,6 +1163,46 @@
                         <TextBlock Style="{StaticResource SectionHeader}" Text="{loc:Str Options_SectionMultiplayer}" />
                         <Border Style="{StaticResource SectionPanel}">
                             <StackPanel>
+
+                                <!-- Fork (1.4.2, experimental): the Play card's options for other PCs' servers and a Fika
+                                     host's notes (PlayViewModel.Fika). Automatic: on when Fika is in the install. Only
+                                     the direct Play card has them, so it waits on Play > Start the game from SSPTMM. -->
+                                <ui:CardControl
+                                    Style="{StaticResource SettingRow}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource SettingTitle}" VerticalAlignment="Center" Text="{loc:Str Options_FikaHeader}" />
+                                                <Border
+                                                    Margin="8,0,0,0"
+                                                    Padding="6,1"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource SteamChip}"
+                                                    ToolTip="{loc:Str Options_ExperimentalToolTip}">
+                                                    <TextBlock FontSize="11" Foreground="{DynamicResource SystemFillColorCautionBrush}" Text="{loc:Str Options_Experimental}" />
+                                                </Border>
+                                            </StackPanel>
+                                            <TextBlock Style="{StaticResource SettingHint}"><Run Text="{loc:Str Options_FikaHint}" /><InlineUIContainer BaselineAlignment="Center"><views:InfoTip Text="{loc:Str Options_FikaDescription}" /></InlineUIContainer></TextBlock>
+                                            <TextBlock
+                                                Style="{StaticResource SettingNote}"
+                                                Margin="0,4,0,0"
+                                                Text="{Binding FikaFoundText}" />
+                                            <TextBlock
+                                                Style="{StaticResource SettingNote}"
+                                                Margin="0,4,0,0"
+                                                Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                                Text="{loc:Str Options_FikaNeedsDirectLaunch}"
+                                                Visibility="{Binding DirectLaunch, Converter={StaticResource FalseToVisible}}" />
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <ComboBox
+                                        MinWidth="200"
+                                        DisplayMemberPath="Label"
+                                        AutomationProperties.Name="{loc:Str Options_FikaHeader}"
+                                        IsEnabled="{Binding DirectLaunch}"
+                                        ItemsSource="{Binding FikaModeOptions}"
+                                        SelectedItem="{Binding SelectedFikaMode}" />
+                                </ui:CardControl>
 
                                 <!--
                                     Always shown, not gated on finding a launcher: someone who answered "ask me later", or
