@@ -893,6 +893,11 @@ public partial class BrowseViewModel : LocalizedViewModel, IModActionHost
             .Where(m => !string.IsNullOrWhiteSpace(m.MatchedModName))
             .GroupBy(m => m.MatchedModName!, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(g => g.Key, g => g.OrderByDescending(m => m.IsAppManaged).First(), StringComparer.OrdinalIgnoreCase);
+
+        // What sp-mod.com holds back is asked after each of Subscribed items' scans. Until that page
+        // exists, nothing asks: a collection or item page opened first would offer updates it leaves
+        // out. So the index asks instead, over the same scan. Not awaited - the dots don't wait on it.
+        if (InstalledViewModel.Current is null) _ = AppServices.HeldBack.RefreshAsync(matched, sptVersion);
     }
 
     //

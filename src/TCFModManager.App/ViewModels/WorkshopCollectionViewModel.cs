@@ -160,35 +160,33 @@ public sealed partial class WorkshopCollectionItem : ObservableObject
     //
     // What Update all would update this item to, when it would update it at all.
     //
-    // A public collection's item: the version this page names for this install's SPT version (read
-    // from sp-mod.com for exactly that SPT), when it is newer than the one installed. One of your own
-    // collections: exactly what Subscribed items' Update all would do - only when its card says an
+    // One of your own collections: exactly what Subscribed items' Update all would do, by its own
+    // rule (InstalledViewModel.IsUpdatable) over the installed card - only when the card says an
     // update for this SPT is available (a newer release for the next SPT line only does not count),
-    // to the version it would pick.
+    // to the listing and version it would pick. A public collection's item: the version this page
+    // names for this install's SPT version (read from sp-mod.com for exactly that SPT), when it is
+    // newer than the one installed.
     //
-    // Never an addon (updated from its mod's page), a disabled mod, or a version sp-mod.com holds
-    // back - Subscribed items leaves those too.
+    // Never an addon (updated from its mod's page), a disabled mod sharing its folder with another,
+    // or a version sp-mod.com holds back - Subscribed items leaves those too. Any other disabled mod
+    // is switched on for its update and off again after, as there.
     //
     public UpdateTarget? PendingUpdate()
     {
-        if (IsAddon || Mod is not { } mod || _installed is not { IsDisabled: false } installed) return null;
+        if (IsAddon || _installed is not { } installed) return null;
 
-        string? version;
-        if (IsPublic)
+        if (!IsPublic)
         {
-            version = Pick is { Found: true } pick ? pick.Version : null;
-            if (version is null || !IsNewer(version)) return null;
-        }
-        else
-        {
-            if (installed.UpdateAvailable != true) return null;
-            version = ModCardViewModel.PickDisplayVersion(mod, AppServices.SptEnvironment.InstalledVersion)?.Version;
-            if (version is null) return null;
+            return InstalledViewModel.IsUpdatable(installed) && InstalledViewModel.UpdateTo(installed) is { } to
+                ? new UpdateTarget(Name, to.Mod, to.Version, installed.IsAppManaged, InstalledViewModel.KeepDisabled(installed))
+                : null;
         }
 
-        if (AppServices.HeldBack.HeldVersion(mod.Id) is { } held && string.Equals(held, version, StringComparison.OrdinalIgnoreCase)) return null;
+        if (Mod is not { } mod || InstalledViewModel.CannotUpdateDisabled(installed)) return null;
+        if (Pick is not { Found: true, Version: { } version } || !IsNewer(version)) return null;
+        if (AppServices.HeldBack.Holds(mod.Id, version)) return null;
 
-        return new UpdateTarget(Name, mod, version, installed.IsAppManaged);
+        return new UpdateTarget(Name, mod, version, installed.IsAppManaged, InstalledViewModel.KeepDisabled(installed));
     }
 
     public void SetPick(CollectionVersionPick pick, string spt)
@@ -240,6 +238,10 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
 
         var catalog = PublicCollections.CatalogById();
 
+        // An entry saved before sp-mod.com listed the mod has no id, only its GUID - DynamicMaps
+        // Extended, saved while it was installed by hand. Found by that, as Subscribed items finds it.
+        Dictionary<string, Mod>? byGuid = null;
+
         foreach (var entry in ModListEntries.Sorted(list.Entries))
         {
             Mod? mod = null;
@@ -249,6 +251,14 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
                 && !BrowseViewModel.IsSelf(found))
             {
                 mod = found;
+            }
+            else if (entry is { ModId: null, IsAddon: false, Guid: { Length: > 0 } guid })
+            {
+                byGuid ??= catalog.Values
+                    .Where(m => !string.IsNullOrWhiteSpace(m.Guid) && !BrowseViewModel.IsSelf(m))
+                    .GroupBy(m => m.Guid!, StringComparer.OrdinalIgnoreCase)
+                    .ToDictionary(g => g.Key, g => g.First(), StringComparer.OrdinalIgnoreCase);
+                mod = byGuid.GetValueOrDefault(guid);
             }
             else if (entry is { ModId: { } addonId, IsAddon: true })
             {
@@ -274,6 +284,7 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
         IsLoading = true;
         List = PublicCollections.Stored(id);
         AppServices.Browse.InstalledIndexChanged += OnInstalledIndexChanged;
+        AppServices.HeldBack.Changed += OnHeldBackChanged;
     }
 
     private void Finish()
@@ -294,7 +305,11 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
         BuildHeaderArt();
 
         RefreshInstallState();
-        if (!IsPublic) AppServices.Browse.InstalledIndexChanged += OnInstalledIndexChanged;
+        if (!IsPublic)
+        {
+            AppServices.Browse.InstalledIndexChanged += OnInstalledIndexChanged;
+            AppServices.HeldBack.Changed += OnHeldBackChanged;
+        }
     }
 
     // ------------------------------------------------------------------ a public collection
@@ -711,6 +726,14 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
 
     private void OnInstalledIndexChanged(object? sender, EventArgs e) => RefreshInstallState();
 
+    // sp-mod.com answered about what it holds back - often after this page was drawn, on a page
+    // opened before Subscribed items. Update all and its list count again.
+    private void OnHeldBackChanged(object? sender, EventArgs e)
+    {
+        AnnounceUpdates();
+        if (_updateList?.IsOpen == true) OpenUpdateList();
+    }
+
     private void RefreshInstallState()
     {
         foreach (var item in Items) item.Refresh();
@@ -784,12 +807,13 @@ public sealed partial class WorkshopCollectionViewModel : LocalizedViewModel, IM
                 p.Item.InstalledVersion,
                 p.Target.Value.Version,
                 IsHandInstalled: !p.Target.Value.IsAppManaged,
-                IsDisabled: false))]);
+                IsDisabled: p.Target.Value.KeepDisabled is not null))]);
 
     /// <summary>Stops listening once the page is closed or replaced.</summary>
     public void Detach()
     {
         AppServices.Browse.InstalledIndexChanged -= OnInstalledIndexChanged;
+        AppServices.HeldBack.Changed -= OnHeldBackChanged;
         _updateList?.Detach();
         _closing.Cancel();
     }

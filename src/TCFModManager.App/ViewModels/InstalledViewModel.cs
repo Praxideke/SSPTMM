@@ -2037,14 +2037,31 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
     // Fork (1.4.2): a disabled mod too - it is switched on for the update and off again after. Not
     // one sharing its folder with another: its files can't be told from the new version's.
-    private static bool IsUpdatable(InstalledModCardViewModel card) =>
+    // Also one of your own collections' rule (WorkshopCollectionItem.PendingUpdate).
+    internal static bool IsUpdatable(InstalledModCardViewModel card) =>
         card is { UpdateAvailable: true, IsAddon: false, ModId: not null }
         && !CannotUpdateDisabled(card)
         && card.LatestPublishedVersion is not null
         && !IsHeldBack(card);
 
-    private static bool CannotUpdateDisabled(InstalledModCardViewModel card) =>
+    internal static bool CannotUpdateDisabled(InstalledModCardViewModel card) =>
         card is { IsDisabled: true, SharedFolderParts: not null };
+
+    // A disabled card's switched-off folders, put back for its update and switched off again after.
+    internal static IReadOnlyList<InstalledMod>? KeepDisabled(InstalledModCardViewModel card) =>
+        card.IsDisabled ? [.. card.Entries.Where(e => e.IsDisabled)] : null;
+
+    /// <summary>The listing and version Update all updates this card to; null when the catalog can
+    /// no longer place it.</summary>
+    internal static (Mod Mod, string Version)? UpdateTo(InstalledModCardViewModel card)
+    {
+        var match = AppServices.ModCache.AllMods.FirstOrDefault(m => m.Id == card.ModId);
+        var version = match is null
+            ? null
+            : ModCardViewModel.PickDisplayVersion(match, AppServices.SptEnvironment.InstalledVersion)?.Version;
+
+        return match is null || version is null ? null : (match, version);
+    }
 
     // sp-mod.com holds back the very version this update would install. A different, newer version
     // being held back leaves this one alone.
@@ -2054,13 +2071,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     // After each scan: ask sp-mod.com about the whole install, then mark what it holds back.
     private async Task CheckHeldBackAsync(IReadOnlyList<InstalledModCardViewModel> cards)
     {
-        var installed = cards
-            .Where(c => c is { IsAddon: false, ModId: > 0 } && !string.IsNullOrWhiteSpace(c.InstalledVersion))
-            .Select(c => (c.ModId!.Value, c.InstalledVersion!))
-            .DistinctBy(c => c.Item1)
-            .ToList();
-
-        await AppServices.HeldBack.RefreshAsync(installed, AppServices.SptEnvironment.InstalledVersion);
+        await AppServices.HeldBack.RefreshAsync(cards, AppServices.SptEnvironment.InstalledVersion);
         ApplyHeldBack();
     }
 
@@ -2142,13 +2153,8 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
         foreach (var card in targets)
         {
-            var match = AppServices.ModCache.AllMods.FirstOrDefault(m => m.Id == card.ModId);
-            var version = match is null
-                ? null
-                : ModCardViewModel.PickDisplayVersion(match, AppServices.SptEnvironment.InstalledVersion)?.Version;
-
-            if (match is null || version is null) unmatched.Add(card.DisplayTitle);
-            else resolved.Add((card, match, version));
+            if (UpdateTo(card) is { } to) resolved.Add((card, to.Mod, to.Version));
+            else unmatched.Add(card.DisplayTitle);
         }
 
         if (resolved.Count == 0)
@@ -2163,8 +2169,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
         var (said, queued) = ModUpdates.Queue(resolved
             .Select(r => new UpdateTarget(
-                r.Card.DisplayTitle, r.Mod, r.Version, r.Card.IsAppManaged,
-                r.Card.IsDisabled ? [.. r.Card.Entries.Where(e => e.IsDisabled)] : null))
+                r.Card.DisplayTitle, r.Mod, r.Version, r.Card.IsAppManaged, KeepDisabled(r.Card)))
             .ToList());
         if (!queued)
         {

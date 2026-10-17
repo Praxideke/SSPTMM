@@ -2631,6 +2631,15 @@ From another mod manager (trappuss: "research it and see if there's anything cou
   Skip (a public collection's item goes to the version its page names, which Subscribed items'
   skip doesn't change). Seen on a hidden desktop: both lists opening, the collection's above its
   bar with seven rows and no Skip.
+  Then the two lists disagreed on one of your own collections (seven each, five shared). Three
+  causes: `HeldBack` was only asked after Subscribed items' scan, so a collection opened first saw
+  nothing held back; an entry saved with no `ModId` (DynamicMaps Extended, hand-installed then)
+  resolved to no listing; and `PendingUpdate` dropped every disabled mod. Now `PendingUpdate` for
+  your own collection is `InstalledViewModel.IsUpdatable` plus `UpdateTo` over the installed card;
+  an entry with no id is found in the catalog by GUID; Browse's installed index asks `/mods/updates`
+  while `InstalledViewModel.Current` is null; and the page recounts on `HeldBack.Changed`. A mod
+  not in the collection (Project Fika there) still isn't counted. Not seen in the app: build and
+  Core tests only.
 - **Look files.** `LookFile` (Core): JSON with a version, the accent, OLED black, card size,
   the background picture's bytes and extension, its darkness and blur, group colours by group
   name (an id is only this PC's) and the mods' own colours under their settings keys. A picture
