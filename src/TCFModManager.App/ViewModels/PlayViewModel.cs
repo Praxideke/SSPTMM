@@ -143,6 +143,14 @@ public partial class PlayViewModel : LocalizedViewModel
             ConflictWarning = null;
             NeedsWarning = null;
         }
+        catch (Exception ex)
+        {
+            // Started and not awaited by the page: anything else would go unobserved. A warning
+            // banner is not worth a crash; the log keeps what went wrong.
+            AppLog.Warn("Play", $"checking mods for conflicts failed: {ex}");
+            ConflictWarning = null;
+            NeedsWarning = null;
+        }
     }
 
     //

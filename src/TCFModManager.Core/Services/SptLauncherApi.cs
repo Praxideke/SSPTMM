@@ -2,6 +2,8 @@ using System.IO.Compression;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Security;
+using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -15,8 +17,9 @@ namespace TCFModManager.Core.Services;
 // Read from SPT 4.1.6's sources (SP-Tushonka/launcher SPTushonka.Core: HttpHelper, SessionHelper,
 // Urls; SP-Tushonka/server-csharp LauncherV2StaticRouter, LauncherV2Callbacks):
 //   - HTTPS to the server's ip:port. The server's certificate is its own self-signed one; SPT's
-//     launcher accepts any certificate. This accepts one only from an address on this PC - the
-//     server it starts is local, and nothing here is ever pointed elsewhere.
+//     launcher accepts any certificate. This accepts one from an address on this PC; from another
+//     PC's server (Fika, or a friend's SPT - ForRemote) only the certificate it showed the first
+//     time, as the Server Map does (ServerMap/ServerCertificatePin).
 //   - Every JSON body, both ways, is zlib-wrapped (the launcher's SimpleZlib); bundle files are not.
 //   - Answers are { "Response": ... } (plus "Profiles" after register, remove and wipe), the
 //     profile objects in them lower-case ("username", "profileId"...).
@@ -55,6 +58,117 @@ public sealed class SptLauncherApi : IDisposable
             BaseAddress = new Uri("https://" + address),
             Timeout = TimeSpan.FromSeconds(15),
         };
+    }
+
+    //
+    // Fork (1.4.3): a server on another PC - a Fika host, or anyone's SPT server you play on. Its
+    // certificate is self-signed for localhost, so it fails the usual checks at any other address;
+    // it is accepted when it is the one pinned for this address, or when none is pinned yet (the
+    // first connection, which the caller then pins - PresentedThumbprint). A different one is
+    // refused, and CertificateChanged says so.
+    //
+    public static SptLauncherApi ForRemote(string address, string? pinnedThumbprint)
+    {
+        var pin = new RemotePin(pinnedThumbprint);
+        var handler = new SocketsHttpHandler
+        {
+            UseCookies = false,
+            // HUNCH: long enough for a host across the internet, short enough not to hang Play.
+            ConnectTimeout = TimeSpan.FromSeconds(8),
+            SslOptions = new SslClientAuthenticationOptions
+            {
+                RemoteCertificateValidationCallback = (_, certificate, _, _) => pin.Check(certificate),
+            },
+        };
+        return new SptLauncherApi(address, handler) { _pin = pin };
+    }
+
+    private RemotePin? _pin;
+
+    /// <summary>The thumbprint the server showed on the last connection; null when none was made.</summary>
+    public string? PresentedThumbprint => _pin?.Presented;
+
+    /// <summary>True when the server showed a certificate other than the pinned one, and was refused.</summary>
+    public bool CertificateChanged => _pin?.Verdict == ServerMap.PinVerdict.Mismatch;
+
+    /// <summary>True when this is a server on another PC, reached through a pin.</summary>
+    public bool IsRemote => _pin is not null;
+
+    private sealed class RemotePin(string? pinned)
+    {
+        public string? Presented { get; private set; }
+
+        public ServerMap.PinVerdict Verdict { get; private set; } = ServerMap.PinVerdict.NoCertificate;
+
+        public bool Check(X509Certificate? certificate)
+        {
+            using var copy = certificate is null ? null : new X509Certificate2(certificate);
+            Presented = copy is null ? null : ServerMap.ServerCertificatePin.Thumbprint(copy);
+            Verdict = ServerMap.ServerCertificatePin.Decide(pinned, Presented);
+            return ServerMap.ServerCertificatePin.Accepts(Verdict);
+        }
+    }
+
+    //
+    // Fork (1.4.3): an address as somebody types it or SPT's launcher keeps it, as "host:port" -
+    // "https://" and a trailing "/" taken off, SPT's 6969 when no port is given, an IPv6 address
+    // bracketed. False when there is no host or the port is not one.
+    //
+    public static bool TryNormalizeAddress(string? text, out string address)
+    {
+        address = string.Empty;
+        var value = text?.Trim() ?? string.Empty;
+        foreach (var scheme in new[] { "https://", "http://" })
+        {
+            if (value.StartsWith(scheme, StringComparison.OrdinalIgnoreCase)) value = value[scheme.Length..];
+        }
+
+        value = value.TrimEnd('/');
+        if (value.Length == 0 || value.Contains('/') || value.Contains(' ')) return false;
+
+        string host;
+        var port = SptServerReadiness.DefaultPort;
+        if (value.StartsWith('['))
+        {
+            var close = value.IndexOf(']');
+            if (close < 2) return false;
+            host = value[1..close];
+            var rest = value[(close + 1)..];
+            if (rest.Length > 0 && (!rest.StartsWith(':') || !int.TryParse(rest[1..], out port))) return false;
+            if (!IPAddress.TryParse(host, out _)) return false;
+            host = $"[{host}]";
+        }
+        else if (value.Count(c => c == ':') > 1)
+        {
+            // An IPv6 address without brackets has no port.
+            if (!IPAddress.TryParse(value, out _)) return false;
+            host = $"[{value}]";
+        }
+        else
+        {
+            var colon = value.IndexOf(':');
+            host = colon < 0 ? value : value[..colon];
+            if (colon >= 0 && !int.TryParse(value[(colon + 1)..], out port)) return false;
+            if (host.Length == 0 || Uri.CheckHostName(host) == UriHostNameType.Unknown) return false;
+        }
+
+        if (port is <= 0 or > 65535) return false;
+        address = $"{host}:{port}";
+        return true;
+    }
+
+    /// <summary>
+    /// Fork (1.4.3): whether the address is this PC's - localhost, a loopback address or one of its
+    /// own. A name other than localhost is not looked up here, and so counts as another PC's.
+    /// </summary>
+    public static bool IsLocalAddress(string address)
+    {
+        var host = address;
+        if (host.StartsWith('[')) host = host[1..Math.Max(1, host.IndexOf(']'))];
+        else if (host.IndexOf(':') is var colon and >= 0) host = host[..colon];
+
+        if (host.Equals("localhost", StringComparison.OrdinalIgnoreCase)) return true;
+        return IPAddress.TryParse(host, out var ip) && IsThisMachine(ip);
     }
 
     // SPT's server certificate is self-signed, so the usual check can never pass. Accepted from an

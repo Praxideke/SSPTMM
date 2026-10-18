@@ -1,5 +1,6 @@
 <ui:FluentWindow
     x:Class="TCFModManager.App.MainWindow"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -15,6 +16,9 @@
     WindowStartupLocation="CenterScreen"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="None"
+    AllowDrop="True"
+    DragOver="Window_DragOver"
+    Drop="Window_Drop"
     TextOptions.TextFormattingMode="Display"
     TextOptions.TextRenderingMode="ClearType">
     <!-- Small UI text, drawn on whole pixels. WPF's default TextFormattingMode is Ideal, which
@@ -34,8 +38,9 @@
     </Window.Resources>
     <!-- The whole window sits on the Workshop browse page's background - #262B34 under Steam's two
          faint grids - so every page reads as part of one Steam site. The item page draws the
-         legacy blue over it, as Steam's own item pages do. -->
-    <Grid>
+         legacy blue over it, as Steam's own item pages do.
+         Fork (1.4.3): RootLayout is what Options > Interface size scales (Behaviors/InterfaceScale). -->
+    <Grid x:Name="RootLayout">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -56,17 +61,24 @@
         </Border>
 
         <!-- A picture of the user's own in place of the grid (Options > Tabs and background),
-             darkened by the amount chosen there so the text over it stays readable. -->
+             darkened by the amount chosen there so the text over it stays readable, and blurred
+             if asked. The picture reaches past the window by twice the most blur, so the edges a
+             blur fades out are never on screen. -->
         <Grid
             Grid.RowSpan="6"
+            ClipToBounds="True"
             DataContext="{x:Static app:AppServices.Appearance}"
             IsHitTestVisible="False"
             Visibility="{Binding HasBackgroundImage, Converter={StaticResource BoolToVis}}">
             <Grid.CacheMode>
                 <BitmapCache />
             </Grid.CacheMode>
-            <Rectangle Fill="#1B2838" />
-            <Image Source="{Binding BackgroundImage}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Rectangle Fill="{look:Brush #1B2838}" />
+            <Image Margin="-40" Source="{Binding BackgroundImage}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image.Effect>
+                    <BlurEffect KernelType="Gaussian" Radius="{Binding BackgroundBlur}" RenderingBias="Performance" />
+                </Image.Effect>
+            </Image>
             <Rectangle Fill="Black" Opacity="{Binding BackgroundDarkness}" />
         </Grid>
 
@@ -179,6 +191,7 @@
                         Style="{StaticResource SteamHubGear}"
                         Tag="{x:Type views:OptionsPage}"
                         ToolTip="{loc:Str Nav_Options}"
+                        AutomationProperties.Name="{loc:Str Nav_Options}"
                         Click="HubTab_Click" />
                     <Button
                         DockPanel.Dock="Right"
@@ -188,6 +201,45 @@
                         Click="ModSite_Click">
                         <TextBlock Text="{loc:Str Hub_ModSite}" />
                     </Button>
+                    <!-- Fork (1.4.2): Steam's back and forward arrows, and Home (Options > General >
+                         Home page). Enabled as the history allows - see MainWindow's Place. Right-click
+                         on an arrow lists the places that way. -->
+                    <StackPanel DockPanel.Dock="Left" Margin="-10,0,10,0" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Button
+                            x:Name="BackButton"
+                            Style="{StaticResource SteamNavArrow}"
+                            IsEnabled="False"
+                            ToolTip="{loc:Str Nav_Back}"
+                            AutomationProperties.Name="{loc:Str Nav_Back}"
+                            Click="Back_Click"
+                            ContextMenuOpening="HistoryMenu_Opening">
+                            <Button.ContextMenu>
+                                <ContextMenu Style="{StaticResource SteamPopupMenu}" />
+                            </Button.ContextMenu>
+                            <ui:SymbolIcon Symbol="ChevronLeft24" />
+                        </Button>
+                        <Button
+                            x:Name="ForwardButton"
+                            Style="{StaticResource SteamNavArrow}"
+                            IsEnabled="False"
+                            ToolTip="{loc:Str Nav_Forward}"
+                            AutomationProperties.Name="{loc:Str Nav_Forward}"
+                            Click="Forward_Click"
+                            ContextMenuOpening="HistoryMenu_Opening">
+                            <Button.ContextMenu>
+                                <ContextMenu Style="{StaticResource SteamPopupMenu}" />
+                            </Button.ContextMenu>
+                            <ui:SymbolIcon Symbol="ChevronRight24" />
+                        </Button>
+                        <Button
+                            Margin="4,0,0,0"
+                            Style="{StaticResource SteamNavArrow}"
+                            ToolTip="{loc:Str Nav_Home}"
+                            AutomationProperties.Name="{loc:Str Workshop_Home}"
+                            Click="Home_Click">
+                            <ui:SymbolIcon Symbol="Home24" />
+                        </Button>
+                    </StackPanel>
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="22"

@@ -21,6 +21,15 @@ public static class MarkupActions
     private static readonly Regex PictureLink = new(
         @"\.(png|jpe?g|gif|webp|bmp)(\?|#|$)|^https?://i\.imgur\.com/", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+    /// <summary>Fork (1.4.3): the sp-mod.com mod link this text is, if it is one - pasted with
+    /// Ctrl+V or dropped on the window, it opens that mod here.</summary>
+    public static string? ModLinkIn(string? text)
+    {
+        var link = text?.Trim();
+        // The whole text, not a link with a paragraph after it - that would go to the browser whole.
+        return link is not null && !link.Any(char.IsWhiteSpace) && ModLink.IsMatch(link) ? link : null;
+    }
+
     public static void OpenLink(string url)
     {
         var match = ModLink.Match(url);

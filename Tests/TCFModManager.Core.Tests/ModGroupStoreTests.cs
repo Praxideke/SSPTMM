@@ -157,6 +157,24 @@ public class ModGroupStoreTests : IDisposable
     }
 
     [Fact]
+    public void AssignMods_MovesEveryPickedModAtOnce_AndNullSendsThemBack()
+    {
+        var bots = _store.AddGroup("Bots");
+        var tools = _store.AddGroup("Tools");
+        _store.AssignMod("Quick Sell", tools.Id);
+
+        _store.AssignMods(["SAIN", "BigBrain", "Quick Sell", "sain"], bots.Id);
+
+        Assert.Equal(
+            new Dictionary<string, Guid> { ["sain"] = bots.Id, ["bigbrain"] = bots.Id, ["quick sell"] = bots.Id },
+            _store.Load().Assignments);
+
+        _store.AssignMods(["SAIN", "Quick Sell"], null);
+
+        Assert.Equal(new Dictionary<string, Guid> { ["bigbrain"] = bots.Id }, _store.Load().Assignments);
+    }
+
+    [Fact]
     public void SetCollapsed_IsKept()
     {
         var group = _store.AddGroup("Bots");
@@ -168,6 +186,19 @@ public class ModGroupStoreTests : IDisposable
         Assert.False(new ModGroupStore(_file).Load().Groups.Single().IsCollapsed);
     }
 
+    // Fork (1.4.3): a group's colour, in capitals; anything that isn't one takes it away.
+    [Fact]
+    public void SetColor_IsKept()
+    {
+        var group = _store.AddGroup("Bots");
+
+        _store.SetColor(group.Id, "#e5534b");
+        Assert.Equal("#E5534B", new ModGroupStore(_file).Load().Groups.Single().Color);
+
+        _store.SetColor(group.Id, "not a colour");
+        Assert.Null(new ModGroupStore(_file).Load().Groups.Single().Color);
+    }
+
     [Fact]
     public void ADamagedFile_ReadsAsNoGroups()
     {
@@ -177,5 +208,33 @@ public class ModGroupStoreTests : IDisposable
 
         Assert.Empty(data.Groups);
         Assert.Empty(data.Assignments);
+    }
+
+    [Fact]
+    public void AddGroup_WithANameAlreadyTaken_ReturnsThatGroup()
+    {
+        var bots = _store.AddGroup("Bots");
+
+        var again = _store.AddGroup(" bots ");
+
+        Assert.Equal(bots.Id, again.Id);
+        Assert.Single(_store.Load().Groups);
+    }
+
+    [Fact]
+    public void MergeGroup_MovesItsModsOver_AndRemovesIt()
+    {
+        var bots = _store.AddGroup("Bots");
+        var other = _store.AddGroup("AI");
+        _store.AssignMods(["SAIN", "Questing Bots"], other.Id);
+        _store.AssignMod("Waypoints", bots.Id);
+
+        Assert.Equal(bots.Id, _store.NamedLike(" bots ", other.Id)?.Id);
+        _store.MergeGroup(other.Id, bots.Id);
+
+        var data = _store.Load();
+        Assert.Equal(bots.Id, Assert.Single(data.Groups).Id);
+        Assert.All(data.Assignments.Values, id => Assert.Equal(bots.Id, id));
+        Assert.Equal(3, data.Assignments.Count);
     }
 }

@@ -24,7 +24,7 @@ press **Read the logs again**.
 
 | Card | Means |
 |---|---|
-| A profile won't load | SPT marked a profile invalid. Put back the mod whose items or clothing it holds, or restore a profile backup. |
+| A profile won't load | SPT marked a profile invalid. Put back the mod whose items or clothing it holds, or restore a profile backup - or **Turn them on**: SSPTMM sets SPT's own `removeModItemsFromProfile` and `removeInvalidTradersFromProfile` to true in `core.json` (after asking, keeping the file as it was beside it as `core.json.before-ssptmm`), and the server removes what's missing when it next starts. |
 | A profile wears clothing from a missing mod | A clothing mod was removed while a character wore its clothes. |
 | Raid results weren't saved | The game sent a value the server doesn't know (for example a skill) - usually a mod's game half is loaded but its server half (such as its prepatch in `user\patchers`) is not. |
 | The server couldn't start | Its port is in use - most often a server that is still running. |
@@ -53,6 +53,11 @@ whole logs, and never a profile. Taken out first:
 - your user folder (becomes `%USERPROFILE%`) and your Windows user name (`<user>`);
 - profile and item ids (each becomes `id-` and six characters, the same each time);
 - other players' IP addresses (`<ip>:port`).
+
+The report starts with the versions of SSPTMM, SPT and Windows. **Report on GitHub** opens a new
+issue on SSPTMM's GitHub with the report filled in (and copies it, for a long one); nothing is sent
+until you submit it there. A failed download's **Copy error** and the crash message's buttons do the
+same for one error.
 
 Paste it into a [GitHub issue](https://github.com/trappuss/SSPTMM/issues) or wherever you ask for
 help.

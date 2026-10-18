@@ -451,6 +451,56 @@ public class ForkDirectLaunchTests : IDisposable
         Assert.Equal("6abee519842869498c34024b", settings.PreferredProfileId);
     }
 
+    // Fork (1.4.3): the servers added in SPT's launcher, for Play on another PC's server.
+    [Fact]
+    public void The_launchers_added_servers_are_read_without_this_pcs_own()
+    {
+        Write(Path.Combine(_server, "user", "Launcher", "LauncherSettings.json"), """
+            { "Servers": [
+                { "Name": "Fika night", "IpAddress": "https://203.0.113.7:6969/", "ServerId": "1760000000" },
+                { "Name": "", "IpAddress": "10.0.0.5", "ServerId": "1760000001" },
+                { "Name": "Local Server", "IpAddress": "127.0.0.1:6969", "ServerId": "1721162719" },
+                { "Name": "Broken", "IpAddress": "not an address", "ServerId": "1760000002" } ],
+              "PreferredProfile": { "ServerId": "1760000000", "ProfileId": "abc" } }
+            """);
+
+        var settings = SptLauncherSettings.Read(_server);
+
+        Assert.Equal(
+            [new SptLauncherServer("Fika night", "203.0.113.7:6969", "1760000000"), new SptLauncherServer("10.0.0.5:6969", "10.0.0.5:6969", "1760000001")],
+            settings.Servers);
+        Assert.Equal("1760000000", settings.PreferredServerId);
+    }
+
+    [Theory]
+    [InlineData("203.0.113.7:6969", "203.0.113.7:6969")]
+    [InlineData(" https://203.0.113.7:7000/ ", "203.0.113.7:7000")]
+    [InlineData("http://fika.example.org", "fika.example.org:6969")]
+    [InlineData("10.0.0.5", "10.0.0.5:6969")]
+    [InlineData("[2001:db8::7]:6970", "[2001:db8::7]:6970")]
+    [InlineData("2001:db8::7", "[2001:db8::7]:6969")]
+    [InlineData("", null)]
+    [InlineData("host:0", null)]
+    [InlineData("host:70000", null)]
+    [InlineData("host:port", null)]
+    [InlineData("a b:6969", null)]
+    [InlineData("203.0.113.7:6969/path", null)]
+    public void A_server_address_is_read_as_host_and_port(string text, string? expected)
+    {
+        var ok = SptLauncherApi.TryNormalizeAddress(text, out var address);
+        Assert.Equal(expected is not null, ok);
+        if (expected is not null) Assert.Equal(expected, address);
+    }
+
+    [Theory]
+    [InlineData("127.0.0.1:6969", true)]
+    [InlineData("localhost:6969", true)]
+    [InlineData("[::1]:6969", true)]
+    [InlineData("203.0.113.7:6969", false)]
+    [InlineData("fika.example.org:6969", false)]
+    public void This_pcs_own_address_is_told_from_another_pcs(string address, bool local) =>
+        Assert.Equal(local, SptLauncherApi.IsLocalAddress(address));
+
     private sealed class SyncProgress<T>(Action<T> report) : IProgress<T>
     {
         public void Report(T value)

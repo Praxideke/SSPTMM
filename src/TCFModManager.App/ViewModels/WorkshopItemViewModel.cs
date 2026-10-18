@@ -647,6 +647,9 @@ public sealed partial class WorkshopItemViewModel : LocalizedViewModel, IModActi
     [RelayCommand]
     private void ShowAddons() => ShowTab(WorkshopItemTab.Addons);
 
+    /// <summary>Back at a tab it was left on (the window's back and forward arrows).</summary>
+    public void ReturnToTab(WorkshopItemTab tab) => ShowTab(tab);
+
     private void ShowTab(WorkshopItemTab tab)
     {
         Tab = tab;

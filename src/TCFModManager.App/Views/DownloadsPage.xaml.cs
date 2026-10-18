@@ -18,4 +18,6 @@ public partial class DownloadsPage : Page
     private void ClearFinishedButton_Click(object sender, RoutedEventArgs e) => ViewModel.ClearFinished();
 
     private void RetryFailedButton_Click(object sender, RoutedEventArgs e) => ViewModel.RetryFailed();
+
+    private void PauseButton_Click(object sender, RoutedEventArgs e) => ViewModel.TogglePause();
 }

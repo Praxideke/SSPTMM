@@ -11,6 +11,8 @@
     xmlns:controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
     xmlns:converters="clr-namespace:TCFModManager.App.Converters"
     xmlns:loc="clr-namespace:TCFModManager.App.Localization"
+    xmlns:behaviors="clr-namespace:TCFModManager.App.Behaviors"
+    behaviors:Shortcuts.Refresh="{Binding RefreshCommand}"
     xmlns:app="clr-namespace:TCFModManager.App"
     Title="{loc:Str Nav_Dependencies}"
     Loaded="DependenciesPage_Loaded"

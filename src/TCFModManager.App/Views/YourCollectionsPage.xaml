@@ -11,6 +11,7 @@
 -->
 <Page
     x:Class="TCFModManager.App.Views.YourCollectionsPage"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -27,8 +28,8 @@
         <converters:NullToVisibilityConverter x:Key="NullToCollapsed" />
 
         <RadialGradientBrush x:Key="CardFace" Center="0.17,0.35" GradientOrigin="0.17,0.35" RadiusX="0.62" RadiusY="0.99">
-            <GradientStop Offset="0" Color="#3C4149" />
-            <GradientStop Offset="1" Color="#1B1D21" />
+            <GradientStop Offset="0" Color="{look:Color #3C4149}" />
+            <GradientStop Offset="1" Color="{look:Color #1B1D21}" />
         </RadialGradientBrush>
 
         <!-- A small chip under a card: shared, followed, an update waiting. -->
@@ -105,8 +106,9 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid
+                        <behaviors:OpenableCard
                             x:Name="CardRoot"
+                            AutomationProperties.Name="{Binding Title}"
                             Height="152"
                             Margin="0,0,16,16"
                             VerticalAlignment="Top"
@@ -117,12 +119,12 @@
                                 <TranslateTransform Y="0" />
                             </Grid.RenderTransform>
 
-                            <Border x:Name="Shadow" Background="#1B1D21">
+                            <Border x:Name="Shadow" Background="{look:Brush #1B1D21}">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="10" Direction="315" Opacity="0.58" ShadowDepth="1.4" Color="Black" />
                                 </Border.Effect>
                             </Border>
-                            <Border x:Name="Glow" Background="#1B1D21" Visibility="Hidden">
+                            <Border x:Name="Glow" Background="{look:Brush #1B1D21}" Visibility="Hidden">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="10" Direction="315" Opacity="0.25" ShadowDepth="1.4" Color="White" />
                                 </Border.Effect>
@@ -135,7 +137,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Up to four of its mods' pictures, or the list glyph. -->
-                                <Grid Grid.Column="0" Background="#030712">
+                                <Grid Grid.Column="0" Background="{look:Brush #030712}">
                                     <ui:SymbolIcon HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="#4B5563" Symbol="TextBulletListLtr24" Visibility="{Binding HasPictures, Converter={StaticResource FalseToVisible}}" />
                                     <ItemsControl Focusable="False" ItemsSource="{Binding Pictures}" Visibility="{Binding HasPictures, Converter={StaticResource BoolToVis}}">
                                         <ItemsControl.ItemsPanel>
@@ -175,10 +177,10 @@
                                                 <TextBlock FontSize="11" Foreground="#D2E885" Text="{loc:Str Collections_ChipUpdate}" />
                                             </Border>
                                             <Border Style="{StaticResource TileChip}" Visibility="{Binding IsShared, Converter={StaticResource BoolToVis}}" ToolTip="{loc:Str Collections_ChipSharedToolTip}">
-                                                <TextBlock FontSize="11" Foreground="#66C0F4" Text="{loc:Str Collections_ChipShared}" />
+                                                <TextBlock FontSize="11" Foreground="{look:Brush #66C0F4}" Text="{loc:Str Collections_ChipShared}" />
                                             </Border>
                                             <Border Style="{StaticResource TileChip}" Visibility="{Binding IsFollowed, Converter={StaticResource BoolToVis}}" ToolTip="{loc:Str Collections_ChipFollowedToolTip}">
-                                                <TextBlock FontSize="11" Foreground="#66C0F4" Text="{loc:Str Collections_ChipFollowed}" />
+                                                <TextBlock FontSize="11" Foreground="{look:Brush #66C0F4}" Text="{loc:Str Collections_ChipFollowed}" />
                                             </Border>
                                             <Border Style="{StaticResource TileChip}" Visibility="{Binding IsFromServer, Converter={StaticResource BoolToVis}}">
                                                 <TextBlock FontSize="11" Foreground="#ACB2B8" Text="{loc:Str ModLists_FromServerBadge}" />
@@ -187,20 +189,20 @@
                                     </StackPanel>
                                 </DockPanel>
                             </Grid>
-                        </Grid>
+                        </behaviors:OpenableCard>
                         <DataTemplate.Triggers>
                             <Trigger SourceName="CardRoot" Property="IsMouseOver" Value="True">
                                 <Trigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="-5" Duration="0:0:0.15" />
+                                            <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="{StaticResource CardLiftOffset}" Duration="{StaticResource CardLiftDuration}" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
                                 <Trigger.ExitActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="0:0:0.15" />
+                                            <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="{StaticResource CardLiftDuration}" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>

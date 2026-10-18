@@ -81,6 +81,54 @@ launcher:
 - It keeps a copy of the last three game logs before they are cleared, so
   [Diagnose logs](Diagnose-Logs) can still read the last game's errors.
 
+### Another PC's server (Fika)
+
+These options are there with [Options](Options) > **Fika and servers** > **Play with Fika** on - or
+on **Automatic**, its default, when Fika is installed. It is marked experimental: it has not been
+tried against every kind of setup yet.
+
+To play on a Fika host or a friend's SPT server, pick it in the server list above the profiles.
+The list shows when there is more than **This PC** on it: the servers added in SPT's launcher are
+there, and **...** > **Add a server...** adds one - a name of your own and its address
+(`203.0.113.7`, `fika.example.org:6969`, or the `https://` link the host gave you; without a port,
+6969). **Remove this server** on the same menu takes back one you added.
+
+With another PC's server picked:
+
+- Play doesn't start a server here. It checks that one answers (a few tries), and if it doesn't,
+  says to check the address, that its server is running and that its port is open to you.
+- The profiles are the ones on that server. **New profile**, **Delete** and **Wipe** act on
+  them, and keep no copy here - the profiles are on the other PC. **Reload profiles from the
+  server** on **...** asks again.
+- The game files are still this PC's: the clean-up, SPT's game patches and the mods' bundles
+  are done here, as SPT's launcher does. Your SPT version and mods have to match the server's -
+  for Fika, the host's Fika version too.
+- SPT servers make their own certificate, so the first one a server shows is trusted and
+  remembered. If it shows another later, Play stops and says so: that is right after the host
+  sets SPT up again, and **Trust the new certificate** takes the new one; otherwise it may not be
+  the same server.
+- **Close the game when the server stops** is hidden: it watches this PC's server only.
+
+Pick **This PC** to go back to your own server.
+
+If this PC's own SPT server is running while another PC's is picked, the card says so: with Fika,
+only the host runs a server, and a stray one can keep friends from seeing each other.
+
+### Hosting Fika on this PC
+
+With Fika's server mod installed and **This PC** picked, the card tells you what to give friends:
+
+- this PC's addresses on your network (and on Tailscale, if you use it), with the port from Fika's
+  `fika.jsonc` - Fika ignores `http.json`'s address and port. **Copy address** copies the first.
+- From outside your network, friends use your public address instead, and your router forwards
+  **TCP** on that port to this PC. Whoever hosts a raid also needs **UDP 25565** (Fika's default)
+  forwarded to their own PC - the raid runs in the host's game, not in the server.
+- If `fika.jsonc` only listens on `127.0.0.1`, nobody else can reach the server: the card says to
+  set its `"ip"` to `0.0.0.0` and restart the server.
+- If there is no `fika.jsonc` yet, start the server once: Fika writes it then.
+
+Fika's own guides cover VPNs, headless clients and the rest: [wiki.project-fika.com](https://wiki.project-fika.com/).
+
 ## Mod tools
 
 ![Mod tools, with SVM's Greed](https://raw.githubusercontent.com/trappuss/SSPTMM/main/docs/images/17-play-mod-tools.png)

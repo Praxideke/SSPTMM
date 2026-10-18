@@ -1,4 +1,5 @@
 using TCFModManager.App.Localization;
+using TCFModManager.App.ViewModels;
 using TCFModManager.Core.Models;
 using TCFModManager.Core.Services;
 
@@ -6,7 +7,9 @@ namespace TCFModManager.App.Services;
 
 //
 // sp-mod.com's own update check (/mods/updates), asked about the whole install at once after each
-// scan of Subscribed items. What it adds to the app's own update check is the one thing that check
+// scan of Subscribed items - and, until that page has been opened, after each rebuild of the
+// Workshop's installed index (BrowseViewModel), so a collection or item page opened first knows
+// what is held back too. What it adds to the app's own update check is the one thing that check
 // cannot see: an update that would break another installed mod. CommonLib 3.0.6, say, while Black
 // and Blue 1.0.0 needs CommonLib ~2.0.24. sp-mod.com lists those as blocked updates; here they are
 // "held back", said on the mod's card and item page, and left out of Update all.
@@ -120,6 +123,14 @@ public sealed class HeldBackUpdates
         Changed?.Invoke(this, EventArgs.Empty);
         return true;
     }
+
+    /// <summary>Asks sp-mod.com about the mods of a scan of the install (addons left out).</summary>
+    public Task RefreshAsync(IEnumerable<InstalledModCardViewModel> cards, string? sptVersion) =>
+        RefreshAsync(cards
+            .Where(c => c is { IsAddon: false, ModId: > 0 } && !string.IsNullOrWhiteSpace(c.InstalledVersion))
+            .Select(c => (c.ModId!.Value, c.InstalledVersion!))
+            .DistinctBy(c => c.Item1)
+            .ToList(), sptVersion);
 
     /// <summary>Asks sp-mod.com about these installed mods (id and installed version).</summary>
     public async Task RefreshAsync(IReadOnlyCollection<(int ModId, string Version)> installed, string? sptVersion)

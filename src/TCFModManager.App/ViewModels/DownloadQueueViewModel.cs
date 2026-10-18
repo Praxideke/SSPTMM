@@ -49,6 +49,52 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     private const int MaxDownloads = 3;
     private readonly SemaphoreSlim _downloadSlots = new(MaxDownloads);
 
+    //
+    // Fork (1.4.3): Pause. No download starts while paused; one already under way finishes, and so
+    // do installs. Not a reorder: installs go in the order queued, which is the order their
+    // dependencies need.
+    //
+    private TaskCompletionSource _resumed = Resumed();
+
+    private static TaskCompletionSource Resumed()
+    {
+        var done = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        done.SetResult();
+        return done;
+    }
+
+    [CommunityToolkit.Mvvm.ComponentModel.ObservableProperty]
+    [CommunityToolkit.Mvvm.ComponentModel.NotifyPropertyChangedFor(nameof(PauseLabel))]
+    private bool _isPaused;
+
+    public string PauseLabel => IsPaused ? Strings.Downloads_Resume : Strings.Downloads_Pause;
+
+    partial void OnIsPausedChanged(bool value)
+    {
+        if (value) _resumed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        else _resumed.TrySetResult();
+
+        AppLog.Info("Downloads", value ? "paused" : "resumed");
+    }
+
+    public void TogglePause() => IsPaused = !IsPaused;
+
+    // A download slot, once not paused - given back and waited for again if paused meanwhile.
+    private async Task WaitForSlotAsync(DownloadQueueItemViewModel item, CancellationToken token)
+    {
+        while (true)
+        {
+            if (IsPaused) item.StatusMessage = Strings.Downloads_PausedWaiting;
+            await _resumed.Task.WaitAsync(token);
+
+            item.StatusMessage = Strings.Downloads_WaitingToDownload;
+            await _downloadSlots.WaitAsync(token);
+            if (!IsPaused) return;
+
+            _downloadSlots.Release();
+        }
+    }
+
     // Archives downloaded before, and the ones in use now (being written, or waiting to install),
     // which tidying never deletes. Touched on the UI thread only.
     private readonly ModArchiveCache _archives = new(ModArchiveCache.DefaultDirectory, ModArchiveCache.DefaultBudget);
@@ -139,6 +185,15 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         _ = PrepareLoopAsync();
         _ = InstallLoopAsync();
 
+        // Fork (1.4.3): the idle bar's words are set rather than bound, so they follow a language
+        // change here; a busy bar is rewritten with each progress tick anyway.
+        AppLanguage.Changed += (_, _) =>
+        {
+            if (BarActive) return;
+            BarTitle = Strings.Downloads_BarIdle;
+            BarDetail = Strings.Downloads_BarManage;
+        };
+
         // Leftovers from downloads the app was closed during, and anything over the budget.
         Task.Run(() => _archives.Trim(new HashSet<string>()));
     }
@@ -168,7 +223,8 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         DownloadQueueItemViewModel? dependencyOf = null,
         long? totalBytes = null,
         bool downloadOnly = false,
-        string? downloadSubfolder = null)
+        string? downloadSubfolder = null,
+        IReadOnlyList<InstalledMod>? keepDisabled = null)
     {
         if (dependencyOf is not null)
         {
@@ -178,7 +234,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
 
         var item = new DownloadQueueItemViewModel(
             target, versionLabel, installPath, resolveVersion, checkDependencies, totalBytes,
-            downloadOnly, downloadSubfolder);
+            downloadOnly, downloadSubfolder) { KeepDisabled = keepDisabled };
         dependencyOf?.AddDependency(item);
         item.PropertyChanged += OnItemChanged;
 
@@ -190,7 +246,98 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         Items.Add(item);
         _channel.Writer.TryWrite(item);
         UpdateSummary();
+        CheckFreeSpace(installPath);
         return item;
+    }
+
+    //
+    // Fork (1.4.3): raised once a queue has emptied - MainWindow says so when it is out of sight.
+    // Counts only what finished since the last time; an item that goes round again (Retry) leaves
+    // the count and is counted when it finishes the second time.
+    //
+    public event EventHandler<DownloadQueueFinished>? QueueFinished;
+
+    private readonly HashSet<DownloadQueueItemViewModel> _reported = [];
+
+    private void Finished()
+    {
+        var fresh = Items.Where(i => i.IsFinished && _reported.Add(i)).ToList();
+        _spaceWarned = false;
+        if (fresh.Count == 0) return;
+
+        var completed = fresh.Count(i => i.Status == DownloadQueueItemStatus.Completed);
+        QueueFinished?.Invoke(this, new DownloadQueueFinished(completed, fresh.Count - completed));
+    }
+
+    //
+    // Fork (1.4.3): before a queue runs out of room halfway. What is still to download, times what
+    // it takes once unpacked, against the free space on the install's drive; short of that, the
+    // queue pauses and says so - once, until it has emptied.
+    //
+    // HUNCH: two and a half times the archives (the archive in the work folder while it is
+    // unpacked, then the files, which mod archives are commonly about half the size of), plus 1 GB
+    // left over for SPT, the game and Windows. Neither was measured.
+    //
+    private const double SpacePerArchiveByte = 2.5;
+    private const long SpaceToSpare = 1L << 30;
+    private bool _spaceWarned;
+
+    private static string? DriveRoot(string path)
+    {
+        try { return System.IO.Path.GetPathRoot(System.IO.Path.GetFullPath(path)); }
+        catch (Exception ex) when (ex is ArgumentException or NotSupportedException or System.IO.PathTooLongException) { return null; }
+    }
+
+    private void CheckFreeSpace(string installPath)
+    {
+        if (_spaceWarned || IsPaused) return;
+
+        // Only what will be unpacked onto this drive: a download-only item goes to the Downloads
+        // folder as it is, and another install may be on another drive.
+        var root = DriveRoot(installPath);
+        var queued = Items
+            .Where(i => !i.IsFinished && !i.DownloadOnly && string.Equals(DriveRoot(i.InstallPath), root, StringComparison.OrdinalIgnoreCase))
+            .Sum(i => i.RemainingBytes ?? 0);
+        var need = (long)(queued * SpacePerArchiveByte);
+        if (need == 0) return;
+
+        long free;
+        string drive;
+        try
+        {
+            var info = new System.IO.DriveInfo(System.IO.Path.GetPathRoot(System.IO.Path.GetFullPath(installPath))!);
+            free = info.AvailableFreeSpace;
+            drive = info.Name;
+        }
+        catch (Exception ex) when (ex is System.IO.IOException or UnauthorizedAccessException or ArgumentException)
+        {
+            return; // a network share, or a drive that has gone: nothing to measure
+        }
+
+        if (need + SpaceToSpare <= free) return;
+
+        _spaceWarned = true;
+        IsPaused = true;
+        AppLog.Warn("Downloads", $"paused: the queue needs about {need:N0} bytes on {drive}, which has {free:N0} free");
+
+        System.Windows.Application.Current?.Dispatcher.BeginInvoke(() =>
+        {
+            var body = new System.Windows.Controls.TextBlock
+            {
+                MaxWidth = 560,
+                TextWrapping = System.Windows.TextWrapping.Wrap,
+                Text = Text(Strings.Downloads_SpaceBodyFormat,
+                    DownloadQueueItemViewModel.SizeLabel(queued), DownloadQueueItemViewModel.SizeLabel(need + SpaceToSpare),
+                    drive, DownloadQueueItemViewModel.SizeLabel(free)),
+            };
+
+            var answer = Views.SteamDialog.Show(
+                Strings.Downloads_SpaceTitle,
+                body,
+                new Views.SteamDialogChoice(Strings.Downloads_SpaceKeepPaused, Views.SteamDialogButton.Blue, IsDefault: true),
+                new Views.SteamDialogChoice(Strings.Downloads_SpaceDownloadAnyway, Views.SteamDialogButton.Grey));
+            if (answer == 1) IsPaused = false;
+        });
     }
 
     private void OnItemChanged(object? sender, PropertyChangedEventArgs e)
@@ -201,6 +348,13 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         {
             UpdateSummary();
         }
+
+        // Fork (1.4.3): most sizes are only known once a version is picked, just before it downloads.
+        if (e.PropertyName == nameof(DownloadQueueItemViewModel.TotalBytes) && sender is DownloadQueueItemViewModel { IsFinished: false } item)
+            CheckFreeSpace(item.InstallPath);
+
+        if (e.PropertyName == nameof(DownloadQueueItemViewModel.Status) && sender is DownloadQueueItemViewModel { IsFinished: false } retried)
+            _reported.Remove(retried);
     }
 
     //
@@ -213,6 +367,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     {
         if (unfinished.Count == 0)
         {
+            if (BarActive) Finished();
             BarActive = false;
             BarTitle = Strings.Downloads_BarIdle;
             BarDetail = Strings.Downloads_BarManage;
@@ -300,6 +455,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
             if (!Items[i].IsFinished) continue;
 
             Items[i].PropertyChanged -= OnItemChanged;
+            _reported.Remove(Items[i]);
             Items.RemoveAt(i);
         }
 
@@ -482,8 +638,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         {
             Use(path);
 
-            item.StatusMessage = Strings.Downloads_WaitingToDownload;
-            await _downloadSlots.WaitAsync(token);
+            await WaitForSlotAsync(item, token);
             slot = true;
 
             var progress = new Progress<double>(p => item.Progress = p);
@@ -572,6 +727,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
 
         string? archive = null;
         var keepArchive = true;
+        IReadOnlyList<ModMove>? switchedOn = null;
         try
         {
             archive = await turn.Archive;
@@ -593,8 +749,15 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
 
             item.Status = DownloadQueueItemStatus.Installing;
 
+            // Fork (1.4.3): a disabled mod is switched on so the update finds the files its record
+            // names, and switched off again below whether the install worked or not.
+            switchedOn = SwitchOnForUpdate(item);
+
             var result = await AppServices.ModInstall.InstallAsync(
                 item.Target, item.Version!, item.InstallPath, status, null, turn.Token, downloadedArchive: archive);
+
+            var stillOn = SwitchBackOff(item, switchedOn);
+            switchedOn = null;
 
             item.Status = DownloadQueueItemStatus.Completed;
             item.Progress = 1.0;
@@ -635,7 +798,9 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
             item.StatusDetail = named.Count > 0
                 ? string.Join(Environment.NewLine, new[] { item.StatusMessage, "" }.Concat(named))
                 : null;
-            item.WarningText = InstallWarning(result.NotAsInArchive, userSkips); // Fork
+            item.WarningText = InstallWarning(result.NotAsInArchive, userSkips) is { } warning // Fork
+                ? stillOn is null ? warning : warning + Environment.NewLine + stillOn
+                : stillOn;
             ItemInstalled?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
@@ -651,8 +816,58 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         }
         finally
         {
+            if (switchedOn is not null) SwitchBackOff(item, switchedOn);
             if (archive is not null) Release(archive, keepArchive);
         }
+    }
+
+    //
+    // Fork (1.4.3): updating a disabled mod. Its folders go back where its record says they are, so
+    // the install takes the old version out and puts the new one in its place, as for any update;
+    // SwitchBackOff then moves what is at those places to ".disabled" again. One that couldn't be
+    // switched on stops the update with everything put back. A folder switched on since the update
+    // was queued is updated where it is and left on.
+    //
+    private static IReadOnlyList<ModMove>? SwitchOnForUpdate(DownloadQueueItemViewModel item)
+    {
+        if (item.KeepDisabled?.Where(e => e.IsDisabled && (Directory.Exists(e.FolderPath) || File.Exists(e.FolderPath))).ToList()
+            is not { Count: > 0 } off)
+        {
+            return null;
+        }
+
+        var on = ModDisableService.Apply(off, disable: false, item.InstallPath);
+        if (on.Failed.Count == 0) return on.Moved;
+
+        ModDisableService.Revert(on.Moved, item.InstallPath);
+        throw new InvalidOperationException(Text(
+            Strings.Downloads_CouldNotSwitchOnFormat, item.ModName, on.Failed[0].Reason));
+    }
+
+    // What to say when some of it is left switched on: a folder under a new name in the new version,
+    // a file in use, or SPT started meanwhile. Nothing when it is all off again.
+    private static string? SwitchBackOff(DownloadQueueItemViewModel item, IReadOnlyList<ModMove>? switchedOn)
+    {
+        if (switchedOn is not { Count: > 0 } || item.KeepDisabled is not { } entries) return null;
+
+        var back = switchedOn
+            .Select(move => (Move: move, Entry: entries.FirstOrDefault(e =>
+                string.Equals(e.FolderPath, move.From, StringComparison.OrdinalIgnoreCase))))
+            .Where(m => m.Entry is not null && (Directory.Exists(m.Move.To) || File.Exists(m.Move.To)))
+            .Select(m => new InstalledMod { Name = m.Entry!.Name, Target = m.Entry.Target, FolderPath = m.Move.To })
+            .ToList();
+
+        try
+        {
+            var off = ModDisableService.Apply(back, disable: true, item.InstallPath);
+            if (off.Failed.Count == 0 && back.Count == switchedOn.Count) return null;
+        }
+        catch (ModInstallException ex)
+        {
+            AppLog.Warn("Downloads", $"{item.ModName} left switched on after its update: {ex.Reason}");
+        }
+
+        return Text(Strings.Downloads_LeftSwitchedOnFormat, item.ModName);
     }
 
     // Done with an archive: kept (within the budget) when downloads are kept and it installed,
@@ -736,8 +951,7 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         var slot = false;
         try
         {
-            item.StatusMessage = Strings.Downloads_WaitingToDownload;
-            await _downloadSlots.WaitAsync(token);
+            await WaitForSlotAsync(item, token);
             slot = true;
 
             if (token != item.Token) return;
@@ -886,30 +1100,8 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
     private static bool StillStands((bool Install, DateTime At) answer, DateTime now) =>
         now - answer.At <= (answer.Install ? ProblemAnswerLifetime : ProblemRefusalLifetime);
 
-    // Whether Fika is installed (any plugin of Project Fika's, "com.fika.*", loaded from the
-    // install, or an enabled server mod named for it or carrying such a ModGuid), read at most
-    // every few minutes - a collection queues many mods at once.
-    private (string Path, bool Runs, DateTime At)? _fika;
-
-    private async Task<bool> RunsFikaAsync(string installPath)
-    {
-        if (_fika is { } known && known.Path == installPath && DateTime.UtcNow - known.At < TimeSpan.FromMinutes(5)) return known.Runs;
-
-        // Its client plugins, or - on a machine that only hosts - its server mod's folder.
-        var runs = await Task.Run(() =>
-            InstalledModScanner.LoadedPluginGuids(installPath).Any(g => g.StartsWith("com.fika.", StringComparison.OrdinalIgnoreCase))
-            || InstalledModScanner.Scan(installPath).Any(m => m is { Target: InstalledModTarget.Server, IsDisabled: false }
-                && (IsFikaServer(m.Name) || IsFikaServer(Path.GetFileName(m.FolderPath))
-                    || (m.Guid?.StartsWith("com.fika.", StringComparison.OrdinalIgnoreCase) ?? false))));
-        _fika = (installPath, runs, DateTime.UtcNow);
-        return runs;
-    }
-
-    // Fika's own server mod ("fika-server", "Fika.Server"...), not a mod that merely mentions Fika.
-    private static bool IsFikaServer(string? name) =>
-        name is not null
-        && name.StartsWith("fika", StringComparison.OrdinalIgnoreCase)
-        && name.Contains("server", StringComparison.OrdinalIgnoreCase);
+    // Whether Fika is installed - see FikaInstall, which reads it at most every few minutes.
+    private static async Task<bool> RunsFikaAsync(string installPath) => (await FikaInstall.ReadAsync(installPath)).Any;
 
     //
     // Fork (SSPTMM): the warning under a finished install's status line - files that didn't land as
@@ -1197,3 +1389,6 @@ public sealed partial class DownloadQueueViewModel : LocalizedViewModel
         }
     }
 }
+
+// Fork (1.4.3): what a queue that has just emptied did - DownloadQueueViewModel.QueueFinished.
+public sealed record DownloadQueueFinished(int Completed, int Failed);

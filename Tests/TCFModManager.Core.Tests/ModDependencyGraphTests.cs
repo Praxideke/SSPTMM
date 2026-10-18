@@ -236,4 +236,52 @@ public class ModDependencyGraphTests
         Assert.Empty(graph.DependentsOf(serverOnly));
         Assert.Equal(["com.tyfon.uifixes"], graph.UnresolvedOf(clientConsumer));
     }
+
+    // Fork (1.4.3): a folder two mods share - switching one off leaves the other's GUID provided.
+    [Fact]
+    public void DisableImpact_LeavesOutTheLinksTheCallerSaysDontBreak()
+    {
+        var pack = new InstalledMod
+        {
+            Name = "Pack",
+            Guid = "com.owner",
+            Guids = ["com.owner", "com.guest"],
+            Target = InstalledModTarget.Client,
+            FolderPath = Path.Combine("C:", "SPT", "BepInEx", "plugins", "Pack"),
+        };
+        var needsOwner = Client("NeedsOwner", "com.a", false, new ModDependencyRef("com.owner", IsSoft: false));
+        var needsGuest = Client("NeedsGuest", "com.b", false, new ModDependencyRef("com.guest", IsSoft: false));
+        var graph = ModDependencyGraph.Build([pack, needsOwner, needsGuest]);
+
+        var link = Assert.Single(graph.DisableImpact([pack], l => l.Identifier != "com.owner"));
+
+        Assert.Same(needsGuest, link.Dependent);
+        Assert.Equal("com.guest", link.Identifier);
+        Assert.Equal(2, graph.DisableImpact([pack]).Count);
+    }
+
+    // Fork (1.4.3): Update all installs a library before the mods that use it.
+    [Fact]
+    public void DependencyOrder_PutsWhatEachNeedsFirst_OtherwiseAsGiven()
+    {
+        var library = Client("Library", "com.a.library");
+        var middle = Client("Middle", "com.a.middle", false, new ModDependencyRef("com.a.library", IsSoft: false));
+        var top = Client("Top", "com.a.top", false, new ModDependencyRef("com.a.middle", IsSoft: true));
+        var alone = Client("Alone", "com.a.alone");
+        var graph = ModDependencyGraph.Build([library, middle, top, alone]);
+
+        var order = graph.DependencyOrder([top, alone, middle, library], m => [m]);
+
+        Assert.Equal(["Library", "Middle", "Top", "Alone"], order.Select(m => m.Name));
+    }
+
+    [Fact]
+    public void DependencyOrder_ACycleIsBrokenWhereItCloses()
+    {
+        var a = Client("A", "com.a.a", false, new ModDependencyRef("com.a.b", IsSoft: false));
+        var b = Client("B", "com.a.b", false, new ModDependencyRef("com.a.a", IsSoft: false));
+        var graph = ModDependencyGraph.Build([a, b]);
+
+        Assert.Equal(["B", "A"], graph.DependencyOrder([a, b], m => [m]).Select(m => m.Name));
+    }
 }

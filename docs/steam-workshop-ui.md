@@ -2331,7 +2331,377 @@ itself (no button was pressed), an install going through, the rows changing as o
 under the subscribe box (below the fold in the pictures), the list inside the update dialog, which
 is narrower, and the pointer over any of it.
 
+## Round 53: 1.4.2 - back, forward and Home; groups from the menu, several at once; SPT's profile cleaning (2026-10-15)
+
+Asked for (FoxHead, through trappuss): dragging several picked mods into a group moved only one; a
+right-click "Add to group" with a "New group" at the top, for several picked mods too; and the
+core.json fix for an invalid profile offered from Diagnose.
+
+- **A drag carries the picks.** `InstalledViewModel.ModsFor(mod)`: every picked mod when the one
+  dragged or right-clicked is among two or more picked (Steam's library does the same), otherwise
+  that one. The drag carries a `DraggedMods` record; the store writes them all in one save
+  (`ModGroupStore.AssignMods`).
+- **Add to group** is on `ModContextMenu`, asked for with `ModContextMenu.Groups="True"` on the card,
+  the List row and the Groups row, so a mod with no sp-mod.com listing gets a menu holding only that.
+  New group... first, then the groups by name (one they are all in already is greyed), then Remove
+  from group. The name box is the presets' (SteamSearchField in a SteamDialog).
+- `SteamPopupMenuItem` gained a submenu: a chevron and a popup in the same body as `SteamPopupMenu`,
+  12px room for the shadow, offset -12/-13 so its first item lines up with its header. HUNCH: offset
+  set from the template's padding, not measured against Steam's library menus.
+- **Profile cleaning.** `SptProfileFixes` reads `removeModItemsFromProfile` and
+  `removeInvalidTradersFromProfile` from core.json (SPT_Data/configs, or SPT_Data/Server/configs on
+  SPT 3) and turns both on by replacing only those two words, so the file's layout and anything else
+  changed by hand stay; the result must still parse, and the file as it was is kept once as
+  `core.json.before-ssptmm`. Offered on ProfileInvalid, ProfileItemMissing and ProfileTraderMissing,
+  not ProfileClothingMissing: HUNCH - the switches are named for items and traders only. When both
+  are on already, the card says so instead. The ask is `SptProfileFixPrompt`, shared with Play,
+  whose "SPT won't load this profile" (DirectLaunchProblem.ProfileInvalid) shows the same button
+  while core.json has them off; anything Play says after that takes the button away.
+- **Two mods in one folder** (FoxHead: SPT Stance Overhaul would not install). It did install; the
+  matcher then lost it. Stance Overhaul (3136) and its dependency SPT Realism Common Lib (3135) both
+  place files in `BepInEx/plugins/Realism` (sp-mod.com file trees, 2026-10-15), so both records
+  name the folder "Realism"; `IndexByFolder` drops a folder two mods claim, the scan entry matched
+  only the first GUID in it, and the other mod had no card - Browse and the item page read that as
+  not installed, and the dependency check queued it again. `AddSharedFolderCards` now gives every
+  other app-managed record whose placed files are still in the folder a card of its own
+  (`IsFolderCompanion`), and the folder's own card is cut down to its own files - its record's, or
+  with no record whatever no other record placed. Each card carries `SharedFolderParts` (per
+  entry, the folder and its `.disabled` copy, which of its files are there), so switching one moves
+  only its files (`ModDisableService.ApplyFiles`, one move per file, Undo as ever) and
+  `TidyVacated` removes the folders left empty, never a live container. Companions are left out of
+  the conflict check (empty entries, so indices stay aligned) and of the entry-to-card map;
+  `OwnCardAsync` matches ModId with the folder first, so removing one never resolves to the other.
+- Installed by hand there are no placed files: another catalog mod the folder's DLLs declare by
+  GUID gets a companion over the whole folder, and the note says switching one switches both.
+  Removing either is refused (`Installed_SharedFolderRemoveFormat`) - it would delete the other's
+  files too. Not done when the folder's mod has an app record: a pack carrying a copy of another
+  mod's DLL would grow a card for it.
+- Checked against `BuildFrom` with Stance's layout in a scratch folder: two cards with their own
+  files; Stance switched off and then Common Lib too, each card's state its own, the live
+  `Realism` folder gone when both are off and `plugins.disabled` gone when both are back on; and by
+  hand, two cards with the by-hand note. Not checked on screen.
+- Left as it is: presets keep a mod's state by folder path, so a preset can't tell two mods in one
+  folder apart; and the dependency warning on switching off reads entries, so it may name the
+  folder's other mod.
+- **Back, Forward and Home** (asked for by trappuss, "based off Steam's UI"). Steam has its arrows
+  at the left of its top bar and its start page in Settings > Interface > "Start up location";
+  here the arrows and a house sit at the left of the hub header, before the title, and the choice
+  is Options > General > Home page (`AppSettings.HomePage`, Workshop home by default, so nothing
+  changes until it is set). A place is the page plus the item, collection or author page over it,
+  kept as the request that opened it (`MainWindow.Place`); the history is
+  `NavigationHistory<T>` (Core, tested): somewhere new drops what was ahead, and an overlay closed
+  by its own button back to the place before counts as a step back, so Forward reopens it. Going
+  back navigates to the page (which closes every overlay) and opens the overlay again from its
+  request, so it starts at its top. A collection deleted since is dropped from the history.
+  Places passed through on the way are not recorded (`_moving`), and the place is read from
+  what is on screen, so whether WPF-UI raises Navigated at once or later makes no difference.
+  Also the mouse's XButton1/XButton2, Alt+Left/Right/Home and the keyboard's browser keys; not
+  while the mod update dialog is open. The arrows are bare icons, #B8BCBF, white under the
+  pointer, #4C5560 when there is nowhere to go - HUNCH, by eye, not measured from Steam's client.
+  Checked on a hidden desktop: Browse, Back to Workshop home, Forward to Browse, Home, Back to
+  Browse, the arrows lit and dimmed as the history allows; and, once cards took UI Automation's
+  Invoke (Round 54), back and forward through an item page.
+- **New group... with a name already taken** returns that group (`ModGroupStore.AddGroup`, case and
+  surrounding spaces aside), for the menu and the Groups bar alike.
+- The profile messages pointed at `SPT\SPT_Data\configs\core.json`; SPT 4.1's server is
+  `SPT_Runtime`. They now name SPT_Data\configs in the server's folder.
+
+## Round 54: 1.4.3 - the history's list, Where I left off, updating some mods and not others, changes while SPT runs, every language complete, accent colours and look files, Play on another PC's server and with Fika (2026-10-15 to 2026-10-17)
+
+- **The history's list** (trappuss: "add all suggestions"): right-click an arrow, as in Steam and
+  a browser - the places that way, nearest first, at most fifteen (HUNCH: about what a browser
+  shows), each by the mod, collection or author over the page, else the page's own title.
+  `NavigationHistory.MoveTo` jumps there and keeps the rest. Not checked on screen: a posted
+  right-click doesn't reach WPF on the hidden desktop.
+- **A mod page comes back where it was left.** `WorkshopItemView` keeps each item's tab and scroll
+  offset as it is left (another item opened over it, closed, or navigated away from), keyed by the
+  request, and puts them back when the window's history (or Esc through required items) returns
+  to it - the description loads after the page opens, so the offset is reached as the page grows,
+  and any scrolling first wins. Opened afresh from a card or link it starts at its top, as on
+  Steam. At most a hundred kept (HUNCH), then it starts over. The mouse's back button on the item
+  page was its own and the window's both, two steps for one press; now only the window's. Checked
+  on a hidden desktop: an item scrolled to 60%, Back, Forward - back at 60%; opened again from its
+  card - at 0%. The tab coming back is not checked there (a UIA toggle doesn't click a tab).
+- **Cards open from the keyboard and UI Automation.** The card grids on Workshop home, Browse,
+  Browse collections and Your collections are `OpenableCard`: focusable, Enter or Space raises the
+  MouseLeftButtonUp a click would (so each page keeps its one handler), Steam's white focus ring
+  for keyboard focus only, and a button to UI Automation named for the mod or collection, with
+  Invoke. Checked on a hidden desktop: a card invoked through UIA opened its item page, and Back
+  and Forward went through it.
+- **Where I left off** as a Home page: `AppSettings.LastPage` is the page's type name, written
+  when the page changes and only while that is the choice; a name that no longer resolves to a
+  page goes to Workshop home.
+- **Renaming a group to a taken name** asks to merge (`ModGroupStore.MergeGroup`: its mods move
+  over and it goes); No keeps the old name.
+- **Shared folders in presets.** A preset entry can carry `ModId`: one mod of a folder two mods
+  share (the cards with `SharedFolderParts`), switched by its files with `ApplyFiles`. A folder in
+  both copies because one of its mods is off is planned by its mods, not called "in two places".
+  An older preset's folder entry goes for every mod in the folder; a mod entry for a folder no
+  longer shared is used for the folder.
+- **The switch-off warning and shared folders.** `ModDependencyLink` carries the identifier that
+  was declared; switching off a mod in a shared folder leaves out the links to the GUIDs of the
+  mods staying on there (`DisableImpact`'s follow), and names the mod switched off rather than the
+  folder's card. Switching on still lists everything the folder declares: which DLL declared what
+  isn't kept.
+
+From another mod manager (trappuss: "research it and see if there's anything could learn", then
+"add all suggested"), and Mod Organizer 2's "are you sure?" while the game runs:
+
+- **Changes while SPT runs.** `ModInstallService.ConfirmInUse`, set by the App
+  (`RunningInstallGate`), is asked when something is running; `Blockers(action, path)` is what the
+  pre-checks and `EnsureInstallNotInUse` now go by. Off (the default), null and tests refuse as
+  before. RestoreProfiles is always refused: the server writes the profiles back. A yes holds for
+  two minutes after the last change it let through while the same programs run (HUNCH), so a
+  batch - and the second check inside each step - asks once. The question is on the UI thread
+  (`Dispatcher.Invoke`), from the download queue's install too. Config edits only warned before
+  and still do. Not checked with SPT running.
+- **Update all in dependency order.** `ModDependencyGraph.DependencyOrder` puts each update after
+  what it needs among the batch (hard or soft), else as given; a cycle is broken where it closes.
+  Installs already run one at a time in the order queued, so the order queued is the order
+  installed. A collection page's Update all has no local graph and is unchanged.
+- **Updating a disabled mod.** The queue item carries `KeepDisabled` (the card's disabled
+  entries): before the install they are switched on (`ModDisableService.Apply`), so the update
+  finds what its record names; after it, whether it worked or not, what is at those places is
+  switched off again. One that won't switch on stops the update with everything put back; a
+  folder that couldn't go back (renamed by the new version, in use) is a warning on the card. A
+  disabled card sharing its folder is still refused: the new version's files aren't known to be
+  its own. Not checked on a real disabled mod.
+- **The right-click menu's folder items** run the card's own Open client/server folder.
+- **An archive of no known layout** (`ModInstallService.ChooseLayout`, App:
+  `ArchiveLayoutQuestion`): its files are listed (thirty, then a count), the likelier place first
+  (server when a package.json is in it, else client), Cancel the default. `ArchiveLayout.PlaceAs`
+  moves the content into `~placed\BepInEx\plugins\` or `~placed\user\mods\` inside the
+  extraction folder - one folder as the mod's own, else into one named for the mod - and the
+  install reads that as any archive. Install from file no longer stops on it first. The empty
+  folders such an archive ships are not made. Tested in Core (three cases); the dialog was not
+  seen.
+- **The Forge Alt mirror** named in the other manager was gone when tried (no DNS record for
+  forge-alt.katrinfoxvr.com on 2026-10-16), so it is not built in. Instead Options > Advanced takes
+  any catalogue address: `SpModApiOptions.CatalogSite`, set at start from `AppSettings.CatalogSite`,
+  checked first with `/api/v0/ping`. sp-mod.com's mod lists (`SpModListsClient`) and the header's
+  sp-mod.com button stay sp-mod.com's.
+- **Rename** (`ModNicknames`, `AppSettings.ModNames`): keyed by the sp-mod.com id when listed, else
+  the folder name; `CustomName` leads `DisplayTitle`, and the folder name then shows under it.
+- **Drops anywhere**: the window takes file drops that reach it (Subscribed items settles its own
+  first), opens Subscribed items and installs through the same path.
+- **Pause** holds `WaitForSlotAsync` before a download slot; a slot taken as Pause was pressed is
+  given back. Not a pause of a transfer under way, and no reordering: installs go in the order
+  queued, which Update all now sets by dependencies. Checked on a hidden desktop: Pause turns to
+  Resume.
+- **Animations** (`Behaviors/Motion`): the cards' lift offset and time are App resources read as
+  StaticResource, 0 when off; the NavigationView's transition goes to None. Checked on a hidden
+  desktop that Browse still builds its cards; the look with it off was not seen.
+- The Options gear had no UI Automation name; it has Options' now.
+- **Languages completed.** The 1,076 units missing from each of de, fr and it (1,074 from ru) and
+  all 2,806 for the new zh-Hans were machine translated in batches of 360: each batch read the
+  language's existing file for its wording and form of address, Chinese a glossary of Steam's own
+  Chinese terms, and every batch was checked for its keys, its plural forms (ru one/few/many, zh
+  other only) and its numbered placeholders before it was merged. Two Chinese terms that batches
+  chose differently were made one afterwards (addon, Footprint). Date patterns were set once per
+  language, day first and 24-hour, since English's `h:mm tt` has no AM/PM to show in any of them.
+  Each language's Meta_TranslationCredit says it is machine translated. Seen on a hidden desktop in
+  Chinese (Workshop home, Downloads) and Russian (Workshop home); the other pages, and German,
+  French and Italian, were not looked at.
+- **Chinese**: `PluralRules` answers Other for every count, since a translation holds only `_other`
+  and asking for `_one` would fall back to English's. The Steam fonts end in Microsoft YaHei UI after
+  Segoe UI, so Chinese is drawn in it rather than in WPF's last resort. Common_SentenceSeparator is
+  empty. The build's coverage line no longer calls every family of a one-form language lonely.
+- **The downloads bar** set its idle words when its view model was made, before the language was
+  applied, so it read "DOWNLOADS - Manage" in every language until a download started.
+  `AppLanguage.ApplyStored` now raises Changed when it changes the language, and the bar listens.
+- **Shortcuts.** `Behaviors/Shortcuts`: `Search` marks a page's search box and `Refresh` its
+  Rescan or Refresh command; MainWindow's `ShortcutKey` finds them in the visible page's tree for
+  Ctrl+F and F5. F5 is not on Browse, Workshop home or the item page: a refresh there fetches the
+  catalogue again, which is too heavy for a key pressed by habit. Ctrl+V and a dropped link go
+  through `MarkupActions.ModLinkIn` (the same pattern as links in descriptions); a drag carrying
+  files is left to the archive drop.
+- **Interface size.** `Behaviors/InterfaceScale`: a LayoutTransform on the window's root grid, so
+  pages measure again at the new size instead of being stretched. Popups (menus, tooltips) and
+  dialogs are windows of their own and are not scaled. Seen at 125% on a hidden desktop (Options,
+  Workshop); not at 80% or 200%.
+- **Skip this update.** `SkippedUpdates` keeps `id:<id>` / `addon:<id>` -> the skipped version in
+  settings; a card whose latest is that version builds as up to date, so Update all and the
+  notifications leave it out without their own check. A newer version is offered as usual.
+- **Going back on an update.** `ModInstallService.RevertUpdate` takes the newest
+  ReplacedByUpdate removal of the same mod (`RemovedMods.LatestReplaced`, stamp checked), removes
+  the current files as a ReplacedByUpdate removal of their own - so the step back can itself be
+  taken back - then puts the held files back as Undo does (`PutBackMoved`, never over a path taken
+  since) and restores the old record. A profile backup is taken first. Covered by five tests;
+  the menu item and the dialog were not clicked through.
+- **Notes.** `ModNotes`, keyed as nicknames are; an italic line under the facts in all three
+  views, and matched by the search. Not shared in presets: presets hold switch states only, and
+  mod lists are sp-mod.com's format.
+- **Several picked mods.** The right-click menu offers the page's own Enable / Disable / Update /
+  Unsubscribe selected commands when the mod is one of several picked.
+- **Free space.** `DownloadQueueViewModel.CheckFreeSpace`: what is still queued x 2.5 plus 1 GiB,
+  against the free space of the SPT drive, when a download is queued and when a size becomes known.
+  Short, it pauses the queue and asks once per queue.
+- **Queue finished.** `QueueFinished` when the queue empties, counting each item once; a toast
+  when the window is hidden in the tray, FlashWindowEx (tray, until it comes to the front) when it
+  is minimised or inactive. Neither the toast, the flash, the free-space dialog, the paste and
+  drop nor the keys were tried on the hidden desktop: its posted clicks reach no control (the
+  previous commit's build behaves the same), so they were not exercised. Notes, the Options card
+  and the Help topic were seen.
+- **Audit of 1.4.3.** Found and fixed before release:
+  - the queue's finished count kept items after Retry and Clear finished (`_reported` pruned);
+  - the free-space check counted download-only items and queues on other drives;
+  - an addon and a mod with the same id shared a rename and a note (`addon:` keys);
+  - Skip this update didn't reach Browse until a restart (`ModsMoved` after the skip);
+  - Ctrl+F, F5, Ctrl+V and drops reached the page behind the update dialog;
+  - a pasted paragraph holding a mod link opened it (`ModLinkIn` takes a bare link only);
+  - a dropped link on Subscribed items went to its archive drop and did nothing;
+  - `RevertUpdate` took back settings tuned since the update, left other mods' files the update
+    had replaced in its backups, and saved the record after moving files back - now tuned
+    configs stay, originals go back where the path is free, and the record is saved first;
+    going back on a switched-off mod or while installing is refused in the App;
+  - `ArchiveLayout.PlaceAs` named the folder for the mod even when the archive's one folder had
+    been gone into by `FindContentRoot`; its own name is kept unless it has a version in it
+    (`\d+\.\d+`). Empty folders in such an archive are still not created
+    (`CreateEmptyFolders` works from the content root, which placement moves);
+  - a preset entry for a folder no longer shared took the first of its mods' entries; now only
+    when they agree;
+  - `NavigationHistory.DropCurrent` stood on the place before the one shown; replaced by
+    `ReplaceCurrent`, which stands on the page shown and folds it into an equal neighbour;
+  - shared-folder notes used the other mods' own names; now `DisplayTitle`, renames included;
+  - a switched-off mod's update switched on folders from when it was queued; folders switched
+    on since are left alone.
+  `RemovedMods.LatestReplaced` (each right-click) now remembers a few facts per held removal while
+  its log's write time and size are unchanged, and reads one whole log. Left: a file both mods of
+  a shared folder recorded (Install Anyway) moves with either when it is switched off; groups and
+  the expanded state go by folder name, so two mods in one folder share them. Neither the go-back
+  dialog, the link drop nor the overlay keys were clicked through: posted clicks still reach no
+  control on the hidden desktop.
+- **Accent colour and OLED black.** `LookColors` (Core) sorts a colour into the accent (hue
+  190-225, saturation 0.4 or more, lightness 0.12-0.92), a surface (every channel 0x45 or under,
+  or that hue tinted 0.2-0.4 and lightness 0.3 or under, as the cards' #273B52) or neither, and
+  draws it: an accent turned by the chosen colour's hue and saturation from Steam blue and moved
+  by its lightness, less towards white and black; a surface, with OLED black on, black if it is
+  one of the four page backgrounds and kept at 45% of its light otherwise. Every such literal in
+  the XAML was rewritten as `{look:Brush #..}` / `{look:Color #..}` (Look/LookExtensions): a
+  DynamicResource named after the colour, which `AppLook.Apply` sets in the application's
+  resources. A style's Setter gets the DynamicResourceExtension itself, and a template's first
+  call (made with no element) gets the markup extension back, to be asked again per element.
+  SteamTheme.xaml's own colours of those kinds are set under their names, its brushes read them
+  as DynamicResource, and WPF-UI's accent follows. Code-made brushes (OneLinePanel's counter,
+  the WebView2 backgrounds) ask `AppLook` for the colour. Seen on a hidden desktop: green with
+  OLED black (Subscribed items), orange with OLED black (Workshop home), purple (Subscribed
+  items), and purple picked on Options > Look changing the window at once. Not seen: the other
+  pages in these colours, the custom hex box typed into, a dialog or the mod page's WebView2.
+  Widened after a first look, as the accent changed too little of the window: a third kind,
+  `Tint` - any colour of that hue with saturation 0.15 or more that is neither - and the surfaces
+  of that hue too take the accent's hue and scaled saturation, keeping their lightness, so the
+  navies go plum or green with it; a surface is now every channel 0x49 or under (the Workshop
+  cards' #3C4149). The theme's colours are set in the application's own resources always, even
+  as written: WPF-UI merges its theme, with colours of the same names, after SteamTheme.xaml.
+  Its brushes are read from a copy of SteamTheme.xaml and set there as brushes too: reading
+  every value of the merged dictionary made its brushes before the accent was set, and they
+  kept Windows' own accent, whatever colour that is - the Options switches and
+  sliders and the selected view button showed it in every look until this. Seen: Steam blue
+  and purple on Options, purple picked there, purple on Subscribed items.
+- **Card size.** `CardSizes`: thumbnails 40/56/72, gaps 6/10/14, padding 8/12/16 as resources
+  the Subscribed items templates read; columns from 320px (at most 5) for Compact, the old steps
+  for Normal, from 460px (at most 3) for Roomy. Seen: Compact at 1720px; Roomy not.
+- **Background blur.** A BlurEffect on the picture, 0-20px, the picture reaching 40px past the
+  window so the faded edge is never on screen. Seen at 14px on a hidden desktop.
+- **Colours for groups and mods.** `ModColors` (Core): the palette of ten (HUNCH: picked by eye
+  to read on Steam's navy and on OLED black, none of them the accent's blue), `Normalize` to
+  `#RRGGBB`, and `Matches` for the filter and the search's `color:` word. A group's colour is kept
+  in `mod_groups.json` (`ModGroup.Color`), a mod's own in settings (`ModColors`, keyed like a name
+  you gave it, so it follows the mod through updates); a card's colour is its own, else its
+  group's. Drawn as a 3px strip down the card's and the List row's left edge and the Groups
+  view's row, and as a 12px dot before a group's name - a ring while it has none. The dot's click
+  and a right-click on the header offer the colours; a mod's right-click has **Colour**, for every
+  picked mod when it is among them. Filters > Colour lists the palette's colours in use, then
+  custom ones. Seen on a hidden desktop: the strips on Cards, a mod's own orange over its group's
+  teal, the header dots. Not seen: the menus open, the custom-colour dialog, the filter and the
+  search, the List and Groups views.
+- **Updates list.** Update all became a split button: the arrow (or a right-click on Update all)
+  opens a popup under it, right edges lined up, 460px wide, the rows scrolling past 420px (HUNCH,
+  both). `UpdateListRow` follows the download queue's card for its mod at that version
+  (`Items.CollectionChanged`, so it catches updates asked for anywhere): waiting, the percentage,
+  installing, a tick in Steam's green, a retry on failure (the card's own Retry). The spinner turns
+  only with Options > Look > Animations on. Done rows leave when the list closes. A row's update
+  goes through `UpdateCards` like any other, so the same questions are asked; the popup closes
+  when one is, and opens again after. `ModUpdates`' hand-installed warning has three answers when
+  the batch holds other mods too (Update all, Only the others, Cancel); with only hand-installed
+  mods it is the Yes/No it was. Seen on a hidden desktop: the split button, the list with eleven
+  updates and a hand-installed tag, the three-answer warning. Not seen: a row while it
+  downloads, installs, finishes or fails - nothing was downloaded here - and Skip from the list.
+  Later in 1.4.3 the list moved out of InstalledPage: `UpdateList` (rows, queue following, the
+  list's Update all, Skip) and `UpdateListButton` (the arrow and popup, DataContext the page's
+  UpdateList, filled on `Opening`). Subscribed items and a collection page each own one; the
+  collection's updates rows through the same `ModUpdates.Queue` as its Update all and offers no
+  Skip (a public collection's item goes to the version its page names, which Subscribed items'
+  skip doesn't change). Seen on a hidden desktop: both lists opening, the collection's above its
+  bar with seven rows and no Skip.
+  Then the two lists disagreed on one of your own collections (seven each, five shared). Three
+  causes: `HeldBack` was only asked after Subscribed items' scan, so a collection opened first saw
+  nothing held back; an entry saved with no `ModId` (DynamicMaps Extended, hand-installed then)
+  resolved to no listing; and `PendingUpdate` dropped every disabled mod. Now `PendingUpdate` for
+  your own collection is `InstalledViewModel.IsUpdatable` plus `UpdateTo` over the installed card;
+  an entry with no id is found in the catalog by GUID; Browse's installed index asks `/mods/updates`
+  while `InstalledViewModel.Current` is null; and the page recounts on `HeldBack.Changed`. A mod
+  not in the collection (Project Fika there) still isn't counted. Not seen in the app: build and
+  Core tests only.
+- **Look files.** `LookFile` (Core): JSON with a version, the accent, OLED black, card size,
+  the background picture's bytes and extension, its darkness and blur, group colours by group
+  name (an id is only this PC's) and the mods' own colours under their settings keys. A picture
+  over 16 MB (HUNCH) is left out and the save says so; a file holding one is refused. Loading
+  writes the picture into Data\Background under a new name as Choose picture does, clamps the
+  numbers, drops colours that are not six hex digits, and redraws: the accent, card size,
+  background, this page's controls and Subscribed items' strips. Seen: the row on Options > Look
+  on a hidden desktop; the round trip in tests. Not seen: the file dialogs, a load in the window.
+- **Play on another PC's server (Fika).** From SPT 4.1's launcher source: a server is
+  {Name, IpAddress host:port, ServerId}, its own entry is id 1721162719, the user's added ones
+  are in `user\Launcher\LauncherSettings.json` > `Servers`; the patches come from this PC's
+  `SPT_Data\Launcher\Patches` and the bundles go to this PC's `SPT_Runtime\user\cache\bundles`,
+  so every client-side step stays local and only the API calls go to the other PC. The launcher
+  takes any certificate; SSPTMM pins the first one per address (`ServerCertificatePin`, as the
+  Server Map does) and refuses a different one until **Trust the new certificate**.
+  `SptLauncherApi.ForRemote`, `TryNormalizeAddress` (scheme and trailing slash dropped, 6969 by
+  default, IPv6 bracketed), `IsLocalAddress` (this PC's addresses are This PC, not a remote).
+  Play's card: a server list (This PC, the launcher's, the added ones) shown when there are two
+  or more; with a remote one, no server start, profiles from its API, no backup on Wipe/Delete,
+  Close the game when the server stops hidden, "No profiles yet" only once it answered with none.
+  Seen on a hidden desktop: the list with a remote picked, the note, the "didn't answer" error
+  against an unreachable address. Tested: the pin on a loopback TLS server (first use, same
+  certificate, another refused), the address parsing, the launcher's servers read. Not seen: a
+  real Fika host end to end, the add-server dialog, the trust button after a change.
+  Later: the add-server dialog typed into and saved on a hidden desktop - the server listed and
+  picked, the card's text for a remote server, "didn't answer" against 203.0.113.7.
+- **Play with Fika (experimental).** `AppSettings.FikaOptions` (bool?, null = Automatic) gates
+  the server list, **Add a server...**/Remove/Reload on **...**, and the notes; Off lists This PC
+  only and leaves `PlayServerAddress` and `PlayServers` alone. `FikaInstall` (App) is the download
+  queue's old check moved out and split into plugin/server, cached 5 minutes; the Play card keeps
+  the last answer while it reads again, so a picked server doesn't drop out. From Fika's wiki
+  (FAQ, Server configuration, Host using port forwarding): addresses are set in
+  `user/mods/fika-server/assets/configs/fika.jsonc` > `server.SPT.http` {ip, port, backendIp,
+  backendPort}, `http.json` is overridden; forward TCP 6969 and UDP 25565 (the raid host's game
+  client, not the server); only the host runs SPT.Server, and a stray one intercepts connections.
+  `FikaServerConfig` (Core) reads that file; `LocalNetworkAddresses` (Core) lists this PC's IPv4
+  addresses, home ranges first, then Tailscale's 100.64/10. The host note's port is `fika.jsonc`'s
+  `port` (where it listens), not `backendPort`; http.json's only when fika.jsonc has none. The
+  Options row sits at the top of Fika and servers, its dropdown off while Start the game from
+  SSPTMM is. Seen on a hidden desktop with a sandbox `fika-server` folder: Automatic finding the
+  server mod, the host note with this PC's address and port, the 127.0.0.1 warning, Off taking
+  the notes and the server list away, the server items on **...**. Not seen: the stray-server
+  note (needs a running server), Copy address's clipboard, a real host.
+- **Error reports.** `ErrorReport`: the versions line (SSPTMM, SPT, Windows - 11 told from 10 by
+  build 22000), the error, redacted with `LogRedactor`. A failed download card's **Copy error**;
+  the crash dialog is Steam's with Copy error, Report on GitHub and OK (the plain message box if
+  that can't be shown); Diagnose's **Report on GitHub**. The issue opens in the browser at
+  `/issues/new?title=&body=`, the body cut at 2,500 characters (HUNCH: under GitHub's address
+  limit once escaped) with the whole on the clipboard. Not checked: the crash dialog (nothing to
+  crash it on purpose) and the issue page opening.
+
 ## Values that could not be measured (marked HUNCH in the source)
+
+- Round 53: the back and forward arrows' greys and 32x36 box (Steam's are in its client, not on a
+  page that can be read), the Add to group submenu's offset, leaving clothing out of the
+  profile-cleaning offer, fifteen places in an arrow's list, a hundred item pages' places kept,
+  two minutes for a yes to changes while SPT runs, and 2,500 characters of a report in an issue's
+  address. The interface size steps (80% to 200%), 2.5 times the download plus 1 GiB as the room a
+  queue needs, and 300 characters for a note.
 
 - Round 52: the addon rows' layout and sizes (Steam has no addons; its palette, this app's
   arrangement), and seven as the number of addons from which a search box is worth its room.
@@ -2410,6 +2780,18 @@ is narrower, and the pointer over any of it.
 - That cloud-sync folders (Dropbox, OneDrive, Google Drive) deliver the shared file promptly and
   whole. Only a plain local folder was tested here. A file caught mid-sync reads as damaged and
   is ignored until the next check, but that was not seen happen.
+- Options > Look (1.4.3): where a colour stops being the accent or a surface (the hue,
+  saturation and lightness lines in `LookColors.RoleOf`, and `TintedFrom`, 0.15), the 45% of light a surface keeps under
+  OLED black, the three card sizes and their column widths, the blur's 20px top, the ten
+  colours for groups and mods (`ModColors.Palette`) and a look file's 16 MB for its picture
+  (`LookFile.MaximumPictureBytes`) - all set by eye from the screenshots, not
+  measured.
+- Play on another PC's server (1.4.3): three tries 1.5s apart, each ping given 3s, and an 8s
+  connect timeout - chosen for a host across the internet, not tried against one.
+- Play with Fika (1.4.3): the host note's addresses and fika.jsonc read again every 15s rather
+  than every 2s poll - a changed fika.jsonc needs a server restart anyway.
+- The updates list (1.4.3): 460px wide, scrolling past 420px, the spinner's 1.2s turn and the
+  tick's green (#75B022, the Getting started tick's) - set by eye, not measured.
 - Critical/error red (`#E05A5A`): no error state on the pages measured.
 - Outlined "View All" hover fill.
 - Whether Steam's file sizes count in 1000s or 1024s ("22.946 KB" reads as 1000s).

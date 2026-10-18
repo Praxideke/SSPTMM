@@ -17,7 +17,7 @@ public static class ModConflicts
     // Reads metadata already scanned, and hashes only copies of one assembly that match in size and
     // version - call it off the UI thread anyway.
     public static List<ModConflict> Find(IReadOnlyList<InstalledModCardViewModel> cards) =>
-        ModConflictFinder.Find([.. cards.Select(c => (IReadOnlyList<InstalledMod>)c.Entries)]);
+        ModConflictFinder.Find([.. cards.Select(c => c.IsFolderCompanion ? [] : (IReadOnlyList<InstalledMod>)c.Entries)]);
 
     //
     // Scans the install and finds its conflicts, grouping folders into mods the way the Installed page

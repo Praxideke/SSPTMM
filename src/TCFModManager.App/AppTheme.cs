@@ -124,22 +124,12 @@ public static class AppTheme
         _ = preference;
 
         ApplicationThemeManager.Apply(ApplicationTheme.Dark, WindowBackdropType.None, updateAccent: false);
-        ApplySteamAccent();
+        // Steam's blue as the accent, or the one chosen in Options > Look, and OLED black if it is on.
+        Look.AppLook.ApplyStored();
 
         RefreshWindowChrome();
         PinPressedButtonForeground();
         HookButtonPressFeedback();
-    }
-
-    // Steam's new-UI blue (#1A9FFF) for the accent and its legacy link blue (#66C0F4) as the
-    // lighter tertiary shade, matching the literal accent colours in Themes/SteamTheme.xaml so a
-    // DynamicResource lookup and a StaticResource one inside that file agree.
-    private static void ApplySteamAccent()
-    {
-        var blue = Color.FromRgb(0x1A, 0x9F, 0xFF);
-        var legacyBlue = Color.FromRgb(0x66, 0xC0, 0xF4);
-
-        ApplicationAccentColorManager.Apply(blue, blue, blue, legacyBlue);
     }
 
     //

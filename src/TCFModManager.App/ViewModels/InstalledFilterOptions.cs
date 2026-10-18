@@ -90,3 +90,41 @@ public sealed class GroupFilterItem(string label, Guid? groupId, bool allGroups)
 
     public override string ToString() => Label;
 }
+
+//
+// Fork (1.4.3): one entry in Subscribed items' Colour filter - any colour, no colour, or one colour
+// given to a mod or a group (ModOwnColors). The list holds the colours in use, rebuilt as they change.
+//
+public sealed class ColorFilterItem : LocalizedViewModel
+{
+    private readonly string? _key;
+
+    private ColorFilterItem(string? key, string? color, bool anyColor)
+    {
+        _key = key;
+        Color = color;
+        AnyColor = anyColor;
+    }
+
+    // "#RRGGBB" for one colour; null for Any colour and No colour.
+    public string? Color { get; }
+
+    public bool AnyColor { get; }
+
+    public string Label => _key is not null ? LocalizationService.Get(_key) : Services.ModOwnColors.NameOf(Color!);
+
+    public System.Windows.Media.SolidColorBrush? Brush => Services.ModOwnColors.BrushOf(Color);
+
+    public static ColorFilterItem Any { get; } = new(nameof(Strings.Filter_AnyColor), null, true);
+
+    public static ColorFilterItem None { get; } = new(nameof(Strings.Filter_NoColor), null, false);
+
+    public static ColorFilterItem Of(string color) => new(null, color, false);
+
+    public bool Matches(string? color) => AnyColor || color == Color;
+
+    public bool SameAs(ColorFilterItem? other) =>
+        other is not null && other.AnyColor == AnyColor && other.Color == Color;
+
+    public override string ToString() => Label;
+}

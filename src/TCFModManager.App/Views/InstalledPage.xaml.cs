@@ -7,6 +7,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using TCFModManager.App.Localization;
+using TCFModManager.App.Services;
 using TCFModManager.App.ViewModels;
 
 namespace TCFModManager.App.Views;
@@ -93,6 +94,14 @@ public partial class InstalledPage : Page
             return;
         }
 
+        // A mod's link from a browser opens its page, here as anywhere on the window.
+        if (MainWindow.DroppedModLink(e.Data) is not null)
+        {
+            e.Effects = DragDropEffects.Link;
+            e.Handled = true;
+            return;
+        }
+
         if (!OverGroupList(e))
         {
             e.Effects = DragDropEffects.None;
@@ -104,7 +113,12 @@ public partial class InstalledPage : Page
     {
         if (!e.Data.GetDataPresent(DataFormats.FileDrop))
         {
-            if (!OverGroupList(e)) e.Handled = true;
+            if (MainWindow.DroppedModLink(e.Data) is { } link)
+            {
+                e.Handled = true;
+                MarkupActions.OpenLink(link);
+            }
+            else if (!OverGroupList(e)) e.Handled = true;
             return;
         }
 
@@ -124,7 +138,7 @@ public partial class InstalledPage : Page
         await ViewModel.InstallArchivesAsync(kept);
     }
 
-    private static string[] KeepDroppedTempFiles(string[] files)
+    internal static string[] KeepDroppedTempFiles(string[] files)
     {
         var temp = System.IO.Path.GetFullPath(System.IO.Path.GetTempPath());
         var kept = System.IO.Path.Combine(temp, "SSPTMM-dropped");
@@ -387,6 +401,16 @@ public partial class InstalledPage : Page
 
         menu.IsOpen = true;
     }
+
+    // Fork (1.4.3): the list of waiting updates (UpdateListButton), from the arrow beside Update all
+    // or a right-click on it.
+    private void UpdateAll_RightClick(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
+        UpdateListButton.Open();
+    }
+
+    private void UpdateListButton_Opening(object? sender, EventArgs e) => ViewModel.OpenUpdateList();
 
     //
     // Fork (SSPTMM, UI tidy-up 2): the toolbar's "..." menu - the page actions used now and then
@@ -655,7 +679,8 @@ public partial class InstalledPage : Page
         HookDragWheel();
         try
         {
-            DragDrop.DoDragDrop(source, mod, DragDropEffects.Move);
+            // Fork (1.4.2): one of several picked mods carries them all.
+            DragDrop.DoDragDrop(source, new DataObject(typeof(DraggedMods), new DraggedMods(ViewModel.ModsFor(mod))), DragDropEffects.Move);
         }
         finally
         {
@@ -681,7 +706,7 @@ public partial class InstalledPage : Page
 
         // Only a mod being moved scrolls the list; a file dragged in from Explorer installs wherever
         // it is dropped and has no reason to.
-        if (sender is not ScrollViewer scroller || !e.Data.GetDataPresent(typeof(InstalledModCardViewModel))) return;
+        if (sender is not ScrollViewer scroller || !e.Data.GetDataPresent(typeof(DraggedMods))) return;
 
         var y = e.GetPosition(scroller).Y;
         var height = scroller.ViewportHeight;
@@ -802,16 +827,16 @@ public partial class InstalledPage : Page
     private void Section_DragOver(object sender, DragEventArgs e)
     {
         var isCategory = sender is FrameworkElement { DataContext: ModGroupSectionViewModel { IsCategory: true } };
-        e.Effects = !isCategory && e.Data.GetDataPresent(typeof(InstalledModCardViewModel)) ? DragDropEffects.Move : DragDropEffects.None;
+        e.Effects = !isCategory && e.Data.GetDataPresent(typeof(DraggedMods)) ? DragDropEffects.Move : DragDropEffects.None;
         e.Handled = true;
     }
 
     private void Section_Drop(object sender, DragEventArgs e)
     {
         if (sender is not FrameworkElement { DataContext: ModGroupSectionViewModel { IsCategory: false } section }) return;
-        if (e.Data.GetData(typeof(InstalledModCardViewModel)) is not InstalledModCardViewModel mod) return;
+        if (e.Data.GetData(typeof(DraggedMods)) is not DraggedMods dragged) return;
 
-        ViewModel.MoveModToGroup(mod, section.GroupId);
+        ViewModel.MoveModsToGroup(dragged.Mods, section.GroupId);
         e.Handled = true;
     }
 
@@ -827,6 +852,43 @@ public partial class InstalledPage : Page
             box.Focus();
             box.SelectAll();
         }, DispatcherPriority.Input);
+    }
+
+    // Fork (1.4.3): a group's colour - the dot before its name, or a right-click on its header,
+    // offers the palette (ModContextMenu.FillColors).
+    private void GroupColor_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement { DataContext: ModGroupSectionViewModel section } element) return;
+
+        var menu = new ContextMenu
+        {
+            Style = (Style)FindResource("SteamPopupMenu"),
+            PlacementTarget = element,
+            Placement = PlacementMode.Bottom,
+        };
+        Behaviors.ModContextMenu.FillColors(menu.Items, section.Color, section.Color is not null, color => ViewModel.ColorGroup(section, color));
+        menu.IsOpen = true;
+    }
+
+    private void SectionHeader_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        // Not over the rename box, which has its own menu; and only a group of yours has a colour.
+        if (sender is not FrameworkElement { DataContext: ModGroupSectionViewModel section, ContextMenu: { } menu }
+            || !section.IsRealGroup
+            || e.OriginalSource is DependencyObject source && FindAncestor<TextBox>(source) is not null)
+        {
+            e.Handled = true;
+            return;
+        }
+
+        menu.Items.Clear();
+        Behaviors.ModContextMenu.FillColors(menu.Items, section.Color, section.Color is not null, color => ViewModel.ColorGroup(section, color));
+    }
+
+    private static T? FindAncestor<T>(DependencyObject? node) where T : DependencyObject
+    {
+        while (node is not null and not T) node = node is Visual ? VisualTreeHelper.GetParent(node) : LogicalTreeHelper.GetParent(node);
+        return node as T;
     }
 
     private void RenameTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -855,3 +917,6 @@ public partial class InstalledPage : Page
         ViewModel.CommitRenameCommand.Execute(section);
     }
 }
+
+// What a drag between groups carries: the mod dragged, or every picked mod when it was one of them.
+internal sealed record DraggedMods(IReadOnlyList<InstalledModCardViewModel> Mods);

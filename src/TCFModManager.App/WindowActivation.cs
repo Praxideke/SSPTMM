@@ -40,6 +40,39 @@ internal static class WindowActivation
         window.Focus();
     }
 
+    // Fork (1.4.3): the taskbar button flashes until the window is brought forward - for a download
+    // queue that finished while it was minimised or behind other windows.
+    public static void Flash(Window window)
+    {
+        var handle = new WindowInteropHelper(window).Handle;
+        if (handle == IntPtr.Zero) return;
+
+        var info = new FlashInfo
+        {
+            Size = (uint)Marshal.SizeOf<FlashInfo>(),
+            Window = handle,
+            Flags = FlashTray | FlashUntilForeground,
+        };
+        FlashWindowEx(ref info);
+    }
+
+    private const uint FlashTray = 0x2;
+    private const uint FlashUntilForeground = 0xC;
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct FlashInfo
+    {
+        public uint Size;
+        public IntPtr Window;
+        public uint Flags;
+        public uint Count;
+        public uint Timeout;
+    }
+
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool FlashWindowEx(ref FlashInfo info);
+
     private const int SwRestore = 9;
 
     [DllImport("user32.dll")]

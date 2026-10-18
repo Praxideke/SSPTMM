@@ -59,7 +59,7 @@ internal sealed class SpModComments
 
         if (_comments is null)
         {
-            _comments = new WebView2 { DefaultBackgroundColor = System.Drawing.Color.FromArgb(0x1B, 0x28, 0x38) };
+            _comments = new WebView2 { DefaultBackgroundColor = Look.AppLook.DrawingColorFor(0xFF1B2838) };
             _host.Child = _comments;
 
             var started = await WebViews.InitializeAsync(_comments);

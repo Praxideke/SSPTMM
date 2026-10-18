@@ -84,6 +84,38 @@ public partial class PlayPage : Page
             IsEnabled = vm.SelectedProfile is not null && !vm.IsPlaying && !vm.IsGameRunning,
         });
 
+        // Fork (1.4.3): another PC's server - a Fika host, or a friend's. Only with Options > Play
+        // with Fika on, or on Automatic with Fika installed.
+        if (vm.OtherServersOn)
+        {
+            menu.Items.Add(new Separator());
+            if (vm.IsRemoteServer)
+            {
+                menu.Items.Add(new MenuItem
+                {
+                    Header = Strings.Play_RemoteReloadProfiles,
+                    Command = vm.LoadRemoteProfilesCommand,
+                    IsEnabled = !vm.IsPlaying,
+                });
+            }
+
+            menu.Items.Add(new MenuItem
+            {
+                Header = Strings.Play_RemoteAddServer,
+                ToolTip = Strings.Play_RemoteAddServerToolTip,
+                Command = vm.AddPlayServerCommand,
+                IsEnabled = !vm.IsPlaying,
+            });
+            if (vm.CanRemovePlayServer)
+            {
+                menu.Items.Add(new MenuItem
+                {
+                    Header = Strings.Play_RemoteRemoveServer,
+                    Command = vm.RemovePlayServerCommand,
+                });
+            }
+        }
+
         menu.Items.Add(new Separator());
 
         menu.Items.Add(new MenuItem

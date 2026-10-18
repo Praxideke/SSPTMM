@@ -66,13 +66,17 @@ public partial class ModUpdateDialogViewModel : LocalizedViewModel
     public string? ModPageUrl => _mod.IsAddon ? _catalogAddon?.DetailUrl : _catalogMod?.DetailUrl;
 
     //
-    // A disabled mod's install record points at folders it no longer occupies, so updating or
-    // redownloading it would place files where nothing is loading them and leave the old copy
-    // behind in the ".disabled" folder. Both buttons are hidden until it's enabled again.
+    // A disabled mod's install record points at folders it no longer occupies. Fork (1.4.3): so the
+    // queue switches it on for the update and off again after (KeepDisabled), and it stays disabled.
+    // Not a mod sharing its folder with another: which files are its own isn't known for the new
+    // version, so both buttons are hidden until it's enabled again.
     //
     public bool IsModDisabled => _mod.IsDisabled;
 
-    public string DisabledNotice => Text(Strings.ModUpdate_DisabledNoticeFormat, _mod.DisplayTitle);
+    private bool Blocked => _mod is { IsDisabled: true, SharedFolderParts: not null };
+
+    public string DisabledNotice => Text(
+        Blocked ? Strings.ModUpdate_DisabledNoticeFormat : Strings.ModUpdate_StaysDisabledFormat, _mod.DisplayTitle);
 
     //
     // Which button is shown is decided by the SELECTED version against the installed one, not by
@@ -83,7 +87,7 @@ public partial class ModUpdateDialogViewModel : LocalizedViewModel
     // said "Update" while installing a downgrade. The list has always let you choose any version -
     // only the wording was wrong.
     //
-    private bool CanAct => SelectedVersion is not null && !_mod.IsDisabled;
+    private bool CanAct => SelectedVersion is not null && !Blocked;
 
     public bool ShowUpdateButton =>
         CanAct && ModVersionComparer.IsUpdateAvailable(InstalledVersionText, SelectedVersion?.VersionText) == true;
@@ -333,7 +337,7 @@ public partial class ModUpdateDialogViewModel : LocalizedViewModel
         }
     }
 
-    private bool CanUpdate() => SelectedVersion is not null && !_mod.IsDisabled;
+    private bool CanUpdate() => SelectedVersion is not null && !Blocked;
 
     // Queues the currently selected version for download and install.
     [RelayCommand(CanExecute = nameof(CanUpdate))]
@@ -463,7 +467,8 @@ public partial class ModUpdateDialogViewModel : LocalizedViewModel
         AppServices.DownloadQueue.Enqueue(
             target, selectedVersion.VersionText, installPath, () => Task.FromResult<ModVersion?>(selectedVersion.Raw),
             totalBytes: selectedVersion.Raw.ContentLength,
-            downloadOnly: downloadOnly);
+            downloadOnly: downloadOnly,
+            keepDisabled: _mod.IsDisabled ? [.. _mod.Entries.Where(e => e.IsDisabled)] : null);
         StatusMessage = Text(Strings.ModUpdate_QueuedFormat, _mod.DisplayTitle, selectedVersion.VersionText);
         MadeChanges = true;
     }

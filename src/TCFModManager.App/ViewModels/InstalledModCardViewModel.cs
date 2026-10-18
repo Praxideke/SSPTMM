@@ -136,13 +136,20 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     public string? DeclaredName { get; init; }
 
     // The title the card leads with: the real sp-mod.com display name when there is one, then the
-    // name the mod declares for itself, otherwise the folder/package Name.
-    public string DisplayTitle => MatchedModName ?? DeclaredName ?? Name;
+    // name the mod declares for itself, otherwise the folder/package Name. Fork (1.4.3): a name the
+    // user gave it comes before all of them.
+    public string DisplayTitle => CustomName ?? MatchedModName ?? DeclaredName ?? Name;
+
+    // Fork (1.4.3): the name given with Rename... (ModNicknames); null for the mod's own.
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(DisplayTitle))]
+    [NotifyPropertyChangedFor(nameof(FolderNameIfDifferent))]
+    private string? _customName;
 
     // The raw installed folder/package name, shown as a secondary line under DisplayTitle only
     // when the title came from somewhere else and differs from the folder name.
     public string? FolderNameIfDifferent =>
-        (MatchedModName ?? DeclaredName) is { } title && !string.Equals(title, Name, StringComparison.OrdinalIgnoreCase)
+        (CustomName ?? MatchedModName ?? DeclaredName) is { } title && !string.Equals(title, Name, StringComparison.OrdinalIgnoreCase)
             ? Name
             : null;
 
@@ -186,6 +193,40 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     // there's no newer or no compatible newer version. Null when it can't be determined (no catalog match,
     // unparsable version, or no installed SPT version detected).
     public bool? UpdateAvailable { get; init; }
+
+    // Fork (1.4.3): the update you chose to skip (SkippedUpdates) - UpdateAvailable is false for it.
+    // Null when none is skipped, or a newer one than it has come out.
+    public string? SkippedUpdateVersion { get; init; }
+
+    public string? SkippedUpdateNote => SkippedUpdateVersion is { } skipped && !IsDisabled
+        ? Text(Strings.Installed_SkippedUpdateFormat, skipped)
+        : null;
+
+    // Fork (1.4.3): your note on this mod (ModNotes); null for none.
+    [ObservableProperty]
+    private string? _note;
+
+    // Fork (1.4.3): the colour given to this mod (ModOwnColors) and to its group, "#RRGGBB" or null.
+    // Its own is drawn in place of its group's.
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Color), nameof(ColorBrush), nameof(HasColor), nameof(ColorToolTip))]
+    private string? _ownColor;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Color), nameof(ColorBrush), nameof(HasColor), nameof(ColorToolTip))]
+    private string? _groupColor;
+
+    public string? Color => OwnColor ?? GroupColor;
+
+    public System.Windows.Media.SolidColorBrush? ColorBrush => ModOwnColors.BrushOf(Color);
+
+    public bool HasColor => Color is not null;
+
+    public string? ColorToolTip => OwnColor is { } own
+        ? Text(Strings.Installed_ColorFormat, ModOwnColors.NameOf(own))
+        : GroupColor is { } group
+            ? Text(Strings.Installed_ColorFromGroupFormat, ModOwnColors.NameOf(group), GroupName)
+            : null;
 
     // Client half's folder (or, for a loose top-level DLL, the DLL itself). Null when there's no client half.
     public string? ClientFolderPath { get; init; }
@@ -235,6 +276,34 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     // when IsAddon is true - the two are separate sequences, so never compare it to a mod id
     // without checking IsAddon first.
     public int? ModId { get; init; }
+
+    // Fork (1.4.2): a second card over a folder another card already stands for, because this app
+    // installed two mods into it (SharedFolderCards). Left out wherever cards are counted by folder.
+    public bool IsFolderCompanion { get; private set; }
+
+    // On every card over such a folder: which other mods are in it, and what switching it does.
+    public string? SharedFolderNote => SharedFolderWith is { } names
+        ? Text(SharedFolderParts is null ? Strings.Installed_SharedFolderByHandFormat : Strings.Installed_SharedFolderFormat, names)
+        : null;
+
+    // The other mods' names in it, as they are shown - renames included.
+    public string? SharedFolderWith => _folderMates is { } mates ? TextLists.Join([.. mates.Select(c => c.DisplayTitle)]) : null;
+
+    private IReadOnlyList<InstalledModCardViewModel>? _folderMates;
+
+    partial void OnCustomNameChanged(string? value)
+    {
+        foreach (var mate in _folderMates ?? [])
+        {
+            mate.OnPropertyChanged(nameof(SharedFolderWith));
+            mate.OnPropertyChanged(nameof(SharedFolderNote));
+            mate.OnPropertyChanged(nameof(StatusTooltip));
+        }
+    }
+
+    // The files this card's mod has in a folder it shares, per entry (the folder, or its copy under
+    // ".disabled"), relative to it - what switching it moves. Null when they can't be told apart.
+    public IReadOnlyList<(InstalledMod Entry, IReadOnlyList<string> Files)>? SharedFolderParts { get; private set; }
 
     // Fork: ModId when it is a mod's (for the right-click menu); null for an addon.
     public int? CatalogModId => IsAddon ? null : ModId;
@@ -442,6 +511,7 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(GroupLabel))]
     [NotifyPropertyChangedFor(nameof(IsGrouped))]
+    [NotifyPropertyChangedFor(nameof(ColorToolTip))]
     private string? _groupName;
 
     // The same assignment as GroupName, by id - what the Group filter matches on, since two groups
@@ -528,6 +598,7 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
         ?? ConflictSummary
         ?? NotForSptNote
         ?? HeldBackNote
+        ?? SharedFolderNote
         ?? DownloadSummary
         ?? (HasDuplicateFolders
             ? Strings.Installed_StatusDuplicate
@@ -625,17 +696,18 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             .Select(g => g.Match!.Id)
             .ToHashSet();
 
-        var cards = merged
-            .Select(g =>
-            {
-                var record = g.Match is not null && recordsByModId.TryGetValue(g.Match.Id, out var found)
-                    && (!ownedRecords.Contains(g.Match.Id) || HoldsRecordFolder(g.Entries, found))
-                    ? found
-                    : null;
-
-                return BuildCard(g.Entries, g.Match, installedSptVersion, record, addonsByParent);
-            })
+        var cardRecords = merged
+            .Select(g => g.Match is not null && recordsByModId.TryGetValue(g.Match.Id, out var found)
+                && (!ownedRecords.Contains(g.Match.Id) || HoldsRecordFolder(g.Entries, found))
+                ? found
+                : null)
             .ToList();
+
+        var cards = merged
+            .Select((g, i) => BuildCard(g.Entries, g.Match, installedSptVersion, cardRecords[i], addonsByParent))
+            .ToList();
+
+        AddSharedFolderCards(merged, cards, cardRecords, modRecords, index, installedSptVersion, addonsByParent);
 
         if (addonFolders.Count == 0) return cards;
 
@@ -716,6 +788,15 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             detail = (nameof(Strings.Installed_DetailFilesReportFormat), [fileVersion]);
         }
 
+        // Fork (1.4.3): an update you skipped is not one, until a newer version than it comes out.
+        var addonUpdate = ModVersionComparer.IsUpdateAvailable(installedVersion, latest?.Version);
+        string? addonSkipped = null;
+        if (addonUpdate == true && SkippedUpdates.Skips(record.ModId, isAddon: true, latest?.Version))
+        {
+            addonSkipped = latest?.Version;
+            addonUpdate = false;
+        }
+
         return new InstalledModCardViewModel
         {
             Name = client?.Name ?? server!.Name,
@@ -735,7 +816,8 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             Author = addon?.Owner?.Name,
             ContainsAds = addon?.ContainsAds == true,
             ContainsAiContent = addon?.ContainsAiContent == true,
-            UpdateAvailable = ModVersionComparer.IsUpdateAvailable(installedVersion, latest?.Version),
+            UpdateAvailable = addonUpdate,
+            SkippedUpdateVersion = addonSkipped,
             ClientFolderPath = client?.FolderPath,
             ServerFolderPath = server?.FolderPath,
             ClientFolderName = client?.Name,
@@ -750,6 +832,138 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             Entries = entries,
         };
     }
+
+    //
+    // Fork (1.4.2): two mods in one folder - SPT Stance Overhaul and SPT Realism Common Lib both put
+    // their DLL in BepInEx\plugins\Realism. The scan sees one folder, so the matching above gives it
+    // one card, and the other mod looked as if it was never installed: its Subscribe never stuck,
+    // and whatever needed it queued it again every time.
+    //
+    // Each other mod this app installed there, whose placed files are still there, gets a card of
+    // its own (IsFolderCompanion). Every card over the folder then holds only the entries its own
+    // files are in, and SharedFolderParts - those files - so switching one on or off moves just its
+    // files (ModDisableService.ApplyFiles), and Update and Unsubscribe go by its record as ever. A
+    // card with no record there owns whatever in the folder no record placed.
+    //
+    // Installed by hand, there are no placed files to go on: another mod the folder's DLLs declare
+    // (by GUID) gets a card too, over the whole folder, and switching or removing one takes both -
+    // which SharedFolderNote says. Not done when this app installed the folder's mod: a pack that
+    // carries a copy of another mod's DLL would grow a card for it.
+    //
+    private static void AddSharedFolderCards(
+        List<(List<InstalledMod> Entries, Mod? Match)> merged,
+        List<InstalledModCardViewModel> cards,
+        List<InstalledModRecord?> cardRecords,
+        List<InstalledModRecord> modRecords,
+        CatalogIndex index,
+        string? installedSptVersion,
+        Dictionary<int, int> addonsByParent)
+    {
+        var shown = cards.Where(c => c.ModId is not null).Select(c => c.ModId!.Value).ToHashSet();
+
+        for (var i = 0; i < merged.Count; i++)
+        {
+            var (entries, match) = merged[i];
+            var folders = entries.SelectMany(FolderNamesOf).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+
+            List<string> PlacedHere(InstalledModRecord record) => folders
+                .SelectMany(folder => InstalledModFolders.PlacedFilesUnder(record, folder))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            var others = new List<(InstalledModRecord Record, List<string> Files, List<(InstalledMod Entry, IReadOnlyList<string> Files)> Parts)>();
+            foreach (var record in modRecords)
+            {
+                if (!record.IsAppManaged || shown.Contains(record.ModId)) continue;
+
+                // Only when its files are found inside the folders here: a loose DLL counts as
+                // present but has no folder to look in, and a file can go between the two looks
+                // (an install running) - either way there would be nothing to build its card from.
+                var files = PlacedHere(record);
+                if (files.Count == 0 || !PlacedFilesStillPresent(entries, files)) continue;
+
+                var parts = PartsOf(entries, files);
+                if (parts.Count > 0) others.Add((record, files, parts));
+            }
+
+            var byHand = cardRecords[i] is null
+                ? entries
+                    .SelectMany(e => e.AllGuids)
+                    .Select(guid => index.ByGuid.GetValueOrDefault(guid))
+                    .OfType<Mod>()
+                    .Where(m => m.Id != match?.Id && !shown.Contains(m.Id) && others.All(o => o.Record.ModId != m.Id))
+                    .DistinctBy(m => m.Id)
+                    .ToList()
+                : [];
+
+            if (others.Count == 0 && byHand.Count == 0) continue;
+
+            var owner = cards[i];
+            var companions = new List<InstalledModCardViewModel>();
+
+            foreach (var (record, _, parts) in others)
+            {
+                var mod = LocalArchive.IsLocalId(record.ModId)
+                    ? new Mod { Id = record.ModId, Name = record.Name, Guid = record.Guid }
+                    : index.ById.GetValueOrDefault(record.ModId)
+                        ?? new Mod { Id = record.ModId, Name = record.Name, Guid = record.Guid };
+
+                var card = BuildCard([.. parts.Select(p => p.Entry)], mod, installedSptVersion, record, addonsByParent);
+                card.SharedFolderParts = parts;
+                companions.Add(card);
+                shown.Add(record.ModId);
+            }
+
+            foreach (var mod in byHand)
+            {
+                companions.Add(BuildCard(entries, mod, installedSptVersion, null, addonsByParent));
+                shown.Add(mod.Id);
+            }
+
+            // The folder's own card, down to its own files - when anything else here is told apart
+            // by its files at all.
+            if (others.Count > 0)
+            {
+                var ownerRecord = cardRecords[i];
+                var ownerFiles = ownerRecord is { IsAppManaged: true }
+                    ? PlacedHere(ownerRecord)
+                    : FilesIn(entries).Except(others.SelectMany(o => o.Files), StringComparer.OrdinalIgnoreCase).ToList();
+
+                var ownerParts = PartsOf(entries, ownerFiles);
+                if (ownerParts.Count > 0)
+                {
+                    owner = BuildCard([.. ownerParts.Select(p => p.Entry)], match, installedSptVersion, ownerRecord, addonsByParent);
+                    owner.SharedFolderParts = ownerParts;
+                    cards[i] = owner;
+                }
+            }
+
+            var everyone = companions.Prepend(owner).ToList();
+            foreach (var card in everyone) card._folderMates = [.. everyone.Where(c => c != card)];
+
+            foreach (var card in companions) card.IsFolderCompanion = true;
+            cards.AddRange(companions);
+        }
+    }
+
+    // For each entry (the folder, and its copy under ".disabled" when part of it is switched off),
+    // which of these files are in it. Entries holding none are left out.
+    private static List<(InstalledMod Entry, IReadOnlyList<string> Files)> PartsOf(List<InstalledMod> entries, IReadOnlyList<string> files) =>
+        entries
+            .Where(e => Directory.Exists(e.FolderPath))
+            .Select(e => (Entry: e, Files: (IReadOnlyList<string>)files
+                .Where(f => File.Exists(Path.Combine(e.FolderPath, f.Replace('/', Path.DirectorySeparatorChar))))
+                .ToList()))
+            .Where(p => p.Files.Count > 0)
+            .ToList();
+
+    // Every file in these folders, relative to its folder with '/' separators.
+    private static IEnumerable<string> FilesIn(List<InstalledMod> entries) =>
+        entries
+            .Where(e => Directory.Exists(e.FolderPath))
+            .SelectMany(e => Directory.EnumerateFiles(e.FolderPath, "*", SearchOption.AllDirectories)
+                .Select(f => Path.GetRelativePath(e.FolderPath, f).Replace('\\', '/')))
+            .Distinct(StringComparer.OrdinalIgnoreCase);
 
     // Maps every folder a record identifies - whether an app-managed install placed it or a manual
     // version override names it - to that record. A folder claimed by two different mods is dropped
@@ -1367,6 +1581,14 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             ? SptVersionMatcher.IsSatisfiedBy(updateTarget?.SptVersionConstraint, installedSptVersion)
             : isNewer;
 
+        // Fork (1.4.3): an update you skipped is not one, until a newer version than it comes out.
+        string? skipped = null;
+        if (updateAvailable == true && match is not null && SkippedUpdates.Skips(match.Id, isAddon: false, updateTarget?.Version))
+        {
+            skipped = updateTarget?.Version;
+            updateAvailable = false;
+        }
+
         return new InstalledModCardViewModel
         {
             // Client's folder/package name wins when client and server disagree.
@@ -1392,6 +1614,7 @@ public sealed partial class InstalledModCardViewModel : LocalizedViewModel
             ContainsAds = match?.ContainsAds == true,
             ContainsAiContent = match?.ContainsAiContent == true,
             UpdateAvailable = updateAvailable,
+            SkippedUpdateVersion = skipped,
             ClientFolderPath = client?.FolderPath,
             ServerFolderPath = server?.FolderPath,
             ClientFolderName = client?.Name,

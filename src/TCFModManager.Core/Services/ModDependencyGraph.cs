@@ -3,7 +3,8 @@ using TCFModManager.Core.Models;
 namespace TCFModManager.Core.Services;
 
 // One mod needing another, as declared by the dependent itself.
-public sealed record ModDependencyLink(InstalledMod Dependent, InstalledMod Dependency, bool IsSoft);
+/// <summary>Identifier: the GUID (or server mod name) the dependent declared, which Dependency provides.</summary>
+public sealed record ModDependencyLink(InstalledMod Dependent, InstalledMod Dependency, bool IsSoft, string? Identifier = null);
 
 /// <summary>Fork: a hard dependency a mod declares that nothing enabled provides: not installed at
 /// all (<paramref name="DisabledProvider"/> null), or installed only in a disabled folder.</summary>
@@ -89,7 +90,7 @@ public sealed class ModDependencyGraph
                 {
                     if (ReferenceEquals(dependency, mod)) continue;
 
-                    var link = new ModDependencyLink(mod, dependency, declared.IsSoft);
+                    var link = new ModDependencyLink(mod, dependency, declared.IsSoft, declared.Identifier);
                     List(graph._dependencies, mod).Add(link);
                     List(graph._dependents, dependency).Add(link);
                 }
@@ -107,6 +108,39 @@ public sealed class ModDependencyGraph
     public IReadOnlyList<ModDependencyLink> DependenciesOf(InstalledMod mod) =>
         _dependencies.TryGetValue(mod, out var links) ? links : [];
 
+    //
+    // Fork (1.4.3): <paramref name="items"/> put so each comes after what it needs among them, hard
+    // or soft - the order a batch of updates installs in, so a library is updated before the mods
+    // that use it. Otherwise they stay in the order given; a cycle is broken where it closes.
+    //
+    public IReadOnlyList<T> DependencyOrder<T>(IReadOnlyList<T> items, Func<T, IEnumerable<InstalledMod>> entries)
+    {
+        var owner = new Dictionary<InstalledMod, int>();
+        for (var i = 0; i < items.Count; i++)
+            foreach (var entry in entries(items[i])) owner.TryAdd(entry, i);
+
+        var placed = new bool[items.Count];
+        var visiting = new bool[items.Count];
+        var order = new List<T>(items.Count);
+
+        void Visit(int i)
+        {
+            if (placed[i] || visiting[i]) return;
+            visiting[i] = true;
+
+            foreach (var entry in entries(items[i]))
+                foreach (var link in DependenciesOf(entry))
+                    if (owner.TryGetValue(link.Dependency, out var j) && j != i) Visit(j);
+
+            visiting[i] = false;
+            placed[i] = true;
+            order.Add(items[i]);
+        }
+
+        for (var i = 0; i < items.Count; i++) Visit(i);
+        return order;
+    }
+
     // Identifiers a mod declares that nothing installed provides.
     public IReadOnlyList<string> UnresolvedOf(InstalledMod mod) =>
         _unresolved.TryGetValue(mod, out var identifiers) ? identifiers : [];
@@ -121,8 +155,13 @@ public sealed class ModDependencyGraph
     // disabled, following the chain outward - a mod broken by a root, then whatever that mod
     // breaks in turn. The roots themselves are never included.
     //
-    public IReadOnlyList<ModDependencyLink> DisableImpact(IEnumerable<InstalledMod> roots) =>
-        Walk(roots, from => DependentsOf(from).Where(link => !link.Dependent.IsDisabled), link => link.Dependent);
+    // Fork (1.4.3): <paramref name="follow"/> leaves out links that don't break - a folder two mods
+    // share, one switched off, still provides what the other declares.
+    //
+    public IReadOnlyList<ModDependencyLink> DisableImpact(
+        IEnumerable<InstalledMod> roots, Func<ModDependencyLink, bool>? follow = null) =>
+        Walk(roots, from => DependentsOf(from).Where(link => !link.Dependent.IsDisabled && (follow?.Invoke(link) ?? true)),
+            link => link.Dependent);
 
     //
     // Every currently-disabled mod that <paramref name="roots"/> need in order to work once

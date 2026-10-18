@@ -18,6 +18,9 @@ Collections are lists of mods: public ones from sp-mod.com, and your own.
   another SPT asks **For My SPT** or **For the Collection's SPT**. You see what will change first,
   with **Add Only** or **Overwrite My Subscriptions**.
 - **Unsubscribe from all** sets the items aside (disables them) or removes them.
+- **Update all**, there when any of its items you have installed has an update, updates them to the
+  version for your SPT. The arrow beside it, or a right-click on it, lists them so you can update
+  some and not others, as in [Subscribed items](Subscribed-Items).
 - **Save to Collection** makes your own copy. **Favorite** keeps it on Your Items > Favorites, which
   marks the ones that changed since you last looked.
 

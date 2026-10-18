@@ -18,6 +18,7 @@
 -->
 <UserControl
     x:Class="TCFModManager.App.Views.WorkshopItemView"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -58,7 +59,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Row" Property="Background" Value="#555485B7" />
+                                <Setter TargetName="Row" Property="Background" Value="{look:Brush #555485B7}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -238,7 +239,7 @@
                                         Stretch="Uniform"
                                         Url="{Binding SelectedMedia.Thumbnail}" />
                                     <Grid Width="68" Height="48" Visibility="{Binding SelectedIsVideo, Converter={StaticResource TrueToVisible}}">
-                                        <Border Background="#E6212121" CornerRadius="12" />
+                                        <Border Background="{look:Brush #E6212121}" CornerRadius="12" />
                                         <Path Margin="4,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M0,0 L18,11 L0,22 Z" Fill="White" />
                                     </Grid>
                                 </Grid>
@@ -268,7 +269,7 @@
                                                                 <ControlTemplate TargetType="Button">
                                                                     <Grid Background="Black">
                                                                         <ContentPresenter />
-                                                                        <Border x:Name="Frame" BorderBrush="#97C0E3" BorderThickness="0" />
+                                                                        <Border x:Name="Frame" BorderBrush="{look:Brush #97C0E3}" BorderThickness="0" />
                                                                     </Grid>
                                                                     <ControlTemplate.Triggers>
                                                                         <DataTrigger Value="True">
@@ -444,7 +445,7 @@
                                     <Run Foreground="{StaticResource SteamTextDim}" Text="{Binding Card.DisplayReleaseVersion, Mode=OneWay, StringFormat='v{0}'}" />
                                 </TextBlock>
 
-                                <Rectangle Height="1" Margin="0,8,0,10" Fill="#335485B7" />
+                                <Rectangle Height="1" Margin="0,8,0,10" Fill="{look:Brush #335485B7}" />
 
                                 <Grid TextElement.FontSize="13" TextElement.Foreground="{StaticResource SteamTextDim}">
                                     <Grid.ColumnDefinitions>
@@ -464,7 +465,7 @@
                                     <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding UpdatedText}" ToolTip="{Binding UpdatedToolTip}" Visibility="{Binding UpdatedAt, Converter={StaticResource NullToCollapsed}}" />
                                 </Grid>
 
-                                <Button Margin="0,4,0,0" HorizontalAlignment="Left" Style="{StaticResource SteamLinkButton}" Foreground="#2F89BC" Command="{Binding ShowChangeNotesCommand}">
+                                <Button Margin="0,4,0,0" HorizontalAlignment="Left" Style="{StaticResource SteamLinkButton}" Foreground="{look:Brush #2F89BC}" Command="{Binding ShowChangeNotesCommand}">
                                     <TextBlock FontSize="13">
                                         <Run Text="{Binding ChangeNotesLink, Mode=OneWay}" />
                                         <Run Foreground="#E5E5E5" Text="{loc:Str Item_View}" />
@@ -673,7 +674,7 @@
                                  items, a tick at the left and a close X at the top right. -->
                             <Border
                                 Padding="10"
-                                Background="#CC4080B7"
+                                Background="{look:Brush #CC4080B7}"
                                 Visibility="{Binding JustSubscribed, Converter={StaticResource TrueToVisible}}">
                                 <DockPanel>
                                     <Button
@@ -698,8 +699,8 @@
                                             </ControlTemplate>
                                         </Button.Template>
                                     </Button>
-                                    <ui:SymbolIcon Margin="0,0,10,0" VerticalAlignment="Center" FontSize="20" Foreground="#66C0F4" Symbol="Checkmark20" />
-                                    <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="#66C0F4" TextWrapping="Wrap">
+                                    <ui:SymbolIcon Margin="0,0,10,0" VerticalAlignment="Center" FontSize="20" Foreground="{look:Brush #66C0F4}" Symbol="Checkmark20" />
+                                    <TextBlock VerticalAlignment="Center" FontSize="14" Foreground="{look:Brush #66C0F4}" TextWrapping="Wrap">
                                         <Run Text="{Binding JustSubscribedBefore, Mode=OneWay}" /><Hyperlink Command="{Binding OpenSubscriptionsCommand}" Foreground="White" TextDecorations="None"><Run Text="{loc:Str Item_JustSubscribedLink}" /></Hyperlink><Run Text="{Binding JustSubscribedAfter, Mode=OneWay}" />
                                     </TextBlock>
                                 </DockPanel>
@@ -722,7 +723,7 @@
                                                 FocusVisualStyle="{x:Null}">
                                                 <Button.Template>
                                                     <ControlTemplate TargetType="Button">
-                                                        <Border x:Name="Row" Height="30" Margin="0,0,0,1" Padding="5,0" Background="#335485B7">
+                                                        <Border x:Name="Row" Height="30" Margin="0,0,0,1" Padding="5,0" Background="{look:Brush #335485B7}">
                                                             <DockPanel VerticalAlignment="Center">
                                                                 <TextBlock Margin="12,0,0,0" DockPanel.Dock="Right" FontSize="14" Foreground="#99A1A8" Text="{Binding CountText}" />
                                                                 <TextBlock FontSize="14" FontWeight="Bold" Foreground="White" TextTrimming="CharacterEllipsis" Text="{Binding Name}" />
@@ -730,7 +731,7 @@
                                                         </Border>
                                                         <ControlTemplate.Triggers>
                                                             <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter TargetName="Row" Property="Background" Value="#4D75BAFF" />
+                                                                <Setter TargetName="Row" Property="Background" Value="{look:Brush #4D75BAFF}" />
                                                             </Trigger>
                                                         </ControlTemplate.Triggers>
                                                     </ControlTemplate>
@@ -752,7 +753,7 @@
                                     FocusVisualStyle="{x:Null}">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
-                                            <Border x:Name="Row" Height="30" Padding="5,0" Background="#335485B7">
+                                            <Border x:Name="Row" Height="30" Padding="5,0" Background="{look:Brush #335485B7}">
                                                 <DockPanel VerticalAlignment="Center">
                                                     <TextBlock Margin="12,0,0,0" DockPanel.Dock="Right" FontSize="14" Foreground="#99A1A8" Text="{loc:Str Item_AddonsOpen}" />
                                                     <TextBlock FontSize="14" FontWeight="Bold" Foreground="White" TextTrimming="CharacterEllipsis" Text="{Binding AddonsLinkText}" />
@@ -760,7 +761,7 @@
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="Row" Property="Background" Value="#4D75BAFF" />
+                                                    <Setter TargetName="Row" Property="Background" Value="{look:Brush #4D75BAFF}" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -769,7 +770,7 @@
                             </StackPanel>
 
                             <!-- DESCRIPTION, with the rule over it. -->
-                            <Rectangle Height="1" Margin="0,26,0,0" Fill="#1F2E40" />
+                            <Rectangle Height="1" Margin="0,26,0,0" Fill="{look:Brush #1F2E40}" />
                             <TextBlock Style="{StaticResource SteamDescriptionTitle}" Text="{loc:Str Item_DescriptionHeader}" />
                             <!-- Steam's description: 14px #ACB2B8 on 20px lines. The renderer
                                  colours the document from TextFillColorPrimaryBrush, so the local
@@ -819,7 +820,7 @@
                                                             </Border>
                                                             <ControlTemplate.Triggers>
                                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter TargetName="Row" Property="Background" Value="#555485B7" />
+                                                                    <Setter TargetName="Row" Property="Background" Value="{look:Brush #555485B7}" />
                                                                 </Trigger>
                                                             </ControlTemplate.Triggers>
                                                         </ControlTemplate>
@@ -836,7 +837,7 @@
                                                             Margin="8,0,0,0"
                                                             VerticalAlignment="Center"
                                                             FontSize="16"
-                                                            Foreground="#66C0F4"
+                                                            Foreground="{look:Brush #66C0F4}"
                                                             Symbol="Checkmark16"
                                                             ToolTip="{loc:Str Item_Subscribed}"
                                                             Visibility="{Binding IsInstalled, Converter={StaticResource TrueToVisible}}" />
@@ -846,7 +847,7 @@
                                                             Margin="8,0,0,0"
                                                             VerticalAlignment="Center"
                                                             FontSize="16"
-                                                            Foreground="#C6D4DF"
+                                                            Foreground="{look:Brush #C6D4DF}"
                                                             Symbol="PlugDisconnected24"
                                                             ToolTip="{loc:Str Item_RequiredDisabled}"
                                                             Visibility="{Binding IsDisabled, Converter={StaticResource TrueToVisible}}" />
@@ -979,8 +980,8 @@
                                                     Orientation="Horizontal"
                                                     ToolTip="{Binding VerifiedToolTip}"
                                                     Visibility="{Binding IsVerified, Converter={StaticResource TrueToVisible}}">
-                                                    <ui:SymbolIcon FontSize="18" Filled="True" Foreground="#60A5FA" Symbol="ShieldCheckmark20" />
-                                                    <TextBlock Margin="4,0,0,0" VerticalAlignment="Center" FontSize="13" Foreground="#60A5FA" Text="{loc:Str Item_VersionVerified}" />
+                                                    <ui:SymbolIcon FontSize="18" Filled="True" Foreground="{look:Brush #60A5FA}" Symbol="ShieldCheckmark20" />
+                                                    <TextBlock Margin="4,0,0,0" VerticalAlignment="Center" FontSize="13" Foreground="{look:Brush #60A5FA}" Text="{loc:Str Item_VersionVerified}" />
                                                 </StackPanel>
                                             </StackPanel>
                                             <WrapPanel Margin="0,6,0,0">
@@ -1082,7 +1083,7 @@
                      scroll themselves. -->
                 <StackPanel x:Name="CommentsTab" Visibility="{Binding IsCommentsShown, Converter={StaticResource TrueToVisible}}">
                     <TextBlock Margin="0,0,0,8" FontSize="12" Foreground="{StaticResource SteamTextDim}" Text="{loc:Str Item_CommentsSignIn}" Visibility="{Binding Visibility, ElementName=CommentsHost}" />
-                    <Border x:Name="CommentsHost" Background="#1B2838" />
+                    <Border x:Name="CommentsHost" Background="{look:Brush #1B2838}" />
                     <TextBlock x:Name="CommentsOff" Margin="0,20,0,0" HorizontalAlignment="Center" Foreground="{StaticResource SteamText}" Text="{loc:Str Item_CommentsNone}" Visibility="Collapsed" />
                     <StackPanel x:Name="CommentsFallback" Margin="0,20,0,0" HorizontalAlignment="Center" Visibility="Collapsed">
                         <TextBlock MaxWidth="520" Foreground="{StaticResource SteamText}" TextAlignment="Center" TextWrapping="Wrap" Text="{loc:Str Item_CommentsUnavailable}" />
@@ -1127,7 +1128,7 @@
                                     <TextBlock
                                         FontFamily="{StaticResource SteamFontLight}"
                                         FontSize="20"
-                                        Foreground="#67C1F5"
+                                        Foreground="{look:Brush #67C1F5}"
                                         TextWrapping="Wrap"
                                         Text="{Binding Headline}"
                                         Visibility="{Binding Headline, Converter={StaticResource NullToCollapsed}}" />
@@ -1147,7 +1148,7 @@
                                             Background="Transparent"
                                             BorderThickness="0"
                                             FontSize="14"
-                                            Foreground="#CFD8E1"
+                                            Foreground="{look:Brush #CFD8E1}"
                                             Focusable="False"
                                             HorizontalScrollBarVisibility="Disabled"
                                             IsDocumentEnabled="True"

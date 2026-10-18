@@ -284,9 +284,11 @@
             // worse than a missing key: Plural() falls back to _other and then to the base key,
             // neither of which a translation holds, so it renders the key name rather than English.
             //
-            var lonely = keys.Where(k => baseOf(k) != k)
-                .GroupBy(baseOf)
-                .Count(g => g.Count() == 1);
+            var families = keys.Where(k => baseOf(k) != k).GroupBy(baseOf).ToList();
+            var lonely = families.Count(g => g.Count() == 1);
+
+            // A language with a single form (Chinese) has nothing but such families.
+            if (lonely == families.Count) lonely = 0;
 
             var line = tag + ": " + (english.Count - missing) + "/" + english.Count;
             if (missing > 0) line += ", " + missing + " missing";

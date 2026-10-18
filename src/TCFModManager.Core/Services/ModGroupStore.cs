@@ -47,10 +47,15 @@ public sealed class ModGroupStore
     // lookups don't care about case.
     public static string KeyFor(string modName) => modName.Trim().ToLowerInvariant();
 
-    // Adds a new group at the end of the sort order and returns it.
+    // Adds a new group at the end of the sort order and returns it - or, when a group already has
+    // that name (case aside), returns that one instead of making a second of the same name.
     public ModGroup AddGroup(string name)
     {
         var data = Load();
+        name = name.Trim();
+        if (data.Groups.FirstOrDefault(g => string.Equals(g.Name.Trim(), name, StringComparison.OrdinalIgnoreCase)) is { } existing)
+            return existing;
+
         var group = new ModGroup
         {
             Id = Guid.NewGuid(),
@@ -73,6 +78,24 @@ public sealed class ModGroupStore
         Save(data);
     }
 
+    // The other group already called this (case and surrounding spaces aside), if any.
+    public ModGroup? NamedLike(string name, Guid except) =>
+        Load().Groups.FirstOrDefault(g => g.Id != except
+            && string.Equals(g.Name.Trim(), name.Trim(), StringComparison.OrdinalIgnoreCase));
+
+    // Fork (1.4.3): one group folded into another - its mods move over and it goes. Renaming a
+    // group to a name another already has offers this, rather than leaving two of one name.
+    public void MergeGroup(Guid fromId, Guid intoId)
+    {
+        var data = Load();
+        if (fromId == intoId || data.Groups.All(g => g.Id != intoId)) return;
+
+        foreach (var key in data.Assignments.Where(kvp => kvp.Value == fromId).Select(kvp => kvp.Key).ToList())
+            data.Assignments[key] = intoId;
+        data.Groups.RemoveAll(g => g.Id == fromId);
+        Save(data);
+    }
+
     // Removes the group; any mod assigned to it falls back to Ungrouped.
     public void DeleteGroup(Guid groupId)
     {
@@ -81,6 +104,17 @@ public sealed class ModGroupStore
         foreach (var key in data.Assignments.Where(kvp => kvp.Value == groupId).Select(kvp => kvp.Key).ToList())
             data.Assignments.Remove(key);
 
+        Save(data);
+    }
+
+    // Fork (1.4.3): the group's colour, "#RRGGBB" or null for none (see ModColors).
+    public void SetColor(Guid groupId, string? color)
+    {
+        var data = Load();
+        var group = data.Groups.FirstOrDefault(g => g.Id == groupId);
+        if (group is null) return;
+
+        group.Color = ModColors.Normalize(color);
         Save(data);
     }
 
@@ -120,15 +154,21 @@ public sealed class ModGroupStore
     }
 
     // Assigns modName to groupId, or clears its assignment (back to Ungrouped) when groupId is null.
-    public void AssignMod(string modName, Guid? groupId)
+    public void AssignMod(string modName, Guid? groupId) => AssignMods([modName], groupId);
+
+    // The same for several mods at once (several picked and dragged, or "Add to group" on them):
+    // one read and one write, so the file never holds half of them moved.
+    public void AssignMods(IEnumerable<string> modNames, Guid? groupId)
     {
         var data = Load();
-        var key = KeyFor(modName);
 
-        if (groupId is null)
-            data.Assignments.Remove(key);
-        else
-            data.Assignments[key] = groupId.Value;
+        foreach (var key in modNames.Select(KeyFor).Distinct())
+        {
+            if (groupId is null)
+                data.Assignments.Remove(key);
+            else
+                data.Assignments[key] = groupId.Value;
+        }
 
         Save(data);
     }

@@ -32,10 +32,6 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     // DefaultPageSize().
     private const int DefaultPageSizeValue = 12;
 
-    // Below this a card can't show its summary line without truncating it to uselessness. Only
-    // reachable on a very narrow window, where Columns is already 1.
-    private const double MinimumCardWidth = 240;
-
     /// <summary>Raised after RemoveAsync actually removes a mod from disk. Lets BrowseViewModel refresh its
     /// cards' install/update status dots. Static since InstalledViewModel is a fresh instance per navigation.</summary>
     public static event EventHandler? ModRemoved;
@@ -359,7 +355,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     // Width of one card slot in the Cards WrapPanel - see UpdateLayoutForWidth for why the cards
     // are no longer in a UniformGrid.
     [ObservableProperty]
-    private double _cardWidth = MinimumCardWidth;
+    private double _cardWidth = Look.CardSizes.MinimumWidth;
 
     //
     // Whether cards and rows show which mod lists a mod belongs to. Persisted rather than reset per
@@ -838,6 +834,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             SelectedEnabledFilter = DefaultEnabledFilter();
             SelectedGroupFilter = GroupFilterOptions.FirstOrDefault(o => o.SameAs(DefaultGroupFilter()))
                 ?? GroupFilterOptions[0];
+            SelectedColorFilter = ColorFilterItem.Any; // Fork (1.4.3)
             SelectedSortOption = DefaultSortOption();
             SelectedGroupSortOption = DefaultGroupSortOption();
             SelectedGrouping = DefaultGrouping();
@@ -926,13 +923,9 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         //
         if (availableWidth <= 0) return;
 
-        Columns = availableWidth switch
-        {
-            < 700 => 1,
-            < 1050 => 2,
-            < 1400 => 3,
-            _ => 4,
-        };
+        // Fork (1.4.3): how many fit follows Options > Look > Card size (Look.CardSizes). The page
+        // is made afresh each visit, so a size changed in Options is taken up on the way back here.
+        Columns = Look.CardSizes.ColumnsFor(availableWidth);
 
         //
         // The cards sit in a WrapPanel now rather than a UniformGrid, because a UniformGrid forces
@@ -944,7 +937,10 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         // the available width wraps a card onto the next row, so a four-column layout would
         // silently become three.
         //
-        CardWidth = Math.Max(MinimumCardWidth, Math.Floor((availableWidth - 1) / Columns));
+        // Below the size's minimum a card can't show its summary line without truncating it to
+        // uselessness. Only reachable on a very narrow window, where Columns is already 1.
+        //
+        CardWidth = Math.Max(Look.CardSizes.MinimumWidth, Math.Floor((availableWidth - 1) / Columns));
     }
 
     //
@@ -1049,6 +1045,9 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
             ApplyListMembership(cards);
             ApplyPins(cards);
+            ModNicknames.Apply(cards); // Fork (1.4.3)
+            ModNotes.Apply(cards); // Fork (1.4.3)
+            ModOwnColors.Apply(cards); // Fork (1.4.3)
             ApplyReuploads(cards, installRecords); // Fork
             ApplyPendingDownloads(cards, downloads);
             ApplyLeftovers(cards);
@@ -1076,6 +1075,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             foreach (var card in _all)
             {
                 card.PropertyChanged += OnCardPropertyChanged;
+                if (card.IsFolderCompanion) continue;
                 foreach (var entry in card.Entries) _cardByEntry[entry] = card;
             }
 
@@ -1356,11 +1356,8 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             return;
         }
 
-        if (!contents.Recognised)
-        {
-            StatusMessage = Text(Strings.Installed_LocalNotRecognisedFormat, Path.GetFileName(file));
-            return;
-        }
+        // Fork (1.4.3): an archive of no known layout goes on: the install shows what it holds and
+        // asks where it goes (ArchiveLayoutQuestion).
 
         var catalogKnown = true;
         try
@@ -1372,7 +1369,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             catalogKnown = false;
         }
 
-        var match = catalogKnown ? LocalArchive.MatchIn(contents, AppServices.ModCache.AllMods) : null;
+        var match = catalogKnown && contents.Recognised ? LocalArchive.MatchIn(contents, AppServices.ModCache.AllMods) : null;
         var listings = catalogKnown ? LocalArchive.ListingsIn(contents, AppServices.ModCache.AllMods) : [];
         var version = LocalArchive.VersionOf(contents, match) ?? stem;
         var name = match?.Name ?? stem;
@@ -1556,7 +1553,13 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
         await ScanAsync();
 
+        // The same mod in the same folder first: two mods installed into one folder have a card
+        // each over it (SharedFolderCards), and the folder alone would hand back the other one.
         return _all.FirstOrDefault(c =>
+                   c.IsAddon == mod.IsAddon
+                   && c.ModId == mod.ModId
+                   && string.Equals(c.FolderPath, mod.FolderPath, StringComparison.OrdinalIgnoreCase))
+               ?? _all.FirstOrDefault(c =>
                    c.IsAddon == mod.IsAddon
                    && string.Equals(c.FolderPath, mod.FolderPath, StringComparison.OrdinalIgnoreCase))
                ?? _all.FirstOrDefault(c =>
@@ -1599,6 +1602,11 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
                 result.FailedFiles.Count > 0 || result.ConfigsKept > 0 || result.KeptChanged.Count > 0
                     || result.KeptOwned.Count > 0 || result.RefusedFiles is { Count: > 0 } || result.FoldersLeft.Count > 0);
         }
+
+        // Fork (1.4.2): removing by hand moves the whole folder, and this one holds another mod's
+        // files too - unless they were all installed by hand into it, which its note says.
+        if (mod.SharedFolderWith is { } others && (mod.IsFolderCompanion || mod.SharedFolderParts is not null))
+            return (false, Text(Strings.Installed_SharedFolderRemoveFormat, mod.DisplayTitle, others), true);
 
         var paths = LegacyPaths(mod);
         if (paths.Count == 0) return (false, Text(Strings.Installed_RemoveNoFolderFormat, mod.Name), true);
@@ -1725,7 +1733,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         var installPath = AppServices.SptEnvironment.InstallPath;
         if (string.IsNullOrWhiteSpace(installPath)) return StatusMessage = AppMessages.NoSptInstallFolder;
 
-        if (ModInstallService.RunningBlockers(installPath) is { Count: > 0 } blockers)
+        if (ModInstallService.Blockers(ModInstallAction.Remove, installPath) is { Count: > 0 } blockers)
             return StatusMessage = ModInstallProblems.InstallInUse(blockers, ModInstallAction.Remove);
 
         var disabled = cards.Where(c => c.IsDisabled).ToList();
@@ -1898,7 +1906,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             return;
         }
 
-        if (ModInstallService.RunningBlockers(installPath) is { Count: > 0 } blockers)
+        if (ModInstallService.Blockers(ModInstallAction.SortOutDuplicate, installPath) is { Count: > 0 } blockers)
         {
             StatusMessage = ModInstallProblems.InstallInUse(blockers, ModInstallAction.SortOutDuplicate);
             return;
@@ -2027,10 +2035,33 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             .Select(m => ModGroupStore.KeyFor(m.Name))
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-    private static bool IsUpdatable(InstalledModCardViewModel card) =>
-        card is { UpdateAvailable: true, IsDisabled: false, IsAddon: false, ModId: not null }
+    // Fork (1.4.3): a disabled mod too - it is switched on for the update and off again after. Not
+    // one sharing its folder with another: its files can't be told from the new version's.
+    // Also one of your own collections' rule (WorkshopCollectionItem.PendingUpdate).
+    internal static bool IsUpdatable(InstalledModCardViewModel card) =>
+        card is { UpdateAvailable: true, IsAddon: false, ModId: not null }
+        && !CannotUpdateDisabled(card)
         && card.LatestPublishedVersion is not null
         && !IsHeldBack(card);
+
+    internal static bool CannotUpdateDisabled(InstalledModCardViewModel card) =>
+        card is { IsDisabled: true, SharedFolderParts: not null };
+
+    // A disabled card's switched-off folders, put back for its update and switched off again after.
+    internal static IReadOnlyList<InstalledMod>? KeepDisabled(InstalledModCardViewModel card) =>
+        card.IsDisabled ? [.. card.Entries.Where(e => e.IsDisabled)] : null;
+
+    /// <summary>The listing and version Update all updates this card to; null when the catalog can
+    /// no longer place it.</summary>
+    internal static (Mod Mod, string Version)? UpdateTo(InstalledModCardViewModel card)
+    {
+        var match = AppServices.ModCache.AllMods.FirstOrDefault(m => m.Id == card.ModId);
+        var version = match is null
+            ? null
+            : ModCardViewModel.PickDisplayVersion(match, AppServices.SptEnvironment.InstalledVersion)?.Version;
+
+        return match is null || version is null ? null : (match, version);
+    }
 
     // sp-mod.com holds back the very version this update would install. A different, newer version
     // being held back leaves this one alone.
@@ -2040,13 +2071,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     // After each scan: ask sp-mod.com about the whole install, then mark what it holds back.
     private async Task CheckHeldBackAsync(IReadOnlyList<InstalledModCardViewModel> cards)
     {
-        var installed = cards
-            .Where(c => c is { IsAddon: false, ModId: > 0 } && !string.IsNullOrWhiteSpace(c.InstalledVersion))
-            .Select(c => (c.ModId!.Value, c.InstalledVersion!))
-            .DistinctBy(c => c.Item1)
-            .ToList();
-
-        await AppServices.HeldBack.RefreshAsync(installed, AppServices.SptEnvironment.InstalledVersion);
+        await AppServices.HeldBack.RefreshAsync(cards, AppServices.SptEnvironment.InstalledVersion);
         ApplyHeldBack();
     }
 
@@ -2093,6 +2118,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         MarkUpdatableCards(); // Fork: each card's own Update (InstalledViewModel.Toolbar.cs)
         OnPropertyChanged(nameof(UpdatableCount));
         OnPropertyChanged(nameof(HasUpdates));
+        OnPropertyChanged(nameof(ShowsUpdateAll));
         OnPropertyChanged(nameof(UpdateAllLabel));
         UpdateAllCommand.NotifyCanExecuteChanged();
     }
@@ -2109,7 +2135,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         var targets = selected.Where(IsUpdatable).ToList();
 
         // Held back by sp-mod.com: said, and left for the mod's own update dialog.
-        var heldBack = selected.Where(c => c is { UpdateAvailable: true, IsDisabled: false } && IsHeldBack(c)).ToList();
+        var heldBack = selected.Where(c => c is { UpdateAvailable: true } && !CannotUpdateDisabled(c) && IsHeldBack(c)).ToList();
         var heldBackNote = heldBack.Count == 0
             ? null
             : Strings.Installed_UpdatesHeldBack(heldBack.Count, heldBack.Count, TextLists.Join(heldBack.Select(c => c.DisplayTitle).ToList()));
@@ -2127,13 +2153,8 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
         foreach (var card in targets)
         {
-            var match = AppServices.ModCache.AllMods.FirstOrDefault(m => m.Id == card.ModId);
-            var version = match is null
-                ? null
-                : ModCardViewModel.PickDisplayVersion(match, AppServices.SptEnvironment.InstalledVersion)?.Version;
-
-            if (match is null || version is null) unmatched.Add(card.DisplayTitle);
-            else resolved.Add((card, match, version));
+            if (UpdateTo(card) is { } to) resolved.Add((card, to.Mod, to.Version));
+            else unmatched.Add(card.DisplayTitle);
         }
 
         if (resolved.Count == 0)
@@ -2143,8 +2164,12 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         }
 
         // Asked and queued the way every Update all is - see ModUpdates.
+        // Fork (1.4.3): in dependency order, so a library installs before the mods that use it.
+        resolved = [.. _dependencies.DependencyOrder(resolved, r => r.Card.Entries)];
+
         var (said, queued) = ModUpdates.Queue(resolved
-            .Select(r => new UpdateTarget(r.Card.DisplayTitle, r.Mod, r.Version, r.Card.IsAppManaged))
+            .Select(r => new UpdateTarget(
+                r.Card.DisplayTitle, r.Mod, r.Version, r.Card.IsAppManaged, KeepDisabled(r.Card)))
             .ToList());
         if (!queued)
         {
@@ -2166,7 +2191,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     {
         if (selected.Count == 0) return Strings.Installed_NothingSelected;
 
-        var disabled = selected.Count(c => c is { UpdateAvailable: true, IsDisabled: true });
+        var disabled = selected.Count(c => c is { UpdateAvailable: true } && CannotUpdateDisabled(c));
         var addons = selected.Count(c => c is { UpdateAvailable: true, IsAddon: true });
 
         var reasons = new List<string>();
@@ -2188,7 +2213,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     {
         var parts = new List<string>();
 
-        var disabled = selected.Count(c => c is { UpdateAvailable: true, IsDisabled: true });
+        var disabled = selected.Count(c => c is { UpdateAvailable: true } && CannotUpdateDisabled(c));
         var addons = selected.Count(c => c is { UpdateAvailable: true, IsAddon: true });
         var noUpdate = selected.Count(c => c.UpdateAvailable != true);
 
@@ -2296,11 +2321,10 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
         // Checked before anything is asked or moved, so a locked install is reported up front
         // rather than after the user has answered a dialog. ModDisableService guards again itself.
-        if (ModInstallService.RunningBlockers(AppServices.SptEnvironment.InstallPath) is { Count: > 0 } blockers)
+        var switching = disable ? ModInstallAction.Disable : ModInstallAction.Enable;
+        if (ModInstallService.Blockers(switching, AppServices.SptEnvironment.InstallPath) is { Count: > 0 } blockers)
         {
-            StatusMessage = ModInstallProblems.InstallInUse(
-                blockers,
-                disable ? ModInstallAction.Disable : ModInstallAction.Enable);
+            StatusMessage = ModInstallProblems.InstallInUse(blockers, switching);
             return null;
         }
 
@@ -2322,7 +2346,18 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             }
         }
 
-        var entries = targets.SelectMany(c => c.Entries).Where(e => e.IsDisabled != disable).ToList();
+        // A mod sharing its folder with another moves only its own files (SharedFolderParts); every
+        // other mod moves its folders. Distinct: two cards over one folder hold the same entry.
+        var parts = targets
+            .Where(c => c.SharedFolderParts is not null)
+            .SelectMany(c => c.SharedFolderParts!)
+            .ToList();
+        var entries = targets
+            .Where(c => c.SharedFolderParts is null)
+            .SelectMany(c => c.Entries)
+            .Distinct()
+            .Where(e => e.IsDisabled != disable)
+            .ToList();
 
         IsBusy = true;
         ModDisableOutcome outcome;
@@ -2334,6 +2369,11 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
                 await Task.Run(() => AppServices.ProfileBackups.BackupIfChanged(profilesOf, ProfileBackups.BeforeDisable)); // Fork (1.3.0): off the UI thread
 
             outcome = ModDisableService.Apply(entries, disable, AppServices.SptEnvironment.InstallPath);
+            if (parts.Count > 0)
+            {
+                var files = ModDisableService.ApplyFiles(parts, disable, AppServices.SptEnvironment.InstallPath);
+                outcome = new ModDisableOutcome([.. outcome.Moved, .. files.Moved], [.. outcome.Failed, .. files.Failed]);
+            }
         }
         catch (ModInstallException ex)
         {
@@ -2368,8 +2408,18 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     private List<(InstalledModCardViewModel Card, string Detail, bool IsSoft)> AffectedCards(
         IReadOnlyList<InstalledModCardViewModel> targets, bool disable)
     {
-        var roots = targets.SelectMany(c => c.Entries).ToList();
-        var links = disable ? _dependencies.DisableImpact(roots) : _dependencies.EnableRequirements(roots);
+        var roots = targets.SelectMany(c => c.Entries).Distinct().ToList();
+
+        // Fork (1.4.3): a mod switched off in a folder it shares only takes its own files: what the
+        // mods staying on there provide (their GUIDs) is still provided, and is not what is lost.
+        var kept = _all
+            .Where(c => c.SharedFolderParts is not null && !c.IsDisabled && !targets.Contains(c) && c.Entries.Any(roots.Contains))
+            .Select(c => c.Guid)
+            .OfType<string>()
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var links = disable
+            ? _dependencies.DisableImpact(roots, link => link.Identifier is not { } id || !kept.Contains(id) || !roots.Contains(link.Dependency))
+            : _dependencies.EnableRequirements(roots);
 
         var results = new List<(InstalledModCardViewModel, string, bool)>();
         var seen = new HashSet<InstalledModCardViewModel>(targets);
@@ -2379,9 +2429,10 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             var reached = disable ? link.Dependent : link.Dependency;
             if (!_cardByEntry.TryGetValue(reached, out var card) || !seen.Add(card)) continue;
 
-            var otherName = _cardByEntry.TryGetValue(disable ? link.Dependency : link.Dependent, out var other)
-                ? other.DisplayTitle
-                : (disable ? link.Dependency : link.Dependent).Name;
+            // A folder two mods share is named for the one being switched, not the folder's other mod.
+            var otherEntry = disable ? link.Dependency : link.Dependent;
+            var otherName = targets.FirstOrDefault(t => t.SharedFolderParts is not null && t.Entries.Contains(otherEntry))?.DisplayTitle
+                ?? (_cardByEntry.TryGetValue(otherEntry, out var other) ? other.DisplayTitle : otherEntry.Name);
 
             var detail = Text(
                 disable
@@ -2891,6 +2942,10 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         // author instead of name - e.g. "@Acidphantasm".
         var authorQuery = query.StartsWith('@') ? query[1..].Trim() : null;
 
+        // Fork (1.4.3): "color:red" (or a colour's name in the app's language, or its hex) finds
+        // the mods drawn in that colour, "color:none" those in none.
+        var colorQuery = ColorQuery(query);
+
         var recentSince = DateTimeOffset.Now.AddDays(-RecentDays);
 
         var matched = _all
@@ -2910,9 +2965,13 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
             })
             .Where(m => SelectedGroupFilter.AllGroups
                 || (SelectedGroupFilter.GroupId is { } groupId ? m.GroupId == groupId : !m.IsGrouped))
-            .Where(m => authorQuery is not null
+            .Where(m => SelectedColorFilter.Matches(m.Color)) // Fork (1.4.3)
+            .Where(m => colorQuery is not null
+                ? ModColors.Matches(m.Color, colorQuery, ModOwnColors.NameOf)
+                : authorQuery is not null
                 ? MatchesAuthor(m, authorQuery)
-                : query.Length == 0 || Matches(m.DisplayTitle, query) || Matches(m.Name, query))
+                : query.Length == 0 || Matches(m.DisplayTitle, query) || Matches(m.Name, query)
+                    || (m.Note is { } note && Matches(note, query))) // Fork (1.4.3): your notes too
             .Where(m => SelectedCategory.Title is not { } category
                 || string.Equals(m.CategoryTag, category, StringComparison.OrdinalIgnoreCase))
             .Where(m => !IsOn(ModAttributeFilter.FikaCompatible) || m.IsFikaCompatible)
@@ -3019,6 +3078,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
     {
         var data = AppServices.ModGroups.Load();
         var namesById = data.Groups.ToDictionary(g => g.Id, g => g.Name);
+        var colorsById = data.Groups.ToDictionary(g => g.Id, g => g.Color); // Fork (1.4.3)
 
         foreach (var card in _all)
         {
@@ -3031,6 +3091,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
 
             card.GroupId = assigned;
             card.GroupName = assigned is { } value ? namesById[value] : null;
+            card.GroupColor = assigned is { } colored ? ModColors.Normalize(colorsById[colored]) : null;
         }
 
         // Same as the category list above: the saved default the first time, the current selection
@@ -3054,6 +3115,8 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         {
             _suppressAutoApplyFilter = false;
         }
+
+        RefreshColorFilter(); // Fork (1.4.3): a group's colour is a card's colour too
 
         RememberIfPending(); // Fork
     }
@@ -3149,6 +3212,7 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
                 // From the store every time: a rename that was cancelled or left blank goes back to
                 // the saved name this way, as a fresh section used to.
                 section.Name = group.Name;
+                section.Color = group.Color; // Fork (1.4.3)
                 section.IsEditing = false;
                 section.IsCollapsed = group.IsCollapsed;
                 section.CanReorder = order == GroupSortOption.Manual;
@@ -3224,6 +3288,21 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         if (name.Length == 0)
         {
             // Blank name isn't allowed - reload the real name from disk rather than saving it.
+            GroupsChanged();
+            return;
+        }
+
+        // Fork (1.4.3): a name another group already has - fold this one into it, or keep the old name.
+        if (AppServices.ModGroups.NamedLike(name, section.GroupId!.Value) is { } taken)
+        {
+            if (TCFModManager.App.Views.SteamMessageBox.Show(
+                    Text(Strings.Installed_GroupMergeFormat, taken.Name),
+                    Strings.Installed_GroupMergeTitle,
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question,
+                    MessageBoxResult.No) == MessageBoxResult.Yes)
+                AppServices.ModGroups.MergeGroup(section.GroupId!.Value, taken.Id);
+
             GroupsChanged();
             return;
         }
@@ -3327,14 +3406,6 @@ public partial class InstalledViewModel : LocalizedViewModel, IModActionHost
         if (neighbour is null) return;
 
         AppServices.ModGroups.SwapOrder(section.GroupId!.Value, neighbour.GroupId!.Value);
-        GroupsChanged();
-    }
-
-    // Called by InstalledPage's drag-drop code-behind when a mod card is dropped on a section
-    // (groupId null for the Ungrouped bucket).
-    public void MoveModToGroup(InstalledModCardViewModel mod, Guid? groupId)
-    {
-        AppServices.ModGroups.AssignMod(mod.Name, groupId);
         GroupsChanged();
     }
 }

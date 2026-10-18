@@ -204,8 +204,9 @@ Manager 1.19.0-beta does is still here, under Steam's names:
 - **Newer TCF Mod Manager work isn't included.** SSPTMM no longer follows TCF Mod Manager's
   releases. From the releases since 1.19.0-beta it has taken only the install fix above; TCF Mod
   Manager's sp-mod.com list import and its page-loading changes are not in SSPTMM.
-- **Translations**: Steam's terms use Steam's own German, French, Italian and Russian wording; text
-  that is new in SSPTMM shows in English in those languages until it is translated.
+- **Translations**: Steam's terms use Steam's own German, French, Italian and Russian wording, and
+  the rest of SSPTMM is translated too (machine-made, not yet read by native speakers). Simplified
+  Chinese is new.
 
 ## Kept the same on purpose
 

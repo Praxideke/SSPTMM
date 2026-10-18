@@ -11,6 +11,23 @@ buttons to use, with a button that takes you there. Search with **How do I...?**
 - **Open the full guide** opens this wiki.
 - **Report a problem** opens SSPTMM's GitHub Issues.
 
+## Keyboard shortcuts
+
+Help > Getting started > **Keyboard shortcuts** lists them in the app too.
+
+| Keys | What they do |
+|---|---|
+| Alt+Left, Alt+Right, the mouse's back and forward buttons | Back and forward through the pages you've been on |
+| Alt+Home | Your home page (Options > General > Home page) |
+| Esc | Closes a mod, collection or author page; on Subscribed items, picks no mods |
+| F1 | Help about the page you are on |
+| Ctrl+F | The page's search box |
+| F5 | The page's Rescan or Refresh, where it has one |
+| Ctrl+A | Every mod, on Subscribed items |
+| Ctrl+V | With a sp-mod.com mod link copied and no text box in use: opens that mod |
+| Ctrl+=, Ctrl+-, Ctrl+0 | Interface size larger, smaller, back to 100% |
+| F11 | Full screen on and off |
+
 ## About
 
 ![About](https://raw.githubusercontent.com/trappuss/SSPTMM/main/docs/images/15-about.png)

@@ -39,6 +39,14 @@
                 Content="{loc:Str Downloads_ClearFinished}"
                 Click="ClearFinishedButton_Click" />
 
+            <!-- Fork (1.4.3): no download starts while paused; those under way finish. -->
+            <ui:Button
+                DockPanel.Dock="Right"
+                Margin="0,0,8,0"
+                Content="{Binding PauseLabel}"
+                ToolTip="{loc:Str Downloads_PauseToolTip}"
+                Click="PauseButton_Click" />
+
             <!-- Only there when something failed. A mod list apply queues dozens at once, so one
                  bad spell on The Forge leaves a run of them to put back. -->
             <ui:Button
@@ -288,6 +296,17 @@
                                         ToolTip="{loc:Str Downloads_RetryToolTip}"
                                         Command="{Binding RetryCommand}"
                                         Visibility="{Binding CanRetry, Converter={StaticResource BoolToVisibility}}" />
+
+                                    <!-- Fork (1.4.3): the reason, with the app's, SPT's and Windows' versions, for a report. -->
+                                    <ui:Button
+                                        Margin="0,6,0,0"
+                                        Padding="10,4"
+                                        HorizontalAlignment="Right"
+                                        Icon="{ui:SymbolIcon Copy24}"
+                                        Content="{loc:Str Report_CopyError}"
+                                        ToolTip="{loc:Str Report_CopyErrorToolTip}"
+                                        Command="{Binding CopyErrorCommand}"
+                                        Visibility="{Binding IsFailed, Converter={StaticResource BoolToVisibility}}" />
 
                                     <!-- A download-only item's archive, once saved (Monitor mode). -->
                                     <ui:Button

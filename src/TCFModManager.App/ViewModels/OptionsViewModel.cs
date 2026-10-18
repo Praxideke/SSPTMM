@@ -264,6 +264,43 @@ public partial class OptionsViewModel : LocalizedViewModel
     [ObservableProperty]
     private bool _smoothScrolling;
 
+    // Fork (1.4.3): see Behaviors/Motion.
+    [ObservableProperty]
+    private bool _animations;
+
+    // Fork (1.4.3): Options > Look > Interface size - see Behaviors/InterfaceScale, which Ctrl+= and
+    // Ctrl+- change too; this follows them.
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(InterfaceScaleLabel))]
+    private double _interfaceScale = Behaviors.InterfaceScale.Current;
+
+    public string InterfaceScaleLabel => Text(Strings.Options_InterfaceScaleValueFormat, (int)Math.Round(InterfaceScale * 100));
+
+    partial void OnInterfaceScaleChanged(double value)
+    {
+        if (Math.Abs(value - Behaviors.InterfaceScale.Current) > 0.001) Behaviors.InterfaceScale.Set(value);
+    }
+
+    [RelayCommand]
+    private void ResetInterfaceScale() => Behaviors.InterfaceScale.Set(1.0);
+
+    private void FollowInterfaceScale(object? sender, EventArgs e) => InterfaceScale = Behaviors.InterfaceScale.Current;
+
+    partial void OnAnimationsChanged(bool value)
+    {
+        if (!_loaded) return;
+
+        Behaviors.Motion.Apply(value);
+        if (Application.Current?.MainWindow is MainWindow window)
+            window.RootNavigationView.Transition = value ? window.PageTransition : Wpf.Ui.Animations.Transition.None;
+
+        var settings = _settings.Load();
+        settings.Animations = value;
+        _settings.Save(settings);
+
+        AppLog.Info("Options", value ? "animations on" : "animations off");
+    }
+
     partial void OnSmoothScrollingChanged(bool value)
     {
         if (!_loaded) return;
@@ -321,6 +358,91 @@ public partial class OptionsViewModel : LocalizedViewModel
     {
         SetProperty(ref _confirmUnsubscribe, _settings.Load().ConfirmUnsubscribe, nameof(ConfirmUnsubscribe));
         RefreshKeptDownloads();
+    }
+
+    // Fork (1.4.3): the catalogue's address - see AppSettings.CatalogSite. Kept only once it has
+    // answered a ping as sp-mod.com's API does; used from the next start.
+    [ObservableProperty]
+    private string _catalogSiteInput = string.Empty;
+
+    [ObservableProperty]
+    private string? _catalogStatus;
+
+    public string CatalogSitePlaceholder => Core.SpModApi.SpModApiOptions.OfficialSite;
+
+    [RelayCommand]
+    private async Task UseCatalogSiteAsync()
+    {
+        var typed = CatalogSiteInput.Trim();
+        if (typed.Length == 0)
+        {
+            SaveCatalogSite(null);
+            return;
+        }
+
+        if (!typed.Contains("://", StringComparison.Ordinal)) typed = "https://" + typed;
+        if (!Uri.TryCreate(typed, UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps)
+        {
+            CatalogStatus = Strings.Options_CatalogNotAnAddress;
+            return;
+        }
+
+        var site = uri.GetLeftPart(UriPartial.Authority);
+        CatalogStatus = Strings.Options_CatalogChecking;
+
+        bool answers;
+        try
+        {
+            using var client = new Core.SpModApi.SpModApiClient(
+                options: new Core.SpModApi.SpModApiOptions { BaseUrl = site, Timeout = TimeSpan.FromSeconds(15) });
+            answers = await client.PingAsync();
+        }
+        catch (Exception ex)
+        {
+            AppLog.Info("Options", $"catalogue {site} didn't answer: {ex.GetType().Name}: {ex.Message}");
+            answers = false;
+        }
+
+        if (!answers)
+        {
+            CatalogStatus = LocalizationService.Text(Strings.Options_CatalogNoAnswerFormat, site);
+            return;
+        }
+
+        SaveCatalogSite(site);
+    }
+
+    [RelayCommand]
+    private void ResetCatalogSite() => SaveCatalogSite(null);
+
+    private void SaveCatalogSite(string? site)
+    {
+        var settings = _settings.Load();
+        settings.CatalogSite =
+            site is null || string.Equals(site, Core.SpModApi.SpModApiOptions.OfficialSite, StringComparison.OrdinalIgnoreCase)
+                ? null
+                : site;
+        _settings.Save(settings);
+
+        CatalogSiteInput = settings.CatalogSite ?? string.Empty;
+        CatalogStatus = Strings.Options_CatalogNextStart;
+        AppLog.Info("Options", "catalogue: " + (settings.CatalogSite ?? Core.SpModApi.SpModApiOptions.OfficialSite));
+    }
+
+    // Changes while SPT runs ask instead of refusing - see AppSettings.AllowChangesWhileRunning.
+    [ObservableProperty]
+    private bool _allowChangesWhileRunning;
+
+    partial void OnAllowChangesWhileRunningChanged(bool value)
+    {
+        Services.RunningInstallGate.Enabled = value;
+        if (!_loaded) return;
+
+        var settings = _settings.Load();
+        settings.AllowChangesWhileRunning = value;
+        _settings.Save(settings);
+
+        AppLog.Info("Options", value ? "changes while SPT runs asked" : "changes while SPT runs refused");
     }
 
     // Whether downloaded archives are kept - see AppSettings.KeepDownloads.
@@ -381,6 +503,27 @@ public partial class OptionsViewModel : LocalizedViewModel
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShowCustomSize))]
     private WindowStartupItem _selectedWindowStartup;
+
+    // Fork (1.4.2): Steam's "Start up location" - the page the window opens on and Home goes to.
+    public IReadOnlyList<HomePageItem> HomePageOptions { get; } =
+    [
+        new(nameof(Strings.Options_HomeWorkshop), HomePageChoice.Workshop),
+        new(nameof(Strings.Nav_Browse), HomePageChoice.Browse),
+        new(nameof(Strings.Workshop_SubscribedItems), HomePageChoice.SubscribedItems),
+        new(nameof(Strings.Nav_ModLists), HomePageChoice.Collections),
+        new(nameof(Strings.Nav_Play), HomePageChoice.Play),
+        new(nameof(Strings.Options_HomeLastPage), HomePageChoice.LastPage),
+    ];
+
+    [ObservableProperty]
+    private HomePageItem _selectedHomePage;
+
+    partial void OnSelectedHomePageChanged(HomePageItem value) => SaveAppearance(s =>
+    {
+        s.HomePage = value.Value;
+        // Chosen here, on Options: this is where it was left off until the next page is shown.
+        if (value.Value == HomePageChoice.LastPage) s.LastPage = AppNavigation.Current?.Name;
+    });
 
     /// <summary>Whether the two size boxes are relevant - they only do anything in the one mode
     /// that reads them.</summary>
@@ -479,6 +622,10 @@ public partial class OptionsViewModel : LocalizedViewModel
         _cardPictures = settings.CardPictures;
         _confirmUnsubscribe = settings.ConfirmUnsubscribe;
         _keepDownloads = settings.KeepDownloads;
+        _allowChangesWhileRunning = settings.AllowChangesWhileRunning;
+        _animations = settings.Animations;
+        Behaviors.InterfaceScale.Changed += FollowInterfaceScale;
+        _catalogSiteInput = settings.CatalogSite ?? string.Empty;
         _showSubscribedItemsTab = settings.ShowSubscribedItemsTab;
         _showCollectionsTab = settings.ShowCollectionsTab;
         _backgroundDarkness = Math.Clamp(settings.BackgroundDarkness, 0, 0.9);
@@ -504,6 +651,7 @@ public partial class OptionsViewModel : LocalizedViewModel
 
         _selectedWindowStartup = WindowStartupOptions.FirstOrDefault(o => o.Value == settings.Window.StartupMode)
             ?? WindowStartupOptions[0];
+        _selectedHomePage = HomePageOptions.FirstOrDefault(o => o.Value == settings.HomePage) ?? HomePageOptions[0];
         _customWidthInput = FormatSize(settings.Window.CustomWidth);
         _customHeightInput = FormatSize(settings.Window.CustomHeight);
 
@@ -511,6 +659,8 @@ public partial class OptionsViewModel : LocalizedViewModel
         RefreshInstallRole(settings);
 
         HookDirectLaunch(); // Fork
+        LoadFika(settings); // Fork (1.4.3): OptionsViewModel.Fika.cs
+        LoadLook(settings); // Fork (1.4.3): OptionsViewModel.Look.cs
         _loaded = true;
     }
 

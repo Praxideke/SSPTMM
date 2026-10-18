@@ -79,6 +79,29 @@ public sealed class ForkModPresetsTests : IDisposable
     }
 
     [Fact]
+    public void Plan_AFolderSavedWhileShared_IsLeftWhenItsModsWereSetDifferently()
+    {
+        var alone = Mod("BepInEx/plugins/Shared", "Second");
+
+        var split = ModPresets.Plan(_install,
+        [
+            new ModPresetEntry { Path = "BepInEx/plugins/Shared", Enabled = true, ModId = 1 },
+            new ModPresetEntry { Path = "BepInEx/plugins/Shared", Enabled = false, ModId = 2 },
+        ], [alone]);
+        Assert.True(split.ChangesNothing);
+        Assert.Equal([alone], split.NotInPreset);
+        Assert.Empty(split.NotInstalled);
+
+        var agreed = ModPresets.Plan(_install,
+        [
+            new ModPresetEntry { Path = "BepInEx/plugins/Shared", Enabled = false, ModId = 1 },
+            new ModPresetEntry { Path = "BepInEx/plugins/Shared", Enabled = false, ModId = 2 },
+        ], [alone]);
+        Assert.Equal([alone], agreed.ToDisable);
+        Assert.Empty(agreed.NotInstalled);
+    }
+
+    [Fact]
     public void Plan_LeavesAModThatIsInTheInstallTwice()
     {
         var live = Mod("BepInEx/plugins/A", "A");
@@ -177,5 +200,52 @@ public sealed class ForkModPresetsTests : IDisposable
 
         store.Save(_install, "Fika", [], DateTimeOffset.UnixEpoch);
         Assert.Equal("Fika", Assert.Single(store.For(_install).Presets).Name);
+    }
+
+    // Fork (1.4.3): two mods in one folder, each switched by its own files.
+    [Fact]
+    public void ASharedFolder_KeepsEachOfItsModsByItself()
+    {
+        var on = Mod("BepInEx/plugins/Pack", "Pack");
+        var off = Mod("BepInEx/plugins.disabled/Pack", "Pack", disabled: true);
+        var other = Mod("BepInEx/plugins/Other", "Other");
+        var owner = new ModPresetSharedMod(10, "Owner", [(on, ["Owner.dll"])]);
+        var guest = new ModPresetSharedMod(20, "Guest", [(off, ["Guest.dll"])]);
+        ModPresetSharedMod[] shared = [owner, guest];
+
+        var entries = ModPresets.Capture(_install, [on, off, other], shared);
+
+        Assert.Equal(3, entries.Count);
+        Assert.Contains(entries, e => e is { Path: "BepInEx/plugins/Pack", ModId: 10, Enabled: true });
+        Assert.Contains(entries, e => e is { Path: "BepInEx/plugins/Pack", ModId: 20, Enabled: false });
+        Assert.Contains(entries, e => e is { Path: "BepInEx/plugins/Other", ModId: null });
+
+        // As saved: nothing to do, and not "in two places" though the folder is in both.
+        var same = ModPresets.Plan(_install, entries, [on, off, other], shared);
+        Assert.True(same.ChangesNothing);
+        Assert.Empty(same.InTwoPlaces);
+        Assert.Empty(same.NotInstalled);
+
+        // The other way round: one off, the other on.
+        var flipped = entries.Select(e => e.ModId is null ? e : e with { Enabled = !e.Enabled }).ToList();
+        var plan = ModPresets.Plan(_install, flipped, [on, off, other], shared);
+        Assert.Equal([owner], plan.SharedToDisable);
+        Assert.Equal([guest], plan.SharedToEnable);
+        Assert.Empty(plan.ToDisable);
+        Assert.Empty(plan.ToEnable);
+    }
+
+    [Fact]
+    public void ASharedFolder_InAnOlderPreset_GoesByTheFoldersEntry()
+    {
+        var folder = Mod("BepInEx/plugins/Pack", "Pack");
+        var owner = new ModPresetSharedMod(10, "Owner", [(folder, ["Owner.dll"])]);
+        var guest = new ModPresetSharedMod(20, "Guest", [(folder, ["Guest.dll"])]);
+
+        var plan = ModPresets.Plan(
+            _install, [new ModPresetEntry { Path = "BepInEx/plugins/Pack", Enabled = false }], [folder], [owner, guest]);
+
+        Assert.Equal([owner, guest], plan.SharedToDisable);
+        Assert.Empty(plan.NotInstalled);
     }
 }

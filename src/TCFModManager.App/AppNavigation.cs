@@ -90,6 +90,43 @@ public static class AppNavigation
         || pageType == typeof(FollowedAuthorsPage)
         || pageType == typeof(FavoriteCollectionsPage);
 
+    // Fork (1.4.2): the page chosen in Options > General > Home page - where the window opens and
+    // the hub's Home button goes.
+    public static Type HomePage => AppServices.Appearance.HomePage switch
+    {
+        Core.Models.HomePageChoice.Browse => typeof(BrowsePage),
+        Core.Models.HomePageChoice.SubscribedItems => typeof(InstalledPage),
+        Core.Models.HomePageChoice.Collections => typeof(YourCollectionsPage),
+        Core.Models.HomePageChoice.Play => typeof(PlayPage),
+        Core.Models.HomePageChoice.LastPage => PageNamed(new Core.Services.SettingsService().Load().LastPage) ?? typeof(WorkshopHomePage),
+        _ => typeof(WorkshopHomePage),
+    };
+
+    // "Where I left off": every page shown is kept, so the window reopens on it however it was
+    // closed - from the tray, by Windows shutting down, or by a crash. Written only while that is
+    // the choice, and only when the page changes.
+    public static void RememberPage(Type page)
+    {
+        if (AppServices.Appearance.HomePage != Core.Models.HomePageChoice.LastPage || page == _remembered) return;
+
+        _remembered = page;
+        var settings = new Core.Services.SettingsService();
+        var data = settings.Load();
+        if (data.LastPage == page.Name) return;
+
+        data.LastPage = page.Name;
+        settings.Save(data);
+    }
+
+    private static Type? _remembered;
+
+    // A page of this app by its type's name; null for anything else, such as a name edited by hand.
+    private static Type? PageNamed(string? name) =>
+        string.IsNullOrWhiteSpace(name) ? null
+        : typeof(AppNavigation).Assembly.GetType(typeof(WorkshopHomePage).Namespace + "." + name) is { } type
+            && typeof(System.Windows.Controls.Page).IsAssignableFrom(type) ? type
+        : null;
+
     // ------------------------------------------------------------------
 
     //

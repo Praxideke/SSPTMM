@@ -80,6 +80,60 @@ public static class ModDisableService
     }
 
     //
+    // Fork (1.4.2): the same for mods that share a folder with another (two mods this app installed
+    // into BepInEx\plugins\Realism). Moving the folder would switch both, so only the files given -
+    // the ones this mod placed, relative to its folder - move, into the same folder under the
+    // ".disabled" container (or back). Each file is one ModMove, so Revert undoes it as it undoes a
+    // folder. A folder left empty behind them is removed, and so is its ".disabled" container.
+    //
+    public static ModDisableOutcome ApplyFiles(
+        IEnumerable<(InstalledMod Entry, IReadOnlyList<string> Files)> parts, bool disable, string? installPath = null)
+    {
+        var targets = parts.Where(p => p.Entry.IsDisabled != disable && p.Files.Count > 0).ToList();
+        if (targets.Count == 0) return ModDisableOutcome.Empty;
+
+        ModInstallService.EnsureInstallNotInUse(
+            disable ? ModInstallAction.Disable : ModInstallAction.Enable, installPath);
+
+        var moved = new List<ModMove>();
+        var failed = new List<ModDisableFailure>();
+
+        foreach (var (entry, files) in targets)
+        {
+            if (DisabledModPaths.Counterpart(entry.FolderPath) is not { } destinationFolder)
+            {
+                failed.Add(new ModDisableFailure(entry.Name, "couldn't work out where to move it to"));
+                continue;
+            }
+
+            foreach (var relative in files)
+            {
+                var local = relative.Replace('/', Path.DirectorySeparatorChar);
+                var source = Path.Combine(entry.FolderPath, local);
+                if (!File.Exists(source)) continue;
+
+                var destination = Path.Combine(destinationFolder, local);
+                if (Exists(destination))
+                {
+                    failed.Add(new ModDisableFailure(
+                        entry.Name,
+                        $"something is already at {destination} - remove or rename it first"));
+                    continue;
+                }
+
+                if (TryMove(source, destination, entry.Name, failed))
+                    moved.Add(new ModMove(source, destination));
+            }
+        }
+
+        AppLog.Info("Disable", $"{(disable ? "disabled" : "enabled")} {moved.Count} shared-folder file(s), {failed.Count} failed");
+
+        foreach (var move in moved) TidyVacated(move.From);
+
+        return new ModDisableOutcome(moved, failed);
+    }
+
+    //
     // Puts a previous run's moves back where they came from - the undo for Apply and
     // ResolveDuplicate. Walked in reverse, since a run that moved two things through the same path
     // (ResolveDuplicate keeping the disabled copy) only unwinds correctly last-move-first.
@@ -110,6 +164,9 @@ public static class ModDisableService
         }
 
         foreach (var move in moved) TryRemoveEmptyDisabledContainer(Path.GetDirectoryName(move.From));
+
+        // Fork (1.4.2): a file moved back (ApplyFiles) can leave the folder it came out of empty.
+        foreach (var move in moved.Where(x => File.Exists(x.To))) TidyVacated(move.From);
 
         return new ModDisableOutcome(moved, failed);
     }
@@ -232,6 +289,39 @@ public static class ModDisableService
     }
 
     private static bool Exists(string path) => Directory.Exists(path) || File.Exists(path);
+
+    //
+    // Fork (1.4.2): after a file moved out of a shared folder, removes the folders it leaves empty,
+    // walking up as far as the container - and the container too when it is a ".disabled" one. A
+    // live container (BepInEx\plugins, user\mods) is never removed.
+    //
+    private static void TidyVacated(string vacated)
+    {
+        for (var directory = Path.GetDirectoryName(vacated); directory is not null; directory = Path.GetDirectoryName(directory))
+        {
+            var container = IsContainer(directory);
+            if (container && !DisabledModPaths.IsDisabled(directory)) return;
+
+            try
+            {
+                if (!Directory.Exists(directory) || Directory.EnumerateFileSystemEntries(directory).Any()) return;
+                Directory.Delete(directory);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                return;
+            }
+
+            if (container) return;
+        }
+    }
+
+    private static bool IsContainer(string directory)
+    {
+        var path = DisabledModPaths.Enabled(directory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))
+            .Replace('\\', '/');
+        return DisabledModPaths.Containers.Any(c => path.EndsWith("/" + c, StringComparison.OrdinalIgnoreCase));
+    }
 
     // A ".disabled" container left behind with nothing in it is removed, so an install with no
     // disabled mods doesn't keep the folders around.

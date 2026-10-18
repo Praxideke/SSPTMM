@@ -7,6 +7,8 @@
     xmlns:controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
     xmlns:converters="clr-namespace:TCFModManager.App.Converters"
     xmlns:loc="clr-namespace:TCFModManager.App.Localization"
+    xmlns:behaviors="clr-namespace:TCFModManager.App.Behaviors"
+    behaviors:Shortcuts.Refresh="{Binding RefreshCommand}"
     Title="{loc:Str Nav_Diagnose}"
     Loaded="DiagnosePage_Loaded"
     ScrollViewer.CanContentScroll="False">
@@ -30,6 +32,13 @@
                     Icon="{ui:SymbolIcon Copy24}"
                     ToolTip="{loc:Str Diagnose_CopyReportToolTip}"
                     Command="{Binding CopyReportCommand}"
+                    IsEnabled="{Binding IsNotBusy}" />
+                <ui:Button
+                    Margin="0,0,8,0"
+                    Content="{loc:Str Report_OpenIssue}"
+                    Icon="{ui:SymbolIcon Bug24}"
+                    ToolTip="{loc:Str Diagnose_ReportIssueToolTip}"
+                    Command="{Binding ReportIssueCommand}"
                     IsEnabled="{Binding IsNotBusy}" />
                 <ui:Button
                     Content="{loc:Str Diagnose_Refresh}"
@@ -116,7 +125,20 @@
                                         </StackPanel>
                                     </Border>
 
+                                    <TextBlock
+                                        Margin="28,8,0,0"
+                                        TextWrapping="Wrap"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding ProfileFixNote}"
+                                        Visibility="{Binding ProfileFixNote, Converter={StaticResource NullToCollapsed}}" />
+
                                     <WrapPanel Margin="28,8,0,0">
+                                        <ui:Button
+                                            Margin="0,0,8,0"
+                                            Content="{loc:Str Diagnose_ProfileFix}"
+                                            Icon="{ui:SymbolIcon Wrench24}"
+                                            Visibility="{Binding CanTurnOnProfileFix, Converter={StaticResource BoolToVisibility}}"
+                                            Command="{Binding DataContext.TurnOnProfileFixCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" />
                                         <ui:Button
                                             Margin="0,0,8,0"
                                             Content="{loc:Str Diagnose_ShowMod}"

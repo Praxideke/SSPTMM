@@ -17,9 +17,10 @@ namespace TCFModManager.App.ViewModels;
 /// <summary>One finding on the Diagnose logs page, worded.</summary>
 public sealed class LogFindingRow
 {
-    public LogFindingRow(LogFinding finding)
+    public LogFindingRow(LogFinding finding, SptProfileFixState profileFix = SptProfileFixState.NotFound)
     {
         Finding = finding;
+        _profileFix = profileFix;
         (Title, Body) = Word(finding);
 
         var mods = finding.Mod is null ? [] : new[] { finding.Mod }.Concat(finding.Others).ToList();
@@ -39,6 +40,8 @@ public sealed class LogFindingRow
     }
 
     public LogFinding Finding { get; }
+
+    private readonly SptProfileFixState _profileFix;
 
     public string Title { get; }
 
@@ -66,6 +69,17 @@ public sealed class LogFindingRow
 
     public bool IsAboutProfile => Finding.Kind is LogFindingKind.ProfileInvalid or LogFindingKind.ProfileClothingMissing
         or LogFindingKind.ProfileItemMissing or LogFindingKind.ProfileTraderMissing;
+
+    // Fork (1.4.2): the findings whose fix is SPT's own profile cleaning (core.json). Not clothing:
+    // HUNCH - SPT's two switches are named for items and traders only, so they may not cover it.
+    private bool IsProfileFixable => Finding.Kind is LogFindingKind.ProfileInvalid
+        or LogFindingKind.ProfileItemMissing or LogFindingKind.ProfileTraderMissing;
+
+    public bool CanTurnOnProfileFix => IsProfileFixable && _profileFix == SptProfileFixState.Off;
+
+    // Both switches already on and the profile still refused: the server hasn't been restarted
+    // since, or what's missing is something they don't clean.
+    public string? ProfileFixNote => IsProfileFixable && _profileFix == SptProfileFixState.On ? Strings.Diagnose_ProfileFixAlreadyOn : null;
 
     private static string Arg(LogFinding f, int i) => i < f.Args.Count ? f.Args[i] : string.Empty;
 
@@ -135,6 +149,10 @@ public sealed partial class DiagnoseViewModel : LocalizedViewModel
 
     private LogDiagnosis? _last;
 
+    // Fork (1.4.2): this install's core.json and where its profile-cleaning switches stand.
+    private string? _coreConfig;
+    private SptProfileFixState _profileFix;
+
     [RelayCommand]
     private async Task RefreshAsync()
     {
@@ -154,6 +172,9 @@ public sealed partial class DiagnoseViewModel : LocalizedViewModel
             var clock = Stopwatch.StartNew();
             _last = await Task.Run(() =>
             {
+                _coreConfig = SptProfileFixes.ConfigPath(installPath);
+                _profileFix = SptProfileFixes.Read(_coreConfig);
+
                 var mods = LogModLocator.Build(InstalledModScanner.Scan(installPath));
                 return LogDiagnoser.Diagnose(LogFiles.Find(installPath), mods);
             });
@@ -178,7 +199,7 @@ public sealed partial class DiagnoseViewModel : LocalizedViewModel
     private void Show(LogDiagnosis diagnosis)
     {
         Findings.Clear();
-        foreach (var finding in diagnosis.Findings) Findings.Add(new LogFindingRow(finding));
+        foreach (var finding in diagnosis.Findings) Findings.Add(new LogFindingRow(finding, _profileFix));
 
         StatusMessage = diagnosis.Findings.Count == 0
             ? Strings.Diagnose_NothingFound
@@ -221,6 +242,24 @@ public sealed partial class DiagnoseViewModel : LocalizedViewModel
     [RelayCommand]
     private void GoToPlay() => AppNavigation.Navigate(typeof(PlayPage));
 
+    // Fork (1.4.2): SPT's own cleaning of what's missing from a profile - SptProfileFixPrompt.
+    [RelayCommand]
+    private void TurnOnProfileFix()
+    {
+        if (_coreConfig is not { } config || _last is null) return;
+
+        var (done, problem) = SptProfileFixPrompt.Run(config);
+        if (!done)
+        {
+            if (problem is not null) StatusMessage = problem;
+            return;
+        }
+
+        _profileFix = SptProfileFixes.Read(config);
+        Show(_last);
+        StatusMessage = Strings.Diagnose_ProfileFixDone;
+    }
+
     [RelayCommand]
     private void OpenProfileBackups() => AppNavigation.Navigate(typeof(OptionsPage));
 
@@ -252,6 +291,18 @@ public sealed partial class DiagnoseViewModel : LocalizedViewModel
         }
     }
 
+    // Fork (1.4.3): the same report, in a new GitHub issue (and on the clipboard).
+    [RelayCommand]
+    private void ReportIssue()
+    {
+        if (_last is null) return;
+
+        var report = BuildReport(_last);
+        var title = _last.Findings.Count > 0 ? new LogFindingRow(_last.Findings[0]).Title : Strings.Diagnose_IssueTitle;
+        ErrorReport.OpenIssue(ErrorReport.Title(title), report);
+        StatusMessage = Strings.Diagnose_Copied;
+    }
+
     //
     // What was found and the lines behind it, then the errors no check knew - never whole logs, and
     // never a profile. Redacted last, over the whole text (LogRedactor).
@@ -263,7 +314,8 @@ public sealed partial class DiagnoseViewModel : LocalizedViewModel
         var files = diagnosis.Files;
         var text = new StringBuilder();
         text.AppendLine(T(Strings.Diagnose_ReportHeader,
-            SelfMod.ShortName + " " + AppVersion.Current, AppServices.SptEnvironment.InstalledVersion ?? "?"));
+            SelfMod.ShortName + " " + AppVersion.Current, AppServices.SptEnvironment.InstalledVersion ?? "?",
+            ErrorReport.WindowsVersion()));
         text.AppendLine(T(Strings.Diagnose_ReportServerFormat,
             Path.GetFileName(files.Server) ?? "-", diagnosis.ServerRunStartedAt?.ToString("s") ?? "-"));
         text.AppendLine(T(Strings.Diagnose_ReportGameFormat,

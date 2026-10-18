@@ -15,7 +15,11 @@ the same details; click a card or row to open it.
 | ![List](https://raw.githubusercontent.com/trappuss/SSPTMM/main/docs/images/07b-subscribed-list.png) | ![Groups](https://raw.githubusercontent.com/trappuss/SSPTMM/main/docs/images/07c-subscribed-groups.png) |
 
 - **Groups** are your own: type a name and **Add group**, then drag mods into them - in every view.
-  A group's header can enable, disable or invert all its mods at once.
+  Drag one of several picked mods (Ctrl+click, Shift+click) and they all go. Or right-click a mod:
+  **Add to group** lists your groups, **New group...** asks for a name, and **Remove from group** puts
+  it back - on every picked mod when it is one of them. A group's header can enable, disable or
+  invert all its mods at once. Renaming a group to the name of another offers to put its mods in
+  that one instead.
 - **Filters** also has **grouping** for Cards and List: by your groups, by sp-mod.com category, or
   **by enabled / disabled**.
 
@@ -23,9 +27,10 @@ the same details; click a card or row to open it.
 
 - **Sort**: by name, author or group (A-Z / Z-A), **Recently installed** (newest install or
   update first), or **Enabled first** / **Disabled first** (each half by name).
-- **Search** by name, or **@name** for the author.
+- **Search** by name, or **@name** for the author, or **color:red** for the mods drawn in a
+  colour (a colour's name, a hex like `color:#5BA32B`, or `color:none`).
 - **Filters**: update status (updates available, up to date, not on sp-mod.com, recently
-  installed), enabled/disabled, category, group, and Fika compatible, hide ads, has dependencies,
+  installed), enabled/disabled, category, group, colour, and Fika compatible, hide ads, has dependencies,
   has addons, downloaded but not confirmed, has conflicts.
 - The page **remembers** its filters, sort, grouping and view: it opens the way you left it. The
   search box is not kept. **Clear filters** puts the filters, sort and grouping back to the app's own.
@@ -36,7 +41,28 @@ the same details; click a card or row to open it.
   first checks what else needs it.
 - A blue **Update** when an update for your SPT is out, and **Update all** at the top. An update
   that would break another installed mod is held back and says so: Update all leaves it out, and
-  update notifications don't announce it.
+  update notifications don't announce it. Update all goes in dependency order - a library before
+  the mods that use it. A disabled mod is updated too and stays disabled.
+- **To update some mods and not others**, click the arrow beside Update all, or right-click Update
+  all. Each waiting update is listed with its versions, and **hand-installed** or **switched off**
+  where that applies. A row's button updates just that mod and then shows how it is going -
+  waiting, the download's percentage, installing, then a tick. A failed one gets a retry button,
+  and **Open Downloads** shows why. **Skip** skips that update until a newer one comes out.
+- When Update all includes mods you installed yourself, SSPTMM warns that their new files go on
+  top of the old ones, and offers **Update all**, **Only the others** (the rest are updated,
+  yours are left as they are) or Cancel.
+- Right-click a mod for **Rename...** (a name of your own; empty gives it back its own), **Open
+  client folder** and **Open server folder**, beside the group items. Also:
+  - **Note...** - a line of your own, shown under the mod's name and found by the search.
+  - **Skip this update (version)** - the mod stops showing as out of date, and Update all and
+    notifications leave it out, until a newer version comes out. **Stop skipping** undoes it.
+  - **Go back to (version)** after an update - the copy kept when it was updated goes back, with
+    its configs as they were, offline. The version you leave is kept, so you can go forward
+    again. Only while [Options](Options) > Keep removed mods still holds the old copy.
+  - **Colour** - a strip down the mod's left edge, in one of ten colours or one of your own
+    (six hex digits). It wins over its group's colour; **No colour** takes it away.
+  - With several mods picked (Ctrl+click, Shift+click, Ctrl+A): Enable, Disable, Update and
+    Unsubscribe for all of them, Add to group and Colour.
 - Flags when the installed version doesn't run on your SPT, or when it needs a mod that is missing
   or disabled - read from the mod's own files, so it works offline and for hand-installed mods.
 - **PINNED** - see below. **RE-UPLOADED** - see below. **DISABLED**.
@@ -68,7 +94,11 @@ ones installed after the preset was saved (those stay as they are). Then:
 - mods are only moved in and out of their `.disabled` folders, as the switch on a mod does - nothing
   is deleted;
 - **Undo** puts it back in one step;
-- it is refused while SPT is running or a mod is being installed.
+- it is refused while SPT is running (unless [Options](Options) allows changes while it runs) or a
+  mod is being installed.
+
+Two mods installed into one folder are kept each by itself, and switched by their own files, as
+their cards are.
 
 Presets are kept per SPT install, in `Data\mod_presets.json`.
 

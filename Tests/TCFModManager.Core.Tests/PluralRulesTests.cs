@@ -125,4 +125,15 @@ public class PluralRulesTests
     [InlineData("en", 1)]
     public void A_negative_count_lands_where_its_positive_does(string tag, int count) =>
         Assert.Equal(For(tag, count), For(tag, -count));
+
+    //
+    // Chinese has the one form, and 1 has to take it too: a translation holds only "_other".
+    //
+    [Theory]
+    [InlineData("zh-Hans", 0)]
+    [InlineData("zh-Hans", 1)]
+    [InlineData("zh-Hans", 21)]
+    [InlineData("zh-CN", 1)]
+    public void Chinese_has_one_form_for_every_count(string tag, int count) =>
+        Assert.Equal(PluralCategory.Other, For(tag, count));
 }

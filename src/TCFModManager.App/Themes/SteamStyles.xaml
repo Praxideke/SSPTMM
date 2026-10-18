@@ -15,6 +15,7 @@
     to the element they belong to, which is how the rest of this app's XAML is written.
 -->
 <ResourceDictionary
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -30,21 +31,24 @@
         note on SteamFontLight below.
     -->
     <!--  Segoe UI after it, so a character Noto Sans does not have (an emoji in a mod description,
-          CJK in a mod name) falls back to what Windows always has rather than to nothing.  -->
-    <FontFamily x:Key="SteamFont">pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI</FontFamily>
+          CJK in a mod name) falls back to what Windows always has rather than to nothing. Fork
+          (1.4.3): then Microsoft YaHei UI, which every Windows since 8 has, for Chinese - the app's
+          own text in the zh-Hans translation as well as a mod's name - rather than whichever face
+          WPF's last-resort fallback picks.  -->
+    <FontFamily x:Key="SteamFont">pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI, Microsoft YaHei UI</FontFamily>
     <!--  Light and Medium name their own family first and fall back to "Noto Sans": font engines
           disagree on whether those two files are families of their own (their legacy names) or
           weights of Noto Sans (their typographic names). Every use also asks for the weight, so
           whichever grouping wins, the right face is picked.  -->
-    <FontFamily x:Key="SteamFontLight">pack://application:,,,/Themes/Fonts/#Noto Sans Light, pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI</FontFamily>
-    <FontFamily x:Key="SteamFontMedium">pack://application:,,,/Themes/Fonts/#Noto Sans Medium, pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI</FontFamily>
+    <FontFamily x:Key="SteamFontLight">pack://application:,,,/Themes/Fonts/#Noto Sans Light, pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI, Microsoft YaHei UI</FontFamily>
+    <FontFamily x:Key="SteamFontMedium">pack://application:,,,/Themes/Fonts/#Noto Sans Medium, pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI, Microsoft YaHei UI</FontFamily>
 
     <!-- WPF UI's own control styles (text boxes, rich text, combo boxes) take their face from this
          key rather than inheriting it, so without it they stayed in Segoe UI beside Noto Sans text. -->
     <!-- Code in descriptions: Windows 11's code face, then the older ones. -->
     <FontFamily x:Key="SteamMonospace">Cascadia Mono, Consolas, Courier New</FontFamily>
 
-    <FontFamily x:Key="ContentControlThemeFontFamily">pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI</FontFamily>
+    <FontFamily x:Key="ContentControlThemeFontFamily">pack://application:,,,/Themes/Fonts/#Noto Sans, Segoe UI, Microsoft YaHei UI</FontFamily>
 
     <!--  Steam rounds its buttons, fields and dropdowns by 2px and its popups barely at all. Both
           keys are read by WPF-UI's templates through DynamicResource, so this reaches every control.  -->
@@ -52,14 +56,14 @@
     <CornerRadius x:Key="PopupCornerRadius">2</CornerRadius>
 
     <!--  ============================================================ Brushes  -->
-    <SolidColorBrush x:Key="SteamBlue" Color="#1A9FFF" />
-    <SolidColorBrush x:Key="SteamBlueHover" Color="#56ABFF" />
-    <SolidColorBrush x:Key="SteamLegacyBlue" Color="#66C0F4" />
+    <SolidColorBrush x:Key="SteamBlue" Color="{look:Color #1A9FFF}" />
+    <SolidColorBrush x:Key="SteamBlueHover" Color="{look:Color #56ABFF}" />
+    <SolidColorBrush x:Key="SteamLegacyBlue" Color="{look:Color #66C0F4}" />
     <SolidColorBrush x:Key="SteamGray" Color="#3D4450" />
     <SolidColorBrush x:Key="SteamGrayHover" Color="#67707B" />
-    <SolidColorBrush x:Key="SteamGlobalHeader" Color="#171D25" />
-    <SolidColorBrush x:Key="SteamWorkshopBackground" Color="#262B34" />
-    <SolidColorBrush x:Key="SteamLegacyBackground" Color="#1B2838" />
+    <SolidColorBrush x:Key="SteamGlobalHeader" Color="{look:Color #171D25}" />
+    <SolidColorBrush x:Key="SteamWorkshopBackground" Color="{look:Color #262B34}" />
+    <SolidColorBrush x:Key="SteamLegacyBackground" Color="{look:Color #1B2838}" />
     <SolidColorBrush x:Key="SteamWhite" Color="#FFFFFF" />
     <SolidColorBrush x:Key="SteamText" Color="#ACB2B8" />
     <SolidColorBrush x:Key="SteamTextBright" Color="#F1F2F3" />
@@ -70,24 +74,24 @@
     <SolidColorBrush x:Key="SteamBanner" Color="#3D000000" />
     <SolidColorBrush x:Key="SteamSortBox" Color="#5E000000" />
     <SolidColorBrush x:Key="SteamAuthorText" Color="#A2FFFFFF" />
-    <SolidColorBrush x:Key="SteamPreviewBackground" Color="#070707" />
-    <SolidColorBrush x:Key="SteamPopupBackground" Color="#344352" />
+    <SolidColorBrush x:Key="SteamPreviewBackground" Color="{look:Color #070707}" />
+    <SolidColorBrush x:Key="SteamPopupBackground" Color="{look:Color #344352}" />
     <SolidColorBrush x:Key="SteamChipFill" Color="#17FFFFFF" />
-    <SolidColorBrush x:Key="SteamLabelBlue" Color="#5C8699" />
+    <SolidColorBrush x:Key="SteamLabelBlue" Color="{look:Color #5C8699}" />
     <SolidColorBrush x:Key="SteamValueText" Color="#EBEBEB" />
-    <SolidColorBrush x:Key="SteamStatNumber" Color="#6088BB" />
+    <SolidColorBrush x:Key="SteamStatNumber" Color="{look:Color #6088BB}" />
     <SolidColorBrush x:Key="SteamStatLabel" Color="#939393" />
     <SolidColorBrush x:Key="SteamDescriptionHeader" Color="#61696D" />
-    <SolidColorBrush x:Key="SteamRequiredItem" Color="#335485B7" />
-    <SolidColorBrush x:Key="SteamSubscribeBox" Color="#5C151515" />
-    <SolidColorBrush x:Key="SteamSubscribeBoxBorder" Color="#35465E" />
-    <SolidColorBrush x:Key="SteamCommentsBar" Color="#223349" />
+    <SolidColorBrush x:Key="SteamRequiredItem" Color="{look:Color #335485B7}" />
+    <SolidColorBrush x:Key="SteamSubscribeBox" Color="{look:Color #5C151515}" />
+    <SolidColorBrush x:Key="SteamSubscribeBoxBorder" Color="{look:Color #35465E}" />
+    <SolidColorBrush x:Key="SteamCommentsBar" Color="{look:Color #223349}" />
     <SolidColorBrush x:Key="SteamTagInclude" Color="#5DB7C7" />
     <SolidColorBrush x:Key="SteamTagExclude" Color="#D3AC42" />
     <SolidColorBrush x:Key="SteamTagRest" Color="#33FFFFFF" />
-    <SolidColorBrush x:Key="SteamTagHover" Color="#3B3D40" />
+    <SolidColorBrush x:Key="SteamTagHover" Color="{look:Color #3B3D40}" />
     <SolidColorBrush x:Key="SteamDivider" Color="#1AFFFFFF" />
-    <SolidColorBrush x:Key="SteamOutlineHover" Color="#331A9FFF" />
+    <SolidColorBrush x:Key="SteamOutlineHover" Color="{look:Color #331A9FFF}" />
 
     <!--  The Workshop browse page: #262B34 under a 2px grid every 80px and a 1px grid every 16px,
           both white at 6%. Drawn as one 80x80 tile.  -->
@@ -100,7 +104,7 @@
         ViewboxUnits="Absolute">
         <DrawingBrush.Drawing>
             <DrawingGroup>
-                <GeometryDrawing Brush="#262B34">
+                <GeometryDrawing Brush="{look:Brush #262B34}">
                     <GeometryDrawing.Geometry>
                         <RectangleGeometry Rect="0,0,80,80" />
                     </GeometryDrawing.Geometry>
@@ -151,26 +155,26 @@
           no such image, so the colour it leaves behind (#27405B at the centre, measured) is drawn
           as a soft radial instead.  -->
     <RadialGradientBrush x:Key="SteamHubGlow" Center="0.5,0" GradientOrigin="0.5,0" RadiusX="0.55" RadiusY="1.4">
-        <GradientStop Offset="0" Color="#9927405B" />
-        <GradientStop Offset="1" Color="#0027405B" />
+        <GradientStop Offset="0" Color="{look:Color #9927405B}" />
+        <GradientStop Offset="1" Color="{look:Color #0027405B}" />
     </RadialGradientBrush>
 
     <!--  Browse card: radial-gradient(62% 99% at 17% 35%, #3C4149, #1B1D21).  -->
     <RadialGradientBrush x:Key="SteamCardBackground" Center="0.17,0.35" GradientOrigin="0.17,0.35" RadiusX="0.62" RadiusY="0.99">
-        <GradientStop Offset="0" Color="#3C4149" />
-        <GradientStop Offset="1" Color="#1B1D21" />
+        <GradientStop Offset="0" Color="{look:Color #3C4149}" />
+        <GradientStop Offset="1" Color="{look:Color #1B1D21}" />
     </RadialGradientBrush>
 
     <!--  Filter sidebar: radial-gradient(85.9% 84.18% at 34.28% 100%, rgba(41,50,61,.443) 27.5%, rgba(28,30,36,.396) 67.94%).  -->
     <RadialGradientBrush x:Key="SteamSidebarBackground" Center="0.3428,1" GradientOrigin="0.3428,1" RadiusX="0.859" RadiusY="0.8418">
-        <GradientStop Offset="0.275" Color="#7129323D" />
-        <GradientStop Offset="0.6794" Color="#651C1E24" />
+        <GradientStop Offset="0.275" Color="{look:Color #7129323D}" />
+        <GradientStop Offset="0.6794" Color="{look:Color #651C1E24}" />
     </RadialGradientBrush>
 
     <!--  Item page header: linear-gradient(rgba(64,128,183,.4) 5%, rgba(64,128,183,.2) 95%).  -->
     <LinearGradientBrush x:Key="SteamItemHeaderBackground" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0.05" Color="#664080B7" />
-        <GradientStop Offset="0.95" Color="#334080B7" />
+        <GradientStop Offset="0.05" Color="{look:Color #664080B7}" />
+        <GradientStop Offset="0.95" Color="{look:Color #334080B7}" />
     </LinearGradientBrush>
 
     <!--  Item page right-hand panels: linear-gradient(to right, rgba(0,0,0,.2), rgba(0,0,0,.5)).  -->
@@ -221,7 +225,7 @@
                 <Setter TargetName="Chrome" Property="Background" Value="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="Chrome" Property="Background" Value="#2A2F38" />
+                <Setter TargetName="Chrome" Property="Background" Value="{look:Brush #2A2F38}" />
                 <Setter Property="Foreground" Value="{StaticResource SteamTextMinor}" />
             </Trigger>
         </ControlTemplate.Triggers>
@@ -395,20 +399,20 @@
          moving on hover. These are the colours of those two slices, worked out from the
          gradient: #3DA3F1 -> #245FD0 at rest, #47BFFF -> #3286E3 on hover. #C3E1F8 text. -->
     <Style x:Key="SteamModalBlueButton" TargetType="Button" BasedOn="{StaticResource SteamModalButton}">
-        <Setter Property="Foreground" Value="#C3E1F8" />
+        <Setter Property="Foreground" Value="{look:Brush #C3E1F8}" />
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Offset="0" Color="#3DA3F1" />
-                    <GradientStop Offset="1" Color="#245FD0" />
+                    <GradientStop Offset="0" Color="{look:Color #3DA3F1}" />
+                    <GradientStop Offset="1" Color="{look:Color #245FD0}" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
         <Setter Property="Tag">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Offset="0.165" Color="#47BFFF" />
-                    <GradientStop Offset="1" Color="#3286E3" />
+                    <GradientStop Offset="0.165" Color="{look:Color #47BFFF}" />
+                    <GradientStop Offset="1" Color="{look:Color #3286E3}" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -417,7 +421,7 @@
     <!-- Grey: #32363F, #DFE3E6 text; hover #464D58. -->
     <Style x:Key="SteamModalGreyButton" TargetType="Button" BasedOn="{StaticResource SteamModalButton}">
         <Setter Property="Foreground" Value="#DFE3E6" />
-        <Setter Property="Background" Value="#32363F" />
+        <Setter Property="Background" Value="{look:Brush #32363F}" />
         <Setter Property="Tag" Value="#464D58" />
     </Style>
 
@@ -440,7 +444,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Row" Property="Background" Value="#555485B7" />
+                            <Setter TargetName="Row" Property="Background" Value="{look:Brush #555485B7}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -566,6 +570,42 @@
     </Style>
 
     <!--
+        Fork (1.4.2): the back and forward arrows and Home at the left of the hub header, as Steam
+        has its arrows at the left of its top bar: a bare icon, no face, brighter under the pointer
+        and dim when there is nowhere to go. HUNCH: the greys (#B8BCBF, #4C5560) and the 32x36 box
+        are matched to this header by eye, not measured from Steam's client.
+    -->
+    <Style x:Key="SteamNavArrow" TargetType="Button">
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="#B8BCBF" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource SteamWhite}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#4C5560" />
+                            <Setter Property="Cursor" Value="Arrow" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--
         Workshop sub-navigation ("Home  Browse ▾  Your Items ▾  Discussions  About"): 15px white,
         0 10px padding, 47px strip, a 2px white bar under the current one.
     -->
@@ -624,8 +664,8 @@
         <Setter Property="Background">
             <Setter.Value>
                 <RadialGradientBrush Center="0.3428,1" GradientOrigin="0.3428,1" RadiusX="0.859" RadiusY="0.8418">
-                    <GradientStop Offset="0.275" Color="#29323D" />
-                    <GradientStop Offset="0.6794" Color="#1C1E24" />
+                    <GradientStop Offset="0.275" Color="{look:Color #29323D}" />
+                    <GradientStop Offset="0.6794" Color="{look:Color #1C1E24}" />
                 </RadialGradientBrush>
             </Setter.Value>
         </Setter>
@@ -647,8 +687,8 @@
         <Setter Property="Background">
             <Setter.Value>
                 <RadialGradientBrush Center="0.3428,1" GradientOrigin="0.3428,1" RadiusX="0.859" RadiusY="0.8418">
-                    <GradientStop Offset="0.275" Color="#E03F536D" />
-                    <GradientStop Offset="0.6794" Color="#EB192330" />
+                    <GradientStop Offset="0.275" Color="{look:Color #E03F536D}" />
+                    <GradientStop Offset="0.6794" Color="{look:Color #EB192330}" />
                 </RadialGradientBrush>
             </Setter.Value>
         </Setter>
@@ -732,7 +772,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Border Background="#1C2025" Padding="10,0,0,0">
+                    <Border Background="{look:Brush #1C2025}" Padding="10,0,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -1034,23 +1074,64 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MenuItem">
+                    <!-- Fork (1.4.2): an item with items of its own (Add to group) opens them to its
+                         right in the same body, with a chevron, as Steam's library menus do. -->
                     <Border x:Name="Face" Padding="12,5" Background="Transparent">
-                        <ContentPresenter
-                            ContentSource="Header"
-                            RecognizesAccessKey="False"
-                            TextBlock.Foreground="{TemplateBinding Foreground}">
-                            <ContentPresenter.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-                                    <Setter Property="MaxWidth" Value="320" />
-                                </Style>
-                            </ContentPresenter.Resources>
-                        </ContentPresenter>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter
+                                ContentSource="Header"
+                                RecognizesAccessKey="False"
+                                TextBlock.Foreground="{TemplateBinding Foreground}">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                        <Setter Property="MaxWidth" Value="320" />
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                            <Path
+                                x:Name="Chevron"
+                                Grid.Column="1"
+                                Margin="16,0,0,0"
+                                VerticalAlignment="Center"
+                                Data="M0,0 L4,4 L0,8"
+                                Stroke="{TemplateBinding Foreground}"
+                                StrokeThickness="1.2"
+                                Visibility="Collapsed" />
+                            <Popup
+                                x:Name="Submenu"
+                                AllowsTransparency="True"
+                                Focusable="False"
+                                Placement="Right"
+                                PlacementTarget="{Binding ElementName=Face}"
+                                HorizontalOffset="-12"
+                                VerticalOffset="-13"
+                                PopupAnimation="None"
+                                IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}">
+                                <!-- The same body as SteamPopupMenu, with its room for the shadow. -->
+                                <Border Padding="12" Background="Transparent">
+                                    <Border MinWidth="150" Background="#3D4450" BorderBrush="#3D4450" BorderThickness="1"
+                                        TextElement.FontFamily="{StaticResource SteamFont}" TextElement.FontSize="12">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="12" Opacity="1" ShadowDepth="0" Color="Black" />
+                                        </Border.Effect>
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    </Border>
+                                </Border>
+                            </Popup>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Role" Value="SubmenuHeader">
+                            <Setter TargetName="Chevron" Property="Visibility" Value="Visible" />
+                        </Trigger>
                         <Trigger Property="IsHighlighted" Value="True">
                             <Setter TargetName="Face" Property="Background" Value="#DCDEDF" />
-                            <Setter Property="Foreground" Value="#171D25" />
+                            <Setter Property="Foreground" Value="{look:Brush #171D25}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="#7A7E83" />
@@ -1080,8 +1161,8 @@
         #1A9FFF once chosen - and 13px #ACB2B8 text 8px over, rows 25px apart.
     -->
     <RadialGradientBrush x:Key="SteamOptionsPanelBackground" Center="0.3428,1" GradientOrigin="0.3428,1" RadiusX="0.859" RadiusY="0.8418">
-        <GradientStop Offset="0.275" Color="#29323D" />
-        <GradientStop Offset="0.6794" Color="#1C1E24" />
+        <GradientStop Offset="0.275" Color="{look:Color #29323D}" />
+        <GradientStop Offset="0.6794" Color="{look:Color #1C1E24}" />
     </RadialGradientBrush>
 
     <Style x:Key="SteamOptionRadio" TargetType="RadioButton">
@@ -1099,7 +1180,7 @@
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="Dot" Property="Fill" Value="#1A9FFF" />
+                            <Setter TargetName="Dot" Property="Fill" Value="{look:Brush #1A9FFF}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -1119,16 +1200,16 @@
         The DataContext is the author (IsFollowing).
     -->
     <LinearGradientBrush x:Key="SteamDarkBlueOuter" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0.05" Color="#2F89BC" />
-        <GradientStop Offset="0.95" Color="#17435C" />
+        <GradientStop Offset="0.05" Color="{look:Color #2F89BC}" />
+        <GradientStop Offset="0.95" Color="{look:Color #17435C}" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="SteamDarkBlueInner" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0.05" Color="#21658A" />
-        <GradientStop Offset="0.95" Color="#17435C" />
+        <GradientStop Offset="0.05" Color="{look:Color #21658A}" />
+        <GradientStop Offset="0.95" Color="{look:Color #17435C}" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="SteamDarkBlueHover" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0.05" Color="#66C0F4" />
-        <GradientStop Offset="0.95" Color="#2F89BC" />
+        <GradientStop Offset="0.05" Color="{look:Color #66C0F4}" />
+        <GradientStop Offset="0.95" Color="{look:Color #2F89BC}" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="SteamActiveInner" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0.05" Color="#989B9E" />
@@ -1136,7 +1217,7 @@
     </LinearGradientBrush>
 
     <Style x:Key="SteamFollowButton" TargetType="Button">
-        <Setter Property="Foreground" Value="#A4D7F5" />
+        <Setter Property="Foreground" Value="{look:Brush #A4D7F5}" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -1161,7 +1242,7 @@
                         <DataTrigger Binding="{Binding IsFollowing}" Value="True">
                             <Setter TargetName="Outer" Property="Background" Value="White" />
                             <Setter TargetName="Inner" Property="Background" Value="{StaticResource SteamActiveInner}" />
-                            <Setter Property="Foreground" Value="#323B49" />
+                            <Setter Property="Foreground" Value="{look:Brush #323B49}" />
                             <Setter TargetName="Add" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="Following" Property="Visibility" Value="Visible" />
                         </DataTrigger>
@@ -1187,7 +1268,7 @@
         text in the body. The buttons inside use SteamModalGreenButton / Blue / Grey.
     -->
     <Style x:Key="SteamModalWindowStyle" TargetType="Window">
-        <Setter Property="Background" Value="#25282E" />
+        <Setter Property="Background" Value="{look:Brush #25282E}" />
         <!-- The window's own text colour, so nothing inside inherits Windows' black. -->
         <Setter Property="Foreground" Value="#ACB2B8" />
         <Setter Property="FontFamily" Value="{StaticResource SteamFont}" />
@@ -1219,8 +1300,8 @@
                             <Rectangle Grid.Row="0" Height="1">
                                 <Rectangle.Fill>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                        <GradientStop Offset="0" Color="#00CCFF" />
-                                        <GradientStop Offset="1" Color="#3366FF" />
+                                        <GradientStop Offset="0" Color="{look:Color #00CCFF}" />
+                                        <GradientStop Offset="1" Color="{look:Color #3366FF}" />
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>

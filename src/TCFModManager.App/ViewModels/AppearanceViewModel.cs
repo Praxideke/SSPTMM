@@ -2,6 +2,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
+using TCFModManager.Core.Models;
 using TCFModManager.Core.Services;
 
 namespace TCFModManager.App.ViewModels;
@@ -19,6 +20,10 @@ public sealed partial class AppearanceViewModel : ObservableObject
     [ObservableProperty]
     private bool _showCollectionsTab = true;
 
+    // Fork (1.4.2): where the window opens and the hub's Home button goes.
+    [ObservableProperty]
+    private HomePageChoice _homePage;
+
     // The user's picture, decoded once; null for the Steam grid.
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasBackgroundImage))]
@@ -28,6 +33,13 @@ public sealed partial class AppearanceViewModel : ObservableObject
 
     [ObservableProperty]
     private double _backgroundDarkness = 0.55;
+
+    // Fork (1.4.3): how far the picture is blurred, in pixels; 0 leaves it sharp.
+    [ObservableProperty]
+    private double _backgroundBlur;
+
+    // HUNCH: past 20px a picture is a wash of colour, which the darkness slider already gives.
+    public const double MaximumBlur = 20;
 
     private string? _loadedPath;
 
@@ -40,7 +52,9 @@ public sealed partial class AppearanceViewModel : ObservableObject
         var settings = new SettingsService().Load();
         ShowSubscribedItemsTab = settings.ShowSubscribedItemsTab;
         ShowCollectionsTab = settings.ShowCollectionsTab;
+        HomePage = settings.HomePage;
         BackgroundDarkness = Math.Clamp(settings.BackgroundDarkness, 0, 0.9);
+        BackgroundBlur = Math.Clamp(settings.BackgroundBlur, 0, MaximumBlur);
 
         if (settings.BackgroundImage != _loadedPath)
         {

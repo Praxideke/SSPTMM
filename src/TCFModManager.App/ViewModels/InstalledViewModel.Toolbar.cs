@@ -25,6 +25,7 @@ public partial class InstalledViewModel
         + (SelectedEnabledFilter.Value != EnabledFilterOptions[0].Value ? 1 : 0)
         + (SelectedCategory.Title is not null ? 1 : 0)
         + (SelectedGroupFilter.AllGroups ? 0 : 1)
+        + (SelectedColorFilter.AnyColor ? 0 : 1) // Fork (1.4.3)
         + AttributeOptions.Count(o => o.IsSelected);
 
     public bool HasActiveFilters => ActiveFilterCount > 0;

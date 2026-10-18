@@ -18,6 +18,7 @@
 -->
 <Page
     x:Class="TCFModManager.App.Views.BrowsePage"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -111,7 +112,7 @@
                                 <Setter TargetName="Chrome" Property="Background" Value="{StaticResource SteamBlueHover}" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Chrome" Property="Background" Value="#21537A" />
+                                <Setter TargetName="Chrome" Property="Background" Value="{look:Brush #21537A}" />
                                 <Setter Property="Foreground" Value="#71757A" />
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -302,6 +303,7 @@
                         <TextBox
                             Style="{StaticResource SteamSearchField}"
                             Tag="{loc:Str Common_SearchPlaceholder}"
+                            behaviors:Shortcuts.Search="True"
                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                     </Border>
 
@@ -496,8 +498,9 @@
                             <DataTemplate>
                                 <!-- One card, plus the shadow behind it as its own layer: an Effect on
                                      the card itself would render its text without ClearType. -->
-                                <Grid
+                                <behaviors:OpenableCard
                                     x:Name="CardRoot"
+                                    AutomationProperties.Name="{Binding Mod.Name}"
                                     behaviors:ModContextMenu.Mod="{Binding Mod}"
                                     Margin="0,0,16,16"
                                     VerticalAlignment="Top"
@@ -525,7 +528,7 @@
 
                                     <!-- Two shadow layers, swapped by the hover trigger: a trigger
                                          cannot reach into an Effect by name. -->
-                                    <Border x:Name="Shadow" Background="#1B1D21">
+                                    <Border x:Name="Shadow" Background="{look:Brush #1B1D21}">
                                         <Border.CacheMode>
                                             <BitmapCache />
                                         </Border.CacheMode>
@@ -533,7 +536,7 @@
                                             <DropShadowEffect BlurRadius="10" Direction="315" Opacity="0.58" ShadowDepth="1.4" Color="Black" />
                                         </Border.Effect>
                                     </Border>
-                                    <Border x:Name="Glow" Background="#1B1D21" Visibility="Hidden">
+                                    <Border x:Name="Glow" Background="{look:Brush #1B1D21}" Visibility="Hidden">
                                         <Border.CacheMode>
                                             <BitmapCache />
                                         </Border.CacheMode>
@@ -659,7 +662,7 @@
                                             </Grid>
                                         </StackPanel>
                                     </Border>
-                                </Grid>
+                                </behaviors:OpenableCard>
                                 <DataTemplate.Triggers>
                                     <!-- Steam's hover: the card lifts 5px and its shadow turns into
                                          a faint white glow. -->
@@ -667,14 +670,14 @@
                                         <Trigger.EnterActions>
                                             <BeginStoryboard>
                                                 <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="-5" Duration="0:0:0.15" />
+                                                    <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="{StaticResource CardLiftOffset}" Duration="{StaticResource CardLiftDuration}" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </Trigger.EnterActions>
                                         <Trigger.ExitActions>
                                             <BeginStoryboard>
                                                 <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="0:0:0.15" />
+                                                    <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="{StaticResource CardLiftDuration}" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </Trigger.ExitActions>

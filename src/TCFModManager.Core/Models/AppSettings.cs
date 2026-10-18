@@ -31,6 +31,24 @@ public sealed class AppSettings
     // outlasts Clear filters and a restart. 0 is Infinite.
     public Dictionary<string, int> PageSizes { get; set; } = [];
 
+    // Fork (1.4.3): names you gave installed mods (Subscribed items > right-click > Rename...),
+    // keyed "id:<sp-mod.com id>" or "name:<folder name>" - see App/Services/ModNicknames.
+    public Dictionary<string, string> ModNames { get; set; } = [];
+
+    // Fork (1.4.3): your notes on installed mods (right-click > Note...), keyed as ModNames.
+    public Dictionary<string, string> ModNotes { get; set; } = [];
+
+    // Fork (1.4.3): a colour of your own for an installed mod (right-click > Colour), "#RRGGBB",
+    // keyed as ModNames. It is drawn in place of its group's colour.
+    public Dictionary<string, string> ModColors { get; set; } = [];
+
+    // Fork (1.4.3): updates you chose to skip, "id:<mod id>" or "addon:<addon id>" to the version
+    // skipped. A newer version than that one is offered as usual.
+    public Dictionary<string, string> SkippedUpdates { get; set; } = [];
+
+    // Fork (1.4.3): Options > Look > Interface size, and Ctrl+= / Ctrl+- / Ctrl+0. 1 is 100%.
+    public double InterfaceScale { get; set; } = 1.0;
+
     // Fork (SSPTMM): close the game when the SPT server stops - by Stop server, from its own window,
     // or a crash (the App's GameCloser). Off unless ticked on the Play page.
     public bool CloseGameWithServer { get; set; }
@@ -119,6 +137,29 @@ public sealed class AppSettings
     // last started, else the first.
     public string? DirectLaunchProfileId { get; set; }
 
+    //
+    // Fork (1.4.3): the server Play starts the game against, as "host:port" - a Fika host or anyone's
+    // SPT server on another PC. Null: this PC's own, started first when it is not running.
+    //
+    public string? PlayServerAddress { get; set; }
+
+    // Servers added on the Play card (... > Add a server...). Those added in SPT's launcher are read
+    // from its settings and listed beside these, not copied here.
+    public List<PlayServerEntry> PlayServers { get; set; } = [];
+
+    //
+    // "host:port" -> the SHA-256 thumbprint of the certificate that server showed the first time
+    // Play reached it. SPT's certificate is self-signed for localhost and fails the usual checks at
+    // any other address, so this is the check that means anything (ServerMap/ServerCertificatePin).
+    //
+    public Dictionary<string, string> PlayServerPins { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+    //
+    // Fork (1.4.3, experimental): Options > Play with Fika - the Play card's options for other PCs'
+    // servers and a Fika host's notes. Null: Automatic, on when Fika is found in the install.
+    //
+    public bool? FikaOptions { get; set; }
+
     // Minimise SSPTMM once the game has started from it, as SPT's launcher does by default.
     public bool MinimizeWhilePlaying { get; set; } = true;
 
@@ -127,6 +168,11 @@ public sealed class AppSettings
     // or jumps there at once. On by default; the distance per turn is the same either way.
     //
     public bool SmoothScrolling { get; set; } = true;
+
+    //
+    // Fork (1.4.3): the cards rising under the pointer and pages sliding in. On by default.
+    //
+    public bool Animations { get; set; } = true;
 
     //
     // Fork (round 47): Subscribed items draws each mod's own picture, blurred, behind its card and
@@ -141,6 +187,21 @@ public sealed class AppSettings
     // item's config files are kept (set aside), never deleted.
     //
     public bool ConfirmUnsubscribe { get; set; } = true;
+
+    //
+    // Fork (1.4.3): with the SPT server or the game running, installing, removing, switching on or
+    // off, undoing and applying a list ask "are you sure?" instead of refusing, as Mod Organizer 2
+    // does. Off by default: files the game has open may not move. Restoring profiles is refused
+    // either way - the server writes them back.
+    //
+    public bool AllowChangesWhileRunning { get; set; }
+
+    //
+    // Fork (1.4.3): where the mod catalogue is read from - a mirror of sp-mod.com that answers the
+    // same /api/v0, for when sp-mod.com is down. Null is sp-mod.com. Checked before it is kept;
+    // used from the next start.
+    //
+    public string? CatalogSite { get; set; }
 
     //
     // Whether downloaded archives are kept (Data\Downloads, within ModArchiveCache's budget) so a
@@ -259,6 +320,13 @@ public sealed class AppSettings
 
     public bool ShowCollectionsTab { get; set; } = true;
 
+    // Fork (1.4.2): where the window opens and the hub's Home button goes (HomePageChoice).
+    [JsonConverter(typeof(JsonStringEnumConverter<HomePageChoice>))]
+    public HomePageChoice HomePage { get; set; } = HomePageChoice.Workshop;
+
+    // The page last on screen, by its type's name - kept only while HomePage is LastPage.
+    public string? LastPage { get; set; }
+
     //
     // A picture of the user's own behind the window, in place of the Steam grid: the copy of it
     // kept in Data\Background (so moving or deleting the original does not lose it), and how far
@@ -267,6 +335,19 @@ public sealed class AppSettings
     public string? BackgroundImage { get; set; }
 
     public double BackgroundDarkness { get; set; } = 0.55;
+
+    // Fork (1.4.3): the picture blurred by this many pixels, 0 to 20 (Options > Look).
+    public double BackgroundBlur { get; set; }
+
+    // Fork (1.4.3): Options > Look. The accent as #RRGGBB; null for Steam blue.
+    public string? AccentColor { get; set; }
+
+    // Fork (1.4.3): OLED black - the pages black and their surfaces darker, in place of Steam's navy.
+    public bool OledBlack { get; set; }
+
+    // Fork (1.4.3): how much room the cards and rows on Subscribed items take.
+    [JsonConverter(typeof(JsonStringEnumConverter<CardSize>))]
+    public CardSize CardSize { get; set; } = CardSize.Normal;
 
     //
     // Where the main window opens and how big. Always present, the same as ServerMap below, and
@@ -405,6 +486,14 @@ public sealed class ServerMapSettings
     public bool HasKey => !string.IsNullOrWhiteSpace(SharedKey);
 
     public ServerMapEndpoint ToEndpoint() => new(Host ?? string.Empty, Port, PinnedThumbprint, SharedKey);
+}
+
+// Fork (1.4.3): a server added on the Play card - see AppSettings.PlayServers.
+public sealed class PlayServerEntry
+{
+    public string Name { get; set; } = string.Empty;
+
+    public string Address { get; set; } = string.Empty;
 }
 
 // An author followed from the Workshop pages - see AppSettings.FollowedAuthors.

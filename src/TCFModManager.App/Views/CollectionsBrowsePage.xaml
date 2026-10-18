@@ -17,12 +17,14 @@
 -->
 <Page
     x:Class="TCFModManager.App.Views.CollectionsBrowsePage"
+    xmlns:look="clr-namespace:TCFModManager.App.Look"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:views="clr-namespace:TCFModManager.App.Views"
     xmlns:converters="clr-namespace:TCFModManager.App.Converters"
     xmlns:behaviors="clr-namespace:TCFModManager.App.Behaviors"
+    behaviors:Shortcuts.Refresh="{Binding RefreshCommand}"
     xmlns:loc="clr-namespace:TCFModManager.App.Localization"
     ScrollViewer.CanContentScroll="False"
     Title="{loc:Str Collections_Title}"
@@ -107,7 +109,7 @@
                                 <Setter TargetName="Chrome" Property="Background" Value="{StaticResource SteamBlueHover}" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Chrome" Property="Background" Value="#21537A" />
+                                <Setter TargetName="Chrome" Property="Background" Value="{look:Brush #21537A}" />
                                 <Setter Property="Foreground" Value="#71757A" />
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -118,8 +120,8 @@
 
         <!-- Steam's collection card background. -->
         <RadialGradientBrush x:Key="CardFace" Center="0.17,0.35" GradientOrigin="0.17,0.35" RadiusX="0.62" RadiusY="0.99">
-            <GradientStop Offset="0" Color="#3C4149" />
-            <GradientStop Offset="1" Color="#1B1D21" />
+            <GradientStop Offset="0" Color="{look:Color #3C4149}" />
+            <GradientStop Offset="1" Color="{look:Color #1B1D21}" />
         </RadialGradientBrush>
     </Page.Resources>
 
@@ -252,6 +254,7 @@
                         <TextBox
                             Style="{StaticResource SteamSearchField}"
                             Tag="{loc:Str Collections_SearchPlaceholder}"
+                            behaviors:Shortcuts.Search="True"
                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                     </Border>
                     <Button
@@ -324,8 +327,9 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid
+                                <behaviors:OpenableCard
                                     x:Name="CardRoot"
+                                    AutomationProperties.Name="{Binding Title}"
                                     Height="152"
                                     Margin="0,0,16,16"
                                     VerticalAlignment="Top"
@@ -337,7 +341,7 @@
                                         <TranslateTransform Y="0" />
                                     </Grid.RenderTransform>
 
-                                    <Border x:Name="Shadow" Background="#1B1D21">
+                                    <Border x:Name="Shadow" Background="{look:Brush #1B1D21}">
                                         <Border.CacheMode>
                                             <BitmapCache />
                                         </Border.CacheMode>
@@ -345,7 +349,7 @@
                                             <DropShadowEffect BlurRadius="10" Direction="315" Opacity="0.58" ShadowDepth="1.4" Color="Black" />
                                         </Border.Effect>
                                     </Border>
-                                    <Border x:Name="Glow" Background="#1B1D21" Visibility="Hidden">
+                                    <Border x:Name="Glow" Background="{look:Brush #1B1D21}" Visibility="Hidden">
                                         <Border.CacheMode>
                                             <BitmapCache />
                                         </Border.CacheMode>
@@ -361,7 +365,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <!-- The list's picture, or sp-mod.com's glyph on its stripes. -->
-                                        <Grid Grid.Column="0" Background="#030712">
+                                        <Grid Grid.Column="0" Background="{look:Brush #030712}">
                                             <ui:SymbolIcon
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
@@ -417,8 +421,8 @@
                                                     DockPanel.Dock="Right"
                                                     Orientation="Horizontal"
                                                     Visibility="{Binding IsSubscribed, Converter={StaticResource TrueToVisible}}">
-                                                    <ui:SymbolIcon Margin="0,0,4,0" FontSize="13" Foreground="#66C0F4" Symbol="Checkmark16" />
-                                                    <TextBlock FontSize="12" Foreground="#66C0F4" Text="{loc:Str Workshop_TagSubscribed}" />
+                                                    <ui:SymbolIcon Margin="0,0,4,0" FontSize="13" Foreground="{look:Brush #66C0F4}" Symbol="Checkmark16" />
+                                                    <TextBlock FontSize="12" Foreground="{look:Brush #66C0F4}" Text="{loc:Str Workshop_TagSubscribed}" />
                                                 </StackPanel>
                                                 <TextBlock FontSize="12" Foreground="#636B74" Text="{Binding ContainsText}" />
                                             </DockPanel>
@@ -434,20 +438,20 @@
                                                 Text="{Binding Teaser}" />
                                         </DockPanel>
                                     </Grid>
-                                </Grid>
+                                </behaviors:OpenableCard>
                                 <DataTemplate.Triggers>
                                     <Trigger SourceName="CardRoot" Property="IsMouseOver" Value="True">
                                         <Trigger.EnterActions>
                                             <BeginStoryboard>
                                                 <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="-5" Duration="0:0:0.15" />
+                                                    <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="{StaticResource CardLiftOffset}" Duration="{StaticResource CardLiftDuration}" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </Trigger.EnterActions>
                                         <Trigger.ExitActions>
                                             <BeginStoryboard>
                                                 <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="0:0:0.15" />
+                                                    <DoubleAnimation Storyboard.TargetName="CardRoot" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="{StaticResource CardLiftDuration}" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </Trigger.ExitActions>

@@ -7,6 +7,8 @@ using TCFModManager.App.Help;
 using TCFModManager.App.Localization;
 using TCFModManager.App.Services;
 using TCFModManager.App.Views;
+using TCFModManager.App.ViewModels;
+using TCFModManager.Core.Services;
 using TCFModManager.Core.SpModApi;
 using Wpf.Ui.Controls;
 
@@ -14,9 +16,161 @@ namespace TCFModManager.App;
 
 public partial class MainWindow : FluentWindow
 {
+    // Fork (1.4.3): how pages change with Animations on (Behaviors/Motion).
+    internal Wpf.Ui.Animations.Transition PageTransition { get; private set; }
+
+    //
+    // Fork (1.4.3): an archive dropped from Explorer anywhere on the window installs as one dropped
+    // on Subscribed items does - which is opened, for its questions and what it says. Subscribed
+    // items settles its own drops first; anything that isn't a file is left to the page under it.
+    //
+    private void Window_DragOver(object sender, DragEventArgs e)
+    {
+        // Nothing lands behind the update dialog.
+        if (Blocked)
+        {
+            e.Effects = DragDropEffects.None;
+            e.Handled = true;
+            return;
+        }
+
+        // Fork (1.4.3): a link to a mod, dragged from a browser, opens its page here.
+        if (DroppedModLink(e.Data) is not null)
+        {
+            e.Effects = DragDropEffects.Link;
+            e.Handled = true;
+            return;
+        }
+
+        // Anything else no page took (text, a card dragged out of its list) has nowhere to go.
+        e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop)
+                    && e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any(InstalledViewModel.IsModArchive)
+            ? DragDropEffects.Copy
+            : DragDropEffects.None;
+        e.Handled = true;
+    }
+
+    private async void Window_Drop(object sender, DragEventArgs e)
+    {
+        if (Blocked)
+        {
+            e.Handled = true;
+            return;
+        }
+
+        if (DroppedModLink(e.Data) is { } link)
+        {
+            e.Handled = true;
+            MarkupActions.OpenLink(link);
+            return;
+        }
+
+        if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+
+        e.Handled = true;
+        if (e.Data.GetData(DataFormats.FileDrop) is not string[] files || !files.Any(InstalledViewModel.IsModArchive)) return;
+
+        e.Effects = DragDropEffects.Copy;
+        var kept = InstalledPage.KeepDroppedTempFiles(files);
+
+        // Not while OLE is still waiting for the drop to finish (as InstalledPage).
+        await System.Windows.Threading.Dispatcher.Yield(System.Windows.Threading.DispatcherPriority.Background);
+        AppNavigation.Navigate(typeof(InstalledPage));
+        await InstalledViewModel.ForActions.InstallArchivesAsync(kept);
+    }
+
+    // A browser's link drag carries the address as text; a file drag never is one.
+    internal static string? DroppedModLink(IDataObject data)
+    {
+        if (data.GetDataPresent(DataFormats.FileDrop)) return null;
+
+        try
+        {
+            return MarkupActions.ModLinkIn(data.GetData(DataFormats.UnicodeText) as string);
+        }
+        catch (System.Runtime.InteropServices.COMException)
+        {
+            return null;
+        }
+    }
+
+    // Fork (1.4.3): Ctrl+V outside a text box, with a mod's sp-mod.com link copied.
+    private static string? ModLinkOnClipboard()
+    {
+        try
+        {
+            return Clipboard.ContainsText() ? MarkupActions.ModLinkIn(Clipboard.GetText()) : null;
+        }
+        catch (System.Runtime.InteropServices.COMException)
+        {
+            return null; // the clipboard is held by another program just now
+        }
+    }
+
+    //
+    // Fork (1.4.3): Ctrl+F to the page's search box, F5 its Rescan or Refresh, Ctrl+V a mod's link,
+    // and the interface size (Help > Keyboard shortcuts). True when it was one of them.
+    //
+    private bool ShortcutKey(KeyEventArgs e)
+    {
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
+        var ctrl = Keyboard.Modifiers == ModifierKeys.Control;
+        var scope = (DependencyObject?)TopPage ?? RootNavigationView;
+        var page = !Blocked; // with the update dialog open, the page behind it is left alone
+
+        if (page && ctrl && key == Key.F && Behaviors.Shortcuts.SearchBoxIn(scope) is { } box)
+        {
+            box.Focus();
+            box.SelectAll();
+        }
+        else if (page && key == Key.F5 && Keyboard.Modifiers == ModifierKeys.None
+                 && Behaviors.Shortcuts.RefreshIn(scope) is { } refresh && refresh.CanExecute(null))
+        {
+            refresh.Execute(null);
+        }
+        else if (page && ctrl && key == Key.V
+                 && Keyboard.FocusedElement is not (System.Windows.Controls.Primitives.TextBoxBase or System.Windows.Controls.PasswordBox)
+                 && ModLinkOnClipboard() is { } link)
+        {
+            MarkupActions.OpenLink(link);
+        }
+        else if (ctrl && key is Key.OemPlus or Key.Add) Behaviors.InterfaceScale.Step(+1);
+        else if (ctrl && key is Key.OemMinus or Key.Subtract) Behaviors.InterfaceScale.Step(-1);
+        else if (ctrl && key is Key.D0 or Key.NumPad0) Behaviors.InterfaceScale.Set(1.0);
+        else return false;
+
+        e.Handled = true;
+        return true;
+    }
+
+    //
+    // Fork (1.4.3): a queue that finishes while the window is out of sight says so - a Windows
+    // notification from the tray, the taskbar button flashing when minimised or behind others.
+    //
+    private void OnQueueFinished(object? sender, DownloadQueueFinished done)
+    {
+        if (!IsVisible)
+        {
+            UpdateToasts.ShowMessage("downloads", Strings.Downloads_FinishedTitle,
+                LocalizationService.Text(Strings.Downloads_FinishedBodyFormat, done.Completed, done.Failed));
+        }
+        else if (WindowState == WindowState.Minimized || !IsActive)
+        {
+            WindowActivation.Flash(this);
+        }
+    }
+
     public MainWindow()
     {
         InitializeComponent();
+
+        // Fork (1.4.3): Options > Look > Interface size, as saved.
+        Behaviors.InterfaceScale.Attach(RootLayout);
+        AppServices.DownloadQueue.QueueFinished += OnQueueFinished;
+
+        // Fork (1.4.3): Options > Animations off - pages change without sliding in.
+        PageTransition = RootNavigationView.Transition;
+        if (!Behaviors.Motion.Enabled) RootNavigationView.Transition = Wpf.Ui.Animations.Transition.None;
 
         // Before the window is shown, not on Loaded: WindowStartupLocation reads Width/Height while
         // it decides where to put the window, and by Loaded it has already decided. This also wires
@@ -25,7 +179,17 @@ public partial class MainWindow : FluentWindow
 
         // The hub tabs and the Workshop strips navigate through AppNavigation, which hears every
         // navigation once it is attached (on Loaded, below) and reports it back here.
-        AppNavigation.Navigated += (_, pageType) => SyncHeader(pageType);
+        AppNavigation.Navigated += (_, pageType) =>
+        {
+            SyncHeader(pageType);
+            Visited();
+            AppNavigation.RememberPage(pageType);
+        };
+        _history.Changed += (_, _) =>
+        {
+            BackButton.IsEnabled = _history.CanGoBack;
+            ForwardButton.IsEnabled = _history.CanGoForward;
+        };
 
         // A tab switched on or off in Options: the lit tab may have moved with it.
         AppServices.Appearance.PropertyChanged += (_, _) =>
@@ -38,9 +202,19 @@ public partial class MainWindow : FluentWindow
             CollectionQuickView.Close();
             // Forgotten first, so no page closing brings another back.
             _under.Clear();
-            CollectionPage.Close();
-            AuthorPage.Close();
-            ItemPage.Close();
+            // On the way to another page: closing these is not going back to the one under them.
+            var moving = _moving;
+            _moving = true;
+            try
+            {
+                CollectionPage.Close();
+                AuthorPage.Close();
+                ItemPage.Close();
+            }
+            finally
+            {
+                _moving = moving;
+            }
         };
 
         // A menu that stays open by itself would float over other windows once this one is left.
@@ -49,9 +223,21 @@ public partial class MainWindow : FluentWindow
         // F1 is the title bar's "?" (Help R8). Preview, so a focused text box doesn't get it first.
         PreviewKeyDown += (_, e) =>
         {
+            if (BackForwardKey(e)) return;
+            if (ShortcutKey(e)) return;
             if (e.Key != Key.F1 || Keyboard.Modifiers != ModifierKeys.None) return;
 
             ShowHelp();
+            e.Handled = true;
+        };
+
+        // The mouse's own back and forward buttons, as in Steam and a browser.
+        PreviewMouseDown += (_, e) =>
+        {
+            if (e.ChangedButton == MouseButton.XButton1) GoBack();
+            else if (e.ChangedButton == MouseButton.XButton2) GoForward();
+            else return;
+
             e.Handled = true;
         };
 
@@ -64,10 +250,11 @@ public partial class MainWindow : FluentWindow
             AppTheme.Attach(this);
 
             // Subscribed items when this launch came from clicking an update notification (§6);
-            // otherwise Steam's Workshop tab, on the Workshop's front page. Attached first, so a
+            // otherwise the Home page chosen in Options (the Workshop's front page unless changed).
+            // Attached first, so a
             // click landing from here on navigates by itself.
             AppNavigation.Attach(RootNavigationView);
-            AppNavigation.Navigate(AppNavigation.StartOnInstalled ? typeof(InstalledPage) : typeof(WorkshopHomePage));
+            AppNavigation.Navigate(AppNavigation.StartOnInstalled ? typeof(InstalledPage) : AppNavigation.HomePage);
 
             // Fire-and-forget: whether a newer SSPTMM is out on GitHub has no bearing on the window
             // opening, and a failed check just leaves the dot off. It asks first (once), and checks
@@ -105,15 +292,18 @@ public partial class MainWindow : FluentWindow
         // A mod opened from anywhere opens as its Workshop item page, over the page it came from.
         AppServices.ModDetailsOverlay.Requested += (_, request) =>
         {
-            Cover(ItemPage);
-            ItemPage.Show(request);
-            PerfProbe.ItemPage(opened: true);
+            OpenItem(request);
+            Visited();
         };
+
+        // Esc on a required item, back to the item it was opened from: a step back.
+        ItemPage.WalkedBack += (_, _) => Returned();
 
         ItemPage.Closed += (_, _) =>
         {
             PerfProbe.ItemPage(opened: false);
             Uncover(ItemPage);
+            Returned();
         };
 
         AppServices.QuickView.Requested += (_, request) =>
@@ -131,14 +321,14 @@ public partial class MainWindow : FluentWindow
         // A collection opened from anywhere opens as its Workshop page, over the page it came from.
         AppServices.CollectionOverlay.Requested += (_, request) =>
         {
-            // A list deleted since the link was drawn opens nothing, and leaves the page as it was.
-            if (!request.IsPublic && (request.ListId is not { } listId || AppServices.ModLists.Find(listId) is null)) return;
-
-            Cover(CollectionPage);
-            CollectionPage.Show(request);
+            if (OpenCollection(request)) Visited();
         };
 
-        CollectionPage.Closed += (_, _) => Uncover(CollectionPage);
+        CollectionPage.Closed += (_, _) =>
+        {
+            Uncover(CollectionPage);
+            Returned();
+        };
 
         // The item, collection and author pages have no background of their own, so the window's grid
         // (or picture) shows through them as it does on the other Workshop pages. The page they were
@@ -156,11 +346,15 @@ public partial class MainWindow : FluentWindow
         // An author opened from anywhere opens as their Workshop page, the same way.
         AppServices.AuthorOverlay.Requested += (_, request) =>
         {
-            Cover(AuthorPage);
-            AuthorPage.Show(request);
+            OpenAuthor(request);
+            Visited();
         };
 
-        AuthorPage.Closed += (_, _) => Uncover(AuthorPage);
+        AuthorPage.Closed += (_, _) =>
+        {
+            Uncover(AuthorPage);
+            Returned();
+        };
 
         // Constructs and shows the mod update dialog, awaitable so callers know when it closes.
         AppServices.ModUpdateOverlay.ShowAsync = async mod =>
@@ -218,6 +412,31 @@ public partial class MainWindow : FluentWindow
             _under.RemoveAt(_under.Count - 1);
             RevealPage(previous);
         }
+    }
+
+    private void OpenItem(ModDetailsRequest request, bool again = false)
+    {
+        Cover(ItemPage);
+        ItemPage.Show(request, again);
+        PerfProbe.ItemPage(opened: true);
+    }
+
+    // False when it opened nothing: a list deleted since the link was drawn leaves the page as it was.
+    private bool OpenCollection(CollectionRequest request)
+    {
+        if (!request.IsPublic && (request.ListId is not { } listId || AppServices.ModLists.Find(listId) is null)) return false;
+
+        Cover(CollectionPage);
+        _opened[CollectionPage] = request;
+        CollectionPage.Show(request);
+        return true;
+    }
+
+    private void OpenAuthor(AuthorRequest request)
+    {
+        Cover(AuthorPage);
+        _opened[AuthorPage] = request;
+        AuthorPage.Show(request);
     }
 
     private void HidePage(FrameworkElement page)
@@ -331,6 +550,156 @@ public partial class MainWindow : FluentWindow
             : OverlayShowing ? Visibility.Hidden
             : Visibility.Visible;
 
+    // ------------------------------------------------------------------ fork (1.4.2): back, forward, home
+
+    //
+    // Steam's arrows at the left of its top bar, and its Home. A place is the page on screen and
+    // the item, collection or author page over it, if any - kept as the request that opened it, so
+    // going back opens it again. The history itself is NavigationHistory: going somewhere new
+    // drops what was ahead, and closing a page back to the place before counts as a step back.
+    //
+    // Opened again, an item page starts at its top, and the pages that were under it are not
+    // stacked back up: the history walks back through them instead.
+    //
+    private sealed record Place(Type Page, object? Over);
+
+    private readonly NavigationHistory<Place> _history = new();
+
+    private readonly Dictionary<FrameworkElement, object> _opened = [];
+
+    // True while Back or Forward, or a navigation closing the pages over the page area, is under
+    // way: the places passed through on the way are not places visited.
+    private bool _moving;
+
+    // The item page says which item it shows itself: Esc walks it back through required items.
+    private Place? Here() => AppNavigation.Current is { } page
+        ? new Place(page, TopPage is not { } top ? null
+            : ReferenceEquals(top, ItemPage) ? ItemPage.Current
+            : _opened.GetValueOrDefault(top))
+        : null;
+
+    private void Visited()
+    {
+        if (!_moving && Here() is { } here) _history.Visit(here);
+    }
+
+    private void Returned()
+    {
+        if (!_moving && Here() is { } here) _history.Return(here);
+    }
+
+    private void GoBack() => GoTo(Blocked ? null : _history.Back());
+
+    private void GoForward() => GoTo(Blocked ? null : _history.Forward());
+
+    private void GoHome()
+    {
+        if (!Blocked) AppNavigation.Navigate(AppNavigation.HomePage);
+    }
+
+    // The mod update dialog is over the window: it is closed by its own buttons, not navigated away from.
+    private static bool Blocked => AppServices.ModUpdateOverlay.IsOpen;
+
+    private void GoTo(Place? place)
+    {
+        if (place is null) return;
+
+        _moving = true;
+        try
+        {
+            AppNavigation.Navigate(place.Page);
+            var opened = true;
+            switch (place.Over)
+            {
+                case ModDetailsRequest item:
+                    OpenItem(item, again: true);
+                    break;
+                case CollectionRequest collection:
+                    opened = OpenCollection(collection);
+                    break;
+                case AuthorRequest author:
+                    OpenAuthor(author);
+                    break;
+            }
+
+            // What it showed can't be shown again (a collection deleted since): the history stands on
+            // the page that is shown instead.
+            if (!opened) _history.ReplaceCurrent(new Place(place.Page, null));
+        }
+        finally
+        {
+            _moving = false;
+        }
+    }
+
+    // Alt+Left, Alt+Right and Alt+Home, as in a browser, and a keyboard's own back, forward and
+    // home keys. True when it was one of them.
+    private bool BackForwardKey(KeyEventArgs e)
+    {
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
+        var alt = Keyboard.Modifiers == ModifierKeys.Alt;
+
+        if (key == Key.BrowserBack || (alt && key == Key.Left)) GoBack();
+        else if (key == Key.BrowserForward || (alt && key == Key.Right)) GoForward();
+        else if (key == Key.BrowserHome || (alt && key == Key.Home)) GoHome();
+        else return false;
+
+        e.Handled = true;
+        return true;
+    }
+
+    // Right-click on an arrow: the places that way, nearest first, as in Steam and a browser.
+    private void HistoryMenu_Opening(object sender, System.Windows.Controls.ContextMenuEventArgs e)
+    {
+        var menu = ((FrameworkElement)sender).ContextMenu!;
+        menu.Items.Clear();
+
+        var forward = ReferenceEquals(sender, ForwardButton);
+        var entries = _history.Entries;
+        var step = forward ? 1 : -1;
+        // HUNCH: fifteen, as a browser's list shows about that many.
+        for (var (i, shown) = (_history.Index + step, 0); i >= 0 && i < entries.Count && shown < 15; i += step, shown++)
+        {
+            var index = i;
+            var item = new System.Windows.Controls.MenuItem
+            {
+                Header = PlaceName(entries[i]),
+                Style = (Style)Application.Current.FindResource("SteamPopupMenuItem"),
+            };
+            item.Click += (_, _) => GoTo(Blocked ? null : _history.MoveTo(index));
+            menu.Items.Add(item);
+        }
+
+        if (menu.Items.Count == 0) e.Handled = true;
+    }
+
+    // What a place is called in that list: the mod, collection or author over the page, else the page.
+    private static string PlaceName(Place place) => place.Over switch
+    {
+        ModDetailsRequest { Mod.Name: { Length: > 0 } name } => name,
+        AuthorRequest { Name: { Length: > 0 } name } => name,
+        CollectionRequest { ListId: { } id } when AppServices.ModLists.Find(id) is { } list => list.Name,
+        CollectionRequest { PublicSlug: { Length: > 0 } slug } => slug.Replace('-', ' '),
+        _ => place.Page.Name switch
+        {
+            nameof(WorkshopHomePage) => Strings.Options_HomeWorkshop,
+            nameof(CollectionsBrowsePage) => Strings.Collections_Title,
+            nameof(YourCollectionsPage) => Strings.Workshop_YourCollections,
+            nameof(FavoriteCollectionsPage) => Strings.Favorites_Title,
+            nameof(FollowedAuthorsPage) => Strings.FollowedAuthors_Title,
+            nameof(HelpPage) => Strings.Nav_Help,
+            _ => HelpCatalog.PageName(place.Page),
+        },
+    };
+
+    private void Back_Click(object sender, RoutedEventArgs e) => GoBack();
+
+    private void Forward_Click(object sender, RoutedEventArgs e) => GoForward();
+
+    private void Home_Click(object sender, RoutedEventArgs e) => GoHome();
+
+    // ------------------------------------------------------------------
+
     private bool OverlayShowing => ItemPage.IsVisible || AuthorPage.IsVisible || CollectionPage.IsVisible;
 
     private void HubTab_Click(object sender, RoutedEventArgs e)
@@ -412,7 +781,7 @@ public partial class MainWindow : FluentWindow
 
     // Steam's "Store Page" button, pointed at the catalog this app browses.
     private void ModSite_Click(object sender, RoutedEventArgs e) =>
-        Process.Start(new ProcessStartInfo(new SpModApiOptions().BaseUrl) { UseShellExecute = true });
+        Process.Start(new ProcessStartInfo(SpModApiOptions.OfficialSite) { UseShellExecute = true });
 
     private void RootTitleBar_HelpClicked(TitleBar sender, RoutedEventArgs e) => ShowHelp();
 

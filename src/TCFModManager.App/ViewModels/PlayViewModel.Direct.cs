@@ -38,7 +38,7 @@ public partial class PlayViewModel
 {
     public ObservableCollection<PlayProfileItem> Profiles { get; } = [];
 
-    public bool HasNoProfiles => IsDirectLaunchOn && Profiles.Count == 0;
+    public bool HasNoProfiles => IsDirectLaunchOn && Profiles.Count == 0 && (!IsRemoteServer || (_remoteProfilesRead && !IsPlaying));
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanPlay))]
@@ -52,6 +52,7 @@ public partial class PlayViewModel
     [NotifyPropertyChangedFor(nameof(LauncherCardSummary))]
     [NotifyPropertyChangedFor(nameof(CanPlay))]
     [NotifyPropertyChangedFor(nameof(HasNoProfiles))]
+    [NotifyPropertyChangedFor(nameof(HasServerChoice))]
     [NotifyCanExecuteChangedFor(nameof(PlayCommand))]
     private bool _isDirectLaunchOn;
 
@@ -65,6 +66,8 @@ public partial class PlayViewModel
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanPlay))]
+    [NotifyPropertyChangedFor(nameof(HasNoProfiles))]
+    [NotifyPropertyChangedFor(nameof(CanRemovePlayServer))]
     [NotifyCanExecuteChangedFor(nameof(PlayCommand))]
     [NotifyCanExecuteChangedFor(nameof(CancelPlayCommand))]
     private bool _isPlaying;
@@ -74,6 +77,18 @@ public partial class PlayViewModel
 
     [ObservableProperty]
     private bool _playStatusIsError;
+
+    // Fork (1.4.2): "SPT won't load this profile" with SPT's profile cleaning off in core.json -
+    // the error then offers to turn it on (SptProfileFixPrompt).
+    [ObservableProperty]
+    private bool _canTurnOnProfileFix;
+
+    // Set just after the error it belongs to; anything said after that takes it away.
+    partial void OnPlayStatusChanged(string? value)
+    {
+        CanTurnOnProfileFix = false;
+        CanTrustNewCertificate = false;
+    }
 
     // 0-100 while bundles download; null shows the bar running.
     [ObservableProperty]
@@ -85,12 +100,15 @@ public partial class PlayViewModel
     private bool _wipeNextStart;
 
     public string? WipeWarning => WipeNextStart && SelectedProfile is { } p
-        ? LocalizationService.Text(Strings.Play_WipeArmedFormat, p.Title)
+        ? LocalizationService.Text(IsRemoteServer ? Strings.Play_WipeArmedRemoteFormat : Strings.Play_WipeArmedFormat, p.Title)
         : null;
 
     public string LauncherCardTitle => IsDirectLaunchOn ? Strings.Play_DirectHeader : Strings.Play_LauncherHeader;
 
     public string LauncherCardSummary => IsDirectLaunchOn ? Strings.Play_DirectSummary : Strings.Play_LauncherSummary;
+
+    // Fork (1.4.3): another PC's server is not started from here.
+    public string DirectSummary => IsRemoteServer ? Strings.Play_DirectSummaryRemote : Strings.Play_DirectSummary;
 
     public bool CanPlay => IsDirectLaunchOn && !IsPlaying && SelectedProfile is not null && !IsGameRunning && Server?.Exists == true;
 
@@ -143,12 +161,27 @@ public partial class PlayViewModel
             ? Text(Strings.Play_DirectUntestedFormat, AppServices.SptEnvironment.InstalledVersion, SptDirectLaunch.TestedUpTo)
             : null;
 
+        // Fork (1.4.3): this PC's server or another PC's (PlayViewModel.Servers), and Fika's notes.
+        RefreshFika(installPath, settings);
+        RefreshServers(settings, ServerRootOf(installPath));
+        RefreshFikaNotes(installPath);
         if (!IsDirectLaunchOn) return;
 
-        var found = SptLocalProfiles.Read(installPath).Select(p => new PlayProfileItem(p)).ToList();
-        if (found.Count == Profiles.Count && found.Zip(Profiles).All(pair => pair.First.SameAs(pair.Second))) return;
+        // Another PC's profiles are on it, not on disk here: asked for once it is picked.
+        if (IsRemoteServer)
+        {
+            RefreshRemoteProfiles();
+            return;
+        }
 
-        var keep = SelectedProfile?.Profile.ProfileId ?? settings.DirectLaunchProfileId ?? LauncherPreferredProfile(installPath);
+        var found = SptLocalProfiles.Read(installPath).Select(p => new PlayProfileItem(p)).ToList();
+        ShowProfiles(found, SelectedProfile?.Profile.ProfileId ?? settings.DirectLaunchProfileId ?? LauncherPreferredProfile(installPath));
+    }
+
+    // The picker's profiles, left alone when they are the same; keep is the profile id to pick.
+    private void ShowProfiles(List<PlayProfileItem> found, string? keep)
+    {
+        if (found.Count == Profiles.Count && found.Zip(Profiles).All(pair => pair.First.SameAs(pair.Second))) return;
 
         _readingProfile = true;
         try
@@ -187,6 +220,7 @@ public partial class PlayViewModel
         var cts = _playCts = new CancellationTokenSource();
         IsPlaying = true;
         PlayStatusIsError = false;
+        CanTurnOnProfileFix = false;
         PlayProgress = null;
         var gameStarted = false;
         ConfirmingDeleteProfile = false;
@@ -194,12 +228,14 @@ public partial class PlayViewModel
 
         try
         {
-            using var api = new SptLauncherApi(SptDirectLaunch.ServerAddress(serverExe));
+            using var api = CreateApi();
+            if (api is null) return;
 
             if (!await EnsureServerAsync(api, installPath, cts.Token)) return;
 
+            // Another PC's profiles are kept there: no copy can be taken of them here.
             var wipe = WipeNextStart;
-            if (wipe && !AppServices.ProfileBackups.EnsureBackupBefore(installPath!, ProfileBackups.BeforeWipe))
+            if (wipe && !api.IsRemote && !AppServices.ProfileBackups.EnsureBackupBefore(installPath!, ProfileBackups.BeforeWipe))
             {
                 Fail(Strings.Play_DirectBackupFailed);
                 return;
@@ -220,6 +256,8 @@ public partial class PlayViewModel
             if (!result.Started)
             {
                 Fail(DescribeProblem(result));
+                CanTurnOnProfileFix = result.Problem == DirectLaunchProblem.ProfileInvalid
+                    && SptProfileFixes.Read(SptProfileFixes.ConfigPath(installPath)) == SptProfileFixState.Off;
                 return;
             }
 
@@ -267,6 +305,23 @@ public partial class PlayViewModel
     }
 
     private bool CanCancelPlay() => IsPlaying;
+
+    [RelayCommand]
+    private void TurnOnProfileFix()
+    {
+        if (SptProfileFixes.ConfigPath(AppServices.SptEnvironment.InstallPath) is not { } config) return;
+
+        var (done, problem) = SptProfileFixPrompt.Run(config);
+        if (!done)
+        {
+            if (problem is not null) Fail(problem);
+            return;
+        }
+
+        CanTurnOnProfileFix = false;
+        PlayStatusIsError = false;
+        PlayStatus = Strings.Play_ProfileFixDone;
+    }
 
     [RelayCommand(CanExecute = nameof(CanCancelPlay))]
     private void CancelPlay() => _playCts?.Cancel();
@@ -317,6 +372,7 @@ public partial class PlayViewModel
     //
     private async Task<bool> EnsureServerAsync(SptLauncherApi api, string? installPath, CancellationToken ct)
     {
+        if (api.IsRemote) return await ReachRemoteAsync(api, ct);
         if (await PingAsync(api, ct)) return true;
 
         if (!SptLaunchService.Describe(installPath, SptLaunchTarget.Server).IsRunning)
@@ -446,8 +502,9 @@ public partial class PlayViewModel
             }
 
             ShowNewProfile = false;
-            Refresh();
-            var made = SptLocalProfiles.Read(AppServices.SptEnvironment.InstallPath).FirstOrDefault(p => p.Username == name);
+            if (api.IsRemote) ShowProfiles((await api.ProfilesAsync(ct)).Select(p => new PlayProfileItem(p)).ToList(), SelectedProfile?.Profile.ProfileId);
+            else Refresh();
+            var made = Profiles.Select(p => p.Profile).FirstOrDefault(p => p.Username == name);
             if (made is not null) SelectedProfile = Profiles.FirstOrDefault(p => p.Profile.ProfileId == made.ProfileId) ?? SelectedProfile;
             PlayStatusIsError = false;
             PlayStatus = Text(Strings.Play_DirectProfileCreatedFormat, name);
@@ -461,7 +518,9 @@ public partial class PlayViewModel
     [ObservableProperty]
     private bool _confirmingDeleteProfile;
 
-    public string? DeleteProfileWarning => SelectedProfile is { } p ? Text(Strings.Play_DirectDeleteWarningFormat, p.Title) : null;
+    public string? DeleteProfileWarning => SelectedProfile is { } p
+        ? Text(IsRemoteServer ? Strings.Play_DirectDeleteWarningRemoteFormat : Strings.Play_DirectDeleteWarningFormat, p.Title)
+        : null;
 
     [RelayCommand]
     private void AskDeleteProfile()
@@ -490,7 +549,7 @@ public partial class PlayViewModel
 
         await WithServerAsync(async (api, ct) =>
         {
-            if (!AppServices.ProfileBackups.EnsureBackupBefore(AppServices.SptEnvironment.InstallPath!, ProfileBackups.BeforeProfileDelete))
+            if (!api.IsRemote && !AppServices.ProfileBackups.EnsureBackupBefore(AppServices.SptEnvironment.InstallPath!, ProfileBackups.BeforeProfileDelete))
             {
                 Fail(Strings.Play_DirectBackupFailed);
                 return;
@@ -502,8 +561,11 @@ public partial class PlayViewModel
                 return;
             }
 
-            AppLog.Info("DirectLaunch", $"profile {item.Profile.Username} deleted (a copy was kept)");
-            Refresh();
+            AppLog.Info("DirectLaunch", api.IsRemote
+                ? $"profile {item.Profile.Username} deleted on {api.Address}"
+                : $"profile {item.Profile.Username} deleted (a copy was kept)");
+            if (api.IsRemote) ShowProfiles((await api.ProfilesAsync(ct)).Select(p => new PlayProfileItem(p)).ToList(), null);
+            else Refresh();
             PlayStatusIsError = false;
             PlayStatus = Text(Strings.Play_DirectProfileDeletedFormat, item.Title);
         });
@@ -512,14 +574,14 @@ public partial class PlayViewModel
     // Runs an action against the server, starting it first when it is down.
     private async Task WithServerAsync(Func<SptLauncherApi, CancellationToken, Task> action)
     {
-        if (Server?.ExePath is not { } exe) return;
+        if (CreateApi() is not { } created) return;
 
         IsPlaying = true;
         PlayStatusIsError = false;
         var cts = _playCts = new CancellationTokenSource();
         try
         {
-            using var api = new SptLauncherApi(SptDirectLaunch.ServerAddress(exe));
+            using var api = created;
             if (!await EnsureServerAsync(api, AppServices.SptEnvironment.InstallPath, cts.Token)) return;
             PlayStatus = null;
             await action(api, cts.Token);
